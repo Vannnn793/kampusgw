@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
         <a href="/" class="text-xl font-extrabold text-sky-400 tracking-wide">
-            FutureTech
+            KampusGW
         </a>
 
         <div class="hidden md:flex gap-8 text-sm font-semibold">
