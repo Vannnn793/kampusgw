@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-4 gap-10 text-sm">
 
         <div>
-            <h3 class="text-lg font-bold text-sky-400">FutureTech University</h3>
+            <h3 class="text-lg font-bold text-sky-400">KampusGW</h3>
             <p class="mt-4 text-slate-400">
                 Kampus berbasis teknologi, riset, dan industri global.
             </p>
