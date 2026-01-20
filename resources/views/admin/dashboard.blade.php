@@ -1,37 +1,56 @@
-@extends('layout.main')
-
-@section('title','Admin Dashboard')
+@extends('admin.layout.main')
+@section('title','Dashboard')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-6 py-20">
 
-    <h1 class="text-4xl font-extrabold mb-10">
-        Admin Dashboard
-    </h1>
+<h2 class="fw-bold mb-4">Admin Dashboard</h2>
 
-    <div class="grid md:grid-cols-4 gap-6">
+<div class="row g-4">
 
-        <div class="p-6 rounded-xl bg-white/5 border border-white/10">
-            <h3 class="text-xl font-bold">Fakultas</h3>
-            <p class="text-slate-400 mt-2">Kelola data fakultas</p>
+    <div class="col-md-3">
+        <div class="card bg-dark border-0 shadow">
+            <div class="card-body">
+                <h3 class="fw-bold text-info">
+                    {{ $facultyCount }}
+                </h3>
+                <p class="text-secondary mb-0">Faculties</p>
+            </div>
         </div>
+    </div>
 
-        <div class="p-6 rounded-xl bg-white/5 border border-white/10">
-            <h3 class="text-xl font-bold">Prodi</h3>
-            <p class="text-slate-400 mt-2">Kelola jurusan</p>
+    <div class="col-md-3">
+        <div class="card bg-dark border-0 shadow">
+            <div class="card-body">
+                <h3 class="fw-bold text-primary">
+                    {{ $prodiCount }}
+                </h3>
+                <p class="text-secondary mb-0">Prodi</p>
+            </div>
         </div>
+    </div>
 
-        <div class="p-6 rounded-xl bg-white/5 border border-white/10">
-            <h3 class="text-xl font-bold">Alumni</h3>
-            <p class="text-slate-400 mt-2">Kelola testimoni</p>
+    <div class="col-md-3">
+        <div class="card bg-dark border-0 shadow">
+            <div class="card-body">
+                <h3 class="fw-bold text-success">
+                    {{ $alumniCount }}
+                </h3>
+                <p class="text-secondary mb-0">Alumni</p>
+            </div>
         </div>
+    </div>
 
-        <div class="p-6 rounded-xl bg-white/5 border border-white/10">
-            <h3 class="text-xl font-bold">Mitra</h3>
-            <p class="text-slate-400 mt-2">Kelola partner</p>
+    <div class="col-md-3">
+        <div class="card bg-dark border-0 shadow">
+            <div class="card-body">
+                <h3 class="fw-bold text-warning">
+                    {{ $partnerCount }}
+                </h3>
+                <p class="text-secondary mb-0">Partners</p>
+            </div>
         </div>
-
     </div>
 
 </div>
+
 @endsection
