@@ -12,5 +12,11 @@ class Faculty extends Model
         return $this->hasMany(Prodi::class);
     }
 
+    public function admissions()
+{
+    return $this->hasMany(Admissions::class);
+}
+
+
 
 }

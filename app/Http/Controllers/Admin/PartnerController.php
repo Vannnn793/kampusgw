@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Partner;
 use Illuminate\Http\Request;
 
@@ -12,12 +13,25 @@ class PartnerController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.partners.index', [
+            'mitras' => Partner::latest()->get()
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required',
+            'logo' => 'image|nullable'
+        ]);
+
+        if ($request->hasFile('logo')) {
+            $data['logo'] = $request->file('logo')->store('mitras','public');
+        }
+
+        Partner::create($data);
+        return back();
+    } 
     public function create()
     {
         //
@@ -26,11 +40,7 @@ class PartnerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
-
+    
     /**
      * Display the specified resource.
      */
