@@ -90,7 +90,7 @@
                             {{ Str::limit($post->title, 55) }}
                         </h4>
                         <button
-                            onclick="openPost('{{ $posts[1]->slug }}')"
+                            onclick="openPost('{{ $post->slug }}')"
                             class="mt-4 inline-block bg-white text-sky-500 text-sm font-semibold">
                             Baca Selengkapnya
                         </button>
@@ -105,7 +105,7 @@
 </section>
 
 <section id="post-detail"
-         class="py-24 bg-purple-50 text-slate-900min-h-screen flex items-center bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950">
+         class="py-24 bg-purple-50 text-slate-900min-h-screen flex items-center bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950" style="max-height:0; opacity:0; transition:all .6s ease;">
          <div class="max-w-7xl mx-auto px-6">
     <div class="relative rounded-2xl overflow-hidden shadow-xl">
 
@@ -124,6 +124,38 @@
 </div>
 </section>
 
+{{-- Partners Section --}}
+<section class="py-32 bg-slate-950">
+    <div class="max-w-7xl mx-auto px-6">
+
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-extrabold">
+                Mitra Industri
+            </h2>
+            <p class="mt-4 text-slate-400">
+                Bekerja sama dengan perusahaan nasional & global
+            </p>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-10 items-center">
+
+            @foreach($partners as $partner)
+                <div class="flex items-center justify-center
+                            bg-white/5 border border-white/10
+                            rounded-2xl p-6
+                            grayscale hover:grayscale-0
+                            hover:scale-105 transition">
+
+                    <img src="{{ asset('storage/'.$partner->logo) }}"
+                         alt="{{ $partner->name }}"
+                         class="max-h-14 object-contain">
+                </div>
+            @endforeach
+
+        </div>
+
+    </div>
+</section>
 
 
 {{-- ================= FAKULTAS ================= --}}
@@ -184,6 +216,8 @@
 </section>
 
 <script>
+let opened = false;
+
 function openPost(slug) {
     fetch(`/posts/${slug}`)
         .then(res => res.json())
@@ -202,20 +236,33 @@ function openPost(slug) {
                 post.content;
 
             const section = document.getElementById('post-detail');
-            section.classList.remove('d-none');
 
-            section.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+            section.style.maxHeight = '3000px';
+            section.style.opacity = '1';
+            section.style.padding = '5rem 0';
+
+            if (!opened) {
+                section.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                opened = true;
+            }
         });
 }
 
 function closePost() {
-    document.getElementById('post-detail').classList.add('d-none');
+    const section = document.getElementById('post-detail');
 
-    document.querySelector('#berita-kampus')
+    section.style.maxHeight = '0';
+    section.style.opacity = '0';
+    section.style.padding = '0';
+
+    document
+        .querySelector('#berita-kampus')
         ?.scrollIntoView({ behavior: 'smooth' });
+
+    opened = false;
 }
 </script>
 

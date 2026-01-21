@@ -35,7 +35,7 @@
 
         <a href="/dashboard"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
         <a href="/admin/posts"><i class="bi bi-newspaper me-2"></i>Posts</a>
-        <a href="admin/faculties"><i class="bi bi-building me-2"></i>Faculties</a>
+        <a href="/admin/faculties"><i class="bi bi-building me-2"></i>Faculties</a>
         <a href="/admin/prodis"><i class="bi bi-mortarboard me-2"></i>Prodi</a>
         <a href="/admin/alumni"><i class="bi bi-people me-2"></i>Alumni</a>
         <a href="/admin/partners"><i class="bi bi-briefcase me-2"></i>Partners</a>

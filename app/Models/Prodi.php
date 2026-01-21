@@ -11,4 +11,9 @@ class Prodi extends Model
     {
         return $this->belongsTo(Faculty::class);
     }
+
+    public function admissions()
+    {
+        return $this->hasMany(Admissions::class);
+    }
 }
