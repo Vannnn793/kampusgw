@@ -12,3 +12,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.hover-shadow {
+    transition: all .25s ease;
+}
+
+.hover-shadow:hover {
+    background: #f8f9fa;
+    transform: translateX(6px);
+}

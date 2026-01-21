@@ -6,5 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    //
+    protected $fillable = [
+    'title',
+    'slug',
+    'thumbnail',
+    'content',
+    'published_at'
+];
+protected $casts = [
+    'published_at' => 'datetime',
+];
+
+
 }

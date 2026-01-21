@@ -34,10 +34,19 @@
         <h4 class="text-info fw-bold mb-4">Kampus Admin</h4>
 
         <a href="/dashboard"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
+        <a href="/admin/posts"><i class="bi bi-newspaper me-2"></i>Posts</a>
         <a href="admin/faculties"><i class="bi bi-building me-2"></i>Faculties</a>
         <a href="/admin/prodis"><i class="bi bi-mortarboard me-2"></i>Prodi</a>
         <a href="/admin/alumni"><i class="bi bi-people me-2"></i>Alumni</a>
         <a href="/admin/partners"><i class="bi bi-briefcase me-2"></i>Partners</a>
+        <a href="{{ route('logout') }}"
+        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="bi bi-box-arrow-right me-2"></i>
+        Logout
+        </a>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
     </aside>
 
     <main class="flex-fill p-5 text-light" style="background:#020617;">
