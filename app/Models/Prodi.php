@@ -5,8 +5,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Prodi extends Model
 {
-    protected $fillable = ['faculty_id', 'name'];
-
+    protected $fillable = [
+        'faculty_id',
+        'name',
+        'slug',
+        'description',
+        'image',
+        'goal',
+        'curriculum',
+    ];
     public function faculty()
     {
         return $this->belongsTo(Faculty::class);

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Faculty extends Model
 {
-    protected $fillable = ['name','description'];
+    protected $fillable = ['name','slug','image','vision','mission','facilities','description'];
     public function prodis()
     {
         return $this->hasMany(Prodi::class);
