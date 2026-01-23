@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Prodi;
 use App\Models\Faculty;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProdiController extends Controller
 {
@@ -21,17 +22,29 @@ class ProdiController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'faculty_id' => 'required',
-            'name' => 'required'
-        ]);
+{
+    $validated = $request->validate([
+        'faculty_id' => 'required|exists:faculties,id',
+        'name' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'goal' => 'nullable|string',
+        'curriculum' => 'nullable|string',
+        'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+    ]);
 
-        Prodi::create($request->all());
+    // slug aman walau nama sama
+    $validated['slug'] = Str::slug($validated['name']) . '-' . uniqid();
 
-        return back()->with('success','Prodi added');
+    // image (kalau ada)
+    if ($request->hasFile('image')) {
+        $validated['image'] = $request->file('image')
+            ->store('prodis', 'public');
     }
-    /**
+
+    Prodi::create($validated);
+
+    return redirect()->back()->with('success', 'Prodi berhasil ditambahkan');
+}/**
      * Show the form for creating a new resource.
      */
     public function create()

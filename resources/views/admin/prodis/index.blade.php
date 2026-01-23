@@ -13,12 +13,17 @@
             <div class="card-body">
                 <h5 class="fw-bold mb-3">Add Prodi</h5>
 
-                <form method="POST" action="{{ route('admin.prodis.store') }}">
+                <form method="POST"
+                      action="{{ route('admin.prodis.store') }}"
+                      enctype="multipart/form-data">
                     @csrf
 
                     <div class="mb-3">
-                        <label class="form-label" style="color: whitesmoke"><h5>Faculty</h5></label>
-                        <select name="faculty_id" class="form-select bg-dark text-light border-secondary">
+                        <label class="form-label text-light fw-semibold">Faculty</label>
+                        <select name="faculty_id"
+                                class="form-select bg-dark text-light border-secondary"
+                                required>
+                            <option value="">-- Choose Faculty --</option>
                             @foreach($faculties as $faculty)
                                 <option value="{{ $faculty->id }}">
                                     {{ $faculty->name }}
@@ -27,9 +32,39 @@
                         </select>
                     </div>
 
-                    <div class="mb-3" style="color: whitesmoke">
-                        <label class="form-label"><h5>Prodi Name</h5></label>
-                        <input name="name" class="form-control bg-dark text-light border-secondary">
+                    <div class="mb-3">
+                        <label class="form-label text-light fw-semibold">Prodi Name</label>
+                        <input name="name"
+                               class="form-control bg-dark text-light border-secondary"
+                               required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-light fw-semibold">Description</label>
+                        <textarea name="description"
+                                  class="form-control bg-dark text-light border-secondary"
+                                  rows="2"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-light fw-semibold">Goal</label>
+                        <textarea name="goal"
+                                  class="form-control bg-dark text-light border-secondary"
+                                  rows="2"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-light fw-semibold">Curriculum</label>
+                        <textarea name="curriculum"
+                                  class="form-control bg-dark text-light border-secondary"
+                                  rows="2"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-light fw-semibold">Image</label>
+                        <input type="file"
+                               name="image"
+                               class="form-control bg-dark text-light border-secondary">
                     </div>
 
                     <button class="btn btn-info w-100 fw-bold">
@@ -46,20 +81,36 @@
             <div class="card-body">
                 <h5 class="fw-bold mb-3">Prodi List</h5>
 
-                <table class="table table-dark table-hover">
+                <table class="table table-dark table-hover align-middle">
                     <thead>
                         <tr>
                             <th>Prodi</th>
                             <th>Faculty</th>
+                            <th>Image</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($prodis as $prodi)
+                        @forelse($prodis as $prodi)
                         <tr>
                             <td class="fw-semibold">{{ $prodi->name }}</td>
                             <td class="text-info">{{ $prodi->faculty->name }}</td>
+                            <td>
+                                @if($prodi->image)
+                                    <img src="{{ asset('storage/'.$prodi->image) }}"
+                                         width="60"
+                                         class="rounded">
+                                @else
+                                    <span class="text-muted">-</span>
+                                @endif
+                            </td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="3" class="text-center text-muted">
+                                No prodi data
+                            </td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
 

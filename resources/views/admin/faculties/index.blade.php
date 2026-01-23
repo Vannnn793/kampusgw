@@ -12,9 +12,14 @@
             <div class="card-body">
                 <h5 class="fw-bold mb-3">Add Faculty</h5>
 
-                <form method="POST">
+                <form action="{{ route('admin.faculties.store') }}" 
+                    method="POST" 
+                    enctype="multipart/form-data">
                     @csrf
-
+                     <div class="mb-3">
+                        <label class="form-label" style="color: whitesmoke"><h5>Gambar Fakultas</h5></label>
+                        <input type="file" name="image" class="form-control bg-dark text-light border-secondary">
+                    </div>
                     <div class="mb-3">
                         <label class="form-label" style="color: whitesmoke"><h5>Faculty Name</h5></label>
                         <input name="name" class="form-control bg-dark text-light border-secondary">
@@ -25,6 +30,21 @@
                         <textarea name="description" class="form-control bg-dark text-light border-secondary"></textarea>
                     </div>
 
+                    <div class="mb-3">
+                        <label class="form-label" style="color: whitesmoke"><h5>Visi</h5></label>
+                        <textarea name="vision" class="form-control bg-dark text-light border-secondary" rows="3"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" style="color: whitesmoke"><h5>Misi</h5></label>
+                        <textarea name="mission" class="form-control bg-dark text-light border-secondary" rows="3"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" style="color: whitesmoke"><h5>Fasilitas</h5></label>
+                        <textarea name="facilities" class="form-control bg-dark text-light border-secondary" rows="3"></textarea>
+                        <small class="text-muted">pisahkan dengan koma</small>
+                    </div>
                     <button class="btn btn-info w-100 fw-bold">
                         Save Faculty
                     </button>
@@ -43,6 +63,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Description</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,6 +71,9 @@
                         <tr>
                             <td class="fw-semibold">{{ $faculty->name }}</td>
                             <td class="text-secondary">{{ $faculty->description }}</td>
+                            <td>
+                                <a href="{{ route('admin.faculties.edit', $faculty->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
