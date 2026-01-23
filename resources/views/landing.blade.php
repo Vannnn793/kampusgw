@@ -173,13 +173,15 @@
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             @foreach($faculties as $faculty)
-            <div class="rounded-2xl p-8 bg-white/5 border border-white/10
-                        hover:bg-white/10 hover:scale-105 transition">
+            <div class="rounded-2xl p-8 bg-white/5 border border-white/10 hover:bg-white/10 hover:scale-105 transition">
+                <img src="{{ asset('storage/'.$faculty->image) }}"
+                     alt="{{ $faculty->name }}"
+                     class="w-full h-56 object-cover">
                 <h3 class="text-xl font-bold mb-3">
                     {{ $faculty->name }}
                 </h3>
                 <p class="text-slate-300 text-sm">
-                    {{ $faculty->description ?? 'Program unggulan berbasis teknologi dan industri.' }}
+                    {{ $faculty->prodis->first()->name ?? 'Program unggulan berbasis teknologi dan industri.' }}
                 </p>
             </div>
             @endforeach

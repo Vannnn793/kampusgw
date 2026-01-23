@@ -5,70 +5,76 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Faculty;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class FacultyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-    $faculties = Faculty::all();
-    return view('admin.faculties.index', compact('faculties'));
+        $faculties = Faculty::latest()->get();
+        return view('admin.faculties.index', compact('faculties'));
     }
 
-    public function store(Request $request) 
+    public function store(Request $request)
     {
-    $request->validate([
-        'name' => 'required',
-        'description' => 'required'
-    ]);
+        // dd($request->all());
+        $validated = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'image' => 'image',
+            'vision' => 'nullable',
+            'mission' => 'nullable',
+            'facilities' => 'nullable',
+        ]);
 
-    Faculty::create($request->all());
-    return back();
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('faculties', 'public');
+        }
+
+        $validated['slug'] = Str::slug($validated['name']);
+
+        Faculty::create($validated);
+
+        return redirect()->back()->with('success', 'Faculty berhasil ditambahkan');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     
-    /**
-     * Display the specified resource.
-     */
-    public function show(Faculty $faculty)
+
+    public function edit($id)
     {
-        //
+        $faculty = Faculty::findOrFail($id);
+        return view('admin.faculties.edit', compact('faculty'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Faculty $faculty)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $faculty = Faculty::findOrFail($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Faculty $faculty)
-    {
-        //
-    }
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'vision' => 'nullable',
+            'mission' => 'nullable',
+            'facilities' => 'nullable',
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Faculty $faculty)
-    {
-        //
+        $data = [
+            'name' => $request->name,
+            'slug' => Str::slug($request->name),
+            'description' => $request->description,
+            'vision' => $request->vision,
+            'mission' => $request->mission,
+            'facilities' => $request->facilities,
+        ];
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('faculties', 'public');
+        }
+
+        $faculty->update($data);
+
+        return redirect()->route('admin.faculties.index')
+            ->with('success', 'Faculty berhasil diupdate');
     }
 }
