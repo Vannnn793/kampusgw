@@ -110,10 +110,10 @@ class="py-28 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950">
 
         <button
             onclick="openPost('{{ $posts[0]->slug }}')"
-            class="relative z-20 mt-4 bg-white text-sky-900 px-5 py-2
-                   rounded-lg font-semibold hover:scale-105 transition">
+            class="btn btn-primary mt-4 px-5 py-2 bg-sky-400 text-slate-900 font-semibold rounded-lg hover:scale-105 hover:shadow-[0_8px_20px_rgba(56,189,248,0.4)] transition">
             Baca Selengkapnya
         </button>
+
 
     </div>
 </div>
@@ -145,9 +145,10 @@ relative z-10">
 
     <button
         onclick="openPost('{{ $post->slug }}')"
-        class="text-sky-400 text-sm font-semibold hover:underline">
-        Baca Selengkapnya
+        class="mt-2 text-sky-400 font-semibold hover:underline">
+        Baca →
     </button>
+
 </div>
 
 </div>
@@ -159,12 +160,29 @@ relative z-10">
 </div>
 </section>
 
-{{-- SCRIPT OPEN POST --}}
-<script>
-function openPost(slug) {
-    window.location.href = "/berita/" + slug;
-}
-</script>
+<section id="post-detail"
+         class="py-20 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950 d-none">
+    <div class="container py-8 px-6 mx-auto bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-lg max-w-4xl text-white">
+
+        {{-- <button onclick="closePost()"
+                class="btn btn-sm btn-outline-secondary mb-4">
+            ← Kembali ke Berita
+        </button> --}}
+
+        <img id="detail-thumb"
+             class="img-fluid rounded mb-4 w-100"
+             style="max-height:420px; object-fit:cover">
+
+        <h1 id="detail-title" class="fw-bold mb-2"></h1>
+        <p id="detail-date" class="text-muted mb-4"></p>
+
+        <article id="detail-content"
+                 class="fs-5 lh-lg">
+        </article>
+
+    </div>
+</section>
+
 
 {{-- Partners Section --}}
 <section class="py-32 bg-gradient-to-br from-[#020617] via-[#0b1120] to-[#020617] relative overflow-hidden">
@@ -276,42 +294,7 @@ function openPost(slug) {
                 hover:shadow-xl hover:shadow-sky-500/20
                 transition duration-300">
 
-                {{-- Faculty Image --}}
-                <div class="relative h-52 overflow-hidden">
 
-                    <img
-                        src="{{ asset('storage/'.$faculty->image) }}"
-                        alt="{{ $faculty->name }}"
-                        class="w-full h-full object-cover
-                        group-hover:scale-110 transition duration-500">
-
-                    {{-- Overlay --}}
-                    <div class="absolute inset-0 bg-gradient-to-t
-                        from-black/70 via-black/30 to-transparent">
-                    </div>
-
-                </div>
-
-                {{-- Content --}}
-                <div class="relative p-6">
-
-                    <h3 class="text-lg font-bold mb-2">
-                        {{ $faculty->name }}
-                    </h3>
-
-                    <p class="text-slate-300 text-sm leading-relaxed">
-                        {{ Str::limit($faculty->description ?? 'Program unggulan berbasis teknologi dan industri.', 80) }}
-                    </p>
-
-                    {{-- Action --}}
-                    <div class="mt-4 text-sky-400 text-sm font-semibold
-                                flex items-center gap-2 opacity-0
-                                group-hover:opacity-100 transition">
-                        Lihat Detail
-                        <span class="group-hover:translate-x-1 transition">→</span>
-                    </div>
-
-                </div>
             <div class="rounded-2xl p-8 bg-white/5 border border-white/10 hover:bg-white/10 hover:scale-105 transition">
                 <img src="{{ asset('storage/'.$faculty->image) }}"
                      alt="{{ $faculty->name }}"
@@ -534,8 +517,6 @@ function openPost(slug) {
 </style>
 
 <script>
-let opened = false;
-
 function openPost(slug) {
     fetch(`/posts/${slug}`)
         .then(res => res.json())
@@ -554,35 +535,21 @@ function openPost(slug) {
                 post.content;
 
             const section = document.getElementById('post-detail');
+            section.classList.remove('d-none');
 
-            section.style.maxHeight = '3000px';
-            section.style.opacity = '1';
-            section.style.padding = '5rem 0';
-
-            if (!opened) {
-                section.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                opened = true;
-            }
+            section.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
         });
 }
 
 function closePost() {
-    const section = document.getElementById('post-detail');
+    document.getElementById('post-detail').classList.add('d-none');
 
-    section.style.maxHeight = '0';
-    section.style.opacity = '0';
-    section.style.padding = '0';
-
-    document
-        .querySelector('#berita-kampus')
+    document.querySelector('#berita-kampus')
         ?.scrollIntoView({ behavior: 'smooth' });
-
-    opened = false;
 }
 </script>
-
 
 @endsection
