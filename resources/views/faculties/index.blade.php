@@ -3,112 +3,102 @@
 
 @section('content')
 
-{{-- HERO --}}
-<section class="pt-20 min-h-[60vh] flex items-center bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950">
-<div class="max-w-7xl mx-auto px-6 text-center">
+ {{-- HERO --}}
+<section class="relative h-[85vh] overflow-hidden flex items-center justify-center">
+{{-- Background Image --}}
+<img 
+    src="{{ asset('storage/images/kampusgw.jpg') }}"
+    class="absolute inset-0 w-full h-full object-cover scale-80"
+    alt="Kampus GW"
+>
 
-<h1 data-aos="fade-up"
-class="text-5xl md:text-6xl font-extrabold">
-Fakultas <span class="text-sky-400">Unggulan</span>
-</h1>
+    {{-- Dark Overlay --}}
+    <div class="absolute inset-0 bg-black/65"></div>
 
-<p data-aos="fade-up" data-aos-delay="100"
-class="mt-6 text-slate-300 max-w-xl mx-auto">
-Program studi berbasis industri global untuk masa depanmu.
-</p>
+    {{-- Gradient Accent --}}
+    <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/40 via-transparent to-sky-900/40"></div>
 
-</div>
+    {{-- Content --}}
+    <div class="relative max-w-7xl mx-auto px-6 text-center">
+
+        <h1 data-aos="fade-up"
+            class="text-5xl md:text-6xl font-extrabold text-white drop-shadow-xl">
+            Fakultas <span class="text-sky-400">Unggulan</span>
+        </h1>
+
+        <p data-aos="fade-up" data-aos-delay="100"
+           class="mt-6 text-slate-100 max-w-xl mx-auto">
+            Program studi berbasis industri global untuk masa depanmu.
+        </p>
+
+    </div>
+
 </section>
 
 
 {{-- FACULTIES GRID --}}
-<section class="py-28 bg-slate-950">
-<div class="max-w-7xl mx-auto px-6">
+<section class="py-28 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 text-white">
 
-<div class="text-center mb-16">
-<h2 data-aos="fade-up"
-class="text-4xl font-extrabold">
-Pilih Fakultas Favoritmu
-</h2>
+    <div class="max-w-7xl mx-auto px-6">
 
-<p data-aos="fade-up" data-aos-delay="100"
-class="text-slate-400 mt-3">
-Siapkan karier global sejak hari pertama
-</p>
-</div>
+        <div class="text-center mb-16">
+            <h2 data-aos="fade-up"
+                class="text-4xl font-extrabold">
+                Pilih Fakultas Favoritmu
+            </h2>
 
-
-<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-
-{{-- Informatika --}}
-<div data-aos="zoom-in"
-class="group bg-sky-500/10 rounded-2xl overflow-hidden hover:scale-105 transition">
-
-<img src="https://images.unsplash.com/photo-1518770660439-4636190af475"
-class="w-full h-56 object-cover">
-
-<div class="p-6">
-<h3 class="text-lg font-bold">Informatika</h3>
-<p class="text-sky-400 text-sm">
-AI • Software Engineering • Cyber Security
-</p>
-</div>
-
-</div>
+            <p data-aos="fade-up" data-aos-delay="100"
+               class="text-slate-400 mt-3">
+                Siapkan karier global sejak hari pertama
+            </p>
+        </div>
 
 
-{{-- Sistem Informasi --}}
-<div data-aos="zoom-in" data-aos-delay="100"
-class="group bg-purple-500/10 rounded-2xl overflow-hidden hover:scale-105 transition">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
-<img src="https://images.unsplash.com/photo-1556761175-4b46a572b786"
-class="w-full h-56 object-cover">
+            @foreach($faculties as $faculty)
 
-<div class="p-6">
-<h3 class="text-lg font-bold">Sistem Informasi</h3>
-<p class="text-purple-400 text-sm">
-ERP • Business Tech • Data Analytics
-</p>
-</div>
+            <div data-aos="zoom-in"
+                class="group relative rounded-2xl overflow-hidden
+                bg-white/5 border border-white/10
+                hover:border-sky-400/40
+                hover:shadow-xl hover:shadow-sky-500/20
+                transition duration-300">
 
-</div>
+                {{-- Image --}}
+                <div class="relative h-56 overflow-hidden">
 
+                    <img src="{{ asset('storage/'.$faculty->image) }}"
+                         alt="{{ $faculty->name }}"
+                         class="w-full h-full object-cover
+                         group-hover:scale-110 transition duration-500">
 
-{{-- Data Science --}}
-<div data-aos="zoom-in" data-aos-delay="200"
-class="group bg-emerald-500/10 rounded-2xl overflow-hidden hover:scale-105 transition">
+                    <div class="absolute inset-0 bg-gradient-to-t
+                        from-black/70 via-black/30 to-transparent"></div>
 
-<img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71"
-class="w-full h-56 object-cover">
+                </div>
 
-<div class="p-6">
-<h3 class="text-lg font-bold">Data Science</h3>
-<p class="text-emerald-400 text-sm">
-Machine Learning • Big Data • AI Research
-</p>
-</div>
+                {{-- Content --}}
+                <div class="p-6">
 
-</div>
+                    <h3 class="text-lg font-bold mb-2">
+                        {{ $faculty->name }}
+                    </h3>
 
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        {{ Str::limit($faculty->description ?? 'Program unggulan berbasis teknologi dan industri.', 90) }}
+                    </p>
 
-{{-- Bisnis Digital --}}
-<div data-aos="zoom-in" data-aos-delay="300"
-class="group bg-pink-500/10 rounded-2xl overflow-hidden hover:scale-105 transition">
+                </div>
 
-<img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0"
-class="w-full h-56 object-cover">
+            </div>
 
-<div class="p-6">
-<h3 class="text-lg font-bold">Bisnis Digital</h3>
-<p class="text-pink-400 text-sm">
-Startup • Digital Marketing • E-Commerce
-</p>
-</div>
+            @endforeach
 
-</div>
+        </div>
 
-</div>
-</div>
+    </div>
+
 </section>
 
 @endsection

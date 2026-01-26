@@ -10,6 +10,16 @@ use App\Models\Post;
 use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\Admin\PartnerController;
 
+Route::get('/tentang', fn () => view('tentang.index'));
+Route::prefix('tentang')->group(function () {
+    Route::get('/sejarah', fn () => view('tentang.sejarah'));
+    Route::get('/visi-misi', fn () => view('tentang.visi-misi'));
+    Route::get('/struktur', fn () => view('tentang.struktur'));
+    Route::get('/akreditasi', fn () => view('tentang.akreditasi'));
+});
+Route::get('/faculties/{faculty:slug}', 
+    [FacultyController::class, 'show']
+)->name('faculties.show');
 Route::get('/', function () {
     return view('landing');
 });
