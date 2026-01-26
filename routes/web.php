@@ -48,7 +48,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('prodis', ProdiController::class);
         Route::resource('posts', PostController::class);
         Route::resource('partners', PartnerController::class);
-       
+        // Route::resource('curriculums', \App\Http\Controllers\CurriculumController::class);
+       Route::put('/admin/prodis/{prodi}', [ProdiController::class, 'update'])
+    ->name('admin.prodis.update');
+
     });
 
 });
