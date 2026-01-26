@@ -14,11 +14,33 @@
 @tailwind utilities;
 
 
-.hover-shadow {
-    transition: all .25s ease;
+.line-animate {
+    position: relative;
+    display: inline-block;
 }
 
-.hover-shadow:hover {
-    background: #f8f9fa;
-    transform: translateX(6px);
+.line-animate::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    height: 4px;
+    width: 100%;
+    background: linear-gradient(90deg,#38bdf8,#6366f1);
+    border-radius: 999px;
+
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: lineReveal 1s ease forwards;
+    animation-delay: .8s;
 }
+
+@keyframes lineReveal {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
