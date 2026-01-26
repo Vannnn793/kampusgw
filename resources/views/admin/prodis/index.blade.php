@@ -53,12 +53,12 @@
                                   rows="2"></textarea>
                     </div>
 
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label class="form-label text-light fw-semibold">Curriculum</label>
                         <textarea name="curriculum"
                                   class="form-control bg-dark text-light border-secondary"
                                   rows="2"></textarea>
-                    </div>
+                    </div> --}}
 
                     <div class="mb-3">
                         <label class="form-label text-light fw-semibold">Image</label>
@@ -87,6 +87,7 @@
                             <th>Prodi</th>
                             <th>Faculty</th>
                             <th>Image</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -102,6 +103,11 @@
                                 @else
                                     <span class="text-muted">-</span>
                                 @endif
+                            </td>
+                            <td>
+                                <a href="{{ route('admin.prodis.edit', $prodi->id) }}" class="btn btn-sm btn-info">
+                                    Kurikulum
+                                </a>
                             </td>
                         </tr>
                         @empty

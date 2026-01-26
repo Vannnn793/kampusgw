@@ -23,4 +23,8 @@ class Prodi extends Model
     {
         return $this->hasMany(Admissions::class);
     }
+    public function curriculums()
+    {
+        return $this->hasMany(Curriculum::class);
+    }
 }
