@@ -39,6 +39,7 @@
         <a href="/admin/prodis"><i class="bi bi-mortarboard me-2"></i>Prodi</a>
         <a href="/admin/alumni"><i class="bi bi-people me-2"></i>Alumni</a>
         <a href="/admin/partners"><i class="bi bi-briefcase me-2"></i>Partners</a>
+        <a href="/admin/admissions"><i class="bi bi-person me-2"></i>Admissions</a>
         <a href="{{ route('logout') }}"
         onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="bi bi-box-arrow-right me-2"></i>
         Logout

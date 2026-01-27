@@ -61,11 +61,17 @@ class ProdiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Prodi $prodi)
-    {
-        //
-    }
+public function show(Faculty $faculty, Prodi $prodi)
+{
+    abort_if($prodi->faculty_id !== $faculty->id, 404);
 
+    $prodi->load([
+        'faculty',
+        'curriculums.courses'
+    ]);
+
+    return view('faculties.prodi', compact('prodi'));
+}
     /**
      * Show the form for editing the specified resource.
      */

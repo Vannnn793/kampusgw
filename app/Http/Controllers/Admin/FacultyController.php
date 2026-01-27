@@ -77,4 +77,10 @@ class FacultyController extends Controller
         return redirect()->route('admin.faculties.index')
             ->with('success', 'Faculty berhasil diupdate');
     }
+
+    public function show(Faculty $faculty)
+    {
+        $faculty->load('prodis');
+        return view('faculties.show', compact('faculty'));
+    }
 }

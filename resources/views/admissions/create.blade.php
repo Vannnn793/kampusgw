@@ -1,40 +1,24 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Admissions | KampusGW</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+@include('layout.main')
+@section('title', 'Admissions - KampusGW')
 
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Dark mode select fix -->
-    <style>
-        select, input {
-            background-color: #020617 !important;
-            color: #e5e7eb !important;
-        }
-        select option {
-            background-color: #020617;
-            color: #e5e7eb;
-        }
-    </style>
-</head>
-
-<body class="bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 min-h-screen text-white">
-
-<!-- NAVBAR -->
-<nav class="w-full px-8 py-4 flex justify-between items-center bg-black/30 backdrop-blur-md fixed top-0 left-0 z-50">
-    <h1 class="text-xl font-bold text-cyan-400">KampusGW</h1>
-    <ul class="hidden md:flex gap-8 text-sm text-gray-300">
-        <li class="hover:text-cyan-400">Home</li>
-        <li class="hover:text-cyan-400">Faculties</li>
-        <li class="text-cyan-400 font-semibold">Admissions</li>
-        <li class="hover:text-cyan-400">Careers</li>
-    </ul>
-</nav>
-
-<!-- CONTENT -->
+@section('content')
 <div class="pt-32 px-4 flex justify-center">
+    @if(session('success'))
+    <div id="successToast"
+        class="fixed top-6 right-6 z-50 bg-emerald-500 text-black px-6 py-4 rounded-2xl shadow-2xl flex items-start gap-3">
+
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 mt-1" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5 13l4 4L19 7"/>
+        </svg>
+
+        <div>
+            <p class="font-bold text-lg">Pendaftaran Berhasil 🎉</p>
+            <p class="text-sm">{{ session('success') }}</p>
+        </div>
+    </div>
+    @endif
 
     <div class="w-full max-w-xl bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/20">
 
@@ -43,14 +27,6 @@
         <p class="text-center text-gray-300 mb-6">
             Pendaftaran Mahasiswa Baru KampusGW
         </p>
-
-        <!-- ALERT -->
-        @if(session('success'))
-            <div class="bg-cyan-500/20 text-cyan-300 p-3 rounded-xl mb-4 text-center">
-                {{ session('success') }}
-            </div>
-        @endif
-
         <!-- FORM -->
         <form method="POST" action="/admissions" class="space-y-4">
             @csrf
@@ -175,5 +151,18 @@ manualInput.addEventListener('input', () => {
 });
 </script>
 
-</body>
-</html>
+@if(session('success'))
+<script>
+    setTimeout(() => {
+        const toast = document.getElementById('successToast');
+        if (toast) {
+            toast.style.transition = 'all 0.5s ease';
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateX(40px)';
+            setTimeout(() => toast.remove(), 500);
+        }
+    }, 4000);
+</script>
+@endif
+
+@endsection

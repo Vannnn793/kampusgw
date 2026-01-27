@@ -33,9 +33,11 @@ Route::prefix('tentang')->group(function () {
     Route::get('/struktur', fn () => view('tentang.struktur'));
     Route::get('/akreditasi', fn () => view('tentang.akreditasi'));
 });
-Route::get('/faculties/{faculty:slug}', 
-    [FacultyController::class, 'show']
-)->name('faculties.show');
+Route::get('/faculties', [FacultyController::class, 'index']);
+Route::get('/faculties/{faculty}', [FacultyController::class, 'show']);
+Route::get('/faculties/{faculty}/prodis/{prodi}', [ProdiController::class, 'show'])->name('faculties.prodis.show');
+
+// Route::get('/prodi/{program}', [StudyProgramController::class, 'show']);
 Route::get('/', function () {
     return view('landing');
 });
@@ -55,7 +57,9 @@ Route::get('/', function () {
     $posts = Post::latest()->take(6)->get();
     $faculties = Faculty::all();
     $partners = \App\Models\Partner::all();
-    return view('landing', compact('posts','faculties', 'partners'));
+    $categories = \App\Models\Category::all();
+
+    return view('landing', compact('posts','faculties', 'partners', 'categories'));
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -75,6 +79,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Route::resource('curriculums', \App\Http\Controllers\CurriculumController::class);
        Route::put('/admin/prodis/{prodi}', [ProdiController::class, 'update'])
     ->name('admin.prodis.update');
+         Route::get('/admissions', [AdmissionController::class, 'adminIndex']);
 
     });
 

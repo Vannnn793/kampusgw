@@ -20,13 +20,20 @@ public function store(Request $request)
         'nama_lengkap' => 'required',
         'email' => 'required|email',
         'no_hp' => 'required',
-        'prodi_id' => 'required|exists:prodis,id',
         'faculty_id' => 'required|exists:faculties,id',
+        'prodi_id' => 'required|exists:prodis,id',
         'tahun_akademik' => 'required',
     ]);
 
-    Admissions::create($request->all());
+    Admission::create($request->all());
 
-    return back()->with('success', 'Pendaftaran berhasil');
+    return redirect()->back()
+        ->with('success','Pendaftar berhasil masuk sistem!');
+}
+
+public function adminIndex()
+{
+    $admissions = Admission::with(['faculty','prodi'])->latest()->get();
+    return view('admin.admission.index', compact('admissions'));
 }
 }

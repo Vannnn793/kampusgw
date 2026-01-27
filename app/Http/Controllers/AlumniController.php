@@ -22,7 +22,7 @@ class AlumniController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
