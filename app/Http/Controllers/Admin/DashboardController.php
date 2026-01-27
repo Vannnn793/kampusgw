@@ -6,16 +6,22 @@ use App\Models\Faculty;
 use App\Models\Prodi;
 use App\Models\Alumni;
 use App\Models\Partner;
+use App\Models\Post;;
+use App\Models\Category;
 
 class DashboardController extends Controller
 {
     public function index()
     {
+         $posts = Post::with('category')->latest()->get();
+        $categories = Category::all();
         return view('admin.dashboard', [
             'facultyCount' => Faculty::count(),
             'prodiCount'   => Prodi::count(),
             'alumniCount'  => Alumni::count(),
             'partnerCount' => Partner::count(),
+            'posts'        => $posts,
+            'categories'   => $categories,
         ]);
     }
 }
