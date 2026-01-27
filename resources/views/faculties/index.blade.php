@@ -57,7 +57,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
             @foreach($faculties as $faculty)
-
+            <a href="{{ url('/faculties/'.$faculty->id) }}">
             <div data-aos="zoom-in"
                 class="group relative rounded-2xl overflow-hidden
                 bg-white/5 border border-white/10

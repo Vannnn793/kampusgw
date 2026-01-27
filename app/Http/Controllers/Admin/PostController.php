@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Str;
+use App\Models\Category;
 
 class PostController extends Controller
 {
@@ -14,8 +15,10 @@ class PostController extends Controller
      */
     public function index()
 {
-    $posts = Post::latest()->get();
-    return view('admin.posts.index', compact('posts'));
+     $posts = Post::with('category')->latest()->get();
+    $categories = Category::all();
+
+    return view('admin.posts.index', compact('posts','categories'));
 }
     /**
      * Show the form for creating a new resource.
@@ -33,7 +36,8 @@ class PostController extends Controller
             $request->validate([
                 'title'=>'required',
                 'content'=>'required',
-                'thumbnail'=>'image'
+                'thumbnail'=>'image',
+                'category_id' => 'required|exists:categories,id',
             ]);
 
             $data = $request->all();
@@ -69,7 +73,8 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required',
             'content' => 'required',
-            'thumbnail' => 'image'
+            'thumbnail' => 'image',
+            'category_id' => 'required|exists:categories,id'
         ]);
 
         $data = $request->all();

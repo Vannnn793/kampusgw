@@ -9,19 +9,16 @@ return new class extends Migration {
     {
         Schema::create('admissions', function (Blueprint $table) {
             $table->id();
-
             $table->string('nama_lengkap');
             $table->string('email');
             $table->string('no_hp');
-
-            $table->string('fakultas');
-            $table->string('program_studi');
-
-            $table->string('tahun_akademik'); // contoh: 2025/2026
+            $table->foreignId('faculty_id')->constrained();
+            $table->foreignId('prodi_id')->constrained();
+            $table->string('tahun_akademik');
             $table->year('tahun_masuk')->nullable();
-
             $table->timestamps();
         });
+
     }
 
     public function down(): void

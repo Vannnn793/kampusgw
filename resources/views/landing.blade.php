@@ -172,6 +172,7 @@ class="py-28 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950">
 <div class="group relative rounded-2xl overflow-hidden shadow-xl hover:shadow-sky-500/20 transition">
 
     {{-- IMAGE --}}
+    <h3 class="inline-block bg-sky-500 text-sm px-3 py-1 rounded-full w-fit mb-3">{{ $posts[0]->category->name }}</h3>
     <img src="{{ asset('storage/'.$posts[0]->thumbnail) }}"
          class="w-full h-full object-cover brightness-75
                 group-hover:scale-110 transition duration-500">
