@@ -42,7 +42,7 @@
                     Daftar Sekarang
                 </a>
 
-                <a href="/faculties"
+                <a href="/tentang"
                    class="px-8 py-4 border border-white/20 rounded-xl
                    hover:bg-white/10 hover:border-sky-400/40 transition duration-300">
                     Jelajahi Kampus
@@ -52,13 +52,103 @@
 
         </div>
 
-        <!-- HERO IMAGE -->
-        <div data-aos="fade-left" class="relative animate-float">
+       <!-- HERO IMAGE -->
+        <div data-aos="fade-left" class="relative animate-float flex justify-center">
 
             <div class="absolute inset-0 bg-sky-400/20 blur-3xl rounded-full"></div>
 
-            <img src="https://media.quipper.com/media/W1siZiIsIjIwMjMvMDYvMDYvMTAvMDIvNTcvZWIxNzNjNTktODFjOS00N2Q4LTgxNDEtNDBjNDlhZjY3MDRkLyJdLFsicCIsInRodW1iIiwiMTIwMHhcdTAwM2UiLHt9XSxbInAiLCJjb252ZXJ0IiwiLWNvbG9yc3BhY2Ugc1JHQiAtc3RyaXAiLHsiZm9ybWF0IjoianBnIn1dXQ.jpg"
-                 class="relative w-full rounded-2xl shadow-2xl">
+            <img 
+                src="{{ asset('storage/images/kampusgw.jpg') }}"
+                class="relative w-[300px] sm:w-[380px] md:w-[400px] rounded-2xl shadow-2xl object-cover"
+                alt="Campus Image"
+    >
+        </div>
+
+    </div>
+</section>
+
+<!-- ================= TENTANG KAMI (LANDING) ================= -->
+<section
+    class="min-h-screen flex items-center
+           bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950 text-white">
+
+    <div class="max-w-7xl mx-auto px-6 w-full">
+
+        <!-- HEADER -->
+        <div class="text-center mb-20">
+            <span class="inline-block mb-4 px-4 py-1 text-xs rounded-full
+                         bg-cyan-500/10 text-cyan-400">
+                Tentang KampusGW
+            </span>
+
+            <h2
+                class="relative inline-block text-4xl md:text-5xl font-black
+                       bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-400
+                       bg-clip-text text-transparent">
+
+                Profil Kampus
+
+                <span
+                    class="absolute left-0 -bottom-3 w-full h-[3px]
+                           bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-400
+                           rounded-full animate-line"></span>
+            </h2>
+
+            <p class="mt-6 text-lg text-slate-400 max-w-2xl mx-auto">
+                  Informasi institusi yang disajikan secara profesional dan modern.
+            </p>
+        </div>
+
+        <!-- GRID MENU -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+            <!-- SEJARAH -->
+            <a href="{{ url('/tentang/sejarah') }}"
+               class="block rounded-2xl p-8
+                      bg-white/5 border border-white/10
+                      hover:bg-white/10 hover:scale-105
+                      transition duration-300">
+
+                <h3 class="text-xl font-bold mb-2 text-cyan-400">
+                    Sejarah Kampus
+                </h3>
+            </a>
+
+            <!-- VISI MISI -->
+            <a href="{{ url('/tentang/visi-misi') }}"
+               class="block rounded-2xl p-8
+                      bg-white/5 border border-white/10
+                      hover:bg-white/10 hover:scale-105
+                      transition duration-300">
+
+                <h3 class="text-xl font-bold mb-2 text-indigo-400">
+                    Visi • Misi • Tujuan
+                </h3>
+            </a>
+
+            <!-- STRUKTUR -->
+            <a href="{{ url('/tentang/struktur') }}"
+               class="block rounded-2xl p-8
+                      bg-white/5 border border-white/10
+                      hover:bg-white/10 hover:scale-105
+                      transition duration-300">
+
+                <h3 class="text-xl font-bold mb-2 text-cyan-400">
+                    Struktur Organisasi
+                </h3>
+            </a>
+
+            <!-- AKREDITASI -->
+            <a href="{{ url('/tentang/akreditasi') }}"
+               class="block rounded-2xl p-8
+                      bg-white/5 border border-white/10
+                      hover:bg-white/10 hover:scale-105
+                      transition duration-300">
+
+                <h3 class="text-xl font-bold mb-2 text-emerald-400">
+                    Akreditasi
+                </h3>
+            </a>
 
         </div>
 
@@ -82,6 +172,7 @@ class="py-28 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950">
 <div class="group relative rounded-2xl overflow-hidden shadow-xl hover:shadow-sky-500/20 transition">
 
     {{-- IMAGE --}}
+    <h3 class="inline-block bg-sky-500 text-sm px-3 py-1 rounded-full w-fit mb-3">{{ $posts[0]->category->name }}</h3>
     <img src="{{ asset('storage/'.$posts[0]->thumbnail) }}"
          class="w-full h-full object-cover brightness-75
                 group-hover:scale-110 transition duration-500">
@@ -185,7 +276,7 @@ relative z-10">
 
 
 {{-- Partners Section --}}
-<section class="py-32 bg-gradient-to-br from-[#020617] via-[#0b1120] to-[#020617] relative overflow-hidden">
+<section class="py-28 bg-gradient-to-br from-[#020617] via-[#0b1120] to-[#020617] relative overflow-hidden">
 
     <!-- Glow Background -->
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.08),transparent_55%)]"></div>
@@ -193,7 +284,7 @@ relative z-10">
     <div class="relative max-w-7xl mx-auto px-6">
 
         <!-- HEADER -->
-        <div data-aos="fade-up" class="text-center mb-20">
+        <div data-aos="fade-up" class="text-center mb-16">
             <span class="uppercase tracking-widest text-sm font-semibold text-sky-400">
                 Partnership Network
             </span>
@@ -210,25 +301,26 @@ relative z-10">
         <!-- AUTO SLIDE CONTAINER -->
         <div class="relative overflow-hidden">
 
-            <div class="flex gap-10 animate-marquee">
+            <div class="flex gap-8 animate-marquee">
 
                 @foreach($partners as $partner)
                 <div
                     data-aos="zoom-in"
-                    class="group relative min-w-[180px] flex items-center justify-center
+                    class="group relative min-w-[140px] h-[90px]
+                    flex items-center justify-center
                     bg-white/5 backdrop-blur-xl
                     border border-white/10
-                    rounded-2xl p-7
+                    rounded-xl
                     transition duration-300
-                    hover:-translate-y-2
+                    hover:-translate-y-1
                     hover:border-sky-400/40
-                    hover:shadow-[0_20px_40px_rgba(56,189,248,0.15)]">
+                    hover:shadow-[0_12px_24px_rgba(56,189,248,0.15)]">
 
                     <!-- Logo -->
                     <img
                         src="{{ asset('storage/'.$partner->logo) }}"
                         alt="{{ $partner->name }}"
-                        class="max-h-14 object-contain
+                        class="w-[85%] h-[85%] object-contain
                         grayscale opacity-80
                         group-hover:grayscale-0
                         group-hover:opacity-100
@@ -236,14 +328,14 @@ relative z-10">
 
                     <!-- TOOLTIP -->
                     <div
-                        class="absolute -bottom-9 scale-0 group-hover:scale-100 transition
+                        class="absolute -bottom-8 scale-0 group-hover:scale-100 transition
                         bg-slate-900 text-white text-xs px-3 py-1 rounded-lg shadow-lg whitespace-nowrap">
                         {{ $partner->name }}
                     </div>
 
                     <!-- Hover Glow -->
                     <div
-                        class="absolute inset-0 rounded-2xl opacity-0
+                        class="absolute inset-0 rounded-xl opacity-0
                         group-hover:opacity-100 transition
                         bg-gradient-to-br from-sky-400/10 to-transparent">
                     </div>
@@ -264,9 +356,7 @@ relative z-10">
 
     {{-- Background Accent --}}
     <div class="absolute -top-40 left-10 w-[30rem] h-[30rem] bg-indigo-500/15 blur-3xl rounded-full"></div>
-
     <div class="absolute top-1/3 right-0 w-[28rem] h-[28rem] bg-cyan-500/10 blur-3xl rounded-full"></div>
-
     <div class="absolute bottom-0 left-1/3 w-[25rem] h-[25rem] bg-purple-500/10 blur-3xl rounded-full"></div>
 
     <div class="relative max-w-7xl mx-auto px-6">
@@ -283,9 +373,10 @@ relative z-10">
         </div>
 
         {{-- Fakultas Grid --}}
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
             @foreach($faculties as $faculty)
+
             <div
                 data-aos="zoom-in"
                 class="group relative rounded-2xl overflow-hidden
@@ -295,8 +386,9 @@ relative z-10">
                 transition duration-300">
 
 
+{{-- <<<<<<< Updated upstream --}}
             <div class="rounded-2xl p-8 bg-white/5 border border-white/10 hover:bg-white/10 hover:scale-105 transition">
-                <img src="{{ asset('storage/'.$faculty->image) }}"
+                {{-- <img src="{{ asset('storage/'.$faculty->image) }}"
                      alt="{{ $faculty->name }}"
                      class="w-full h-56 object-cover">
                 <h3 class="text-xl font-bold mb-3">
@@ -305,15 +397,73 @@ relative z-10">
                 <p class="text-slate-300 text-sm">
                     {{ $faculty->prodis->first()->name ?? 'Program unggulan berbasis teknologi dan industri.' }}
                 </p>
+======= --}}
+                    <img
+                        src="{{ asset('storage/'.$faculty->image) }}"
+                        alt="{{ $faculty->name }}"
+                        class="w-full h-full object-cover
+                        group-hover:scale-110 transition duration-500">
+
+                    {{-- Overlay --}}
+                    <div class="absolute inset-0 bg-gradient-to-t
+                        from-black/70 via-black/30 to-transparent">
+                    </div>
+
+                </div>
+
+                {{-- Content --}}
+                <div class="relative p-6 flex flex-col h-full">
+
+                    <h3 class="text-lg font-bold mb-2">
+                        {{ $faculty->name }}
+                    </h3>
+
+                    <p class="text-slate-300 text-sm leading-relaxed flex-grow">
+                        {{ Str::limit($faculty->description ?? 'Program unggulan berbasis teknologi dan industri.', 80) }}
+                    </p>
+
+                </div>
+
+>>>>>>> Stashed changes
             </div>
 
             @endforeach
 
         </div>
 
-    </div>
-</section>
+        {{-- BUTTON LIHAT SEMUA FAKULTAS --}}
+        <div class="mt-16 flex justify-center" data-aos="fade-up">
 
+            <a href="/faculties"
+                class="group relative inline-flex items-center justify-center
+                px-12 py-4 rounded-full font-semibold
+                text-white tracking-wide
+                bg-gradient-to-r from-cyan-500 to-indigo-500
+                shadow-lg shadow-indigo-500/30
+                hover:shadow-indigo-500/60
+                hover:scale-105
+                transition-all duration-300">
+
+                <span class="group-hover:tracking-wider transition">
+                    Lihat Semua Fakultas
+                </span>
+
+                <span class="ml-3 text-lg group-hover:translate-x-1 transition">
+                    →
+                </span>
+
+                {{-- Glow Layer --}}
+                <span class="absolute inset-0 rounded-full blur-xl opacity-30
+                      bg-gradient-to-r from-cyan-500 to-indigo-500
+                      -z-10"></span>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
 
 {{-- ================= CTA ================= --}}
 <section class="relative py-28 bg-gradient-to-br from-sky-500 via-indigo-500 to-purple-600 overflow-hidden">
@@ -347,174 +497,40 @@ relative z-10">
 
         </p>
 
-        {{-- Buttons --}}
+        {{-- BUTTON CTA --}}
         <div data-aos="fade-up" data-aos-delay="300"
-             class="mt-12 flex flex-col sm:flex-row justify-center gap-6">
+             class="mt-14 flex justify-center">
 
-            {{-- Primary --}}
             <a href="/admissions"
-               class="group px-10 py-4 rounded-2xl font-bold
+               class="group relative inline-flex items-center justify-center
+               px-14 py-5 rounded-full font-bold text-lg
                bg-gradient-to-r from-slate-900 to-slate-800
                text-sky-300
                hover:text-white
-               hover:scale-105
-               hover:shadow-[0_12px_40px_rgba(0,0,0,0.45)]
-               transition duration-300">
+               hover:scale-110
+               hover:shadow-[0_18px_45px_rgba(0,0,0,0.5)]
+               transition-all duration-300">
 
                 <span class="group-hover:tracking-wider transition">
                     Daftar Sekarang
                 </span>
 
-            </a>
-
-            {{-- Secondary --}}
-            <a href="/faculties"
-               class="group px-10 py-4 rounded-2xl font-bold
-               border border-white/50
-               text-white
-               hover:bg-white
-               hover:text-indigo-700
-               hover:scale-105
-               transition duration-300">
-
-                <span class="group-hover:tracking-wider transition">
-                    Lihat Fakultas
+                <span class="ml-3 text-xl group-hover:translate-x-1 transition">
+                    →
                 </span>
 
+                {{-- Glow Layer --}}
+                <span class="absolute inset-0 rounded-full blur-xl opacity-30
+                      bg-gradient-to-r from-sky-400 to-indigo-500
+                      -z-10"></span>
+
             </a>
 
         </div>
 
     </div>
+
 </section>
-
-<!-- ================= TENTANG KAMI ================= -->
-<section id="tentang"
-    class="py-28 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950 text-white">
-
-    <div class="max-w-7xl mx-auto px-6">
-
-        <!-- Header -->
-        <div class="text-center mb-16">
-
-            <span class="inline-block mb-4 px-4 py-1 text-xs rounded-full bg-cyan-500/10 text-cyan-400">
-                Tentang KampusGW
-            </span>
-
-            <!-- PREMIUM HEADING -->
-            <h2
-                class="relative inline-block text-4xl md:text-5xl font-black tracking-wide
-                       bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-400
-                       bg-clip-text text-transparent
-                       drop-shadow-[0_0_20px_rgba(56,189,248,0.35)]">
-
-                Profil Kampus
-
-                <!-- Animated Underline -->
-                <span
-                    class="absolute left-0 -bottom-2 w-full h-[3px]
-                           bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-400
-                           rounded-full animate-line"></span>
-
-            </h2>
-
-            <p class="mt-5 text-slate-400">
-                Informasi institusi yang disajikan secara profesional dan modern.
-            </p>
-
-        </div>
-
-        <!-- GRID CARD -->
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-
-            <!-- SEJARAH -->
-            <div
-                class="rounded-2xl p-8 bg-white/5 border border-white/10
-                       hover:bg-white/10 hover:scale-105
-                       transition duration-300">
-
-                <h3 class="text-xl font-bold mb-3 text-cyan-400">
-                    Sejarah
-                </h3>
-
-                <div class="text-slate-300 text-sm leading-relaxed">
-                    {{-- ADMIN INPUT SEJARAH --}}
-                </div>
-
-            </div>
-
-            <!-- VISI MISI TUJUAN -->
-            <div
-                class="rounded-2xl p-8 bg-white/5 border border-white/10
-                       hover:bg-white/10 hover:scale-105
-                       transition duration-300">
-
-                <h3 class="text-xl font-bold mb-3 text-indigo-400">
-                    Visi • Misi • Tujuan
-                </h3>
-
-                <div class="text-slate-300 text-sm leading-relaxed space-y-3">
-                    {{-- ADMIN INPUT VISI --}}
-                    {{-- ADMIN INPUT MISI --}}
-                    {{-- ADMIN INPUT TUJUAN --}}
-                </div>
-
-            </div>
-
-            <!-- STRUKTUR -->
-            <div
-                class="rounded-2xl p-8 bg-white/5 border border-white/10
-                       hover:bg-white/10 hover:scale-105
-                       transition duration-300">
-
-                <h3 class="text-xl font-bold mb-3 text-cyan-400">
-                    Struktur Organisasi
-                </h3>
-
-                <div class="text-slate-300 text-sm leading-relaxed">
-                    {{-- ADMIN INPUT STRUKTUR --}}
-                </div>
-
-            </div>
-
-            <!-- AKREDITASI -->
-            <div
-                class="rounded-2xl p-8 bg-white/5 border border-white/10
-                       hover:bg-white/10 hover:scale-105
-                       transition duration-300">
-
-                <h3 class="text-xl font-bold mb-3 text-emerald-400">
-                    Akreditasi
-                </h3>
-
-                <div class="text-slate-300 text-sm leading-relaxed">
-                    {{-- ADMIN INPUT AKREDITASI --}}
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-</section>
-
-<!-- ================= ANIMATION STYLE ================= -->
-<style>
-@keyframes lineGrow {
-    from {
-        width: 0;
-        opacity: 0;
-    }
-    to {
-        width: 100%;
-        opacity: 1;
-    }
-}
-
-.animate-line {
-    animation: lineGrow 1.2s ease-out forwards;
-}
-</style>
 
 <script>
 function openPost(slug) {

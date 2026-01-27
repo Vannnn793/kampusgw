@@ -7,10 +7,10 @@
 
         <div class="hidden md:flex gap-8 text-sm font-semibold">
             <a href="/" class="hover:text-sky-400 transition">Home</a>
+            <a href="/tentang">Tentang Kami</a>
             <a href="/faculties" class="hover:text-sky-400 transition">Faculties</a>
             <a href="/admissions" class="hover:text-sky-400 transition">Admissions</a>
             <a href="/careers" class="hover:text-sky-400 transition">Careers</a>
-            <a href="#tentang" class="hover:text-sky-400">Tentang Kami</a>
         </div>
 
         <a href="/admissions"

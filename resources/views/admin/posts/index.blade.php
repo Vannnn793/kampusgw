@@ -20,6 +20,17 @@
                     <label class="form-label text-secondary">Judul Berita</label>
                     <input name="title" class="form-control mb-3" placeholder="Masukkan judul berita" required>
 
+                    <label class="form-label text-secondary">Kategori</label>
+                    <select name="category_id" class="form-control mb-3" required>
+                        <option value="">-- Pilih Kategori --</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}">
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+
+
                     <label class="form-label text-secondary">Thumbnail</label>
                     <input type="file" name="thumbnail" class="form-control mb-3">
 
@@ -48,34 +59,44 @@
                             <tr>
                                 <th style="width:60px">#</th>
                                 <th>Title</th>
+                                <th>Kategori</th>
                                 <th>Published</th>
                                 <th class="text-end">Action</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+
+                            <tbody>
                             @forelse($posts as $post)
                             <tr>
                                 <td>
                                     @if($post->thumbnail)
                                         <img src="{{ asset('storage/'.$post->thumbnail) }}"
-                                             class="rounded"
-                                             width="48" height="48"
-                                             style="object-fit:cover">
+                                            class="rounded"
+                                            width="48" height="48"
+                                            style="object-fit:cover">
                                     @else
                                         <span class="text-muted">—</span>
                                     @endif
                                 </td>
+
                                 <td class="fw-semibold">{{ $post->title }}</td>
+
+                                <td>
+                                    <span class="badge bg-primary bg-opacity-25 text-primary">
+                                        {{ $post->category->name ?? '-' }}
+                                    </span>
+                                </td>
+
                                 <td class="text-secondary">
                                     {{ $post->published_at?->format('d M Y') ?? 'Draft' }}
                                 </td>
+
                                 <td class="text-end">
                                     <a href="{{ route('admin.posts.edit',$post) }}"
                                     class="btn btn-sm btn-outline-info me-1">
                                         Edit
                                     </a>
-                                    <br>
-                                    <br>
+
                                     <form action="{{ route('admin.posts.destroy',$post) }}"
                                         method="POST"
                                         class="d-inline"
@@ -90,7 +111,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="3" class="text-center text-muted py-4">
+                                <td colspan="5" class="text-center text-muted py-4">
                                     Belum ada berita 😴
                                 </td>
                             </tr>
