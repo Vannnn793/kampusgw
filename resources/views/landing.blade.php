@@ -69,91 +69,158 @@
 
 <!-- ================= TENTANG KAMI (LANDING) ================= -->
 <section
-    class="min-h-screen flex items-center
-           bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950 text-white">
+    class="relative min-h-screen flex items-center
+           bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950 text-white overflow-hidden">
 
-    <div class="max-w-7xl mx-auto px-6 w-full">
+    <!-- BACKGROUND IMAGE OVERLAY -->
+    <div class="absolute inset-0 opacity-15">
+        <img src="{{ asset('images/kampusgw.jpg') }}"
+             class="w-full h-full object-cover">
+    </div>
+
+    <!-- GLOW EFFECT -->
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-cyan-500/20 blur-3xl rounded-full"></div>
+    <div class="absolute bottom-0 right-0 w-96 h-96 bg-indigo-500/20 blur-3xl rounded-full"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 w-full">
 
         <!-- HEADER -->
         <div class="text-center mb-20">
-            <span class="inline-block mb-4 px-4 py-1 text-xs rounded-full
-                         bg-cyan-500/10 text-cyan-400">
+
+            <span
+                class="inline-block mb-4 px-5 py-2 text-sm rounded-full
+                       bg-cyan-500/10 border border-cyan-400/30
+                       text-cyan-400 backdrop-blur">
+
                 Tentang KampusGW
             </span>
 
             <h2
-                class="relative inline-block text-4xl md:text-5xl font-black
+                class="relative inline-block text-4xl md:text-6xl font-black
                        bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-400
                        bg-clip-text text-transparent">
 
                 Profil Kampus
 
                 <span
-                    class="absolute left-0 -bottom-3 w-full h-[3px]
+                    class="absolute left-0 -bottom-3 w-full h-[4px]
                            bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-400
                            rounded-full animate-line"></span>
             </h2>
 
-            <p class="mt-6 text-lg text-slate-400 max-w-2xl mx-auto">
-                  Informasi institusi yang disajikan secara profesional dan modern.
+            <p class="mt-8 text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
+                Institusi pendidikan modern yang berfokus pada teknologi, inovasi,
+                dan pengembangan sumber daya unggul untuk masa depan.
             </p>
+
         </div>
 
         <!-- GRID MENU -->
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
             <!-- SEJARAH -->
             <a href="{{ url('/tentang/sejarah') }}"
-               class="block rounded-2xl p-8
+               class="group relative overflow-hidden rounded-2xl p-8
                       bg-white/5 border border-white/10
-                      hover:bg-white/10 hover:scale-105
-                      transition duration-300">
+                      hover:border-cyan-400/40
+                      hover:-translate-y-2
+                      transition-all duration-300">
+
+                <div class="text-4xl mb-4">📜</div>
 
                 <h3 class="text-xl font-bold mb-2 text-cyan-400">
                     Sejarah Kampus
                 </h3>
+
+                <p class="text-sm text-slate-400">
+                    Perjalanan dan perkembangan KampusGW dari awal berdiri.
+                </p>
+
+                <span class="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition"></span>
+
             </a>
 
             <!-- VISI MISI -->
             <a href="{{ url('/tentang/visi-misi') }}"
-               class="block rounded-2xl p-8
+               class="group relative overflow-hidden rounded-2xl p-8
                       bg-white/5 border border-white/10
-                      hover:bg-white/10 hover:scale-105
-                      transition duration-300">
+                      hover:border-indigo-400/40
+                      hover:-translate-y-2
+                      transition-all duration-300">
+
+                <div class="text-4xl mb-4">🎯</div>
 
                 <h3 class="text-xl font-bold mb-2 text-indigo-400">
                     Visi • Misi • Tujuan
                 </h3>
+
+                <p class="text-sm text-slate-400">
+                    Arah, nilai dan tujuan pengembangan institusi.
+                </p>
+
+                <span class="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 to-transparent opacity-0 group-hover:opacity-100 transition"></span>
+
             </a>
 
             <!-- STRUKTUR -->
             <a href="{{ url('/tentang/struktur') }}"
-               class="block rounded-2xl p-8
+               class="group relative overflow-hidden rounded-2xl p-8
                       bg-white/5 border border-white/10
-                      hover:bg-white/10 hover:scale-105
-                      transition duration-300">
+                      hover:border-cyan-400/40
+                      hover:-translate-y-2
+                      transition-all duration-300">
+
+                <div class="text-4xl mb-4">🏛️</div>
 
                 <h3 class="text-xl font-bold mb-2 text-cyan-400">
                     Struktur Organisasi
                 </h3>
+
+                <p class="text-sm text-slate-400">
+                    Susunan pimpinan dan unit kerja KampusGW.
+                </p>
+
+                <span class="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition"></span>
+
             </a>
 
             <!-- AKREDITASI -->
             <a href="{{ url('/tentang/akreditasi') }}"
-               class="block rounded-2xl p-8
+               class="group relative overflow-hidden rounded-2xl p-8
                       bg-white/5 border border-white/10
-                      hover:bg-white/10 hover:scale-105
-                      transition duration-300">
+                      hover:border-emerald-400/40
+                      hover:-translate-y-2
+                      transition-all duration-300">
+
+                <div class="text-4xl mb-4">🏆</div>
 
                 <h3 class="text-xl font-bold mb-2 text-emerald-400">
                     Akreditasi
                 </h3>
+
+                <p class="text-sm text-slate-400">
+                    Status penjaminan mutu dan sertifikasi resmi.
+                </p>
+
+                <span class="absolute inset-0 bg-gradient-to-tr from-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition"></span>
+
             </a>
 
         </div>
 
     </div>
 </section>
+
+<!-- ANIMATION -->
+<style>
+@keyframes lineGrow {
+    from { width: 0; opacity: 0; }
+    to { width: 100%; opacity: 1; }
+}
+.animate-line {
+    animation: lineGrow 1.3s ease-out forwards;
+}
+</style>
 
 {{-- ================= BERITA ================= --}}
 <section id="berita-kampus"

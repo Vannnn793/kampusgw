@@ -9,9 +9,9 @@
 {{-- ================= HERO ================= --}}
 <section class="relative h-screen overflow-hidden">
     <img 
-        src="https://i.ytimg.com/vi/r3qjFAB5RZY/maxresdefault.jpg"
+        src="{{ asset('storage/images/kampusgw.jpg') }}"
         class="absolute inset-0 w-full h-full object-cover scale-110"
-        alt="Politeknik Negeri Indramayu"
+        alt="KampusGw.com"
     >
 
     <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-indigo-950/60"></div>
@@ -25,8 +25,8 @@
 
             <h1 class="text-6xl md:text-7xl font-extrabold text-white leading-tight mb-8"
                 data-aos="fade-up">
-                Politeknik Negeri<br>
-                <span class="text-cyan-400">Indramayu</span>
+                Kampus<br>
+                <span class="text-cyan-400">Gw</span>
             </h1>
 
             <p class="text-xl text-slate-300 max-w-3xl leading-relaxed text-justify"
@@ -62,27 +62,25 @@
                 </h2>
 
                 <p class="text-slate-300 text-lg leading-relaxed mb-6 text-justify">
-                    Politeknik Negeri Indramayu (POLINDRA) didirikan sebagai
-                    bagian dari kebijakan Pemerintah Republik Indonesia
-                    dalam meningkatkan kuantitas dan kualitas pendidikan
-                    vokasi. Kebijakan ini diwujudkan melalui mekanisme
-                    kompetisi proposal nasional yang menuntut komitmen
-                    kuat antara pemerintah pusat dan pemerintah daerah.
+                    Pendirian KampusGW dilatarbelakangi oleh meningkatnya kebutuhan akan 
+                    sumber daya manusia yang memiliki keahlian profesional serta pemahaman teknologi yang kuat.
+                    Dunia industri menuntut lulusan yang tidak hanya unggul secara akademik, 
+                    tetapi juga mampu menerapkan ilmu secara nyata dalam lingkungan kerja.
                 </p>
 
                 <p class="text-slate-300 text-lg leading-relaxed text-justify">
-                    Kesempatan tersebut ditangkap dengan baik oleh
-                    Bupati Indramayu, Dr. H. Irianto MS Syafiuddin,
-                    yang memiliki perhatian besar terhadap pengembangan
-                    pendidikan vokasi sebagai strategi peningkatan
-                    kualitas sumber daya manusia di Kabupaten Indramayu.
+                    Sebagai respons terhadap tantangan tersebut, KampusGW mengembangkan 
+                    konsep pendidikan yang menekankan keseimbangan antara teori, praktik,
+                     inovasi, dan karakter. Institusi ini hadir sebagai jembatan antara dunia
+                      pendidikan dan dunia industri melalui kolaborasi, penelitian terapan, 
+                      serta program pengembangan kompetensi mahasiswa.
                 </p>
             </div>
 
             <img 
-                src="https://th.bing.com/th/id/OIP.vQ2iMG8T2Xh2QuuwTKLTUwHaE7"
+               src="{{ asset('storage/images/gerbang.png') }}"
                 class="rounded-[2rem] shadow-2xl"
-                alt="Awal POLINDRA"
+                alt="Awal KampusGw"
                 data-aos="fade-left"
             >
         </div>
@@ -90,9 +88,9 @@
         {{-- Task Force --}}
         <div class="grid md:grid-cols-2 gap-20 items-center">
             <img 
-                src="https://i.ytimg.com/vi/r3qjFAB5RZY/maxresdefault.jpg"
+                src="{{ asset('storage/images/samping.png') }}"
                 class="rounded-[2rem] shadow-2xl"
-                alt="Task Force POLINDRA"
+                alt="Task Force KAMPUS GW"
                 data-aos="fade-right"
             >
 
@@ -102,20 +100,18 @@
                 </h2>
 
                 <p class="text-slate-300 text-lg leading-relaxed mb-6 text-justify">
-                    Dalam rangka mempersiapkan pendirian POLINDRA,
-                    dibentuk sebuah Task Force melalui Surat Perintah
-                    Tugas Bupati. Tim ini bertanggung jawab dalam
-                    penyusunan studi kelayakan, pembangunan komitmen
-                    dengan para pemangku kepentingan, serta penyiapan
-                    seluruh dokumen proposal pendirian.
+                    Dalam perjalanannya, KampusGW terus mengalami perkembangan signifikan
+                    baik dari sisi akademik maupun kelembagaan. Berbagai program studi dibuka
+                    dengan fokus pada bidang teknologi informasi, data science, bisnis digital,
+                    serta rekayasa sistem. Kurikulum disusun secara adaptif agar selaras dengan 
+                    kebutuhan industri nasional dan global.
                 </p>
 
                 <p class="text-slate-300 text-lg leading-relaxed text-justify">
-                    Seluruh proses tersebut dibimbing oleh para pakar
-                    dari Politeknik Negeri Bandung, khususnya dalam
-                    pengkajian pemilihan program studi yang relevan
-                    dengan kebutuhan dunia industri dan pembangunan
-                    daerah.
+                    Didukung oleh tenaga pengajar profesional, fasilitas pembelajaran
+                    modern, serta kemitraan strategis dengan berbagai sektor industri,
+                    KampusGW berkembang menjadi institusi pendidikan tinggi yang dinamis,
+                    inovatif, dan berorientasi masa depan.
                 </p>
             </div>
         </div>
@@ -128,17 +124,17 @@
             </h2>
 
             <p class="text-slate-300 text-lg leading-relaxed mb-6 text-justify">
-                Dari 54 kabupaten/kota yang mengikuti kompetisi nasional,
-                hanya 9 daerah yang dinyatakan lolos. POLINDRA resmi
-                memperoleh izin pendirian melalui Keputusan Menteri
-                Pendidikan Nasional Republik Indonesia Nomor
-                124/D/O/2008 tanggal 8 Juli 2008.
+                KampusGW berdiri secara resmi sebagai institusi pendidikan tinggi
+                yang beroperasi sesuai ketentuan peraturan pendidikan nasional.
+                Seluruh penyelenggaraan akademik dilaksanakan berdasarkan standar
+                mutu pendidikan tinggi serta sistem penjaminan mutu internal yang berkelanjutan.
             </p>
 
             <p class="text-slate-300 text-lg leading-relaxed text-justify">
-                Pada tahun 2014, POLINDRA beralih status menjadi
-                Perguruan Tinggi Negeri dan diresmikan langsung oleh
-                Presiden Republik Indonesia.
+                Kepercayaan masyarakat dan pengakuan dari dunia industri terhadap
+                kualitas lulusan menjadi bukti konsistensi KampusGW dalam menjaga
+                mutu pendidikan. Institusi ini terus berkomitmen meningkatkan kualitas
+                layanan akademik, penelitian, dan pengabdian kepada masyarakat.
             </p>
         </div>
 
@@ -147,21 +143,11 @@
              data-aos="zoom-in-up">
             <div class="absolute inset-0 bg-cyan-500/10 blur-3xl"></div>
             <p class="relative text-3xl font-semibold text-white leading-relaxed">
-                POLINDRA bukan sekadar kampus,<br>
+                KampusGw bukan sekadar kampus,<br>
                 tetapi <span class="text-cyan-400">jalan perubahan</span>
-                bagi masa depan Indramayu.
+                bagi masa depan Anak Bangsa.
             </p>
         </div>
-
-        <!-- BACK -->
-        <div class="text-center mt-28"
-             data-aos="fade-up">
-            <a href="{{ url('/tentang') }}"
-               class="text-cyan-400 hover:underline text-lg">
-                ← Kembali ke Tentang Kami
-            </a>
-        </div>
-
     </div>
 </section>
 

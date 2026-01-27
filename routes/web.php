@@ -9,6 +9,22 @@ use App\Models\Faculty;
 use App\Models\Post;
 use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\Admin\PartnerController;
+use App\Http\Controllers\Admin\AlumniController as AdminAlumni;
+use App\Http\Controllers\CareerController;
+
+Route::get('/careers', [CareerController::class, 'index'])->name('careers');
+
+Route::prefix('admin')->middleware('auth')->group(function () {
+
+    // Dashboard Alumni
+    Route::get('/alumni', [AdminAlumni::class, 'index'])
+        ->name('admin.alumni.index');
+
+    Route::post('/alumni/store', [AdminAlumni::class, 'store'])
+        ->name('admin.alumni.store');
+    Route::get('/get-prodi/{faculty_id}', [AdminAlumni::class, 'getProdi']);
+
+});
 
 Route::get('/tentang', fn () => view('tentang.index'));
 Route::prefix('tentang')->group(function () {
@@ -27,7 +43,7 @@ Route::get('/posts/{post:slug}', function ($slug) {
     return \App\Models\Post::where('slug',$slug)->firstOrFail();
 });
 
-Route::get('/careers', fn() => view('careers.index'));
+
 Route::get('/faculties', function () {
     $faculties = Faculty::all();
     return view('faculties.index', compact('faculties'));
@@ -35,7 +51,6 @@ Route::get('/faculties', function () {
 
 Route::get('/admissions', [AdmissionController::class, 'index']);
 Route::post('/admissions', [AdmissionController::class, 'store']);
-
 Route::get('/', function () {
     $posts = Post::latest()->take(6)->get();
     $faculties = Faculty::all();
@@ -47,7 +62,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
-
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

@@ -69,16 +69,16 @@
                 <tbody class="text-slate-300">
 
                     @php
-                        $data = [
-                            [1,'Politeknik Negeri Indramayu','1039/SK/BAN-PT/Akred/PT/XII/2020','2020–2025','Baik','Berlaku'],
-                            [2,'D-III Teknik Informatika','017/BAN-PT/Ak-XII/Dpl-III/X/2011','2011–2016','C','Kedaluwarsa'],
-                            [3,'D-III Teknik Informatika','1650/BAN-PT/Akred/Dipl-III/VII/2016','2016–2021','C','Kedaluwarsa'],
-                            [4,'D-III Teknik Informatika','2980/SK/BAN-PT/Akred/Dipl-III/X/2018','2018–2023','B','Kedaluwarsa'],
-                            [5,'D-III Teknik Informatika','164/SK/LAM-INFOKOM/Ak/D3/XII/2023','2023–2028','Baik Sekali','Berlaku'],
-                            [6,'D-III Teknik Mesin','013/BAN-PT/Ak-XI/Dpl-III/IX/2011','2011–2016','C','Kedaluwarsa'],
-                            [7,'D-III Teknik Mesin','1791/SK/BAN-PT/Akred/Dipl-III/IX/2016','2016–2021','B','Kedaluwarsa'],
-                            [8,'D-III Teknik Mesin','13481/SK/BAN-PT/Akred-PMT/Dipl-III/XII/2021','2021–2026','Baik','Berlaku'],
-                        ];
+                    $data = [
+                        [1,'Institut KampusGw','001/SK/BAN-PT/Akred/PT/I/2024','2024–2029','Baik Sekali','Berlaku'],
+                        [2,'D-III Teknik Informatika','017/BAN-PT/Ak-XII/Dpl-III/X/2011','2011–2016','C','Kedaluwarsa'],
+                        [3,'D-IV Rekayasa Perangkat Lunak','1650/BAN-PT/Akred/Dipl-IV/VII/2016','2016–2021','C','Kedaluwarsa'],
+                        [4,'D-IV Sistem Informasi','2980/SK/BAN-PT/Akred/Dipl-IV/X/2018','2018–2023','B','Kedaluwarsa'],
+                        [5,'D-III Keperawatan','164/SK/LAM-INFOKOM/Ak/D3/XII/2023','2023–2028','Baik Sekali','Berlaku'],
+                        [6,'D-III Teknik Mesin','013/BAN-PT/Ak-XI/Dpl-III/IX/2011','2011–2016','C','Kedaluwarsa'],
+                        [7,'D-III Teknik Pending dan Tata Udara','1791/SK/BAN-PT/Akred/Dipl-III/IX/2016','2016–2021','B','Kedaluwarsa'],
+                        [8,'D-IV Perancangan Manufaktur','13481/SK/BAN-PT/Akred-PMT/Dipl-IV/XII/2021','2021–2026','Baik','Berlaku'],
+                    ];
                     @endphp
 
                     @foreach($data as $row)
@@ -97,16 +97,6 @@
                 </tbody>
             </table>
         </div>
-
-        
-        <!-- BACK -->
-        <div class="text-center mt-28"
-             data-aos="fade-up">
-            <a href="{{ url('/tentang') }}"
-               class="text-cyan-400 hover:underline text-lg">
-                ← Kembali ke Tentang Kami
-        </div>
-
     </div>
 </section>
 
