@@ -27,8 +27,8 @@ public function store(Request $request)
 
     Admission::create($request->all());
 
-    return redirect()->back()
-        ->with('success','Pendaftar berhasil masuk sistem!');
+    return redirect('/admissions')
+            ->with('success', 'Pendaftaran berhasil! Tim kami akan menghubungi Anda.');
 }
 
 public function adminIndex()
