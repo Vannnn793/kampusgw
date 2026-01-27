@@ -1,3 +1,4 @@
+{{-- 
 @include('layout.main')
 @section('title', 'Admissions - KampusGW')
 
@@ -22,12 +23,10 @@
 
     <div class="w-full max-w-xl bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/20">
 
-        <!-- HEADER -->
         <h2 class="text-3xl font-bold text-center mb-2">Admissions</h2>
         <p class="text-center text-gray-300 mb-6">
             Pendaftaran Mahasiswa Baru KampusGW
         </p>
-        <!-- FORM -->
         <form method="POST" action="/admissions" class="space-y-4">
             @csrf
 
@@ -49,7 +48,6 @@
                     class="w-full border border-white/30 rounded-xl px-4 py-2 focus:ring-2 focus:ring-cyan-400">
             </div>
 
-            <!-- FAKULTAS -->
             <div>
                 <label class="text-sm text-gray-300">Fakultas</label>
                 <select id="fakultas" name="fakultas" required
@@ -62,7 +60,6 @@
                 </select>
             </div>
 
-            <!-- PROGRAM STUDI -->
             <div>
                 <label class="text-sm text-gray-300">Program Studi</label>
                 <select id="prodi" name="program_studi" required
@@ -71,7 +68,6 @@
                 </select>
             </div>
 
-            <!-- TAHUN AKADEMIK -->
             <div>
                 <label class="text-sm text-gray-300">Tahun Akademik</label>
                 <select id="tahunSelect"
@@ -84,7 +80,6 @@
                 </select>
             </div>
 
-            <!-- INPUT MANUAL -->
             <div id="tahunManualWrap" class="hidden">
                 <label class="text-sm text-gray-300">Tahun Akademik (Manual)</label>
                 <input type="text" id="tahunManual"
@@ -92,7 +87,6 @@
                     class="w-full border border-white/30 rounded-xl px-4 py-2 focus:ring-2 focus:ring-cyan-400">
             </div>
 
-            <!-- VALUE FINAL -->
             <input type="hidden" name="tahun_akademik" id="tahunFinal">
 
             <button type="submit"
@@ -107,7 +101,6 @@
     </div>
 </div>
 
-<!-- SCRIPT -->
 <script>
 const dataJurusan = {
     "Fakultas Informatika": ["Artificial Intelligence", "Cyber Security", "Software Engineering"],
@@ -130,7 +123,6 @@ fakultas.addEventListener("change", () => {
     }
 });
 
-// Tahun akademik
 const tahunSelect = document.getElementById('tahunSelect');
 const manualWrap = document.getElementById('tahunManualWrap');
 const manualInput = document.getElementById('tahunManual');
@@ -166,3 +158,4 @@ manualInput.addEventListener('input', () => {
 @endif
 
 @endsection
+--}}
