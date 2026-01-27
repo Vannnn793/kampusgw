@@ -1,33 +1,21 @@
+{{-- 
 @include('layout.main')
 @section('title', 'Admissions - KampusGW')
 
 @section('content')
 <div class="pt-32 px-4 flex justify-center">
     @if(session('success'))
-    <div id="successToast"
-        class="fixed top-6 right-6 z-50 bg-emerald-500 text-black px-6 py-4 rounded-2xl shadow-2xl flex items-start gap-3">
-
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 mt-1" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M5 13l4 4L19 7"/>
-        </svg>
-
-        <div>
-            <p class="font-bold text-lg">Pendaftaran Berhasil 🎉</p>
-            <p class="text-sm">{{ session('success') }}</p>
-        </div>
-    </div>
-    @endif
+            <div class="bg-cyan-500/20 text-cyan-300 p-3 rounded-xl mb-4 text-center">
+                {{ session('success') }}
+            </div>
+        @endif
 
     <div class="w-full max-w-xl bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/20">
 
-        <!-- HEADER -->
         <h2 class="text-3xl font-bold text-center mb-2">Admissions</h2>
         <p class="text-center text-gray-300 mb-6">
             Pendaftaran Mahasiswa Baru KampusGW
         </p>
-        <!-- FORM -->
         <form method="POST" action="/admissions" class="space-y-4">
             @csrf
 
@@ -49,7 +37,6 @@
                     class="w-full border border-white/30 rounded-xl px-4 py-2 focus:ring-2 focus:ring-cyan-400">
             </div>
 
-            <!-- FAKULTAS -->
             <div>
                 <label class="text-sm text-gray-300">Fakultas</label>
                 <select id="fakultas" name="fakultas" required
@@ -62,7 +49,6 @@
                 </select>
             </div>
 
-            <!-- PROGRAM STUDI -->
             <div>
                 <label class="text-sm text-gray-300">Program Studi</label>
                 <select id="prodi" name="program_studi" required
@@ -71,7 +57,6 @@
                 </select>
             </div>
 
-            <!-- TAHUN AKADEMIK -->
             <div>
                 <label class="text-sm text-gray-300">Tahun Akademik</label>
                 <select id="tahunSelect"
@@ -84,7 +69,6 @@
                 </select>
             </div>
 
-            <!-- INPUT MANUAL -->
             <div id="tahunManualWrap" class="hidden">
                 <label class="text-sm text-gray-300">Tahun Akademik (Manual)</label>
                 <input type="text" id="tahunManual"
@@ -92,7 +76,6 @@
                     class="w-full border border-white/30 rounded-xl px-4 py-2 focus:ring-2 focus:ring-cyan-400">
             </div>
 
-            <!-- VALUE FINAL -->
             <input type="hidden" name="tahun_akademik" id="tahunFinal">
 
             <button type="submit"
@@ -107,7 +90,6 @@
     </div>
 </div>
 
-<!-- SCRIPT -->
 <script>
 const dataJurusan = {
     "Fakultas Informatika": ["Artificial Intelligence", "Cyber Security", "Software Engineering"],
@@ -130,7 +112,6 @@ fakultas.addEventListener("change", () => {
     }
 });
 
-// Tahun akademik
 const tahunSelect = document.getElementById('tahunSelect');
 const manualWrap = document.getElementById('tahunManualWrap');
 const manualInput = document.getElementById('tahunManual');
@@ -151,18 +132,5 @@ manualInput.addEventListener('input', () => {
 });
 </script>
 
-@if(session('success'))
-<script>
-    setTimeout(() => {
-        const toast = document.getElementById('successToast');
-        if (toast) {
-            toast.style.transition = 'all 0.5s ease';
-            toast.style.opacity = '0';
-            toast.style.transform = 'translateX(40px)';
-            setTimeout(() => toast.remove(), 500);
-        }
-    }, 4000);
-</script>
-@endif
-
 @endsection
+--}}
