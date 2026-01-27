@@ -423,8 +423,8 @@ relative z-10">
                     </p>
 
                 </div>
-
->>>>>>> Stashed changes
+{{-- 
+>>>>>>> Stashed changes --}}
             </div>
 
             @endforeach
