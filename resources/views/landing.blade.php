@@ -42,7 +42,7 @@
                     Daftar Sekarang
                 </a>
 
-                <a href="/tentang"
+                <a href="/faculties"
                    class="px-8 py-4 border border-white/20 rounded-xl
                    hover:bg-white/10 hover:border-sky-400/40 transition duration-300">
                     Jelajahi Kampus
