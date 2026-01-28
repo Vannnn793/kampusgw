@@ -3,24 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alumni;
+use App\Models\Faculty;
 use Illuminate\Http\Request;
 
 class AlumniController extends Controller
 {
-    /**
+/**
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
-    }
+{
+    $alumni = Alumni::latest()->get();
+    return view('careers.index', compact('alumni'));
+}
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -62,4 +64,6 @@ class AlumniController extends Controller
     {
         //
     }
+    
 }
+

@@ -11,9 +11,9 @@
 
     <!-- Background Image -->
     <img 
-        src="https://i.ytimg.com/vi/r3qjFAB5RZY/maxresdefault.jpg"
+        src="{{ asset('storage/images/kampusgw.jpg') }}"
         class="absolute inset-0 w-full h-full object-cover scale-110"
-        alt="Visi Misi Politeknik Negeri Indramayu"
+        alt="Visi Misi KampusGw"
     >
 
     <!-- Overlay -->
@@ -45,7 +45,7 @@
              bg-gradient-to-r
              from-cyan-400 via-sky-400 to-indigo-400
              bg-clip-text text-transparent">
-             Politeknik Negeri Indramayu
+             KampusGw
             </span>
 
             </h1>
@@ -184,20 +184,6 @@
             </div>
 
             @endforeach
-
-        </div>
-
-        <!-- BACK -->
-        <div class="text-center mt-28"
-             data-aos="fade-up">
-            <a href="{{ url('/tentang') }}"
-               class="text-cyan-400 hover:underline text-lg">
-                ← Kembali ke Tentang Kami
-            </a>
-        </div>
-
-    </div>
-</section>
 
 {{-- ================= AOS SCRIPT ================= --}}
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>

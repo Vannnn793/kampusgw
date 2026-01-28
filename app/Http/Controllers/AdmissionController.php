@@ -1,39 +1,45 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Admission;
-use App\Models\Admissions;
 use App\Models\Faculty;
 use Illuminate\Http\Request;
 
 class AdmissionController extends Controller
 {
     public function index()
-{
-    $faculties = Faculty::with('prodis')->get();
-    return view('admissions.index', compact('faculties'));
-}
+    {
+        $faculties = Faculty::with('prodis')->get();
+        return view('admissions.index', compact('faculties'));
+    }
 
-public function store(Request $request)
-{
-    $request->validate([
-        'nama_lengkap' => 'required',
-        'email' => 'required|email',
-        'no_hp' => 'required',
-        'faculty_id' => 'required|exists:faculties,id',
-        'prodi_id' => 'required|exists:prodis,id',
-        'tahun_akademik' => 'required',
-    ]);
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nama_lengkap' => 'required',
+            'email' => 'required|email',
+            'no_hp' => 'required',
+            'faculty_id' => 'required|exists:faculties,id',
+            'prodi_id' => 'required|exists:prodis,id',
+            'tahun_akademik' => 'required',
+        ]);
 
-    Admission::create($request->all());
+        try {
+            Admission::create($request->all());
 
-    return redirect('/admissions')
-            ->with('success', 'Pendaftaran berhasil! Tim kami akan menghubungi Anda.');
-}
+            return redirect()->back()
+                ->with('success', 'Pendaftaran berhasil dikirim!');
+                
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Terjadi kesalahan, coba lagi.');
+        }
+    }
 
-public function adminIndex()
-{
-    $admissions = Admission::with(['faculty','prodi'])->latest()->get();
-    return view('admin.admission.index', compact('admissions'));
-}
+    public function adminIndex()
+    {
+        $admissions = Admission::with(['faculty','prodi'])->latest()->get();
+        return view('admin.admission.index', compact('admissions'));
+    }
 }
