@@ -80,7 +80,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
        Route::put('/admin/prodis/{prodi}', [ProdiController::class, 'update'])
     ->name('admin.prodis.update');
          Route::get('/admissions', [AdmissionController::class, 'adminIndex']);
-
+         Route::resource('organization', \App\Http\Controllers\Admin\OrganizationStructureController::class);
+        Route::resource('facilities', \App\Http\Controllers\Admin\FacilityController::class);
+        Route::resource('accreditations', \App\Http\Controllers\Admin\AccreditationController::class);
     });
 
 });

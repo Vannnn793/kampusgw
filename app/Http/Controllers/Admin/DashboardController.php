@@ -8,6 +8,7 @@ use App\Models\Alumni;
 use App\Models\Partner;
 use App\Models\Post;;
 use App\Models\Category;
+use App\Models\OrganizationStructure as Structure;
 
 class DashboardController extends Controller
 {
@@ -22,6 +23,9 @@ class DashboardController extends Controller
             'partnerCount' => Partner::count(),
             'posts'        => $posts,
             'categories'   => $categories,
+            'structures'   => Structure::all(),
+            'facilities'   => \App\Models\Facility::all(),
+            'accreditations' => \App\Models\Accreditation::all(),
         ]);
     }
 }

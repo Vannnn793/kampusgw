@@ -37,6 +37,9 @@
         <a href="/admin/posts"><i class="bi bi-newspaper me-2"></i>Posts</a>
         <a href="/admin/faculties"><i class="bi bi-building me-2"></i>Faculties</a>
         <a href="/admin/prodis"><i class="bi bi-mortarboard me-2"></i>Prodi</a>
+        <a href="/admin/facilities/create"><i class="bi bi-house me-2"></i>Facilities</a>
+        <a href="/admin/organization"><i class="bi bi-people-fill me-2"></i>Organization Structure</a>
+        <a href="/admin/accreditations/create"><i class="bi bi-award me-2"></i>Accreditations</a>
         <a href="/admin/alumni"><i class="bi bi-people me-2"></i>Alumni</a>
         <a href="/admin/partners"><i class="bi bi-briefcase me-2"></i>Partners</a>
         <a href="/admin/admissions"><i class="bi bi-person me-2"></i>Admissions</a>

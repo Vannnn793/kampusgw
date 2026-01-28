@@ -132,6 +132,149 @@
         </div>
     </div>
 
+<div class="container-fluid px-4 mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold">Struktur Organisasi Kampus</h4>
+        <a href="/admin/organization" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Tambah Data
+        </a>
+    </div>
+
+    <div class="row g-4">
+        @foreach ($structures as $item)
+        <div class="col-md-3">
+            <div class="card shadow-sm h-100">
+                <img src="{{ asset('storage/'.$item->photo) }}"
+                     class="card-img-top"
+                     style="height:220px; object-fit:cover">
+
+                <div class="card-body text-center">
+                    <h6 class="fw-bold mb-0">{{ $item->name }}</h6>
+                    <small class="text-muted">{{ $item->position }}</small>
+                </div>
+
+                <div class="card-footer d-flex justify-content-between">
+                    <a href="#" class="btn btn-sm btn-warning">Edit</a>
+                    <button class="btn btn-sm btn-danger">Hapus</button>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
 </div>
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3>Daftar Fasilitas</h3>
+            <a href="{{ route('admin.facilities.create') }}" class="btn btn-primary">Tambah Fasilitas</a>
+        </div>
+        <div class="card-body">
+
+            @if(session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Gambar</th>
+                        <th>Nama</th>
+                        <th>Deskripsi</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($facilities as $facility)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>
+                            @if($facility->image)
+                                <img src="{{ asset('storage/' . $facility->image) }}" alt="{{ $facility->name }}" width="100" class="img-thumbnail">
+                            @else
+                                <span class="text-muted">Tidak ada gambar</span>
+                            @endif
+                        </td>
+                        <td>{{ $facility->name }}</td>
+                        <td>{{ Str::limit($facility->description, 50) }}</td>
+                        <td>
+                            <a href="{{ route('admin.facilities.edit', $facility->id) }}" class="btn btn-sm btn-warning">Edit</a>
+
+                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('admin.facilities.destroy', $facility->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="5" class="text-center">Belum ada data fasilitas.</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3>Daftar Akreditasi Prodi</h3>
+            <a href="{{ route('admin.accreditations.create') }}" class="btn btn-primary">Tambah Data</a>
+        </div>
+        <div class="card-body">
+
+            @if(session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Program Studi</th>
+                        <th>Peringkat</th>
+                        <th>No. SK</th>
+                        <th>Masa Berlaku</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($accreditations as $item)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->program_name }}</td>
+                        <td>
+                            <span class="badge bg-info text-dark">{{ $item->level }}</span>
+                        </td>
+                        <td>{{ $item->certificate_number ?? '-' }}</td>
+                        <td>
+                            {{ $item->valid_until ? \Carbon\Carbon::parse($item->valid_until)->format('d-m-Y') : 'Seumur Hidup / -' }}
+                        </td>
+                        <td>
+                            <a href="{{ route('admin.accreditations.edit', $item->id) }}" class="btn btn-sm btn-warning">Edit</a>
+
+                            <form onsubmit="return confirm('Yakin hapus data ini?');" action="{{ route('admin.accreditations.destroy', $item->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="6" class="text-center">Belum ada data akreditasi.</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+
 
 @endsection
