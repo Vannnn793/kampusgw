@@ -12,7 +12,8 @@ class Post extends Model
         'content',
         'thumbnail',
         'category_id',
-        'published_at'
+        'published_at',
+        'is_slider',
     ];
 
     public function category()
@@ -23,4 +24,8 @@ class Post extends Model
     protected $casts = [
         'published_at' => 'datetime',
     ];
+    public function scopeSlider($query)
+    {
+        return $query->where('is_slider', true)->latest();
+    }
 }
