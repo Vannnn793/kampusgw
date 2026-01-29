@@ -1,412 +1,254 @@
 @extends('admin.layout.main')
-@section('title','Dashboard')
+@section('title', 'Admin Dashboard')
 
 @section('content')
 
-<h2 class="fw-bold mb-4">Admin Dashboard</h2>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+    <div>
+        <h1 class="h2 fw-bold">Dashboard</h1>
+        <p class="text-muted">Selamat datang kembali, Admin! Berikut ringkasan aktivitas kampus hari ini.</p>
+    </div>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar"></span> Minggu Ini
+        </button>
+    </div>
+</div>
+
+<div class="row g-4 mb-5">
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-primary text-white h-100 shadow-sm border-0">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-uppercase mb-1 opacity-75">Fakultas</h6>
+                        <h2 class="display-6 fw-bold mb-0">{{ $facultyCount }}</h2>
+                    </div>
+                    <i class="bi bi-building fs-1 opacity-50"></i>
+                </div>
+            </div>
+            <div class="card-footer bg-primary border-0 d-flex align-items-center justify-content-between">
+                <a href="#" class="text-white text-decoration-none small stretched-link">Lihat Detail</a>
+                <i class="bi bi-chevron-right text-white small"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-info text-white h-100 shadow-sm border-0">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-uppercase mb-1 opacity-75">Program Studi</h6>
+                        <h2 class="display-6 fw-bold mb-0">{{ $prodiCount }}</h2>
+                    </div>
+                    <i class="bi bi-mortarboard fs-1 opacity-50"></i>
+                </div>
+            </div>
+            <div class="card-footer bg-info border-0 d-flex align-items-center justify-content-between">
+                <a href="#" class="text-white text-decoration-none small stretched-link">Lihat Detail</a>
+                <i class="bi bi-chevron-right text-white small"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-success text-white h-100 shadow-sm border-0">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-uppercase mb-1 opacity-75">Alumni Terdata</h6>
+                        <h2 class="display-6 fw-bold mb-0">{{ $alumniCount }}</h2>
+                    </div>
+                    <i class="bi bi-people fs-1 opacity-50"></i>
+                </div>
+            </div>
+            <div class="card-footer bg-success border-0 d-flex align-items-center justify-content-between">
+                <a href="#" class="text-white text-decoration-none small stretched-link">Lihat Database</a>
+                <i class="bi bi-chevron-right text-white small"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-warning text-dark h-100 shadow-sm border-0">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-uppercase mb-1 opacity-75">Mitra Kampus</h6>
+                        <h2 class="display-6 fw-bold mb-0">{{ $partnerCount }}</h2>
+                    </div>
+                    <i class="bi bi-handshake fs-1 opacity-50"></i>
+                </div>
+            </div>
+            <div class="card-footer bg-warning border-0 d-flex align-items-center justify-content-between">
+                <a href="#" class="text-dark text-decoration-none small stretched-link">Kelola Mitra</a>
+                <i class="bi bi-chevron-right text-dark small"></i>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row g-4">
-
-    <div class="col-md-3">
-        <div class="card bg-dark border-0 shadow">
-            <div class="card-body">
-                <h3 class="fw-bold text-info">
-                    {{ $facultyCount }}
-                </h3>
-                <p class="text-secondary mb-0">Faculties</p>
+    
+    <div class="col-lg-8">
+        
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <h5 class="m-0 fw-bold text-primary"><i class="bi bi-newspaper me-2"></i>Berita Terbaru</h5>
+                <a href="{{ route('admin.posts.index') }}" class="btn btn-sm btn-outline-primary">Lihat Semua</a>
             </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card bg-dark border-0 shadow">
-            <div class="card-body">
-                <h3 class="fw-bold text-primary">
-                    {{ $prodiCount }}
-                </h3>
-                <p class="text-secondary mb-0">Prodi</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card bg-dark border-0 shadow">
-            <div class="card-body">
-                <h3 class="fw-bold text-success">
-                    {{ $alumniCount }}
-                </h3>
-                <p class="text-secondary mb-0">Alumni</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card bg-dark border-0 shadow">
-            <div class="card-body">
-                <h3 class="fw-bold text-warning">
-                    {{ $partnerCount }}
-                </h3>
-                <p class="text-secondary mb-0">Partners</p>
-            </div>
-        </div>
-    </div>
-
-</div>
-<br>
-<br>
-<div class="col-lg-8">
-        <div class="card bg-dark border-0 shadow-lg">
-            <div class="card-body">
-                <h5 class="fw-bold mb-4 text-primary">
-                    <i class="bi bi-newspaper me-1"></i> Posts List
-                </h5>
-
+            <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table table-dark table-hover align-middle">
-                        <thead class="text-secondary">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
                             <tr>
-                                <th style="width:60px">#</th>
-                                <th>Title</th>
+                                <th class="ps-4">Judul Artikel</th>
                                 <th>Kategori</th>
-                                <th>Published</th>
-                                <th class="text-end">Action</th>
+                                <th>Status</th>
+                                <th class="text-end pe-4">Aksi</th>
                             </tr>
-                            </thead>
-
-                            <tbody>
+                        </thead>
+                        <tbody>
                             @forelse($posts as $post)
                             <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center">
+                                        @if($post->thumbnail)
+                                            <img src="{{ asset('storage/'.$post->thumbnail) }}" class="rounded me-3" width="40" height="40" style="object-fit:cover">
+                                        @else
+                                            <div class="rounded me-3 bg-secondary d-flex align-items-center justify-content-center text-white" style="width:40px; height:40px;">
+                                                <i class="bi bi-image"></i>
+                                            </div>
+                                        @endif
+                                        <div>
+                                            <div class="fw-bold text-dark">{{ Str::limit($post->title, 40) }}</div>
+                                            <small class="text-muted">{{ $post->published_at?->format('d M Y') ?? 'Draft' }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge bg-light text-dark border">{{ $post->category->name ?? 'Umum' }}</span></td>
                                 <td>
-                                    @if($post->thumbnail)
-                                        <img src="{{ asset('storage/'.$post->thumbnail) }}"
-                                            class="rounded"
-                                            width="48" height="48"
-                                            style="object-fit:cover">
+                                    @if($post->published_at)
+                                        <span class="badge bg-success-subtle text-success">Published</span>
                                     @else
-                                        <span class="text-muted">—</span>
+                                        <span class="badge bg-secondary-subtle text-secondary">Draft</span>
                                     @endif
                                 </td>
-
-                                <td class="fw-semibold">{{ $post->title }}</td>
-
-                                <td>
-                                    <span class="badge bg-primary bg-opacity-25 text-primary">
-                                        {{ $post->category->name ?? '-' }}
-                                    </span>
-                                </td>
-
-                                <td class="text-secondary">
-                                    {{ $post->published_at?->format('d M Y') ?? 'Draft' }}
-                                </td>
-
-                                <td class="text-end">
-                                    <a href="{{ route('admin.posts.edit',$post) }}"
-                                    class="btn btn-sm btn-outline-info me-1">
-                                        Edit
-                                    </a>
-
-                                    <form action="{{ route('admin.posts.destroy',$post) }}"
-                                        method="POST"
-                                        class="d-inline"
-                                        onsubmit="return confirm('Hapus post ini?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm btn-outline-danger">
-                                            Delete
-                                        </button>
-                                    </form>
+                                <td class="text-end pe-4">
+                                    <a href="{{ route('admin.posts.edit',$post) }}" class="btn btn-sm btn-light text-primary"><i class="bi bi-pencil-square"></i></a>
                                 </td>
                             </tr>
                             @empty
-                            <tr>
-                                <td colspan="5" class="text-center text-muted py-4">
-                                    Belum ada berita 😴
-                                </td>
-                            </tr>
+                            <tr><td colspan="4" class="text-center py-4 text-muted">Belum ada postingan.</td></tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
-    </div>
 
-<div class="container-fluid px-4 mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h4 class="fw-bold">Struktur Organisasi Kampus</h4>
-        <a href="/admin/organization" class="btn btn-primary">
-            <i class="bi bi-plus-circle"></i> Tambah Data
-        </a>
-    </div>
-
-    <div class="row g-4">
-        @foreach ($structures as $item)
-        <div class="col-md-3">
-            <div class="card shadow-sm h-100">
-                <img src="{{ asset('storage/'.$item->photo) }}"
-                     class="card-img-top"
-                     style="height:220px; object-fit:cover">
-
-                <div class="card-body text-center">
-                    <h6 class="fw-bold mb-0">{{ $item->name }}</h6>
-                    <small class="text-muted">{{ $item->position }}</small>
-                </div>
-
-                <div class="card-footer d-flex justify-content-between">
-                    <a href="#" class="btn btn-sm btn-warning">Edit</a>
-                    <button class="btn btn-sm btn-danger">Hapus</button>
-                </div>
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <h5 class="m-0 fw-bold text-dark"><i class="bi bi-cloud-arrow-down me-2"></i>Dokumen Publik</h5>
+                <a href="{{ route('admin.download.create') }}" class="btn btn-sm btn-primary"><i class="bi bi-upload"></i> Upload</a>
             </div>
-        </div>
-        @endforeach
-    </div>
-</div>
-
-<div class="container mt-5">
-    <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h3>Daftar Fasilitas</h3>
-            <a href="{{ route('admin.facilities.create') }}" class="btn btn-primary">Tambah Fasilitas</a>
-        </div>
-        <div class="card-body">
-
-            @if(session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
-
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Gambar</th>
-                        <th>Nama</th>
-                        <th>Deskripsi</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($facilities as $facility)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>
-                            @if($facility->image)
-                                <img src="{{ asset('storage/' . $facility->image) }}" alt="{{ $facility->name }}" width="100" class="img-thumbnail">
-                            @else
-                                <span class="text-muted">Tidak ada gambar</span>
-                            @endif
-                        </td>
-                        <td>{{ $facility->name }}</td>
-                        <td>{{ Str::limit($facility->description, 50) }}</td>
-                        <td>
-                            <a href="{{ route('admin.facilities.edit', $facility->id) }}" class="btn btn-sm btn-warning">Edit</a>
-
-                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('admin.facilities.destroy', $facility->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                            </form>
-                        </td>
-                    </tr>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    @forelse($downloads->take(5) as $item)
+                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                        <div class="d-flex align-items-center">
+                            <div class="me-3 text-danger fs-4"><i class="bi bi-file-earmark-pdf-fill"></i></div>
+                            <div>
+                                <h6 class="mb-0 fw-semibold">{{ $item->title }}</h6>
+                                <small class="text-muted">{{ $item->category }} &bull; {{ $item->created_at->diffForHumans() }}</small>
+                            </div>
+                        </div>
+                        <a href="{{ asset('storage/'.$item->file_path) }}" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="bi bi-download"></i></a>
+                    </li>
                     @empty
-                    <tr>
-                        <td colspan="5" class="text-center">Belum ada data fasilitas.</td>
-                    </tr>
+                    <li class="text-center text-muted py-3">Tidak ada dokumen terbaru.</li>
                     @endforelse
-                </tbody>
-            </table>
+                </ul>
+            </div>
         </div>
+
     </div>
-</div>
 
-<div class="container mt-5">
-    <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h3>Daftar Akreditasi Prodi</h3>
-            <a href="{{ route('admin.accreditations.create') }}" class="btn btn-primary">Tambah Data</a>
+    <div class="col-lg-4">
+        
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-primary text-white py-3">
+                <h5 class="m-0 fw-bold"><i class="bi bi-megaphone me-2"></i>Status PMB</h5>
+            </div>
+            <div class="card-body">
+                @php
+                    $activePmb = $pmbInfos->where('is_active', true)->first();
+                @endphp
+
+                @if($activePmb)
+                    <div class="text-center py-3">
+                        <div class="spinner-grow text-success mb-2" role="status"></div>
+                        <h4 class="fw-bold text-success">PENDAFTARAN DIBUKA</h4>
+                        <p class="mb-3">{{ $activePmb->title }}</p>
+                        <a href="{{ route('admin.pmb-info.index') }}" class="btn btn-outline-primary w-100">Kelola PMB</a>
+                    </div>
+                @else
+                    <div class="text-center py-3">
+                        <i class="bi bi-lock-fill fs-1 text-secondary mb-2"></i>
+                        <h4 class="fw-bold text-secondary">TIDAK ADA PERIODE AKTIF</h4>
+                        <p class="text-muted mb-3">Silakan buka jalur pendaftaran baru.</p>
+                        <a href="{{ route('admin.pmb-info.create') }}" class="btn btn-primary w-100">Buka Pendaftaran</a>
+                    </div>
+                @endif
+            </div>
         </div>
-        <div class="card-body">
 
-            @if(session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3">
+                <h6 class="m-0 fw-bold">Akses Cepat</h6>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{{ route('admin.organization.create') }}" class="btn btn-outline-dark text-start">
+                        <i class="bi bi-person-plus-fill me-2"></i> Tambah Dosen/Staff
+                    </a>
+                    <a href="{{ route('admin.facilities.create') }}" class="btn btn-outline-dark text-start">
+                        <i class="bi bi-building-add me-2"></i> Input Fasilitas Baru
+                    </a>
+                    <a href="{{ route('admin.accreditations.create') }}" class="btn btn-outline-dark text-start">
+                        <i class="bi bi-award-fill me-2"></i> Update Akreditasi
+                    </a>
+                </div>
+            </div>
+        </div>
 
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Program Studi</th>
-                        <th>Peringkat</th>
-                        <th>No. SK</th>
-                        <th>Masa Berlaku</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($accreditations as $item)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->program_name }}</td>
-                        <td>
-                            <span class="badge bg-info text-dark">{{ $item->level }}</span>
-                        </td>
-                        <td>{{ $item->certificate_number ?? '-' }}</td>
-                        <td>
-                            {{ $item->valid_until ? \Carbon\Carbon::parse($item->valid_until)->format('d-m-Y') : 'Seumur Hidup / -' }}
-                        </td>
-                        <td>
-                            <a href="{{ route('admin.accreditations.edit', $item->id) }}" class="btn btn-sm btn-warning">Edit</a>
-
-                            <form onsubmit="return confirm('Yakin hapus data ini?');" action="{{ route('admin.accreditations.destroy', $item->id) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                            </form>
-                        </td>
-                    </tr>
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3">
+                <h6 class="m-0 fw-bold">Struktur Organisasi Terbaru</h6>
+            </div>
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush">
+                    @forelse($structures->take(4) as $staff)
+                    <div class="list-group-item d-flex align-items-center">
+                        <img src="{{ asset('storage/'.$staff->photo) }}" class="rounded-circle me-3" width="40" height="40" style="object-fit:cover">
+                        <div>
+                            <h6 class="mb-0 text-sm fw-bold">{{ Str::limit($staff->name, 20) }}</h6>
+                            <small class="text-muted d-block">{{ $staff->position }}</small>
+                        </div>
+                    </div>
                     @empty
-                    <tr>
-                        <td colspan="6" class="text-center">Belum ada data akreditasi.</td>
-                    </tr>
+                    <div class="p-3 text-center text-muted">Belum ada data pegawai.</div>
                     @endforelse
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-<div class="container-fluid">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Manajemen Dokumen & Download</h1>
-        <a href="{{ route('admin.download.create') }}" class="btn btn-primary shadow-sm">
-            <i class="fas fa-upload fa-sm text-white-50"></i> Upload Dokumen Baru
-        </a>
-    </div>
-
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Daftar File Publik</h6>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" width="100%" cellspacing="0">
-                    <thead class="table-light">
-                        <tr>
-                            <th width="5%">No</th>
-                            <th>Judul Dokumen</th>
-                            <th>Kategori</th>
-                            <th>File</th>
-                            <th width="15%">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($downloads as $item)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>
-                                <strong>{{ $item->title }}</strong>
-                                <br><small class="text-muted">{{ Str::limit($item->description, 50) }}</small>
-                            </td>
-                            <td>
-                                @if($item->category == 'akademik')
-                                    <span class="badge bg-primary">Akademik</span>
-                                @elseif($item->category == 'kemahasiswaan')
-                                    <span class="badge bg-success">Kemahasiswaan</span>
-                                @else
-                                    <span class="badge bg-secondary">Umum/Lainnya</span>
-                                @endif
-                            </td>
-                            <td>
-                                <a href="{{ asset('storage/'.$item->file_path) }}" target="_blank" class="btn btn-sm btn-info text-white">
-                                    <i class="fas fa-download"></i> Cek File
-                                </a>
-                            </td>
-                            <td>
-                                <a href="{{ route('admin.download.edit', $item->id) }}" class="btn btn-sm btn-warning">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <form action="{{ route('admin.download.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus file ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                </form>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="5" class="text-center">Belum ada dokumen yang diupload.</td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="container-fluid">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Info Penerimaan Mahasiswa Baru</h1>
-        <a href="{{ route('admin.pmb-info.create') }}" class="btn btn-primary shadow-sm">
-            <i class="fas fa-plus fa-sm text-white-50"></i> Buat Jalur Masuk
-        </a>
-    </div>
 
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Brosur</th>
-                            <th>Nama Jalur</th>
-                            <th>Status Pendaftaran</th>
-                            <th>Periode</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($pmbInfos as $info)
-                        <tr>
-                            <td width="10%">
-                                @if($info->image)
-                                    <img src="{{ asset('storage/'.$info->image) }}" width="80" class="rounded">
-                                @else
-                                    <span class="text-muted text-xs">No Image</span>
-                                @endif
-                            </td>
-                            <td>
-                                <strong>{{ $info->title }}</strong>
-                                <br>
-                                <a href="{{ $info->registration_link }}" target="_blank" class="text-xs text-primary">
-                                    <i class="fas fa-link"></i> Link Daftar
-                                </a>
-                            </td>
-                            <td>
-                                @if($info->is_active)
-                                    <span class="badge bg-success">DIBUKA</span>
-                                @else
-                                    <span class="badge bg-danger">DITUTUP</span>
-                                @endif
-                            </td>
-                            <td>
-                                <small>
-                                    Mulai: {{ date('d M Y', strtotime($info->start_date)) }} <br>
-                                    Sampai: {{ date('d M Y', strtotime($info->end_date)) }}
-                                </small>
-                            </td>
-                            <td>
-                                <a href="{{ route('admin.pmb.edit', $info->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                </td>
-                        </tr>
-                        @empty
-                        <tr><td colspan="5" class="text-center">Belum ada info PMB.</td></tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
 </div>
-</div>
-
 
 @endsection

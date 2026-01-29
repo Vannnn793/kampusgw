@@ -68,7 +68,8 @@ class OrganizationStructureController extends Controller
 
     public function create()
     {
-        //
+        $faculties = Faculty::all();
+        return view('admin.organization.index', compact('faculties'));   
     }
 
     /**
