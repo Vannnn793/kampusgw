@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\OrganizationStructure;
 use Illuminate\Http\Request;
+use App\Models\Faculty;
 
 class OrganizationStructureController extends Controller
 {
     public function index()
     {
         $structures = OrganizationStructure::orderBy('order')->get();
-        return view('admin.organization.index', compact('structures'));
+        $faculties = Faculty::all();
+        return view('admin.organization.index', compact('structures', 'faculties'));
     }
 
     public function store(Request $request)
@@ -19,6 +21,7 @@ class OrganizationStructureController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'position' => 'required',
+            'faculty_id' => 'nullable|exists:faculties,id',
             'photo' => 'image|nullable',
             'description' => 'nullable',
             'order' => 'nullable|integer'

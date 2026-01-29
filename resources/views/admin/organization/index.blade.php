@@ -23,7 +23,23 @@
 
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-semibold">Jabatan</label>
-                        <input type="text" name="position" class="form-control" placeholder="Rektor / Wakil Rektor" required>
+                        <select name="position" id="category_select" class="form-select" required>
+                            <option value="dosen">Dosen Pengajar</option>
+                            <option value="pimpinan_fakultas">Pimpinan Fakultas (Dekan/Kaprodi)</option>
+                            <option value="pimpinan_univ">Pimpinan Universitas (Rektor/Wakil)</option>
+                            <option value="staff">Staff Tata Usaha</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3" id="faculty_wrapper">
+                        <label>Penempatan Fakultas</label>
+                        <select name="faculty_id" class="form-select">
+                            <option value="">-- Pilih Fakultas --</option>
+                            @foreach($faculties as $faculty)
+                                <option value="{{ $faculty->id }}">{{ $faculty->name }}</option>
+                            @endforeach
+                        </select>
+                        <small class="text-muted">Wajib dipilih kecuali untuk Rektorat.</small>
                     </div>
                 </div>
 
@@ -51,4 +67,18 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('category_select').addEventListener('change', function() {
+        var category = this.value;
+        var facultyWrapper = document.getElementById('faculty_wrapper');
+
+        // Jika user pilih Pimpinan Universitas (Rektor), sembunyikan dropdown fakultas
+        if(category === 'pimpinan_univ') {
+            facultyWrapper.style.display = 'none';
+        } else {
+            facultyWrapper.style.display = 'block';
+        }
+    });
+</script>
 @endsection

@@ -13,4 +13,8 @@ class OrganizationStructure extends Model
         'description',
         'order'
     ];
+    public function faculty()
+    {
+        return $this->belongsTo(Faculty::class, 'faculty_id');
+    }
 }

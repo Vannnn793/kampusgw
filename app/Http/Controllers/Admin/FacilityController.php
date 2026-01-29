@@ -22,7 +22,8 @@ class FacilityController extends Controller
      */
     public function create()
     {
-        return view('admin.facilities.create');
+        $faculties = \App\Models\Faculty::all();
+        return view('admin.facilities.create', compact('faculties'));
     }
 
     // Memproses data input
@@ -30,6 +31,7 @@ class FacilityController extends Controller
     {
         // 1. Validasi Input
         $validatedData = $request->validate([
+            'faculty_id' => 'nullable|exists:faculties,id',
             'name' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Max 2MB
             'description' => 'nullable|string',

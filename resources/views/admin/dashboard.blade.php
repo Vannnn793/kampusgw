@@ -274,6 +274,138 @@
         </div>
     </div>
 </div>
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Manajemen Dokumen & Download</h1>
+        <a href="{{ route('admin.download.create') }}" class="btn btn-primary shadow-sm">
+            <i class="fas fa-upload fa-sm text-white-50"></i> Upload Dokumen Baru
+        </a>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Daftar File Publik</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead class="table-light">
+                        <tr>
+                            <th width="5%">No</th>
+                            <th>Judul Dokumen</th>
+                            <th>Kategori</th>
+                            <th>File</th>
+                            <th width="15%">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($downloads as $item)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>
+                                <strong>{{ $item->title }}</strong>
+                                <br><small class="text-muted">{{ Str::limit($item->description, 50) }}</small>
+                            </td>
+                            <td>
+                                @if($item->category == 'akademik')
+                                    <span class="badge bg-primary">Akademik</span>
+                                @elseif($item->category == 'kemahasiswaan')
+                                    <span class="badge bg-success">Kemahasiswaan</span>
+                                @else
+                                    <span class="badge bg-secondary">Umum/Lainnya</span>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ asset('storage/'.$item->file_path) }}" target="_blank" class="btn btn-sm btn-info text-white">
+                                    <i class="fas fa-download"></i> Cek File
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ route('admin.download.edit', $item->id) }}" class="btn btn-sm btn-warning">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form action="{{ route('admin.download.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus file ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="5" class="text-center">Belum ada dokumen yang diupload.</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Info Penerimaan Mahasiswa Baru</h1>
+        <a href="{{ route('admin.pmb-info.create') }}" class="btn btn-primary shadow-sm">
+            <i class="fas fa-plus fa-sm text-white-50"></i> Buat Jalur Masuk
+        </a>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Brosur</th>
+                            <th>Nama Jalur</th>
+                            <th>Status Pendaftaran</th>
+                            <th>Periode</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($pmbInfos as $info)
+                        <tr>
+                            <td width="10%">
+                                @if($info->image)
+                                    <img src="{{ asset('storage/'.$info->image) }}" width="80" class="rounded">
+                                @else
+                                    <span class="text-muted text-xs">No Image</span>
+                                @endif
+                            </td>
+                            <td>
+                                <strong>{{ $info->title }}</strong>
+                                <br>
+                                <a href="{{ $info->registration_link }}" target="_blank" class="text-xs text-primary">
+                                    <i class="fas fa-link"></i> Link Daftar
+                                </a>
+                            </td>
+                            <td>
+                                @if($info->is_active)
+                                    <span class="badge bg-success">DIBUKA</span>
+                                @else
+                                    <span class="badge bg-danger">DITUTUP</span>
+                                @endif
+                            </td>
+                            <td>
+                                <small>
+                                    Mulai: {{ date('d M Y', strtotime($info->start_date)) }} <br>
+                                    Sampai: {{ date('d M Y', strtotime($info->end_date)) }}
+                                </small>
+                            </td>
+                            <td>
+                                <a href="{{ route('admin.pmb.edit', $info->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                </td>
+                        </tr>
+                        @empty
+                        <tr><td colspan="5" class="text-center">Belum ada info PMB.</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 
 

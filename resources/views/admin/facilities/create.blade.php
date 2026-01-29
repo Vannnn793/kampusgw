@@ -33,7 +33,18 @@
                     <label for="name" class="form-label">Nama Fasilitas</label>
                     <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
                 </div>
-
+                <div class="mb-3">
+                    <label for="faculty_id" class="form-label">Fakultas (Opsional)</label>
+                    <select class="form-select" id="faculty_id" name="faculty_id">
+                        <option value="">-- Pilih Fakultas --</option>
+                        @foreach($faculties as $faculty)
+                            <option value="{{ $faculty->id }}" {{ old('faculty_id') == $faculty->id ? 'selected' : '' }}>
+                                {{ $faculty->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <small class="text-muted">Pilih fakultas jika fasilitas ini khusus untuk fakultas tertentu.</small>
+                </div>
                 <div class="mb-3">
                     <label for="image" class="form-label">Gambar (Opsional)</label>
                     <input type="file" class="form-control" id="image" name="image" accept="image/*">

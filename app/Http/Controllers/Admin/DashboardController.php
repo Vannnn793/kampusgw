@@ -26,6 +26,10 @@ class DashboardController extends Controller
             'structures'   => Structure::all(),
             'facilities'   => \App\Models\Facility::all(),
             'accreditations' => \App\Models\Accreditation::all(),
+            'profiles'    => \App\Models\Profile::all(),
+            'sliders'    => Post::slider()->get(),
+            'downloads'    => \App\Models\Download::all(),
+            'pmbInfos'    => \App\Models\PmbInfo::all(),
         ]);
     }
 }
