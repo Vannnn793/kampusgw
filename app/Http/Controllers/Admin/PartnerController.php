@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Partner;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 class PartnerController extends Controller
 {
     /**
@@ -52,24 +52,49 @@ class PartnerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Partner $partner)
+    public function edit($id)
     {
-        //
+        $partner = Partner::findOrFail($id);
+        return view('admin.partners.edit', compact('partner'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Partner $partner)
+    public function update(Request $request, $id)
     {
-        //
+        $partner = Partner::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048', // Nullable karena user mungkin tidak ganti logo
+        ]);
+
+        // Cek apakah user mengupload logo baru
+        if ($request->hasFile('logo')) {
+            
+            // 1. Hapus logo lama jika ada file-nya
+            if ($partner->logo && Storage::exists('public/' . $partner->logo)) {
+                Storage::delete('public/' . $partner->logo);
+            }
+
+            // 2. Upload logo baru
+            $validated['logo'] = $request->file('logo')->store('partners', 'public');
+        }
+
+        $partner->update($validated);
+
+        return redirect()->route('admin.partners.index')->with('success', 'Data mitra berhasil diperbarui!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Partner $partner)
+    public function destroy($id)
     {
-        //
+        $partner = Partner::findOrFail($id);
+
+        // Hapus file fisik logo dari storage sebelum hapus data di DB
+        if ($partner->logo && Storage::exists('public/' . $partner->logo)) {
+            Storage::delete('public/' . $partner->logo);
+        }
+
+        $partner->delete();
+
+        return redirect()->route('admin.partners.index')->with('success', 'Mitra berhasil dihapus!');
     }
-}
+    }

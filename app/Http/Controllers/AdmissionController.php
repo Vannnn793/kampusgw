@@ -37,9 +37,37 @@ class AdmissionController extends Controller
         }
     }
 
-    public function adminIndex()
+    public function adminIndex(Request $request)
     {
-        $admissions = Admission::with(['faculty','prodi'])->latest()->get();
-        return view('admin.admission.index', compact('admissions'));
+        $years = Admission::select('tahun_akademik')
+                ->distinct()
+                ->orderBy('tahun_akademik', 'desc')
+                ->pluck('tahun_akademik');
+
+    // 2. Tentukan tahun yang dipilih.
+    // Jika user memilih filter, pakai itu. Jika tidak, pakai tahun terbaru.
+    $selectedYear = $request->input('year') ?? $years->first();
+
+    // 3. Ambil data Admission sesuai tahun yang dipilih
+    $admissions = Admission::with(['prodi', 'faculty']) // Pastikan relasi diload biar cepat
+                ->where('tahun_akademik', $selectedYear)
+                ->latest()
+                ->get(); 
+                // Bisa ganti ->paginate(10) kalau datanya banyak banget
+        return view('admin.admission.index', compact('admissions', 'years', 'selectedYear'));
     }
+    public function destroy($id)
+    {
+        try {
+            $admission = Admission::findOrFail($id);
+            $admission->delete();
+
+            return redirect()->route('admin.admissions.index')
+                ->with('success', 'Data calon mahasiswa berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Gagal menghapus data.');
+        }
+    }
+    
 }

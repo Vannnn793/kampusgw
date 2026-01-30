@@ -79,7 +79,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Route::resource('curriculums', \App\Http\Controllers\CurriculumController::class);
        Route::put('/admin/prodis/{prodi}', [ProdiController::class, 'update'])
     ->name('admin.prodis.update');
-         Route::get('/admissions', [AdmissionController::class, 'adminIndex']);
+         Route::get('/admissions', [AdmissionController::class, 'adminIndex'])
+        ->name('admissions.index');
+        Route::delete('/admissions/{id}', [AdmissionController::class, 'destroy'])
+        ->name('admissions.destroy');
          Route::resource('organization', \App\Http\Controllers\Admin\OrganizationStructureController::class);
         Route::resource('facilities', \App\Http\Controllers\Admin\FacilityController::class);
         Route::resource('accreditations', \App\Http\Controllers\Admin\AccreditationController::class);

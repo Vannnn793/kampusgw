@@ -1,221 +1,244 @@
 @extends('admin.layout.main')
+@section('title', 'Manajemen Alumni')
 
 @section('content')
 
-{{-- STYLE WARNA CUSTOM --}}
-<style>
-    /* Card umum */
-    .custom-card {
-        background: #1f2937;
-        border: 1px solid #374151;
-        color: #e5e7eb;
-    }
-
-    /* Header card */
-    .custom-header-form {
-        background: linear-gradient(90deg,#2563eb,#1e40af);
-        color: white;
-    }
-
-    .custom-header-table {
-        background: linear-gradient(90deg,#0f172a,#1e293b);
-        color: white;
-    }
-
-    /* Input */
-    .custom-card input,
-    .custom-card select,
-    .custom-card textarea {
-        background-color: #111827;
-        border: 1px solid #374151;
-        color: #e5e7eb;
-    }
-
-    .custom-card input:focus,
-    .custom-card select:focus,
-    .custom-card textarea:focus {
-        background-color: #111827;
-        border-color: #2563eb;
-        box-shadow: none;
-        color: white;
-    }
-
-    /* Table */
-    .custom-table thead {
-        background-color: #1e293b;
-        color: white;
-    }
-
-    .custom-table tbody tr {
-        background-color: #111827;
-        color: #e5e7eb;
-    }
-
-    .custom-table tbody tr:hover {
-        background-color: #1f2937;
-    }
-
-    /* Button */
-    .btn-custom {
-        background: linear-gradient(90deg,#2563eb,#1d4ed8);
-        border: none;
-    }
-
-    .btn-custom:hover {
-        opacity: 0.9;
-    }
-</style>
-
-
-<div class="container-fluid">
-    <div class="row">
-
-        {{-- FORM INPUT --}}
-        <div class="col-md-5">
-
-            <div class="card shadow custom-card">
-                <div class="card-header custom-header-form">
-                    Tambah Alumni
-                </div>
-
-                <div class="card-body">
-
-                    <form action="{{ route('admin.alumni.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-
-                        <div class="mb-3">
-                            <label>Nama Alumni</label>
-                            <input type="text" name="nama" class="form-control" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label>Fakultas</label>
-                            <select name="faculty_id" id="faculty" class="form-control" required>
-                                <option value="">-- Pilih Fakultas --</option>
-                                @foreach ($faculties as $faculty)
-                                    <option value="{{ $faculty->id }}">
-                                        {{ $faculty->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label>Prodi</label>
-                            <select name="prodi_id" id="prodi" class="form-control" required>
-                                <option value="">-- Pilih Prodi --</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label>Perusahaan</label>
-                            <input type="text" name="perusahaan" class="form-control">
-                        </div>
-
-                        <div class="mb-3">
-                            <label>Jabatan</label>
-                            <input type="text" name="jabatan" class="form-control">
-                        </div>
-
-                        <div class="mb-3">
-                            <label>Pesan & Kesan</label>
-                            <textarea name="pesan_kesan" class="form-control" rows="3"></textarea>
-                        </div>
-
-                        <div class="mb-3">
-                            <label>Foto Alumni</label>
-                            <input type="file" name="foto" class="form-control">
-                        </div>
-
-                        <button type="submit" class="btn btn-custom w-100 text-white">
-                            Simpan Alumni
-                        </button>
-
-                    </form>
-
-                </div>
-            </div>
-
-        </div>
-
-
-        {{-- TABEL --}}
-        <div class="col-md-7">
-
-            <div class="card shadow custom-card">
-                <div class="card-header custom-header-table">
-                    Data Alumni
-                </div>
-
-                <div class="card-body table-responsive">
-
-                    <table class="table table-bordered custom-table">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Fakultas</th>
-                                <th>Prodi</th>
-                                <th>Perusahaan</th>
-                                <th>Jabatan</th>
-                                <th>Foto</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @foreach ($alumni as $a)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $a->nama }}</td>
-                                <td>{{ $a->faculty->name ?? '-' }}</td>
-                                <td>{{ $a->prodi->name ?? '-' }}</td>
-                                <td>{{ $a->perusahaan }}</td>
-                                <td>{{ $a->jabatan }}</td>
-                                <td>
-                                    @if($a->foto)
-                                        <img src="{{ asset('storage/'.$a->foto) }}" width="60">
-                                    @else
-                                        -
-                                    @endif
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-
-                    </table>
-
-                </div>
-            </div>
-
-        </div>
-
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+    <div>
+        <h1 class="h2 fw-bold">Data Alumni</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/dashboard" class="text-decoration-none">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Alumni</li>
+            </ol>
+        </nav>
     </div>
 </div>
 
+<div class="row">
+    
+    {{-- KOLOM KIRI: FORM INPUT --}}
+    <div class="col-lg-4 mb-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white py-3">
+                <h6 class="m-0 fw-bold text-primary"><i class="bi bi-person-plus-fill me-2"></i>Tambah Alumni Baru</h6>
+            </div>
+            
+            <div class="card-body">
+                
+                {{-- Tampilkan Error Validasi jika ada --}}
+                @if ($errors->any())
+                    <div class="alert alert-danger p-2 small">
+                        <ul class="mb-0 ps-3">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
-{{-- AJAX PRODI --}}
+                <form action="{{ route('admin.alumni.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Nama Lengkap</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-person"></i></span>
+                            <input type="text" name="nama" class="form-control" placeholder="Nama Alumni" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Fakultas</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-building"></i></span>
+                            <select name="faculty_id" id="faculty" class="form-select" required>
+                                <option value="">-- Pilih Fakultas --</option>
+                                @foreach ($faculties as $faculty)
+                                    <option value="{{ $faculty->id }}">{{ $faculty->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Program Studi</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-mortarboard"></i></span>
+                            <select name="prodi_id" id="prodi" class="form-select" required>
+                                <option value="">-- Pilih Fakultas Dulu --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-muted">Perusahaan</label>
+                            <input type="text" name="perusahaan" class="form-control form-control-sm" placeholder="PT...">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-muted">Jabatan</label>
+                            <input type="text" name="jabatan" class="form-control form-control-sm" placeholder="Posisi">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Testimoni / Pesan</label>
+                        <textarea name="pesan_kesan" class="form-control" rows="3" placeholder="Kesan selama kuliah..."></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-muted">Foto Profil</label>
+                        <input type="file" name="foto" class="form-control">
+                        <div class="form-text small">Format: JPG, PNG. Max: 2MB.</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-save me-1"></i> Simpan Data
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- KOLOM KANAN: TABEL DATA --}}
+    <div class="col-lg-8">
+        
+        {{-- Alert Success --}}
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+                <i class="bi bi-check-circle me-2"></i> {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <h6 class="m-0 fw-bold text-primary"><i class="bi bi-people me-2"></i>Daftar Alumni</h6>
+                <div class="card-tools">
+                    <input type="text" class="form-control form-control-sm" placeholder="Cari alumni...">
+                </div>
+            </div>
+
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-3" width="5%">#</th>
+                                <th width="35%">Alumni</th>
+                                <th width="30%">Karir</th>
+                                <th width="20%">Akademik</th>
+                                <th width="10%">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($alumni as $a)
+                            <tr>
+                                <td class="ps-3">{{ $loop->iteration }}</td>
+                                
+                                {{-- Kolom Nama & Foto --}}
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        {{-- Avatar Logic --}}
+                                        <div class="me-3">
+                                            @if($a->foto)
+                                                <img src="{{ asset('storage/'.$a->foto) }}" 
+                                                     class="rounded-circle object-fit-cover border" 
+                                                     width="45" height="45" alt="Avatar">
+                                            @else
+                                                <div class="bg-secondary-subtle text-secondary rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
+                                                    <i class="bi bi-person-fill fs-5"></i>
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-dark">{{ $a->nama }}</div>
+                                            <small class="text-muted fst-italic">"{{ Str::limit($a->pesan_kesan, 20) }}"</small>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                {{-- Kolom Karir --}}
+                                <td>
+                                    <div class="fw-semibold text-dark">{{ $a->perusahaan ?? '-' }}</div>
+                                    <div class="small text-muted">{{ $a->jabatan ?? 'Belum bekerja' }}</div>
+                                </td>
+
+                                {{-- Kolom Akademik --}}
+                                <td>
+                                    <div class="small text-dark">{{ $a->prodi->name ?? '-' }}</div>
+                                    <div class="small text-secondary" style="font-size: 0.75rem;">{{ $a->faculty->name ?? '-' }}</div>
+                                </td>
+
+                                {{-- Kolom Aksi --}}
+                                <td>
+                                    <div class="btn-group">
+                                        {{-- Tombol Edit (Contoh) --}}
+                                        <a href="#" class="btn btn-sm btn-light text-primary" title="Edit">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        {{-- Tombol Hapus (Contoh) --}}
+                                        <form action="#" method="POST" onsubmit="return confirm('Hapus?');" class="d-inline">
+                                            @csrf @method('DELETE')
+                                            <button class="btn btn-sm btn-light text-danger" title="Hapus">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="5" class="text-center py-5 text-muted">
+                                    <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                                    Belum ada data alumni.
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- SCRIPT AJAX --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <script>
-$('#faculty').change(function() {
+    $(document).ready(function() {
+        $('#faculty').change(function() {
+            let faculty_id = $(this).val();
+            let prodiSelect = $('#prodi');
 
-    let faculty_id = $(this).val();
+            // Reset dan Loading
+            prodiSelect.html('<option value="">Loading...</option>');
+            prodiSelect.prop('disabled', true);
 
-    $('#prodi').html('<option>Loading...</option>');
+            if(faculty_id) {
+                $.get('/admin/get-prodi/' + faculty_id, function(data) {
+                    let option = '<option value="">-- Pilih Prodi --</option>';
+                    
+                    if(data.length > 0) {
+                        data.forEach(function(item) {
+                            option += `<option value="${item.id}">${item.name}</option>`;
+                        });
+                    } else {
+                        option = '<option value="">Tidak ada prodi</option>';
+                    }
 
-    $.get('/admin/get-prodi/' + faculty_id, function(data) {
-
-        let option = '<option value="">-- Pilih Prodi --</option>';
-
-        data.forEach(function(item) {
-            option += `<option value="${item.id}">${item.name}</option>`;
+                    prodiSelect.html(option);
+                    prodiSelect.prop('disabled', false);
+                }).fail(function() {
+                    prodiSelect.html('<option value="">Gagal memuat prodi</option>');
+                });
+            } else {
+                prodiSelect.html('<option value="">-- Pilih Fakultas Dulu --</option>');
+                prodiSelect.prop('disabled', true);
+            }
         });
-
-        $('#prodi').html(option);
-
     });
-
-});
 </script>
 
 @endsection

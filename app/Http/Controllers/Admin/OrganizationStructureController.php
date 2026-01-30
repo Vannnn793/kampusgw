@@ -46,6 +46,7 @@ class OrganizationStructureController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'position' => 'required',
+            'faculty_id' => 'nullable',
             'photo' => 'image|nullable',
             'description' => 'nullable',
             'order' => 'nullable|integer'
@@ -55,20 +56,31 @@ class OrganizationStructureController extends Controller
             $data['photo'] = $request->file('photo')
                                     ->store('organization','public');
         }
+        if ($request->position == 'pimpinan_univ') {
+        $data['faculty_id'] = null;
+    }
 
         $organizationStructure->update($data);
         return redirect()->route('admin.organization.index');
     }
 
-    public function destroy(OrganizationStructure $organizationStructure)
-    {
-        $organizationStructure->delete();
-        return back();
+    public function destroy($id)
+{
+    $org = OrganizationStructure::findOrFail($id);
+
+    // Hapus file foto dari storage
+    if ($org->photo && \Illuminate\Support\Facades\Storage::exists('public/' . $org->photo)) {
+        \Illuminate\Support\Facades\Storage::delete('public/' . $org->photo);
     }
 
+    $org->delete();
+
+    return redirect()->route('admin.organization.index')->with('success', 'Data pejabat berhasil dihapus!');
+}
     public function create()
     {
-        //
+        $faculties = Faculty::all();
+        return view('admin.organization.index', compact('faculties'));   
     }
 
     /**
