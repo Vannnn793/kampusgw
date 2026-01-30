@@ -11,6 +11,10 @@ use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\AlumniController as AdminAlumni;
 use App\Http\Controllers\CareerController;
+use App\Http\Controllers\TentangController;
+
+Route::get('/tentang/akreditasi', 'App\Http\Controllers\TentangController@akreditasi')
+    ->name('tentang.akreditasi');
 
 Route::get('/careers', [CareerController::class, 'index'])->name('careers');
 

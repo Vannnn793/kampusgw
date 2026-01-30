@@ -47,55 +47,87 @@
 <section class="bg-gradient-to-b from-slate-950 to-indigo-950 py-24 text-white">
     <div class="max-w-7xl mx-auto px-6">
 
-        <h2 class="text-3xl font-bold text-cyan-400 mb-12"
-            data-aos="fade-up">
+        <h2 class="text-3xl font-bold text-cyan-400 mb-12" data-aos="fade-up">
             Daftar Sertifikat Akreditasi
         </h2>
 
         <div class="overflow-x-auto rounded-2xl shadow-xl"
              data-aos="fade-up"
              data-aos-delay="100">
+
             <table class="w-full border-collapse bg-slate-900/70 backdrop-blur text-sm">
                 <thead>
                     <tr class="bg-slate-800 text-cyan-400">
                         <th class="px-4 py-4">No</th>
-                        <th class="px-4 py-4 text-left">Institusi / Program Studi</th>
-                        <th class="px-4 py-4 text-left">Nomor SK</th>
+                        <th class="px-4 py-4 text-left">Program Studi</th>
+                        <th class="px-4 py-4 text-left">Nomor Sertifikat</th>
                         <th class="px-4 py-4">Masa Berlaku</th>
                         <th class="px-4 py-4">Peringkat</th>
                         <th class="px-4 py-4">Status</th>
                     </tr>
                 </thead>
+
                 <tbody class="text-slate-300">
 
-                    @php
-                    $data = [
-                        [1,'Institut KampusGw','001/SK/BAN-PT/Akred/PT/I/2024','2024–2029','Baik Sekali','Berlaku'],
-                        [2,'D-III Teknik Informatika','017/BAN-PT/Ak-XII/Dpl-III/X/2011','2011–2016','C','Kedaluwarsa'],
-                        [3,'D-IV Rekayasa Perangkat Lunak','1650/BAN-PT/Akred/Dipl-IV/VII/2016','2016–2021','C','Kedaluwarsa'],
-                        [4,'D-IV Sistem Informasi','2980/SK/BAN-PT/Akred/Dipl-IV/X/2018','2018–2023','B','Kedaluwarsa'],
-                        [5,'D-III Keperawatan','164/SK/LAM-INFOKOM/Ak/D3/XII/2023','2023–2028','Baik Sekali','Berlaku'],
-                        [6,'D-III Teknik Mesin','013/BAN-PT/Ak-XI/Dpl-III/IX/2011','2011–2016','C','Kedaluwarsa'],
-                        [7,'D-III Teknik Pending dan Tata Udara','1791/SK/BAN-PT/Akred/Dipl-III/IX/2016','2016–2021','B','Kedaluwarsa'],
-                        [8,'D-IV Perancangan Manufaktur','13481/SK/BAN-PT/Akred-PMT/Dipl-IV/XII/2021','2021–2026','Baik','Berlaku'],
-                    ];
-                    @endphp
+                @forelse($accreditations ?? [] as $index => $row)
 
-                    @foreach($data as $row)
-                    <tr class="border-b border-slate-700 hover:bg-slate-800/50 transition"
-                        data-aos="fade-up"
-                        data-aos-delay="{{ $row[0] * 30 }}">
-                        <td class="px-4 py-3 text-center">{{ $row[0] }}</td>
-                        <td class="px-4 py-3">{{ $row[1] }}</td>
-                        <td class="px-4 py-3">{{ $row[2] }}</td>
-                        <td class="px-4 py-3 text-center">{{ $row[3] }}</td>
-                        <td class="px-4 py-3 text-center">{{ $row[4] }}</td>
-                        <td class="px-4 py-3 text-center">{{ $row[5] }}</td>
-                    </tr>
-                    @endforeach
+                <tr class="border-b border-slate-700 hover:bg-slate-800/50 transition"
+                    data-aos="fade-up"
+                    data-aos-delay="{{ ($index + 1) * 30 }}">
+
+                    {{-- NO --}}
+                    <td class="px-4 py-3 text-center">
+                        {{ $index + 1 }}
+                    </td>
+
+                    {{-- PROGRAM --}}
+                    <td class="px-4 py-3">
+                        {{ $row->program_name }}
+                    </td>
+
+                    {{-- SERTIFIKAT --}}
+                    <td class="px-4 py-3">
+                        {{ $row->certificate_number }}
+                    </td>
+
+                    {{-- MASA BERLAKU --}}
+                    <td class="px-4 py-3 text-center">
+                        {{ $row->valid_until }}
+                    </td>
+
+                    {{-- PERINGKAT --}}
+                    <td class="px-4 py-3 text-center">
+                        {{ $row->level }}
+                    </td>
+
+                    {{-- STATUS --}}
+                    <td class="px-4 py-3 text-center">
+                        @if(strtotime($row->valid_until) < time())
+                            <span class="px-3 py-1 rounded-full text-xs bg-red-600/20 text-red-400">
+                                Kedaluwarsa
+                            </span>
+                        @else
+                            <span class="px-3 py-1 rounded-full text-xs bg-green-600/20 text-green-400">
+                                Berlaku
+                            </span>
+                        @endif
+                    </td>
+
+                </tr>
+
+                @empty
+
+                <tr>
+                    <td colspan="6" class="text-center py-10 text-slate-400">
+                        Data akreditasi belum tersedia
+                    </td>
+                </tr>
+
+                @endforelse
 
                 </tbody>
             </table>
+
         </div>
     </div>
 </section>
@@ -110,4 +142,5 @@
         offset: 120,
     });
 </script>
+
 @endsection
