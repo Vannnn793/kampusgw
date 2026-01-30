@@ -179,7 +179,7 @@
             </a>
         </div>
         <div class="nav-item">
-            <a href="/admin/facilities/create" class="nav-link {{ request()->is('admin/facilities*') ? 'active' : '' }}">
+            <a href="/admin/facilities" class="nav-link {{ request()->is('admin/facilities*') ? 'active' : '' }}">
                 <i class="bi bi-house-gear"></i> Fasilitas
             </a>
         </div>

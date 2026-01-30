@@ -14,7 +14,8 @@ class FacilityController extends Controller
      */
     public function index()
     {
-        //
+        $facilities = Facility::all();
+        return view('admin.facilities.index', compact('facilities'));
     }
 
     /**
@@ -64,7 +65,8 @@ class FacilityController extends Controller
     public function edit(string $id)
     {
         $facility = Facility::findOrFail($id);
-        return view('admin.facilities.edit', compact('facility'));
+        $faculties = \App\Models\Faculty::all();
+        return view('admin.facilities.edit', compact('facility', 'faculties'));
     }
 
     // 5. UPDATE: Memproses perubahan data
@@ -90,7 +92,7 @@ class FacilityController extends Controller
 
         $facility->update($validatedData);
 
-        return redirect()->route('facilities.index')->with('success', 'Fasilitas berhasil diperbarui!');
+        return redirect()->route('admin.facilities.index')->with('success', 'Fasilitas berhasil diperbarui!');
     }
 
     // 6. DESTROY: Menghapus data dan gambar
@@ -105,6 +107,6 @@ class FacilityController extends Controller
 
         $facility->delete();
 
-        return redirect()->route('facilities.index')->with('success', 'Fasilitas berhasil dihapus!');
+        return redirect()->route('admin.facilities.index')->with('success', 'Fasilitas berhasil dihapus!');
     }
 }
