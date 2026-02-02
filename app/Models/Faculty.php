@@ -21,10 +21,14 @@ class Faculty extends Model
 {
     return $this->hasMany(Prodi::class);
 }
-public function staffs()
-    {
+    public function staffs()
+{
         return $this->hasMany(OrganizationStructure::class, 'faculty_id');
-    }
+}
 
+    public function facilities()
+{
+    return $this->hasMany(Facility::class);
+}
 
 }

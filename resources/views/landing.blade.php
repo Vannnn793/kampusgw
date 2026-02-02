@@ -3,69 +3,148 @@
 
 @section('content')
 
-{{-- ================= HERO ================= --}}
-<section class="relative min-h-screen flex items-center bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950 overflow-hidden">
+<style>
+/* ===== FORCE ANIMATED GRADIENT (ANTI GAGAL) ===== */
+.animated-gradient {
+    background: linear-gradient(
+  90deg,
+    #CFF7DC,   /* hijau mint soft */
+    #DCEBFF,   /* biru langit pastel */
+    #FFF9E6,   /* krem lembut */
+    #D6ECF7,   /* biru aqua muda */
+    #E6F9F0 
+    );
+    background-size: 600% 600%;
+    animation: gradientMove 5s linear infinite;
+}
 
-    <!-- Glow Effect -->
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.12),transparent_60%)]"></div>
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+</style>
+
+{{-- ================= ANNOUNCEMENT BAR (HOME ONLY) ================= --}}
+<div id="announcement-bar"
+     class="relative z-30"
+     data-aos="fade-down">
+
+    <div class="animated-gradient">
+        <div class="max-w-7xl mx-auto px-6 py-3 text-center relative">
+
+            <p class="text-sm md:text-base font-medium text-slate-800">
+                🎓 <span class="font-semibold">
+                    Penerimaan Mahasiswa Baru KampusGw 2026 Telah Dibuka!
+                </span>
+                Simak Jadwal, Syarat, dan Program Studi.
+                <a href="/admissions"
+                   class="ml-1 font-semibold underline underline-offset-4 hover:text-sky-700 transition">
+                    Lihat di Sini!
+                </a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<section class="relative min-h-screen flex items-center overflow-hidden
+bg-gradient-to-br
+from-[#FAFAF9]
+via-[#F4F6F8]
+to-[#EEF2F5]">
 
     <div class="relative max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-
-        <!-- TEXT CONTENT -->
-        <div data-aos="fade-right">
-
-            <h1 class="text-5xl md:text-6xl font-extrabold leading-tight tracking-tight">
-
-                <span class="block animate-fade-up">
-                    Kampus Teknologi
-                </span>
-
-                {{-- Animated Line Highlight --}}
-                <span class="relative inline-block text-sky-400 animate-fade-up delay-150 line-animate overflow-visible">
+        
+        {{-- TEXT --}}
+        <div>
+            <p class="uppercase tracking-[0.3em] text-sm font-semibold text-[#1E5FA3] mb-4">
+                Welcome To KampusGW
+            </p>
+            <h1 class="text-5xl md:text-6xl font-extrabold leading-tight tracking-tight text-[#0F2A44]">
+                <span class="block">Kampus Teknologi</span>
+                <span class="relative inline-block text-[#1E5FA3]">
                     Pencetak Talenta Global
                 </span>
-
             </h1>
 
-            <p class="mt-6 text-lg text-slate-300 max-w-xl animate-fade-up delay-300">
+            <p class="mt-6 text-lg font-medium text-[#1F3E63] max-w-xl">
                 Kurikulum berbasis industri, dosen praktisi,
                 dan ekosistem inovasi yang relevan dengan dunia kerja modern.
             </p>
+            
 
-            <!-- BUTTONS -->
-            <div class="mt-10 flex gap-4 animate-fade-up delay-500">
-
+            {{-- BUTTON --}}
+            <div class="mt-10 flex gap-4">
                 <a href="/admissions"
-                   class="px-8 py-4 bg-sky-400 text-slate-900 rounded-xl font-bold
-                   hover:scale-105 hover:shadow-[0_10px_30px_rgba(56,189,248,0.4)]
-                   transition duration-300">
+                   class="px-9 py-4
+                   bg-[#1E5FA3]
+                   text-white font-bold
+                   rounded-xl
+                   shadow-xl shadow-white-500/50
+                   hover:bg-[#0F3E73]
+                   hover:scale-105
+                   transition">
                     Daftar Sekarang
                 </a>
 
                 <a href="/faculties"
-                   class="px-8 py-4 border border-white/20 rounded-xl
-                   hover:bg-white/10 hover:border-sky-400/40 transition duration-300">
+                   class="px-9 py-4
+                   bg-white/90
+                   text-[#1E5FA3]
+                   font-bold
+                   border border-[#1E5FA3]
+                   rounded-xl
+                   hover:bg-[#E6F0FB]
+                   hover:scale-105
+                   shadow-md
+                   transition">
                     Jelajahi Kampus
                 </a>
-
             </div>
-
         </div>
 
-       <!-- HERO IMAGE -->
-        <div data-aos="fade-left" class="relative animate-float flex justify-center">
+        {{-- MEDIA --}}
+<div class="grid grid-cols-2 grid-rows-2 gap-5 max-w-xl mx-auto">
 
-            <div class="absolute inset-0 bg-sky-400/20 blur-3xl rounded-full"></div>
+    <div class="rounded-2xl overflow-hidden shadow-xl h-52">
+        <img src="https://kreatorjabar.com/wp-content/uploads/2024/05/IMG-20240501-WA0016-1.jpg"
+             class="w-full h-full object-cover">
+    </div>
 
-            <img 
-                src="{{ asset('storage/images/kampusgw.jpg') }}"
-                class="relative w-[300px] sm:w-[380px] md:w-[400px] rounded-2xl shadow-2xl object-cover"
-                alt="Campus Image"
-    >
-        </div>
+    <div class="rounded-2xl overflow-hidden shadow-xl h-52">
+        <img src="https://tse2.mm.bing.net/th/id/OIP.3_NMKr72QeqZchpbD8Z_vAHaHa?cb=defcache2defcache=1&rs=1&pid=ImgDetMain&o=7&rm=3"
+             class="w-full h-full object-cover">
+    </div>
+
+    {{-- VIDEO --}}
+    <a href="https://youtu.be/oKmNMPP11_I?si=l0itKniIDP6w605H"
+       target="_blank"
+       class="col-span-2 relative rounded-2xl overflow-hidden shadow-2xl group h-56">
+
+        <img src="https://biayakuliahukt.id/wp-content/uploads/2023/02/Jalur-Pendaftaran-Politeknik-Indramayu.jpg"
+             class="w-full h-full object-cover">
+
+        <div class="absolute inset-0 bg-[#0F3E73]/40 group-hover:bg-[#0F3E73]/50 transition"></div>
+
+        <div class="absolute inset-0 flex items-center justify-center">
+    <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center
+                shadow-xl group-hover:scale-110 transition duration-300">
+        <svg class="w-6 h-6 ml-0.5 text-[#1E5FA3]" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z"/>
+        </svg>
+
+    </div>
+</div>
+
+    </a>
+</div>
 
     </div>
 </section>
+
 
 
 {{-- <!-- ANIMATION -->
@@ -78,183 +157,144 @@
     animation: lineGrow 1.3s ease-out forwards;
 }
 </style> --}}
+{{-- ================= PARTNERS ================= --}}
+<section class="py-24 bg-gradient-to-br from-sky-100 via-sky-200 to-blue-300 overflow-hidden">
 
-{{-- Partners Section --}}
-<section class="py-24 bg-slate-950">
+    <style>
+        @keyframes marquee {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 25s linear infinite;
+        }
+    </style>
 
-    <!-- Glow Background -->
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.08),transparent_55%)]"></div>
+    <div class="max-w-7xl mx-auto px-6">
 
-    <div class="relative max-w-7xl mx-auto px-6">
-
-        <!-- HEADER -->
-        <div data-aos="fade-up" class="text-center mb-16">
-            <span class="uppercase tracking-widest text-sm font-semibold text-sky-400">
+        <div class="text-center mb-16">
+            <span class="uppercase tracking-widest text-sm font-semibold text-blue-700">
                 Partnership Network
             </span>
 
-            <h2 class="mt-3 text-4xl md:text-5xl font-extrabold text-white">
-                Mitra <span class="text-sky-400">Industri</span>
+            <h2 class="mt-3 text-4xl md:text-5xl font-extrabold text-slate-900">
+                Mitra <span class="text-blue-700">Industri</span>
             </h2>
 
-            <p class="mt-4 text-slate-400 max-w-xl mx-auto">
+            <p class="mt-4 text-slate-800 max-w-xl mx-auto">
                 Bekerja sama dengan perusahaan nasional & global untuk membangun ekosistem pendidikan berbasis industri.
             </p>
         </div>
 
-        <!-- AUTO SLIDE CONTAINER -->
-        <div class="relative overflow-hidden">
+        {{-- LOGO PARTNER SLIDER --}}
+        @if($partners->count())
+        <div class="relative w-full overflow-hidden">
 
-            <div class="flex gap-8 animate-marquee">
+            <div class="flex items-center gap-16 animate-marquee w-max">
 
+                {{-- LOOP 1 --}}
                 @foreach($partners as $partner)
-                <div
-                    data-aos="zoom-in"
-                    class="group relative min-w-[140px] h-[90px]
-                    flex items-center justify-center
-                    bg-white/5 backdrop-blur-xl
-                    border border-white/10
-                    rounded-xl
-                    transition duration-300
-                    hover:-translate-y-1
-                    hover:border-sky-400/40
-                    hover:shadow-[0_12px_24px_rgba(56,189,248,0.15)]">
+                    <img src="{{ asset('storage/'.$partner->logo) }}"
+                         alt="{{ $partner->name }}"
+                         class="h-14 object-contain">
+                @endforeach
 
-                    <!-- Logo -->
-                    <img
-                        src="{{ asset('storage/'.$partner->logo) }}"
-                        alt="{{ $partner->name }}"
-                        class="w-[85%] h-[85%] object-contain
-                        grayscale opacity-80
-                        group-hover:grayscale-0
-                        group-hover:opacity-100
-                        transition duration-300">
-
-                    <!-- TOOLTIP -->
-                    <div
-                        class="absolute -bottom-8 scale-0 group-hover:scale-100 transition
-                        bg-slate-900 text-white text-xs px-3 py-1 rounded-lg shadow-lg whitespace-nowrap">
-                        {{ $partner->name }}
-                    </div>
-
-                    <!-- Hover Glow -->
-                    <div
-                        class="absolute inset-0 rounded-xl opacity-0
-                        group-hover:opacity-100 transition
-                        bg-gradient-to-br from-sky-400/10 to-transparent">
-                    </div>
-
-                </div>
+                {{-- LOOP 2 biar muter mulus --}}
+                @foreach($partners as $partner)
+                    <img src="{{ asset('storage/'.$partner->logo) }}"
+                         alt="{{ $partner->name }}"
+                         class="h-14 object-contain">
                 @endforeach
 
             </div>
 
         </div>
+        @else
+        <p class="text-center text-slate-700">Belum ada data partner.</p>
+        @endif
 
     </div>
-
 </section>
-
 {{-- ================= FAKULTAS ================= --}}
-<section class="py-24 bg-slate-900 text-white">
+<section class="relative py-28 bg-[#1583D7] text-white overflow-hidden">
 
-    {{-- Background Accent --}}
-    <div class="absolute -top-40 left-10 w-[30rem] h-[30rem] bg-indigo-500/15 blur-3xl rounded-full"></div>
-    <div class="absolute top-1/3 right-0 w-[28rem] h-[28rem] bg-cyan-500/10 blur-3xl rounded-full"></div>
-    <div class="absolute bottom-0 left-1/3 w-[25rem] h-[25rem] bg-purple-500/10 blur-3xl rounded-full"></div>
+    {{-- Background Accent (halus, ga norak) --}}
+    <div class="absolute -top-40 left-10 w-[32rem] h-[32rem] bg-white/10 blur-3xl rounded-full"></div>
+    <div class="absolute top-1/3 right-0 w-[30rem] h-[30rem] bg-[#0E5FA8]/30 blur-3xl rounded-full"></div>
 
     <div class="relative max-w-7xl mx-auto px-6">
 
         {{-- Header --}}
-        <div class="text-center mb-16" data-aos="fade-up">
-            <h2 class="text-4xl font-extrabold bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-400 bg-clip-text text-transparent animate-gradient">
+        <div class="text-center mb-20">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-white">
                 Fakultas Unggulan
             </h2>
 
-            <p class="mt-4 text-slate-300 max-w-xl mx-auto">
+            <p class="mt-5 max-w-xl mx-auto text-blue-100 font-medium text-lg">
                 Dirancang untuk kebutuhan industri masa depan.
             </p>
         </div>
 
-        {{-- Fakultas Grid --}}
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {{-- GRID (3 FAKULTAS SAJA – 1 BARIS) --}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
 
-            @foreach($faculties as $faculty)
-
+            @foreach($faculties->take(3) as $faculty)
             <div
-                data-aos="zoom-in"
-                class="group relative rounded-2xl overflow-hidden
-                bg-white/5 border border-white/10
-                hover:border-sky-400/40
-                hover:shadow-xl hover:shadow-sky-500/20
-                transition duration-300">
+                class="group rounded-3xl overflow-hidden
+                bg-white
+                border border-blue-200
+                shadow-xl shadow-blue-900/20
+                hover:shadow-blue-900/40
+                hover:-translate-y-3
+                transition-all duration-500 ease-out">
 
-
-            <div class="rounded-2xl p-8 bg-white/5 border border-white/10 hover:bg-white/10 hover:scale-105 transition">
-                    <img
-                        src="{{ asset('storage/'.$faculty->image) }}"
+                {{-- IMAGE --}}
+                <div class="relative w-full h-64 overflow-hidden">
+                    <img 
+                        src="{{ asset('storage/'.$faculty->image) }}" 
                         alt="{{ $faculty->name }}"
                         class="w-full h-full object-cover
-                        group-hover:scale-110 transition duration-500">
-
-                    {{-- Overlay --}}
-                    <div class="absolute inset-0 bg-gradient-to-t
-                        from-black/70 via-black/30 to-transparent">
-                    </div>
-
+                               group-hover:scale-110
+                               transition-transform duration-700 ease-out">
                 </div>
 
-                {{-- Content --}}
-                <div class="relative p-6 flex flex-col h-full">
-
-                    <h3 class="text-lg font-bold mb-2">
+                {{-- CONTENT --}}
+                <div class="p-8">
+                    <h3 class="text-2xl font-extrabold mb-3 text-[#0F3D73]">
                         {{ $faculty->name }}
                     </h3>
 
-                    <p class="text-slate-300 text-sm leading-relaxed flex-grow">
-                        {{ Str::limit($faculty->description ?? 'Program unggulan berbasis teknologi dan industri.', 80) }}
+                    <p class="text-slate-600 text-base leading-relaxed">
+                        {{ Str::limit($faculty->description ?? 'Program unggulan berbasis teknologi dan industri.', 110) }}
                     </p>
-
                 </div>
             </div>
-
             @endforeach
 
         </div>
 
-        {{-- BUTTON LIHAT SEMUA FAKULTAS --}}
-        <div class="mt-14 text-center" data-aos="fade-up">
-
+        {{-- BUTTON --}}
+        <div class="mt-20 text-center">
             <a href="/faculties"
-                class="group relative inline-flex items-center justify-center
-                px-12 py-4 rounded-full font-semibold
-                text-white tracking-wide
-                bg-gradient-to-r from-cyan-500 to-indigo-500
-                shadow-lg shadow-indigo-500/30
-                hover:shadow-indigo-500/60
-                hover:scale-105
-                transition-all duration-300">
-
-                <span class="group-hover:tracking-wider transition">
-                    Lihat Semua Fakultas
-                </span>
-
-                <span class="ml-3 text-lg group-hover:translate-x-1 transition">
-                    →
-                </span>
-
-                {{-- Glow Layer --}}
-                <span class="absolute inset-0 rounded-full blur-xl opacity-30
-                      bg-gradient-to-r from-cyan-500 to-indigo-500
-                      -z-10"></span>
-
+               class="inline-flex items-center justify-center
+               px-16 py-5 rounded-full font-bold text-lg
+               text-white
+               bg-[#0E5FA8]
+               hover:bg-[#0A4C87]
+               shadow-xl shadow-blue-900/40
+               hover:scale-105
+               transition-all duration-300">
+                Lihat Semua Fakultas →
             </a>
-
         </div>
 
     </div>
-
 </section>
+
+
+
+
+
 <!-- ================= TENTANG KAMI (LANDING) ================= -->
 {{-- <section
     class="py-28 bg-gradient-to-r from-sky-500 to-indigo-600 text-center text-white>
@@ -400,49 +440,34 @@
 
 
 {{-- ================= CTA ================= --}}
-<section class="relative py-28 bg-gradient-to-br from-sky-500 via-indigo-500 to-purple-600 overflow-hidden">
-
-    {{-- Glow Effect --}}
-    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[700px]
-                bg-white/20 blur-3xl rounded-full animate-pulse"></div>
+<section class="relative py-28 bg-white overflow-hidden">
 
     <div class="relative max-w-5xl mx-auto px-6 text-center">
 
         {{-- Title --}}
-        <h2 data-aos="zoom-in"
-            class="text-4xl md:text-5xl font-extrabold leading-tight
-            bg-gradient-to-r from-white via-sky-200 to-indigo-200
-            bg-clip-text text-transparent">
-
+        <h2 class="text-4xl md:text-5xl font-extrabold leading-tight text-slate-900">
             Masa Depan Tidak Menunggu
-
         </h2>
 
         {{-- Subtitle --}}
-        <p data-aos="fade-up" data-aos-delay="150"
-           class="mt-6 text-lg max-w-2xl mx-auto
-           text-white/90">
-
-            <span class="text-sky-200 font-semibold">
+        <p class="mt-6 text-lg max-w-2xl mx-auto text-slate-600">
+            <span class="font-semibold">
                 Bergabunglah sekarang
             </span>
             dan bangun karier bersama kampus yang menyiapkanmu
             untuk dunia kerja nyata, bukan sekadar teori.
-
         </p>
 
         {{-- BUTTON CTA --}}
-        <div data-aos="fade-up" data-aos-delay="300"
-             class="mt-14 flex justify-center">
+        <div class="mt-14 flex justify-center">
 
             <a href="/admissions"
-               class="group relative inline-flex items-center justify-center
+               class="group inline-flex items-center justify-center
                px-14 py-5 rounded-full font-bold text-lg
-               bg-gradient-to-r from-slate-900 to-slate-800
-               text-sky-300
-               hover:text-white
-               hover:scale-110
-               hover:shadow-[0_18px_45px_rgba(0,0,0,0.5)]
+               bg-[#1E5FA3] text-white
+               hover:bg-[#174C87]
+               hover:scale-105
+               shadow-md shadow-black/20
                transition-all duration-300">
 
                 <span class="group-hover:tracking-wider transition">
@@ -453,11 +478,6 @@
                     →
                 </span>
 
-                {{-- Glow Layer --}}
-                <span class="absolute inset-0 rounded-full blur-xl opacity-30
-                      bg-gradient-to-r from-sky-400 to-indigo-500
-                      -z-10"></span>
-
             </a>
 
         </div>
@@ -466,124 +486,110 @@
 
 </section>
 
+
 {{-- ================= BERITA ================= --}}
 <section id="berita-kampus"
-class="py-28 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950">
+class="relative py-28 bg-gradient-to-br from-sky-100 via-sky-200 to-blue-300 overflow-hidden">
 
-<div class="max-w-7xl mx-auto px-6">
+{{-- Glow biru biar hidup --}}
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(2,132,199,0.25),transparent_60%)]"></div>
 
-<h2 class="text-3xl font-extrabold mb-10 border-l-4 border-sky-500 pl-4 animate-fade-in-up">
+<div class="relative max-w-7xl mx-auto px-6">
+
+<h2 class="text-3xl font-extrabold mb-10 border-l-4 border-blue-600 pl-4 text-slate-900">
     Berita & Update Kampus
 </h2>
 
 <div class="grid lg:grid-cols-2 gap-10">
 
-{{-- BERITA UTAMA --}}
+{{-- ================= BERITA UTAMA ================= --}}
 @if($posts->count())
-<div class="group relative rounded-2xl overflow-hidden shadow-xl hover:shadow-sky-500/20 transition">
+<div class="group relative rounded-2xl overflow-hidden shadow-xl hover:shadow-blue-400/40 transition">
 
-    {{-- IMAGE --}}
-    {{-- <h3 class="inline-block bg-sky-500 text-sm px-3 py-1 rounded-full w-fit mb-3">{{ $posts[0]->category->name }}</h3> --}}
     <img src="{{ asset('storage/'.$posts[0]->thumbnail) }}"
-         class="w-full h-full object-cover brightness-75
-                group-hover:scale-110 transition duration-500">
+         class="w-full h-full object-cover brightness-95 group-hover:scale-105 transition duration-500">
 
-    {{-- OVERLAY (TIDAK BLOK KLIK) --}}
-    <div
-        class="absolute inset-0 bg-gradient-to-t
-        from-black/70 via-black/30 to-transparent
-        pointer-events-none z-0">
-    </div>
+    {{-- Overlay biar teks kebaca --}}
+    <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-transparent"></div>
 
-    {{-- CONTENT --}}
-    <div class="absolute inset-0 flex flex-col justify-end p-6 text-white z-10">
+    <div class="absolute inset-0 flex flex-col justify-end p-6 text-white">
 
-        <span class="inline-block bg-sky-500 text-sm px-3 py-1 rounded-full w-fit mb-3">
+        <span class="inline-block bg-blue-600 text-sm px-3 py-1 rounded-full w-fit mb-3 shadow">
             Berita Utama
         </span>
 
-        <h3 class="text-2xl font-bold">
+        <h3 class="text-2xl font-bold drop-shadow-md leading-snug">
             {{ $posts[0]->title }}
         </h3>
 
-        <p class="text-sm opacity-80 mt-1">
+        <p class="text-sm opacity-90 mt-1">
             {{ $posts[0]->created_at->format('d M Y') }}
         </p>
 
         <button
             onclick="openPost('{{ $posts[0]->slug }}')"
-            class="btn btn-primary mt-4 px-5 py-2 bg-sky-400 text-slate-900 font-semibold rounded-lg hover:scale-105 hover:shadow-[0_8px_20px_rgba(56,189,248,0.4)] transition">
+            class="mt-4 px-5 py-2 bg-white text-blue-700 font-semibold rounded-lg hover:bg-blue-50 transition">
             Baca Selengkapnya
         </button>
-
 
     </div>
 </div>
 @endif
 
-{{-- LIST BERITA --}}
+
+{{-- ================= LIST BERITA ================= --}}
 <div class="flex flex-col gap-4">
 
 @foreach($posts->skip(1) as $post)
 <div
 class="group flex gap-4 items-center
-bg-white/5 backdrop-blur-md
-border border-white/10
-p-4 rounded-xl
-hover:border-sky-400/40 hover:shadow-lg hover:shadow-sky-500/20 transition
-relative z-10">
+bg-white/90 backdrop-blur-sm border border-blue-200
+p-4 rounded-xl shadow-sm
+hover:border-blue-400 hover:shadow-md transition">
 
 <img src="{{ asset('storage/'.$post->thumbnail) }}"
-     class="w-24 h-20 object-cover rounded-lg group-hover:scale-110 transition">
+     class="w-24 h-20 object-cover rounded-lg group-hover:scale-105 transition">
 
 <div>
-    <p class="text-sm text-slate-400">
+    <p class="text-sm text-slate-600">
         {{ $post->created_at->format('d M Y') }}
     </p>
 
-    <h4 class="font-semibold text-white leading-snug">
+    <h4 class="font-semibold text-slate-900 leading-snug">
         {{ Str::limit($post->title, 55) }}
     </h4>
 
     <button
         onclick="openPost('{{ $post->slug }}')"
-        class="mt-2 text-sky-400 font-semibold hover:underline">
+        class="mt-2 text-blue-700 font-semibold hover:underline">
         Baca →
     </button>
-
 </div>
 
 </div>
 @endforeach
-
-</div>
-
-</div>
 </div>
 </section>
-
+{{-- ================= DETAIL POST ================= --}}
 <section id="post-detail"
-         class="py-20 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950 d-none">
-    <div class="container py-8 px-6 mx-auto bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-lg max-w-4xl text-white">
+class="py-20 bg-gradient-to-br from-sky-100 via-sky-200 to-blue-300 d-none">
 
-        {{-- <button onclick="closePost()"
-                class="btn btn-sm btn-outline-secondary mb-4">
-            ← Kembali ke Berita
-        </button> --}}
+<div class="container py-8 px-6 mx-auto bg-white/95 backdrop-blur-sm border border-blue-200 rounded-2xl shadow-xl max-w-4xl text-slate-900">
 
-        <img id="detail-thumb"
-             class="img-fluid rounded mb-4 w-100"
-             style="max-height:420px; object-fit:cover">
+<img id="detail-thumb"
+     class="img-fluid rounded mb-4 w-100"
+     style="max-height:420px; object-fit:cover">
 
-        <h1 id="detail-title" class="fw-bold mb-2"></h1>
-        <p id="detail-date" class="text-muted mb-4"></p>
+<h1 id="detail-title" class="font-bold text-3xl mb-2"></h1>
+<p id="detail-date" class="text-slate-600 mb-4"></p>
 
-        <article id="detail-content"
-                 class="fs-5 lh-lg">
-        </article>
+<article id="detail-content"
+         class="text-lg leading-relaxed">
+</article>
 
-    </div>
+</div>
 </section>
+
 
 
 <script>

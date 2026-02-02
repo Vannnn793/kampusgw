@@ -55,50 +55,39 @@
 
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        @foreach($faculties as $faculty)
+        <a href="{{ route('faculties.show', $faculty->slug) }}"
+           data-aos="zoom-in"
+           class="group block relative rounded-2xl overflow-hidden
+                  bg-white/5 border border-white/10
+                  hover:border-sky-400/40
+                  hover:shadow-xl hover:shadow-sky-500/20
+                  transition duration-300">
 
-            @foreach($faculties as $faculty)
-            <a href="{{ url('/faculties/'.$faculty->id) }}">
-            <div data-aos="zoom-in"
-                class="group relative rounded-2xl overflow-hidden
-                bg-white/5 border border-white/10
-                hover:border-sky-400/40
-                hover:shadow-xl hover:shadow-sky-500/20
-                transition duration-300">
+            {{-- Image --}}
+            <div class="relative h-56 overflow-hidden">
 
-                {{-- Image --}}
-                <div class="relative h-56 overflow-hidden">
-
-                    <img src="{{ asset('storage/'.$faculty->image) }}"
-                         alt="{{ $faculty->name }}"
-                         class="w-full h-full object-cover
-                         group-hover:scale-110 transition duration-500">
-
-                    <div class="absolute inset-0 bg-gradient-to-t
-                        from-black/70 via-black/30 to-transparent"></div>
-
+                <img src="{{ asset('storage/'.$faculty->image) }}"
+                     alt="{{ $faculty->name }}"
+                     class="w-full h-full object-cover
+                            group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t
+                            from-black/70 via-black/30 to-transparent"></div>
                 </div>
-
-                {{-- Content --}}
+            {{-- Content --}}
                 <div class="p-6">
-
-                    <h3 class="text-lg font-bold mb-2">
-                        {{ $faculty->name }}
-                    </h3>
-
-                    <p class="text-slate-300 text-sm leading-relaxed">
-                        {{ Str::limit($faculty->description ?? 'Program unggulan berbasis teknologi dan industri.', 90) }}
-                    </p>
-
+                <h3 class="text-lg font-bold mb-2 text-white">
+                    {{ $faculty->name }}
+                </h3>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    {{ Str::limit($faculty->description ?? 'Program unggulan berbasis teknologi dan industri.', 90) }}
+                </p>
                 </div>
-
-            </div>
-
-            @endforeach
-
-        </div>
-
+            </a>
+        @endforeach
     </div>
 
+    </div>
 </section>
 
 @endsection

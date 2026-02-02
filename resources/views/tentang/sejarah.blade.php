@@ -1,164 +1,202 @@
 @extends('layout.main')
-@section('title','Sejarah Politeknik Negeri Indramayu')
+@section('title','Profil Kampus')
 
 @section('content')
 
-{{-- AOS CSS --}}
 <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
-{{-- ================= HERO ================= --}}
-<section class="relative h-screen overflow-hidden">
-    <img 
-        src="{{ asset('storage/images/kampusgw.jpg') }}"
-        class="absolute inset-0 w-full h-full object-cover scale-110"
-        alt="KampusGw.com"
-    >
+{{-- ================= HERO (BG FOTO TIDAK DIUBAH) ================= --}}
+<section class="relative h-screen overflow-hidden bg-neutral-100">
+    <img
+        src="{{ $profil && $profil->logo_path
+            ? asset('storage/'.$profil->logo_path)
+            : asset('storage/images/kampusgw.jpg') }}"
+        class="absolute inset-0 w-full h-full object-cover"
+        alt="Kampus"
+        data-aos="zoom-out"
+        data-aos-duration="1500">
 
-    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-indigo-950/60"></div>
+    <div class="absolute inset-0 bg-[#151B54]/70"></div>
 
     <div class="relative z-10 h-full flex items-center">
         <div class="max-w-6xl mx-auto px-6">
-            <p class="text-cyan-400 uppercase tracking-widest mb-4"
+            <p class="text-sky-200 uppercase tracking-widest mb-4"
                data-aos="fade-down">
                 Sejarah Institusi
             </p>
 
             <h1 class="text-6xl md:text-7xl font-extrabold text-white leading-tight mb-8"
-                data-aos="fade-up">
-                Kampus<br>
-                <span class="text-cyan-400">Gw</span>
+                data-aos="fade-up"
+                data-aos-delay="150">
+                Politeknik<br>
+                <span class="text-sky-300">Negeri Indramayu</span>
             </h1>
 
-            <p class="text-xl text-slate-300 max-w-3xl leading-relaxed text-justify"
-               data-aos="fade-up" data-aos-delay="200">
-                Lahir dari kebijakan nasional dan komitmen daerah dalam
-                membangun pendidikan vokasi sebagai fondasi peningkatan
-                kualitas sumber daya manusia Indonesia.
+            <p class="text-xl text-sky-100 max-w-3xl leading-relaxed text-justify italic"
+               data-aos="fade-up"
+               data-aos-delay="300">
+                {{ $profil
+                    ? \Illuminate\Support\Str::limit(strip_tags($profil->sejarah_kampus), 220)
+                    : 'Sejarah kampus belum diisi.' }}
             </p>
         </div>
     </div>
 </section>
 
-{{-- ================= OPENING ================= --}}
-<section class="bg-slate-950 text-white py-40">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-        <p class="text-2xl text-slate-300 italic leading-relaxed"
-           data-aos="zoom-in">
-            “Pendidikan vokasi membuka akses, harapan, dan masa depan
-            bagi generasi daerah.”
-        </p>
-    </div>
-</section>
+{{-- ===================== --}}
+{{-- SECTION SEJARAH KAMPUS --}}
+{{-- ===================== --}}
+<section class="py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
 
-{{-- ================= MAIN CONTENT ================= --}}
-<section class="bg-gradient-to-b from-slate-950 to-indigo-950 text-white py-40">
-    <div class="max-w-5xl mx-auto px-6 space-y-40">
-
-        {{-- Latar Belakang --}}
-        <div class="grid md:grid-cols-2 gap-20 items-center">
-            <div data-aos="fade-right">
-                <h2 class="text-4xl font-bold text-cyan-400 mb-8">
-                    Latar Belakang Pendirian
-                </h2>
-
-                <p class="text-slate-300 text-lg leading-relaxed mb-6 text-justify">
-                    Pendirian KampusGW dilatarbelakangi oleh meningkatnya kebutuhan akan 
-                    sumber daya manusia yang memiliki keahlian profesional serta pemahaman teknologi yang kuat.
-                    Dunia industri menuntut lulusan yang tidak hanya unggul secara akademik, 
-                    tetapi juga mampu menerapkan ilmu secara nyata dalam lingkungan kerja.
-                </p>
-
-                <p class="text-slate-300 text-lg leading-relaxed text-justify">
-                    Sebagai respons terhadap tantangan tersebut, KampusGW mengembangkan 
-                    konsep pendidikan yang menekankan keseimbangan antara teori, praktik,
-                     inovasi, dan karakter. Institusi ini hadir sebagai jembatan antara dunia
-                      pendidikan dan dunia industri melalui kolaborasi, penelitian terapan, 
-                      serta program pengembangan kompetensi mahasiswa.
-                </p>
-            </div>
-
-            <img 
-               src="{{ asset('storage/images/gerbang.png') }}"
-                class="rounded-[2rem] shadow-2xl"
-                alt="Awal KampusGw"
-                data-aos="fade-left"
-            >
-        </div>
-
-        {{-- Task Force --}}
-        <div class="grid md:grid-cols-2 gap-20 items-center">
-            <img 
-                src="{{ asset('storage/images/samping.png') }}"
-                class="rounded-[2rem] shadow-2xl"
-                alt="Task Force KAMPUS GW"
-                data-aos="fade-right"
-            >
-
-            <div data-aos="fade-left">
-                <h2 class="text-4xl font-bold text-cyan-400 mb-8">
-                    Task Force dan Studi Kelayakan
-                </h2>
-
-                <p class="text-slate-300 text-lg leading-relaxed mb-6 text-justify">
-                    Dalam perjalanannya, KampusGW terus mengalami perkembangan signifikan
-                    baik dari sisi akademik maupun kelembagaan. Berbagai program studi dibuka
-                    dengan fokus pada bidang teknologi informasi, data science, bisnis digital,
-                    serta rekayasa sistem. Kurikulum disusun secara adaptif agar selaras dengan 
-                    kebutuhan industri nasional dan global.
-                </p>
-
-                <p class="text-slate-300 text-lg leading-relaxed text-justify">
-                    Didukung oleh tenaga pengajar profesional, fasilitas pembelajaran
-                    modern, serta kemitraan strategis dengan berbagai sektor industri,
-                    KampusGW berkembang menjadi institusi pendidikan tinggi yang dinamis,
-                    inovatif, dan berorientasi masa depan.
-                </p>
-            </div>
-        </div>
-
-        {{-- Legalitas --}}
-        <div class="text-center max-w-4xl mx-auto"
-             data-aos="fade-up">
-            <h2 class="text-4xl font-bold text-cyan-400 mb-10">
-                Legalitas dan Penetapan Nasional
+        {{-- JUDUL --}}
+        <div class="flex justify-center mb-20"
+             data-aos="zoom-in">
+            <h2 class="bg-[#151B54] text-white
+                       px-16 py-6
+                       rounded-2xl
+                       text-4xl md:text-5xl
+                       font-serif tracking-wide
+                       shadow-2xl">
+                Sejarah Kampus
             </h2>
-
-            <p class="text-slate-300 text-lg leading-relaxed mb-6 text-justify">
-                KampusGW berdiri secara resmi sebagai institusi pendidikan tinggi
-                yang beroperasi sesuai ketentuan peraturan pendidikan nasional.
-                Seluruh penyelenggaraan akademik dilaksanakan berdasarkan standar
-                mutu pendidikan tinggi serta sistem penjaminan mutu internal yang berkelanjutan.
-            </p>
-
-            <p class="text-slate-300 text-lg leading-relaxed text-justify">
-                Kepercayaan masyarakat dan pengakuan dari dunia industri terhadap
-                kualitas lulusan menjadi bukti konsistensi KampusGW dalam menjaga
-                mutu pendidikan. Institusi ini terus berkomitmen meningkatkan kualitas
-                layanan akademik, penelitian, dan pengabdian kepada masyarakat.
-            </p>
         </div>
 
-        {{-- Penutup --}}
-        <div class="relative text-center py-24"
-             data-aos="zoom-in-up">
-            <div class="absolute inset-0 bg-cyan-500/10 blur-3xl"></div>
-            <p class="relative text-3xl font-semibold text-white leading-relaxed">
-                KampusGw bukan sekadar kampus,<br>
-                tetapi <span class="text-cyan-400">jalan perubahan</span>
-                bagi masa depan Anak Bangsa.
-            </p>
+        {{-- KONTEN SEJARAH --}}
+        <div class="relative bg-slate-50
+                    rounded-3xl
+                    p-12 md:p-16
+                    shadow-lg"
+             data-aos="fade-up"
+             data-aos-duration="1200">
+
+            {{-- GARIS AKSEN KIRI --}}
+            <div class="absolute left-0 top-10 bottom-10
+                        w-1.5 bg-[#151B54]/90 rounded-full"
+                 data-aos="fade-right"
+                 data-aos-delay="200"></div>
+
+            {{-- ICON ATAS --}}
+            <div class="absolute -top-7 left-12
+                        bg-[#151B54]
+                        text-white
+                        w-14 h-14
+                        flex items-center justify-center
+                        rounded-full
+                        shadow-xl
+                        text-2xl"
+                 data-aos="zoom-in"
+                 data-aos-delay="300">
+                📜
+            </div>
+
+            {{-- ISI DARI DATABASE --}}
+            <div class="prose max-w-none
+                        prose-p:text-slate-700
+                        prose-p:leading-relaxed
+                        prose-p:mb-6
+                        prose-strong:text-slate-900
+                        prose-em:text-slate-600"
+                 data-aos="fade-up"
+                 data-aos-delay="400">
+                {!! $profil->sejarah_kampus !!}
+            </div>
         </div>
     </div>
 </section>
 
-{{-- ================= AOS SCRIPT ================= --}}
+{{-- ================= VIDEO PROFIL (TIDAK DIUBAH) ================= --}}
+@php
+    $youtubeId = null;
+    if ($profil && $profil->link_video_profil) {
+        if (str_contains($profil->link_video_profil, 'youtu.be/')) {
+            $youtubeId = last(explode('/', $profil->link_video_profil));
+        } elseif (str_contains($profil->link_video_profil, 'watch?v=')) {
+            parse_str(parse_url($profil->link_video_profil, PHP_URL_QUERY), $yt);
+            $youtubeId = $yt['v'] ?? null;
+        } elseif (str_contains($profil->link_video_profil, 'embed/')) {
+            $youtubeId = last(explode('embed/', $profil->link_video_profil));
+        }
+    }
+@endphp
+
+@if($youtubeId)
+<section class="bg-slate-100 py-28">
+    <div class="max-w-5xl mx-auto px-6"
+         data-aos="zoom-in-up"
+         data-aos-duration="1200">
+        <iframe
+            src="https://www.youtube.com/embed/{{ $youtubeId }}"
+            class="w-full aspect-video rounded-3xl shadow-2xl border"
+            allowfullscreen>
+        </iframe>
+    </div>
+</section>
+@endif
+
+{{-- ================= VISI & MISI ================= --}}
+@if($profil && ($profil->visi || $profil->misi))
+<section class="bg-slate-100 py-32">
+    <div class="max-w-7xl mx-auto px-6">
+
+        <h2 class="text-4xl font-bold text-slate-900 mb-20 text-center"
+            data-aos="fade-up">
+            Visi & Misi
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-14">
+
+            {{-- MISI --}}
+            <div class="bg-[#151B54]
+                        rounded-3xl p-10
+                        shadow-lg hover:shadow-xl transition"
+                 data-aos="fade-right"
+                 data-aos-delay="150">
+
+                <h3 class="text-2xl font-bold text-white mb-6 text-center">
+                    Misi
+                </h3>
+
+                <div class="prose max-w-none italic
+                            text-slate-100
+                            [&_*]:!text-slate-100
+                            [&_a]:!text-sky-300
+                            [&_strong]:!text-white
+                            [&_em]:!text-slate-200
+                            [&_li]:text-lg
+                            [&_p]:text-lg
+                            text-center">
+                    {!! $profil->misi !!}
+                </div>
+            </div>
+
+            {{-- VISI --}}
+            <div class="bg-[#E0B100] rounded-3xl p-12 shadow-xl"
+                 data-aos="fade-left"
+                 data-aos-delay="150">
+                <h3 class="text-3xl font-bold text-slate-900 mb-8 text-center">
+                    Visi
+                </h3>
+
+                <div class="prose max-w-none italic text-center
+                            prose-p:text-slate-900
+                            prose-p:text-xl
+                            prose-p:leading-relaxed">
+                    {!! $profil->visi !!}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+@endif
+
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
     AOS.init({
-        duration: 1200,
-        easing: 'ease-out-cubic',
+        duration: 1000,
         once: true,
-        offset: 120,
+        easing: 'ease-out-cubic'
     });
 </script>
 
