@@ -214,7 +214,7 @@
             </div>
             <div class="card-body">
                 <div class="d-grid gap-2">
-                    <a href="{{ route('admin.organization.create') }}" class="btn btn-outline-dark text-start">
+                    <a href="{{ route('admin.organization.index') }}" class="btn btn-outline-dark text-start">
                         <i class="bi bi-person-plus-fill me-2"></i> Tambah Dosen/Staff
                     </a>
                     <a href="{{ route('admin.facilities.create') }}" class="btn btn-outline-dark text-start">
