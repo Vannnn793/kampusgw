@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -30,7 +31,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-950 text-white overflow-x-hidden">
+<body class="bg-white-950 text-white overflow-x-hidden">
 
     @include('layout.navbar')
 

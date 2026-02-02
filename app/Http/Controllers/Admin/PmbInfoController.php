@@ -18,7 +18,7 @@ class PmbInfoController extends Controller
 
     public function create()
     {
-        return view('admin.pmb.index');
+        return view('admin.pmb.create');
     }
 
     public function store(Request $request)
@@ -47,13 +47,13 @@ class PmbInfoController extends Controller
 
         PmbInfo::create($data);
 
-        return redirect()->route('admin.pmb.index')->with('success', 'Jalur masuk berhasil dibuat!');
+        return redirect()->route('admin.pmb-info.index')->with('success', 'Jalur masuk berhasil dibuat!');
     }
 
     public function edit($id)
     {
         $pmbInfo = PmbInfo::findOrFail($id);
-        return view('admin.pmb.edit', compact('pmbInfo'));
+        return view('admin.pmb.create', compact('pmbInfo'));
     }
 
     public function update(Request $request, $id)
@@ -86,7 +86,7 @@ class PmbInfoController extends Controller
 
         $pmbInfo->update($data);
 
-        return redirect()->route('admin.pmb.index')->with('success', 'Info PMB diperbarui!');
+        return redirect()->route('admin.pmb-info.index')->with('success', 'Info PMB diperbarui!');
     }
 
     public function destroy($id)
@@ -100,6 +100,6 @@ class PmbInfoController extends Controller
 
         $pmbInfo->delete();
 
-        return redirect()->route('admin.pmb.index')->with('success', 'Jalur masuk dihapus.');
+        return redirect()->route('admin.pmb-info.index')->with('success', 'Jalur masuk dihapus.');
     }
 }
