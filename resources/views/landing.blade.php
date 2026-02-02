@@ -272,22 +272,6 @@ to-[#EEF2F5]">
             @endforeach
 
         </div>
-
-        {{-- BUTTON --}}
-        <div class="mt-20 text-center">
-            <a href="/faculties"
-               class="inline-flex items-center justify-center
-               px-16 py-5 rounded-full font-bold text-lg
-               text-white
-               bg-[#0E5FA8]
-               hover:bg-[#0A4C87]
-               shadow-xl shadow-blue-900/40
-               hover:scale-105
-               transition-all duration-300">
-                Lihat Semua Fakultas →
-            </a>
-        </div>
-
     </div>
 </section>
 

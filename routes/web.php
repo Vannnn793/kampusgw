@@ -25,6 +25,10 @@ use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\AlumniController as AdminAlumni;
 
 
+Route::get(
+    '/faculties/{faculty:slug}/prodi/{prodi:slug}',
+    [ProdiController::class, 'show']
+)->name('faculties.prodis.show');
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +64,7 @@ Route::get('/faculties/{slug}', [FacultyController::class, 'show'])
     ->name('faculties.show');
 
 // Prodi (PUBLIC)
-Route::get('/faculties/{faculty:slug}/prodis/{prodi:slug}', [ProdiController::class, 'show'])
+Route::get('/faculties/{faculty}/prodis/{prodi}', [ProdiController::class, 'show'])
     ->name('faculties.prodis.show');
 
 // Posts
