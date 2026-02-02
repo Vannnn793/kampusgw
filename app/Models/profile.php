@@ -17,5 +17,14 @@ class profile extends Model
         'misi',
         'link_video_profil',
         'logo_path',
+        'address',
+        'phone',
+        'email',
+        'gmaps_iframe',
+        'tahun_beroperasi',
+        'total_prodi',
+        'total_alumni',
+        'total_dosen',
+        'gambar_kampus',
     ];
 }

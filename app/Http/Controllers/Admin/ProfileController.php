@@ -45,6 +45,11 @@ class ProfileController extends Controller
         'misi' => 'nullable|string',
         'link_video_profil' => 'nullable|url',
         'logo_path' => 'nullable|image|max:2048',
+        'tahun_beroperasi' => 'nullable|string|max:255',
+        'total_prodi' => 'nullable|string|max:255',
+        'total_alumni' => 'nullable|string|max:255',
+        'total_dosen' => 'nullable|string|max:255',
+        'gambar_kampus' => 'nullable|image|max:2048',
     ]);
 
     $profil = Profile::first(); // Asumsi ID selalu 1
@@ -56,6 +61,11 @@ class ProfileController extends Controller
     $profil->visi            = $request->visi;
     $profil->misi            = $request->misi;
     $profil->link_video_profil = $request->link_video_profil;
+    $profil->tahun_beroperasi = $request->tahun_beroperasi;
+    $profil->total_prodi     = $request->total_prodi;
+    $profil->total_alumni    = $request->total_alumni;
+    $profil->total_dosen     = $request->total_dosen;
+    $profil->gambar_kampus   = $request->gambar_kampus;
     
     // Handle Upload Logo Kampus
     if ($request->hasFile('logo_path')) {
@@ -77,6 +87,17 @@ class ProfileController extends Controller
         // Simpan foto baru
         $path = $request->file('foto_rektor')->store('rektor', 'public');
         $profil->foto_rektor = $path;
+    }
+
+    //handle Upload Gambar Kampus
+    if ($request->hasFile('gambar_kampus')) {
+        // Hapus gambar lama
+        if ($profil->gambar_kampus && Storage::exists('public/' . $profil->gambar_kampus)) {
+            Storage::delete('public/' . $profil->gambar_kampus);
+        }
+        // Simpan gambar baru
+        $path = $request->file('gambar_kampus')->store('kampus', 'public');
+        $profil->gambar_kampus = $path;
     }
 
     $profil->save();

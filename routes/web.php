@@ -16,6 +16,7 @@ use App\Http\Controllers\CareerController;
 use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\TentangController;
 use App\Http\Controllers\FacilityController;
+use App\Http\Controllers\lancingController;
 // Admin Controllers
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FacultyController as AdminFacultyController;
@@ -44,6 +45,7 @@ Route::get('/', function () {
         'categories' => \App\Models\Category::all(),
     ]);
 })->name('home');
+Route::get('/', [lancingController::class, 'index'])->name('landing');
 
 // Careers
 Route::get('/careers', [CareerController::class, 'index'])->name('careers');
