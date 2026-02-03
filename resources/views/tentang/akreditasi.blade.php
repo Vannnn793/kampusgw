@@ -6,108 +6,116 @@
 {{-- AOS --}}
 <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
-{{-- HEADER --}}
-<section class="py-24 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950 text-white">
-    <div class="max-w-7xl mx-auto px-6" data-aos="fade-up">
-        <p class="text-slate-400 text-sm mb-4">
-            Beranda / Dokumen / <span class="text-cyan-400">Akreditasi</span>
-        </p>
-        <h1 class="text-5xl font-extrabold text-cyan-400 mb-6">
+{{-- ================= HEADER BACKGROUND (TIDAK DIUBAH) ================= --}}
+<section
+    class="relative h-[420px] md:h-[520px] lg:h-[600px] flex items-center justify-center text-white bg-cover bg-center"
+    style="background-image: url('https://masuk-ptn.com/images/product/939b9e85f2289a2cc34a9f4d7bff7413e25f645a.jpg');">
+
+    {{-- Overlay --}}
+    <div class="absolute inset-0 bg-black/60"></div>
+
+    {{-- Title --}}
+    <div class="relative z-10 text-center px-4">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-cyan-400">
             Dokumen Akreditasi
         </h1>
-        <p class="text-lg text-slate-300 max-w-3xl leading-relaxed">
-            Halaman ini menyajikan informasi resmi mengenai status akreditasi
-            institusi dan program studi sebagai bentuk komitmen Politeknik Negeri
-            Indramayu terhadap penjaminan mutu, transparansi, dan akuntabilitas
-            penyelenggaraan pendidikan tinggi.
+
+        <p class="mt-4 text-slate-200 max-w-xl mx-auto">
+            Informasi resmi status akreditasi program studi kampus
         </p>
     </div>
-</section>
 
-{{-- INFORMASI --}}
-<section class="bg-slate-950 py-20 text-white">
+</section>
+{{-- ================= TABEL AKREDITASI ================= --}}
+<section class="bg-[#F8FAFC] py-20 text-slate-800">
+
     <div class="max-w-7xl mx-auto px-6">
-        <div class="bg-slate-900/60 rounded-2xl p-8 text-slate-300 leading-relaxed"
+
+        <div class="overflow-x-auto rounded-2xl shadow-lg"
              data-aos="fade-up">
-            <p>
-                Akreditasi merupakan proses evaluasi dan penilaian kelayakan
-                institusi pendidikan tinggi serta program studi oleh lembaga
-                akreditasi yang berwenang.
-            </p>
-            <p class="mt-4">
-                Informasi yang ditampilkan meliputi nomor keputusan (SK),
-                masa berlaku, peringkat akreditasi, dan status keberlakuan
-                sebagai referensi resmi bagi masyarakat.
-            </p>
-        </div>
-    </div>
-</section>
 
-{{-- TABEL --}}
-<section class="bg-gradient-to-b from-slate-950 to-indigo-950 py-24 text-white">
-    <div class="max-w-7xl mx-auto px-6">
+            <table class="w-full text-sm rounded-2xl overflow-hidden">
 
-        <h2 class="text-3xl font-bold text-cyan-400 mb-12"
-            data-aos="fade-up">
-            Daftar Sertifikat Akreditasi
-        </h2>
-
-        <div class="overflow-x-auto rounded-2xl shadow-xl"
-             data-aos="fade-up"
-             data-aos-delay="100">
-            <table class="w-full border-collapse bg-slate-900/70 backdrop-blur text-sm">
+                {{-- HEADER --}}
                 <thead>
-                    <tr class="bg-slate-800 text-cyan-400">
-                        <th class="px-4 py-4">No</th>
-                        <th class="px-4 py-4 text-left">Institusi / Program Studi</th>
-                        <th class="px-4 py-4 text-left">Nomor SK</th>
-                        <th class="px-4 py-4">Masa Berlaku</th>
-                        <th class="px-4 py-4">Peringkat</th>
-                        <th class="px-4 py-4">Status</th>
+                    <tr class="bg-[#151B54] text-white text-base">
+                        <th class="px-6 py-4 text-center w-16">No.</th>
+                        <th class="px-6 py-4 text-left">Program Studi</th>
+                        <th class="px-6 py-4 text-left">Nomor Sertifikat</th>
+                        <th class="px-6 py-4 text-center">Masa Berlaku</th>
+                        <th class="px-6 py-4 text-center">Peringkat</th>
+                        <th class="px-6 py-4 text-center">Status</th>
                     </tr>
                 </thead>
-                <tbody class="text-slate-300">
 
-                    @php
-                    $data = [
-                        [1,'Institut KampusGw','001/SK/BAN-PT/Akred/PT/I/2024','2024–2029','Baik Sekali','Berlaku'],
-                        [2,'D-III Teknik Informatika','017/BAN-PT/Ak-XII/Dpl-III/X/2011','2011–2016','C','Kedaluwarsa'],
-                        [3,'D-IV Rekayasa Perangkat Lunak','1650/BAN-PT/Akred/Dipl-IV/VII/2016','2016–2021','C','Kedaluwarsa'],
-                        [4,'D-IV Sistem Informasi','2980/SK/BAN-PT/Akred/Dipl-IV/X/2018','2018–2023','B','Kedaluwarsa'],
-                        [5,'D-III Keperawatan','164/SK/LAM-INFOKOM/Ak/D3/XII/2023','2023–2028','Baik Sekali','Berlaku'],
-                        [6,'D-III Teknik Mesin','013/BAN-PT/Ak-XI/Dpl-III/IX/2011','2011–2016','C','Kedaluwarsa'],
-                        [7,'D-III Teknik Pending dan Tata Udara','1791/SK/BAN-PT/Akred/Dipl-III/IX/2016','2016–2021','B','Kedaluwarsa'],
-                        [8,'D-IV Perancangan Manufaktur','13481/SK/BAN-PT/Akred-PMT/Dipl-IV/XII/2021','2021–2026','Baik','Berlaku'],
-                    ];
-                    @endphp
+                {{-- BODY --}}
+                <tbody class="text-[#0f2a44]">
 
-                    @foreach($data as $row)
-                    <tr class="border-b border-slate-700 hover:bg-slate-800/50 transition"
-                        data-aos="fade-up"
-                        data-aos-delay="{{ $row[0] * 30 }}">
-                        <td class="px-4 py-3 text-center">{{ $row[0] }}</td>
-                        <td class="px-4 py-3">{{ $row[1] }}</td>
-                        <td class="px-4 py-3">{{ $row[2] }}</td>
-                        <td class="px-4 py-3 text-center">{{ $row[3] }}</td>
-                        <td class="px-4 py-3 text-center">{{ $row[4] }}</td>
-                        <td class="px-4 py-3 text-center">{{ $row[5] }}</td>
+                @forelse($accreditations as $row)
+                    <tr class="{{ $loop->odd ? 'bg-sky-50' : 'bg-sky-100' }}
+                               hover:bg-sky-200 transition">
+
+                        <td class="px-6 py-4 text-center font-semibold">
+                            {{ $loop->iteration }}.
+                        </td>
+
+                        <td class="px-6 py-4 font-semibold">
+                            {{ $row->program_name }}
+                        </td>
+
+                        <td class="px-6 py-4">
+                            {{ $row->certificate_number }}
+                        </td>
+
+                        <td class="px-6 py-4 text-center">
+                            {{ \Carbon\Carbon::parse($row->valid_until)->format('d M Y') }}
+                        </td>
+
+                        <td class="px-6 py-4 text-center font-bold text-[#151B54]">
+                            {{ $row->level }}
+                        </td>
+
+                        <td class="px-6 py-4 text-center">
+                            @if(\Carbon\Carbon::parse($row->valid_until)->isPast())
+                                <span class="px-3 py-1 rounded-full text-xs
+                                             bg-red-100 text-red-700 font-semibold">
+                                    Kedaluwarsa
+                                </span>
+                            @else
+                                <span class="px-3 py-1 rounded-full text-xs
+                                             bg-green-100 text-green-700 font-semibold">
+                                    Berlaku
+                                </span>
+                            @endif
+                        </td>
+
                     </tr>
-                    @endforeach
+                @empty
+                    <tr class="bg-sky-50">
+                        <td colspan="6" class="text-center py-12 italic text-slate-500">
+                            Data akreditasi belum tersedia
+                        </td>
+                    </tr>
+                @endforelse
 
                 </tbody>
+
             </table>
+
         </div>
+
     </div>
+
 </section>
 
-{{-- AOS SCRIPT --}}
+
+{{-- AOS --}}
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
-    AOS.init({
-        duration: 800,
-        easing: 'ease-out',
-        once: true,
-        offset: 120,
-    });
+AOS.init({
+    duration: 800,
+    once: true,
+});
 </script>
+
 @endsection

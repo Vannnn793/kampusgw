@@ -164,9 +164,9 @@
                                 {{-- Aksi --}}
                                 <td class="text-center">
                                     <div class="btn-group">
-                                        <a href="{{ route('admin.organization.edit', $org->id) }}" class="btn btn-sm btn-light text-primary border" title="Edit">
+                                        {{-- <a href="{{ route('admin.organization.edit', $org->id) }}" class="btn btn-sm btn-light text-primary border" title="Edit">
                                             <i class="bi bi-pencil-square"></i>
-                                        </a>
+                                        </a> --}}
                                         <form onsubmit="return confirm('Hapus data pejabat ini?');" 
                                               action="{{ route('admin.organization.destroy', $org->id) }}" 
                                               method="POST" class="d-inline">

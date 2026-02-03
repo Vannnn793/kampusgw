@@ -1,142 +1,97 @@
 @extends('admin.layout.main')
-@section('title', 'Tambah Jalur PMB')
+@section('title','PMB')
 
 @section('content')
+<div class="container-fluid p-4">
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
-    <div>
-        <h1 class="h2 fw-bold">Tambah Jalur PMB</h1>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/dashboard" class="text-decoration-none">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.pmb-info.index') }}" class="text-decoration-none">Info PMB</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Buat Baru</li>
-            </ol>
-        </nav>
-    </div>
-    <div>
-        <a href="{{ route('admin.pmb-info.index') }}" class="btn btn-outline-secondary btn-sm">
-            <i class="bi bi-arrow-left me-1"></i> Kembali
+    {{-- HEADER --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="fw-bold mb-0">Informasi PMB</h4>
+            <small class="text-muted">Kelola jalur & informasi penerimaan mahasiswa baru</small>
+        </div>
+        <a href="{{ route('admin.pmb-info.create') }}" class="btn btn-primary">
+            <i class="bi bi-plus-circle me-1"></i> Tambah PMB
         </a>
     </div>
-</div>
 
-<form action="{{ route('admin.pmb-info.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    
-    <div class="row g-4">
-        
-        {{-- KOLOM KIRI: KONTEN UTAMA --}}
-        <div class="col-lg-8">
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white py-3">
-                    <h6 class="m-0 fw-bold text-primary">
-                        <i class="bi bi-file-earmark-text me-2"></i>Konten Informasi
-                    </h6>
-                </div>
-                <div class="card-body">
-                    
-                    {{-- Judul Jalur --}}
-                    <div class="mb-4">
-                        <label class="form-label small fw-bold text-muted">Nama Jalur Masuk <span class="text-danger">*</span></label>
-                        <input type="text" name="title" class="form-control form-control-lg" placeholder="Contoh: Gelombang 1 - Jalur Prestasi" value="{{ old('title') }}" required>
-                    </div>
+    {{-- CARD --}}
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
 
-                    {{-- Deskripsi --}}
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold text-muted">Deskripsi Lengkap</label>
-                        <textarea name="content" class="form-control" rows="12" placeholder="Tuliskan syarat, biaya, dan detail pendaftaran di sini...">{{ old('content') }}</textarea>
-                        <div class="form-text small text-muted">
-                            <i class="bi bi-info-circle me-1"></i> Tekan Enter untuk membuat paragraf baru. Gunakan (-) untuk poin.
-                        </div>
-                    </div>
+            <div class="table-responsive">
+                <table class="table align-middle table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th width="80">Poster</th>
+                            <th>Judul</th>
+                            <th width="150">Tanggal</th>
+                            <th width="120">Status</th>
+                            <th width="150" class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                </div>
-            </div>
-        </div>
+                        @forelse ($pmbInfos as $pmb)
+                        <tr>
+                            <td>
+                                <img src="{{ asset('storage/'.$pmb->image) }}"
+                                     class="rounded shadow-sm"
+                                     width="60"
+                                     height="80"
+                                     style="object-fit:cover">
+                            </td>
 
-        {{-- KOLOM KANAN: PENGATURAN & META --}}
-        <div class="col-lg-4">
-            
-            {{-- Card Status --}}
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-header bg-white py-3">
-                    <h6 class="m-0 fw-bold text-primary"><i class="bi bi-gear me-2"></i>Status Publikasi</h6>
-                </div>
-                <div class="card-body">
-                    <div class="form-check form-switch mb-3">
-                        <input class="form-check-input" type="checkbox" name="is_active" value="1" id="statusSwitch" checked style="cursor: pointer;">
-                        <label class="form-check-label fw-bold text-dark" for="statusSwitch">Buka Pendaftaran</label>
-                    </div>
-                    <small class="text-muted d-block lh-sm">Jika dimatikan, informasi ini akan disembunyikan dari halaman depan.</small>
-                    
-                    <hr>
+                            <td>
+                                <div class="fw-semibold">{{ $pmb->judul }}</div>
+                                <small class="text-muted">
+                                    {{ Str::limit($pmb->deskripsi, 60) }}
+                                </small>
+                            </td>
 
-                    <button type="submit" class="btn btn-primary w-100 fw-bold">
-                        <i class="bi bi-send me-1"></i> Terbitkan Info
-                    </button>
-                </div>
-            </div>
+                            <td>
+                                {{ \Carbon\Carbon::parse($pmb->tanggal)->format('d M Y') }}
+                            </td>
 
-            {{-- Card Gambar & Link --}}
-            <div class="card border-0 shadow-sm">
-                <div class="card-header bg-white py-3">
-                    <h6 class="m-0 fw-bold text-primary"><i class="bi bi-images me-2"></i>Media & Tanggal</h6>
-                </div>
-                <div class="card-body">
+                            <td>
+                                @if($pmb->is_active === 1)
+                                    <span class="badge bg-success">Aktif</span>
+                                @else
+                                    <span class="badge bg-secondary">Nonaktif</span>
+                                @endif
+                            </td>
 
-                    {{-- Link Pendaftaran --}}
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold text-muted">Link External (Google Form/Sistem PMB)</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-light"><i class="bi bi-link-45deg"></i></span>
-                            <input type="url" name="registration_link" class="form-control" placeholder="https://" value="{{ old('registration_link') }}">
-                        </div>
-                    </div>
+                            <td class="text-center">
+                                <a href="{{ route('admin.pmb-info.edit', $pmb->id) }}"
+                                   class="btn btn-sm btn-warning">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
 
-                    {{-- Tanggal --}}
-                    <div class="row">
-                        <div class="col-6 mb-3">
-                            <label class="form-label small fw-bold text-muted">Tanggal Buka</label>
-                            <input type="date" name="start_date" class="form-control" value="{{ old('start_date') }}">
-                        </div>
-                        <div class="col-6 mb-3">
-                            <label class="form-label small fw-bold text-muted">Tanggal Tutup</label>
-                            <input type="date" name="end_date" class="form-control" value="{{ old('end_date') }}">
-                        </div>
-                    </div>
+                                <form action="{{ route('admin.pmb-info.destroy', $pmb->id) }}"
+                                      method="POST"
+                                      class="d-inline"
+                                      onsubmit="return confirm('Yakin hapus data PMB ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-sm btn-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">
+                                Belum ada data PMB
+                            </td>
+                        </tr>
+                        @endforelse
 
-                    {{-- Upload Poster --}}
-                    <div class="mb-2">
-                        <label class="form-label small fw-bold text-muted">Poster / Brosur</label>
-                        <input type="file" name="image" class="form-control" accept="image/*" onchange="previewImage(event)">
-                        <div class="form-text small text-muted">Format: JPG/PNG, Max: 2MB.</div>
-                    </div>
-
-                    {{-- Preview Gambar JS --}}
-                    <div class="mt-3 text-center d-none" id="imagePreviewBox">
-                        <img id="imagePreview" src="#" alt="Preview" class="img-fluid rounded border shadow-sm" style="max-height: 200px;">
-                    </div>
-
-                </div>
+                    </tbody>
+                </table>
             </div>
 
         </div>
     </div>
-</form>
-
-{{-- SCRIPT PREVIEW GAMBAR --}}
-<script>
-    function previewImage(event) {
-        var reader = new FileReader();
-        reader.onload = function(){
-            var output = document.getElementById('imagePreview');
-            var box = document.getElementById('imagePreviewBox');
-            output.src = reader.result;
-            box.classList.remove('d-none');
-        }
-        reader.readAsDataURL(event.target.files[0]);
-    }
-</script>
-
+</div>
 @endsection

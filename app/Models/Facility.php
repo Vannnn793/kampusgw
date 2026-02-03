@@ -1,7 +1,5 @@
 <?php
 
-// app/Models/Facility.php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,10 +9,16 @@ class Facility extends Model
 {
     use HasFactory;
 
-    // Masukkan kolom yang boleh diisi
     protected $fillable = [
+        'faculty_id',   // 🔥 WAJIB
         'name',
+        'slug',
         'image',
         'description',
     ];
+
+    public function faculty()
+    {
+        return $this->belongsTo(Faculty::class);
+    }
 }

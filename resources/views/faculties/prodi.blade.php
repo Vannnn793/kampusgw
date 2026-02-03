@@ -43,123 +43,152 @@
     </div>
 
 </section> --}}
-
+{{-- HERO --}}
 <section class="relative h-[65vh] flex items-center justify-center overflow-hidden">
-    
+
     <img src="{{ asset('storage/'.$prodi->image) }}"
          class="absolute inset-0 w-full h-full object-cover scale-105"
          alt="{{ $prodi->name }}">
 
-    <div class="absolute inset-0 bg-gradient-to-br from-indigo-950 via-slate-950 to-sky-950"></div>
+    {{-- overlay terang --}}
+    <div class="absolute inset-0 bg-white/60"></div>
 
-    <div class="relative text-center text-white max-w-4xl px-6">
+    <div class="relative text-center max-w-4xl px-6">
         <h1 data-aos="fade-up"
-            class="text-5xl font-extrabold">
+            class="text-5xl font-extrabold text-slate-900">
             {{ $prodi->name }}
         </h1>
 
         <p data-aos="fade-up" data-aos-delay="100"
-           class="mt-4 text-slate-300">
+           class="mt-4 text-slate-700 text-lg">
             {{ $prodi->goal }}
         </p>
     </div>
 
 </section>
 
-<section class="py-28 bg-slate-950 text-white">
+{{-- DESKRIPSI & TUJUAN --}}
+<section class="py-28 bg-[#9DC7F4]">
 
 <div class="max-w-5xl mx-auto px-6 space-y-16">
 
     {{-- DESKRIPSI --}}
     <div data-aos="fade-up"
-         class="rounded-2xl bg-white/5 border border-white/10 p-8">
-        <h2 class="text-2xl font-bold mb-4 text-sky-400">Deskripsi</h2>
-        <p class="text-slate-300">{{ $prodi->description }}</p>
+         class="rounded-2xl bg-white border border-slate-200 p-8 shadow">
+        <h2 class="text-2xl font-bold mb-4 text-[#1583D7]">
+            Deskripsi
+        </h2>
+        <p class="text-slate-800 leading-relaxed">
+            {{ $prodi->description }}
+        </p>
     </div>
 
     {{-- TUJUAN --}}
     <div data-aos="fade-up"
-         class="rounded-2xl bg-white/5 border border-white/10 p-8">
-        <h2 class="text-2xl font-bold mb-4 text-sky-400">Tujuan</h2>
-        <p class="text-slate-300">{{ $prodi->goal }}</p>
+         class="rounded-2xl bg-white border border-slate-200 p-8 shadow">
+        <h2 class="text-2xl font-bold mb-4 text-[#1583D7]">
+            Tujuan
+        </h2>
+        <p class="text-slate-800 leading-relaxed">
+            {{ $prodi->goal }}
+        </p>
     </div>
 
 </div>
 
 </section>
 
-<section class="py-28 bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 text-white">
+{{-- KURIKULUM --}}
+<section class="py-28 bg-white">
 
-<div class="max-w-6xl mx-auto px-6">
+<div class="max-w-7xl mx-auto px-6">
 
-<h2 class="text-3xl font-bold mb-12 text-center">
-  Kurikulum Program Studi
+<h2 class="text-3xl font-bold mb-16 text-center text-slate-900">
+    Kurikulum Program Studi
 </h2>
 
-@foreach($prodi->curriculums as $curriculum)
-<div data-aos="fade-up" class="mb-12">
+@php
+    $grouped = $prodi->curriculums->groupBy(function ($item) {
+        return $item->semester <= 4 ? '1-4' : '5-8';
+    });
+@endphp
 
-    <h3 class="text-xl font-semibold mb-4 text-sky-400">
-    Semester {{ $curriculum->semester }}
+@foreach($grouped as $label => $curriculums)
+<div class="mb-20">
+
+    <h3 class="text-2xl font-bold mb-10 text-[#1583D7] text-center">
+        Semester {{ $label }}
     </h3>
 
-    <div class="overflow-hidden rounded-xl border border-white/10">
-        <table class="w-full text-sm">
-            <thead class="bg-white/5">
-                <tr>
-                    <th class="p-4 text-left">Mata Kuliah</th>
-                    <th class="p-4 text-left">SKS</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach($curriculum->courses as $course)
-                <tr class="border-t border-white/10 hover:bg-white/5">
-                    <td class="p-4">{{ $course->name }}</td>
-                    <td class="p-4">{{ $course->sks }}</td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        @foreach($curriculums as $curriculum)
+
+        <div data-aos="fade-up"
+             class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+
+            {{-- HEADER SEMESTER --}}
+            <div class="bg-[#9DC7F4] px-4 py-3 text-center">
+                <span class="block text-xs uppercase tracking-widest text-slate-700">
+                    Semester
+                </span>
+                <span class="text-2xl font-extrabold text-slate-900">
+                    {{ $curriculum->semester }}
+                </span>
+            </div>
+
+            {{-- TABLE --}}
+            <table class="w-full text-sm text-slate-800">
+                <thead class="bg-slate-100">
+                    <tr>
+                        <th class="p-3 text-left font-semibold">Mata Kuliah</th>
+                        <th class="p-3 text-center font-semibold w-16">SKS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach($curriculum->courses as $course)
+                    <tr class="border-t hover:bg-slate-50">
+                        <td class="p-3">{{ $course->name }}</td>
+                        <td class="p-3 text-center">{{ $course->sks }}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+
+        </div>
+
+        @endforeach
     </div>
 
-    </div>
-    @endforeach
+</div>
+@endforeach
 
 </div>
 </section>
 
-
-<section class="py-32 bg-slate-950">
+{{-- TENTANG FAKULTAS --}}
+<section class="py-32 bg-[#9DC7F4]">
     <div class="max-w-5xl mx-auto px-6">
 
-        <div class="bg-white/5 border border-white/10 rounded-2xl p-10">
+        <div class="bg-white border border-slate-200 rounded-2xl p-10 shadow">
 
-            <h2 class="text-3xl font-bold mb-4">
+            <h2 class="text-3xl font-bold mb-4 text-slate-900">
                 Tentang Fakultas
             </h2>
 
-            {{-- <p class="text-slate-300 leading-relaxed">
-                Fakultas {{ str_replace('-', ' ', $slug) }} dirancang untuk
-                mencetak lulusan siap industri dengan kurikulum berbasis teknologi,
-                inovasi, dan kebutuhan global.
-            </p> --}}
-
-
-            <h3 class="text-2xl font-bold mt-10 mb-4">
+            <h3 class="text-2xl font-bold mt-10 mb-4 text-[#1583D7]">
                 Keunggulan
             </h3>
 
-            <ul class="list-disc pl-6 text-slate-300 space-y-2">
+            <ul class="list-disc pl-6 text-slate-800 space-y-2">
                 <li>Kurikulum industri</li>
                 <li>Dosen praktisi profesional</li>
                 <li>Program magang wajib</li>
                 <li>Sertifikasi internasional</li>
             </ul>
 
-
             <div class="mt-10">
                 <a href="/faculties"
-                   class="inline-block px-6 py-3 bg-sky-400 text-slate-900 rounded-xl font-bold hover:scale-105 transition">
+                   class="inline-block px-6 py-3 bg-[#1583D7] text-white rounded-xl font-bold hover:scale-105 transition">
                     ← Kembali ke Faculties
                 </a>
             </div>
@@ -168,5 +197,10 @@
 
     </div>
 </section>
+            {{-- <p class="text-slate-300 leading-relaxed">
+                Fakultas {{ str_replace('-', ' ', $slug) }} dirancang untuk
+                mencetak lulusan siap industri dengan kurikulum berbasis teknologi,
+                inovasi, dan kebutuhan global.
+            </p> --}}
 
 @endsection

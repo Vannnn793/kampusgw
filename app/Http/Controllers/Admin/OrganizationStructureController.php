@@ -38,7 +38,9 @@ class OrganizationStructureController extends Controller
 
     public function edit(OrganizationStructure $organizationStructure)
     {
-        return view('admin.organization.edit', compact('organizationStructure'));
+        $faculties = Faculty::all();
+        $organizationStructure = OrganizationStructure::findOrFail($organizationStructure->id);
+        return view('admin.organization.edit', compact('organizationStructure', 'faculties'));
     }
 
     public function update(Request $request, OrganizationStructure $organizationStructure)
