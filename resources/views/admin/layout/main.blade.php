@@ -240,10 +240,14 @@
 
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle text-dark" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-2" style="width: 35px; height: 35px;">
-                    <i class="bi bi-person-fill"></i>
+                <div class="flex flex-col">
+                    <span class="text-xl font-extrabold text-sky-600 tracking-wide leading-none">
+                        {{ $profile->campus_name ?? 'KampusGW University' }}
+                    </span>
+                    <span class="text-[10px] font-bold text-slate-400 tracking-widest uppercase mt-0.5">
+                        Official Portal
+                    </span>
                 </div>
-                <strong>Admin</strong>
             </a>
             <ul class="dropdown-menu dropdown-menu-end text-small shadow">
                 <li><a class="dropdown-item" href="#">Settings</a></li>

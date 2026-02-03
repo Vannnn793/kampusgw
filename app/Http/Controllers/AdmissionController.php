@@ -11,7 +11,9 @@ class AdmissionController extends Controller
     public function index()
     {
         $faculties = Faculty::with('prodis')->get();
-        return view('admissions.index', compact('faculties'));
+        $profile = \App\Models\Profile::first();
+
+        return view('admissions.index', compact('faculties', 'profile'));
     }
 
     public function store(Request $request)
