@@ -9,6 +9,7 @@ class profile extends Model
     protected $table = 'profiles';
 
     protected $fillable = [
+        'campus_name',
         'nama_rektor',
         'foto_rektor',
         'sambutan_rektor',
@@ -26,5 +27,7 @@ class profile extends Model
         'total_alumni',
         'total_dosen',
         'gambar_kampus',
+        'created_at',
+        'updated_at',
     ];
 }

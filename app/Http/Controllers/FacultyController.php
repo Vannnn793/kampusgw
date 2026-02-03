@@ -7,10 +7,18 @@ use Illuminate\Http\Request;
 
 class FacultyController extends Controller
 {
+    public function index()
+    {
+        $faculties = Faculty::all();
+        $profile = \App\Models\Profile::first();
+
+        return view('faculties.index', ['faculties' => $faculties, 'profile' => $profile]);
+    }
     public function show($slug)
     {
         $faculty = Faculty::where('slug', $slug)->firstOrFail();
+        $profile = \App\Models\Profile::first();
 
-        return view('faculties.show', compact('faculty'));
+        return view('faculties.show',['faculty' => $faculty, 'profile' => $profile]);
     }
 }

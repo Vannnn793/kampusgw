@@ -31,4 +31,9 @@ class Faculty extends Model
     return $this->hasMany(Facility::class);
 }
 
+public function profile()
+{
+    return $this->belongsTo(Profile::class);
+
+}
 }

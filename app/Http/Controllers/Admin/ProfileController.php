@@ -50,6 +50,11 @@ class ProfileController extends Controller
         'total_alumni' => 'nullable|string|max:255',
         'total_dosen' => 'nullable|string|max:255',
         'gambar_kampus' => 'nullable|image|max:2048',
+        'campus_name' => 'nullable|string|max:255',
+        'gmaps_iframe' => 'nullable|string',
+        'address' => 'nullable|string',
+        'phone' => 'nullable|string|max:255',
+        'email' => 'nullable|email|max:255',
     ]);
 
     $profil = Profile::first(); // Asumsi ID selalu 1
@@ -66,6 +71,11 @@ class ProfileController extends Controller
     $profil->total_alumni    = $request->total_alumni;
     $profil->total_dosen     = $request->total_dosen;
     $profil->gambar_kampus   = $request->gambar_kampus;
+    $profil->campus_name     = $request->campus_name;
+    $profil->gmaps_iframe    = $request->gmaps_iframe;
+    $profil->address         = $request->address;
+    $profil->phone           = $request->phone;
+    $profil->email           = $request->email;
     
     // Handle Upload Logo Kampus
     if ($request->hasFile('logo_path')) {

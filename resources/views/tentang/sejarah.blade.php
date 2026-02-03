@@ -8,8 +8,8 @@
 {{-- ================= HERO (BG FOTO TIDAK DIUBAH) ================= --}}
 <section class="relative h-screen overflow-hidden bg-neutral-100">
     <img
-        src="{{ $profil && $profil->logo_path
-            ? asset('storage/'.$profil->logo_path)
+        src="{{ $profile && $profile->logo_path
+            ? asset('storage/'.$profile->logo_path)
             : asset('storage/images/kampusgw.jpg') }}"
         class="absolute inset-0 w-full h-full object-cover"
         alt="Kampus"
@@ -35,8 +35,8 @@
             <p class="text-xl text-sky-100 max-w-3xl leading-relaxed text-justify italic"
                data-aos="fade-up"
                data-aos-delay="300">
-                {{ $profil
-                    ? \Illuminate\Support\Str::limit(strip_tags($profil->sejarah_kampus), 220)
+                {{ $profile
+                    ? \Illuminate\Support\Str::limit(strip_tags($profile->sejarah_kampus), 220)
                     : 'Sejarah kampus belum diisi.' }}
             </p>
         </div>
@@ -99,7 +99,7 @@
                         prose-em:text-slate-600"
                  data-aos="fade-up"
                  data-aos-delay="400">
-                {!! $profil->sejarah_kampus !!}
+                {!! $profile->sejarah_kampus !!}
             </div>
         </div>
     </div>
@@ -108,14 +108,14 @@
 {{-- ================= VIDEO PROFIL (TIDAK DIUBAH) ================= --}}
 @php
     $youtubeId = null;
-    if ($profil && $profil->link_video_profil) {
-        if (str_contains($profil->link_video_profil, 'youtu.be/')) {
-            $youtubeId = last(explode('/', $profil->link_video_profil));
-        } elseif (str_contains($profil->link_video_profil, 'watch?v=')) {
-            parse_str(parse_url($profil->link_video_profil, PHP_URL_QUERY), $yt);
+    if ($profile && $profile->link_video_profil) {
+        if (str_contains($profile->link_video_profil, 'youtu.be/')) {
+            $youtubeId = last(explode('/', $profile->link_video_profil));
+        } elseif (str_contains($profile->link_video_profil, 'watch?v=')) {
+            parse_str(parse_url($profile->link_video_profil, PHP_URL_QUERY), $yt);
             $youtubeId = $yt['v'] ?? null;
-        } elseif (str_contains($profil->link_video_profil, 'embed/')) {
-            $youtubeId = last(explode('embed/', $profil->link_video_profil));
+        } elseif (str_contains($profile->link_video_profil, 'embed/')) {
+            $youtubeId = last(explode('embed/', $profile->link_video_profil));
         }
     }
 @endphp
@@ -135,7 +135,7 @@
 @endif
 
 {{-- ================= VISI & MISI ================= --}}
-@if($profil && ($profil->visi || $profil->misi))
+@if($profile && ($profile->visi || $profile->misi))
 <section class="bg-slate-100 py-32">
     <div class="max-w-7xl mx-auto px-6">
 
@@ -166,7 +166,7 @@
                             [&_li]:text-lg
                             [&_p]:text-lg
                             text-center">
-                    {!! $profil->misi !!}
+                    {!! $profile->misi !!}
                 </div>
             </div>
 
@@ -182,7 +182,7 @@
                             prose-p:text-slate-900
                             prose-p:text-xl
                             prose-p:leading-relaxed">
-                    {!! $profil->visi !!}
+                    {!! $profile->visi !!}
                 </div>
             </div>
 
