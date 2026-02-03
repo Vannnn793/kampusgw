@@ -31,8 +31,8 @@ class TentangController extends Controller
     }
         public function sejarah()
     {
-        $profil = Profile::first(); // ambil data profil kampus
+        $profile = Profile::first(); // ambil data profil kampus
 
-        return view('tentang.sejarah', compact('profil'));
+        return view('tentang.sejarah', ['profile' => $profile]);
     }
 }

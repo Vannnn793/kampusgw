@@ -102,35 +102,52 @@
                     </div>
                 </div>
             </div>
+
+            <div class="mb-6 pb-4 border-bottom">
+                <div class="col-md-12 mb-4 text-left">
+                    <label for="campus_name" class="form-label fw-bold mb-2">
+                        Nama Kampus
+                    </label>
+                    <input type="text" 
+                        name="campus_name" 
+                        id="campus_name" 
+                        value="{{ old('campus_name', $profile->campus_name ?? '') }}"
+                        class="form-control" 
+                        placeholder="Contoh: Universitas Teknologi FutureTech">
+                </div>
+            </div>    
+            <br>
             
             {{-- SECTION 2: GAMBAR KAMPUS --}}
-            <div class="mb-5">
-                <label class="form-label fw-bold mb-3">Foto Gedung Utama (Tampil di Home)</label>
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="position-relative overflow-hidden rounded bg-light border shadow-sm" style="height: 300px;">
-                            @if($profile->gambar_kampus)
-                                <img src="{{ asset('storage/'.$profile->gambar_kampus) }}" id="preview-kampus-img" class="w-100 h-100 object-fit-cover">
-                            @else
-                                <div class="d-flex align-items-center justify-content-center h-100 text-muted" id="placeholder-kampus">
-                                    <div class="text-center">
-                                        <i class="bi bi-image fs-1 d-block mb-2"></i>
-                                        <span class="small">Belum ada foto</span>
+            <div class="mb-5 pb-4 border-bottom">
+                <div class="col-md-12 mb-4">
+                    <label class="form-label fw-bold mb-3">Foto Gedung Utama (Tampil di Home)</label>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="position-relative overflow-hidden rounded bg-light border shadow-sm" style="height: 300px;">
+                                @if($profile->gambar_kampus)
+                                    <img src="{{ asset('storage/'.$profile->gambar_kampus) }}" id="preview-kampus-img" class="w-100 h-100 object-fit-cover">
+                                @else
+                                    <div class="d-flex align-items-center justify-content-center h-100 text-muted" id="placeholder-kampus">
+                                        <div class="text-center">
+                                            <i class="bi bi-image fs-1 d-block mb-2"></i>
+                                            <span class="small">Belum ada foto</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <img src="" id="preview-kampus-img" class="d-none w-100 h-100 object-fit-cover">
-                            @endif
+                                    <img src="" id="preview-kampus-img" class="d-none w-100 h-100 object-fit-cover">
+                                @endif
+                            </div>
+                            <label for="file-input-kampus" class="btn btn-outline-primary w-100 mt-2">
+                                <i class="bi bi-upload me-1"></i> Pilih Foto Gedung
+                            </label>
+                            <input type="file" name="gambar_kampus" id="file-input-kampus" class="d-none" accept="image/*" onchange="previewKampus()">
+                            <div class="form-text small text-center mt-1">Format: JPG/PNG. Rasio Portrait (Tinggi) disarankan.</div>
                         </div>
-                        <label for="file-input-kampus" class="btn btn-outline-primary w-100 mt-2">
-                            <i class="bi bi-upload me-1"></i> Pilih Foto Gedung
-                        </label>
-                        <input type="file" name="gambar_kampus" id="file-input-kampus" class="d-none" accept="image/*" onchange="previewKampus()">
-                        <div class="form-text small text-center mt-1">Format: JPG/PNG. Rasio Portrait (Tinggi) disarankan.</div>
-                    </div>
-                    <div class="col-md-7 d-flex align-items-center">
-                        <div class="alert alert-info border-0 bg-info-subtle text-info-emphasis w-100">
-                            <i class="bi bi-info-circle-fill me-2"></i>
-                            Foto ini akan ditampilkan besar di halaman depan bagian "Mengenal Lebih Dekat". Gunakan foto gedung terbaik yang resolusinya tinggi.
+                        <div class="col-md-7 d-flex align-items-center">
+                            <div class="alert alert-info border-0 bg-info-subtle text-info-emphasis w-100">
+                                <i class="bi bi-info-circle-fill me-2"></i>
+                                Foto ini akan ditampilkan besar di halaman depan bagian "Mengenal Lebih Dekat". Gunakan foto gedung terbaik yang resolusinya tinggi.
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -290,34 +307,39 @@
 
                                 <div class="col-12 mb-4">
                                     <label class="form-label fw-bold">Alamat Lengkap</label>
-                                    <textarea name="address" class="form-control" rows="3" placeholder="Jl. Raya Kampus No. 1...">{{ old('address', $profile->address) }}</textarea>
+                                    {{-- PENTING: Saya tambah id="address" di sini --}}
+                                    <textarea name="address" id="address" class="form-control" rows="3" placeholder="Jl. Raya Kampus No. 1, Kota...">{{ old('address', $profile->address) }}</textarea>
+                                    <div class="form-text text-muted">Pastikan alamat lengkap (Jalan, Nomor, Kota) agar titik peta akurat.</div>
                                 </div>
 
+                                {{-- BAGIAN BARU: PETA OTOMATIS --}}
                                 <div class="col-12">
-                                    <div class="bg-light p-3 rounded border">
-                                        <label class="form-label fw-bold mb-2">Google Maps Embed (Iframe)</label>
-                                        <textarea name="gmaps_iframe" class="form-control font-monospace small text-muted mb-2" rows="3" placeholder='<iframe src="https://www.google.com/maps/embed?..."></iframe>'>{{ old('gmaps_iframe', $profile->gmaps_iframe) }}</textarea>
-                                        
-                                        <a href="https://www.google.com/maps" target="_blank" class="text-decoration-none small text-primary mb-3 d-inline-block">
-                                            <i class="bi bi-box-arrow-up-right me-1"></i> Buka Google Maps untuk ambil kode
-                                        </a>
-
-                                        @if($profile->gmaps_iframe)
-                                            <div class="ratio ratio-21x9 rounded overflow-hidden shadow-sm border mt-2 bg-white">
-                                                {!! $profile->gmaps_iframe !!}
+                                    <div class="bg-light p-4 rounded border border-secondary-subtle">
+                                        <div class="d-flex align-items-start">
+                                            <i class="bi bi-map-fill text-primary fs-3 me-3"></i>
+                                            <div>
+                                                <h6 class="fw-bold text-dark">Pengaturan Peta Lokasi</h6>
+                                                <p class="text-muted small mb-3">
+                                                    Sistem akan otomatis menampilkan Google Maps di website berdasarkan gabungan <strong>Nama Kampus</strong> (dari Tab 1) dan <strong>Alamat Lengkap</strong> (di atas). Kamu tidak perlu memasukkan kode embed manual lagi.
+                                                </p>
+                                                
+                                                {{-- Tombol untuk Admin ngecek apakah titiknya pas --}}
+                                                <button type="button" onclick="checkMap()" class="btn btn-sm btn-outline-primary bg-white">
+                                                    <i class="bi bi-geo-alt-fill me-1"></i> Test Buka Peta
+                                                </button>
                                             </div>
-                                        @endif
+                                        </div>
                                     </div>
+                                    
+                                    {{-- Input Hidden (Optional): Kalau mau jaga-jaga simpan link iframe lama, tapi saran saya hapus aja di controller biar bersih --}}
+                                    {{-- <input type="hidden" name="gmaps_iframe" value=""> --}}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-    </div>
-
     {{-- FIXED SAVE BAR --}}
     <div class="fixed-bottom bg-white border-top shadow py-3" style="z-index: 1050;">
         <div class="container-fluid px-4 d-flex justify-content-end align-items-center">
@@ -445,6 +467,28 @@ function previewLogo() {
             if(placeholder) placeholder.classList.add('d-none');
         }
         reader.readAsDataURL(fileInput.files[0]);
+    }
+}
+
+// ... kode previewLogo() kamu ...
+
+// Logic Test Maps (BARU)
+function checkMap() {
+    // Ambil nilai Nama Kampus dari Tab 1
+    var namaKampus = document.getElementById('campus_name').value;
+    
+    // Ambil nilai Alamat dari Tab 5
+    var alamat = document.getElementById('address').value;
+
+    if (namaKampus && alamat) {
+        // Gabung string dan encode biar aman buat URL
+        var query = encodeURIComponent(namaKampus + ' ' + alamat);
+        
+        // Buka tab baru ke Google Maps Embed Viewer
+        // Angka '/3' di URL itu mode view embed standar Google
+        window.open('http://googleusercontent.com/maps.google.com/maps?q=' + query, '_blank');
+    } else {
+        alert('Mohon isi "Nama Kampus" (di Tab Statistik) dan "Alamat Lengkap" terlebih dahulu untuk melihat preview peta.');
     }
 }
 </script>

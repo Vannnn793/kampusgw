@@ -410,7 +410,7 @@
                 </div>
 
                 <a href="/tentang/sejarah" class="inline-flex items-center gap-2 px-8 py-3 bg-[#1E5FA3] text-white font-bold rounded-full shadow-lg hover:bg-[#0F3E73] hover:gap-3 transition-all duration-300">
-                    Baca Sejarah Lengkap
+                    Kenali lebih dekat
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
             </div>
@@ -538,6 +538,75 @@
             </a>
         </div>
 
+    </div>
+</section>
+
+{{-- ===================== TESTIMONI ALUMNI ===================== --}}
+<section class="py-24 bg-slate-50 relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-30 pointer-events-none">
+        <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-sky-200 blur-3xl"></div>
+        <div class="absolute top-1/2 -left-24 w-72 h-72 rounded-full bg-blue-100 blur-3xl"></div>
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-sky-600 font-bold tracking-wide uppercase text-sm mb-3">Kata Alumni</h2>
+            <h3 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Jejak Sukses Para Lulusan</h3>
+            <p class="text-slate-600 text-lg">
+                Dengar langsung pengalaman mereka meniti karir setelah lulus dari kampus kami.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            @forelse($testimoni as $alumni)
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-slate-100 flex flex-col h-full">
+                    
+                    <div class="mb-6">
+                        <svg class="w-10 h-10 text-sky-200" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M14.017 21L14.017 18C14.017 16.896 14.389 15.954 15.133 15.176C15.877 14.398 16.921 14.009 18.265 14.009H18.963C19.125 14.009 19.206 13.928 19.206 13.766V9.673C19.206 9.511 19.125 9.43 18.963 9.43H18.176C17.065 9.43 16.142 9.057 15.407 8.311C14.672 7.565 14.305 6.642 14.305 5.541V5.136C14.305 4.974 14.386 4.893 14.548 4.893H18.932C19.094 4.893 19.175 4.974 19.175 5.136V5.509C19.175 6.942 19.555 8.162 20.315 9.169C21.075 10.176 21.99 11.058 23.06 11.815C23.125 11.864 23.157 11.921 23.157 11.985V20.757C23.157 20.919 23.076 21 22.914 21H14.017ZM6.015 21L6.015 18C6.015 16.896 6.387 15.954 7.131 15.176C7.875 14.398 8.919 14.009 10.263 14.009H10.961C11.123 14.009 11.204 13.928 11.204 13.766V9.673C11.204 9.511 11.123 9.43 10.961 9.43H10.174C9.063 9.43 8.14 9.057 7.405 8.311C6.67 7.565 6.303 6.642 6.303 5.541V5.136C6.303 4.974 6.384 4.893 6.546 4.893H10.93C11.092 4.893 11.173 4.974 11.173 5.136V5.509C11.173 6.942 11.553 8.162 12.313 9.169C13.073 10.176 13.988 11.058 15.058 11.815C15.123 11.864 15.155 11.921 15.155 11.985V20.757C15.155 20.919 15.074 21 14.912 21H6.015Z"/>
+                        </svg>
+                    </div>
+
+                    <p class="text-slate-600 mb-6 flex-grow italic leading-relaxed">
+                        "{{ Str::limit($alumni->pesan_kesan, 150) }}"
+                    </p>
+
+                    <div class="flex items-center pt-6 border-t border-slate-100 mt-auto">
+                        <div class="flex-shrink-0 mr-4">
+                            @if($alumni->foto)
+                                <img class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" 
+                                     src="{{ asset('storage/' . $alumni->foto) }}" 
+                                     alt="{{ $alumni->nama }}">
+                            @else
+                                <div class="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center text-slate-500">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            @endif
+                        </div>
+                        <div>
+                            <h4 class="text-slate-900 font-bold text-sm">{{ $alumni->nama }}</h4>
+                            <div class="text-xs text-sky-600 font-semibold uppercase tracking-wide">
+                                {{ $alumni->jabatan ?? 'Alumni' }}
+                            </div>
+                            <div class="text-xs text-slate-500">
+                                {{ $alumni->perusahaan ?? 'Lulusan ' . $alumni->tahun_lulus }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="col-span-3 text-center py-10">
+                    <p class="text-slate-400">Belum ada testimoni alumni yang ditampilkan.</p>
+                </div>
+            @endforelse
+        </div>
+        
+        <div class="text-center mt-12">
+            <a href="/alumni" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-sky-600 hover:bg-sky-700 transition-colors shadow-lg shadow-sky-200">
+                Lihat Semua Cerita Alumni
+                <svg class="w-5 h-5 ml-2 -mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
+        </div>
     </div>
 </section>
 
@@ -706,20 +775,20 @@
             {{-- ITEM 1: SEJARAH --}}
             <a href="/tentang/sejarah" class="group bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100">
                 <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4 text-2xl group-hover:scale-110 transition">
-                    📜
+                    🏫
                 </div>
-                <h3 class="font-bold text-slate-800 mb-2 group-hover:text-[#1E5FA3] transition">Sejarah Kampus</h3>
+                <h3 class="font-bold text-slate-800 mb-2 group-hover:text-[#1E5FA3] transition">Profile Kampus</h3>
                 <p class="text-xs text-slate-500">Perjalanan dedikasi kami mencetak generasi unggul.</p>
             </a>
 
             {{-- ITEM 2: VISI MISI --}}
-            <a href="/tentang/visi-misi" class="group bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100">
+            {{-- <a href="/tentang/visi-misi" class="group bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100">
                 <div class="w-12 h-12 bg-indigo-50 rounded-lg flex items-center justify-center mb-4 text-2xl group-hover:scale-110 transition">
                     🎯
                 </div>
                 <h3 class="font-bold text-slate-800 mb-2 group-hover:text-indigo-600 transition">Visi & Misi</h3>
                 <p class="text-xs text-slate-500">Komitmen dan arah tujuan pendidikan kami.</p>
-            </a>
+            </a> --}}
 
             {{-- ITEM 3: STRUKTUR --}}
             <a href="/tentang/struktur" class="group bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100">
