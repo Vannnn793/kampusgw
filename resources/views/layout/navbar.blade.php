@@ -1,20 +1,20 @@
 <nav class="fixed w-full z-50 bg-white/70 backdrop-blur-md border-b border-slate-200">
     <div class="relative max-w-7xl mx-auto px-6 py-4 flex items-center">
 
-        <!-- KIRI: LOGO -->
+        <!-- LOGO -->
         <a href="/" class="text-xl font-extrabold text-sky-600 tracking-wide">
             KampusGW
         </a>
 
-        <!-- TENGAH: MENU (TETAP DI TENGAH) -->
+        <!-- MENU TENGAH -->
         <div class="absolute left-1/2 -translate-x-1/2 hidden md:flex text-sm font-semibold text-slate-700">
-            <ul class="flex items-center gap-8 list-none">
+            <ul class="flex items-center gap-8">
 
                 <li>
                     <a href="/" class="hover:text-blue-800 transition">Home</a>
                 </li>
 
-                <!-- Tentang Kami -->
+                <!-- TENTANG KAMI -->
                 <li class="relative group">
                     <button class="flex items-center gap-1 hover:text-blue-800 transition">
                         Tentang Kami
@@ -35,6 +35,12 @@
                         </li>
 
                         <li>
+                            <a href="/tentang/sambutan" class="block px-5 py-3 hover:bg-[#2c67b2]">
+                                Sambutan Rektor
+                            </a>
+                        </li>
+
+                        <li>
                             <a href="/tentang/struktur" class="block px-5 py-3 hover:bg-[#2c67b2]">
                                 Struktur Organisasi
                             </a>
@@ -46,21 +52,38 @@
                             </a>
                         </li>
 
-                        <!-- Sub Dropdown Fasilitas -->
+                        <!-- SUB MENU FASILITAS -->
                         <li class="relative group/fasilitas">
+
                             <div class="flex justify-between items-center px-5 py-3 hover:bg-[#2c67b2] cursor-pointer">
-                                Fasilitas Jurusan
+                                Fasilitas
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                           d="M9 5l7 7-7 7"/>
                                 </svg>
                             </div>
 
-                            <ul class="absolute top-0 left-full ml-2 w-60 bg-[#2c67b2] text-white
+                            <ul class="absolute top-0 left-full ml-2 w-64 bg-[#2c67b2] text-white
                                        rounded-xl shadow-xl opacity-0 invisible
                                        group-hover/fasilitas:opacity-100 group-hover/fasilitas:visible
                                        transition-all duration-300 z-50">
 
+                                {{-- HEADER --}}
+                                <li class="px-5 py-2 text-xs uppercase text-slate-300 tracking-wider">
+                                    Fasilitas Jurusan
+                                </li>
+
+                                {{-- FASILITAS UMUM --}}
+                                <li>
+                                    <a href="{{ route('tentang.fasilitas.umum') }}"
+                                       class="block px-5 py-3 font-semibold bg-[#1e4fa1] hover:bg-[#2563eb]">
+                                        Fasilitas Umum
+                                    </a>
+                                </li>
+
+                                <li class="border-t border-blue-400 my-1"></li>
+
+                                {{-- FAKULTAS --}}
                                 @foreach($faculties as $faculty)
                                     <li>
                                         <a href="{{ route('tentang.fasilitas.faculty', $faculty->slug) }}"
@@ -72,6 +95,7 @@
 
                             </ul>
                         </li>
+
                     </ul>
                 </li>
 
@@ -92,6 +116,7 @@
 
                         @foreach($faculties as $faculty)
                             <li class="relative group/faculty">
+
                                 <div class="flex justify-between items-center px-6 py-4 hover:bg-[#2c67b2] cursor-pointer">
                                     {{ $faculty->name }}
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -124,6 +149,7 @@
                                 </ul>
                             </li>
                         @endforeach
+
                     </ul>
                 </li>
 
@@ -133,15 +159,16 @@
             </ul>
         </div>
 
-        <!-- KANAN: DAFTAR -->
+        <!-- BUTTON KANAN -->
         <div class="ml-auto hidden md:block">
             <a href="/admissions"
                class="px-5 py-2 bg-sky-500 text-white rounded-xl font-bold hover:bg-sky-600 transition">
-                Daftar
+                Daftar Sekarang
             </a>
         </div>
 
     </div>
 </nav>
 
+<!-- Spacer Navbar -->
 <div class="h-20"></div>

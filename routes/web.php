@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Faculty;
 use App\Models\Post;
-
+use App\Models\Profile;
 /*
 |--------------------------------------------------------------------------
 | CONTROLLERS
@@ -26,10 +26,30 @@ use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\AlumniController as AdminAlumni;
 
 
-Route::get(
-    '/faculties/{faculty:slug}/prodi/{prodi:slug}',
-    [ProdiController::class, 'show']
-)->name('faculties.prodis.show');
+
+Route::get('/tentang/sambutan', function () {
+    $rektor = Profile::select(
+        'nama_rektor',
+        'foto_rektor',
+        'sambutan_rektor',
+          'logo_path'
+    )->first();
+
+    return view('tentang.sambutan', compact('rektor'));
+})->name('sambutan.rektor');
+
+
+Route::get('/tentang/fasilitas', [FacilityController::class, 'index'])
+    ->name('tentang.fasilitas');
+
+Route::get('/tentang/fasilitas/fakultas/{slug}', 
+    [FacilityController::class, 'byFaculty'])
+    ->name('tentang.fasilitas.faculty');
+
+Route::get('/tentang/fasilitas/umum', 
+    [FacilityController::class, 'campus'])
+    ->name('tentang.fasilitas.umum');
+
 
 /*
 |--------------------------------------------------------------------------
