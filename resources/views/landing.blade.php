@@ -108,15 +108,15 @@
                 {{-- STATS BAR (Pelega Ruang Kosong) --}}
                 <div class="mt-16 grid grid-cols-3 gap-8 border-t border-gray-200 pt-8">
                     <div>
-                        <p class="text-3xl font-bold text-[#0F2A44]">12k+</p>
+                        <p class="text-3xl font-bold text-[#0F2A44]">{{ $profile->total_alumni ?? 0 }}</p>
                         <p class="text-sm text-gray-500 font-medium">Alumni Sukses</p>
                     </div>
                     <div>
-                        <p class="text-3xl font-bold text-[#0F2A44]">50+</p>
+                        <p class="text-3xl font-bold text-[#0F2A44]">{{ $partners->count() ?? 0 }}</p>
                         <p class="text-sm text-gray-500 font-medium">Partner Industri</p>
                     </div>
                     <div>
-                        <p class="text-3xl font-bold text-[#0F2A44]">A</p>
+                        <p class="text-3xl font-bold text-[#0F2A44]">A+</p>
                         <p class="text-sm text-gray-500 font-medium">Akreditasi Ban-PT</p>
                     </div>
                 </div>
@@ -154,7 +154,7 @@
                         <img src="{{ asset('storage/' . $pmbInfos->first()->image) }}" class="w-full h-full object-cover opacity-80 group-hover:scale-110 transition duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent p-6 flex flex-col justify-end">
                             <span class="text-blue-300 text-xs font-bold uppercase tracking-widest">Informasi Terbaru</span>
-                            <h3 class="text-white font-bold">Jadwal Seleksi Gelombang II</h3>
+                            <h3 class="text-white font-bold">Jadwal Seleksi</h3>
                         </div>
                     @else
                         <div class="flex items-center justify-center h-full text-white/50">Info PMB</div>
@@ -165,26 +165,39 @@
 
         {{-- VIDEO SECTION (Full Width di Bawah) --}}
         <div class="mt-16 relative group">
-            <div class="absolute -inset-1 bg-blue-500 rounded-[2.5rem] blur opacity-10"></div>
-            <div class="relative rounded-[2rem] overflow-hidden shadow-2xl h-64 md:h-[450px] bg-black">
-                @php
-                    $video_id = '';
-                    if (isset($profile->link_video_profil) && preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $profile->link_video_profil, $match)) {
-                        $video_id = $match[1];
-                    }
-                @endphp
+    {{-- Glow effect di belakang --}}
+    <div class="absolute -inset-1 bg-blue-500 rounded-[2.5rem] blur opacity-10"></div>
+    
+    {{-- Container Video dengan Aspect Ratio --}}
+    <div class="relative rounded-[2rem] overflow-hidden shadow-2xl bg-black aspect-video w-full">
+        @php
+            $video_id = '';
+            if (isset($profile->link_video_profil) && preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $profile->link_video_profil, $match)) {
+                $video_id = $match[1];
+            }
+        @endphp
 
-                @if($video_id)
-                    <iframe class="w-full h-full object-cover opacity-60 pointer-events-none" src="https://www.youtube.com/embed/{{ $video_id }}?autoplay=1&mute=1&loop=1&playlist={{ $video_id }}&controls=0"></iframe>
-                    <a href="{{ $profile->link_video_profil }}" target="_blank" class="absolute inset-0 flex items-center justify-center group-hover:bg-black/20 transition">
-                        <div class="w-20 h-20 bg-white/10 backdrop-blur-xl rounded-full flex items-center justify-center border border-white/40 group-hover:scale-110 transition duration-500">
-                            <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-blue-600 shadow-xl">
-                                <svg class="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                            </div>
-                        </div>
-                    </a>
-                @endif
-            </div>
+        @if($video_id)
+            {{-- Perubahan: Hapus h-64/h-[450px], ganti object-cover jadi object-contain --}}
+            <iframe 
+                class="absolute inset-0 w-full h-full object-contain opacity-60 pointer-events-none" 
+                src="https://www.youtube.com/embed/{{ $video_id }}?autoplay=1&mute=1&loop=1&playlist={{ $video_id }}&controls=0"
+                frameborder="0"
+                allow="autoplay; encrypted-media"
+                allowfullscreen>
+            </iframe>
+
+            {{-- Overlay Button --}}
+            <a href="{{ $profile->link_video_profil }}" target="_blank" class="absolute inset-0 flex items-center justify-center group-hover:bg-black/20 transition duration-500">
+                <div class="w-20 h-20 bg-white/10 backdrop-blur-xl rounded-full flex items-center justify-center border border-white/40 group-hover:scale-110 transition duration-500">
+                    <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-blue-600 shadow-xl">
+                        <svg class="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                </div>
+            </a>
+        @endif
+    </div>
+</div>
         </div>
     </div>
 </section>
@@ -241,7 +254,7 @@
                             @foreach($partners as $partner)
                                 <div class="group aspect-[3/2] flex items-center justify-center p-6 bg-white rounded-3xl border border-blue-50 shadow-sm hover:shadow-xl hover:shadow-[#1E5FA3]/10 hover:-translate-y-1 transition-all duration-300">
                                     <img src="{{ asset('storage/'.$partner->logo) }}" alt="{{ $partner->name }}" 
-                                         class="max-w-full max-h-full object-contain grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
+                                         class="max-w-full max-h-full object-contain opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
                                 </div>
                             @endforeach
                         @endfor
@@ -253,7 +266,7 @@
                             @foreach($partners->shuffle() as $partner)
                                 <div class="group aspect-[3/2] flex items-center justify-center p-6 bg-white rounded-3xl border border-blue-50 shadow-sm hover:shadow-xl hover:shadow-[#1E5FA3]/10 hover:-translate-y-1 transition-all duration-300">
                                     <img src="{{ asset('storage/'.$partner->logo) }}" alt="{{ $partner->name }}" 
-                                         class="max-w-full max-h-full object-contain grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
+                                         class="max-w-full max-h-full object-contain opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
                                 </div>
                             @endforeach
                         @endfor
@@ -372,7 +385,7 @@
 
                 <div class="pt-6">
                     <a href="/tentang/sejarah" class="group relative inline-flex items-center gap-4 px-10 py-4 bg-[#0F2A44] text-white font-black rounded-2xl overflow-hidden transition-all hover:bg-[#1E5FA3]">
-                        <span class="relative z-10">Eksplorasi Sejarah</span>
+                        <span class="relative z-10">Kenal lebih Dekat</span>
                         <svg class="w-5 h-5 transition-transform group-hover:translate-x-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </a>
                 </div>
