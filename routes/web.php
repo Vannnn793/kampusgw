@@ -19,6 +19,8 @@ use App\Http\Controllers\TentangController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\lancingController;
 use App\Http\Controllers\ProdiController;
+use App\Models\PmbInfo;
+
 
 // Admin Controllers
 use App\Http\Controllers\Admin\DashboardController;
@@ -28,11 +30,22 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\AlumniController as AdminAlumni;
 
-/*
-|--------------------------------------------------------------------------
-| STATIC / TENTANG ROUTES
-|--------------------------------------------------------------------------
-*/
+Route::get('/pmb', function () {
+    $pmbs = PmbInfo::where('is_active', 1)
+        ->orderBy('start_date')
+        ->get();
+
+    return view('pmb.index', compact('pmbs'));
+})->name('pmb.index');
+
+Route::get('/pmb/{slug}', function ($slug) {
+    $pmb = PmbInfo::where('slug', $slug)
+        ->where('is_active', 1)
+        ->firstOrFail();
+
+    return view('pmb.show', compact('pmb'));
+})->name('pmb.show');
+
 
 Route::get('/tentang/sambutan', function () {
     $rektor = Profile::select(
