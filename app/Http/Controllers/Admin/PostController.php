@@ -55,9 +55,23 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //
+        $posts = Post::with('category')
+        // Jika ada filter ?category=slug di URL
+        ->when($request->category, function ($query) use ($request) {
+            $query->whereHas('category', function ($q) use ($request) {
+                $q->where('slug', $request->category);
+            });
+        })
+        // Jika ada pencarian ?search=keyword
+        ->when($request->search, function ($query) use ($request) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        })
+        ->latest()
+        ->paginate(6); // Ini yang bikin jadi LengthAwarePaginator
+
+    return view('posts.index', compact('posts'));
     }
 
     /**

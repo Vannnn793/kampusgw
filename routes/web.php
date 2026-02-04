@@ -38,6 +38,8 @@ Route::get('/pmb', function () {
     return view('pmb.index', compact('pmbs'));
 })->name('pmb.index');
 
+Route::get('/posts', [PostController::class, 'show'])->name('posts.index');
+
 Route::get('/pmb/{slug}', function ($slug) {
     $pmb = PmbInfo::where('slug', $slug)
         ->where('is_active', 1)
