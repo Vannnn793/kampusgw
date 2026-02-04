@@ -602,7 +602,7 @@
         </div>
         
         <div class="text-center mt-12">
-            <a href="/alumni" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-sky-600 hover:bg-sky-700 transition-colors shadow-lg shadow-sky-200">
+            <a href="/careers" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-sky-600 hover:bg-sky-700 transition-colors shadow-lg shadow-sky-200">
                 Lihat Semua Cerita Alumni
                 <svg class="w-5 h-5 ml-2 -mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </a>

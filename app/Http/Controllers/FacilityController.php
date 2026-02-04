@@ -26,11 +26,13 @@ class FacilityController extends Controller
 
         return view('tentang.fasilitas', compact('facilities', 'faculty', 'profile'));
     }
+
     public function campus()
     {
         $facilities = Facility::whereNull('faculty_id')->get();
         $profile = Profile::first();
 
-        return view('tentang.fasilitas', compact('facilities','profile'));
+        return view('tentang.fasilitas', compact('facilities', 'profile'));
     }
 }
+

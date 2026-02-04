@@ -42,83 +42,99 @@
                     <li><a href="/tentang/sejarah" class="block px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition">Sejarah Singkat</a></li>
                     <li><a href="/tentang/struktur" class="block px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition">Struktur Organisasi</a></li>
                     <li><a href="/tentang/akreditasi" class="block px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition">Akreditasi</a></li>
-                    
-                   {{-- Nested Menu: Fasilitas --}}
-                    <li class="relative group/sub">
 
-                        <div class="flex justify-between items-center px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white cursor-pointer transition">
-                            Fasilitas
-                            <svg class="w-4 h-4 -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </div>
+             {{-- Nested Menu: Fasilitas --}}
+            <li class="relative group/sub">
 
-                        <ul class="absolute top-0 left-full w-60 bg-white border border-slate-100
-                                rounded-xl shadow-xl opacity-0 invisible
-                                group-hover/sub:opacity-100 group-hover/sub:visible
-                                transition-all ml-2 p-2">
+                <div class="flex justify-between items-center px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white cursor-pointer transition">
+                    Fasilitas
+                    <svg class="w-4 h-4 -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </div>
 
-                            {{-- ================= FASILITAS KAMPUS ================= --}}
-                            <li class="px-3 py-2 text-xs font-bold uppercase text-slate-400">
-                                Fasilitas Kampus
-                            </li>
+                <ul class="absolute top-0 left-full w-60 bg-white border border-slate-100
+                        rounded-xl shadow-xl opacity-0 invisible
+                        group-hover/sub:opacity-100 group-hover/sub:visible
+                        transition-all ml-2 p-2">
 
-                            <li>
-                                <a href="{{ route('tentang.fasilitas.index') }}"
-                                class="block px-4 py-2 rounded-lg font-semibold
-                                        bg-sky-600 text-white hover:bg-sky-700 transition">
-                                    Lihat Semua
-                                </a>
-                            </li>
-
-                            <li class="border-t my-2"></li>
-
-                            {{-- ================= FASILITAS JURUSAN ================= --}}
-                            <li class="px-3 py-2 text-xs font-bold uppercase text-slate-400">
-                                Fasilitas Jurusan
-                            </li>
-
-                            @foreach($faculties as $faculty)
-                                <li>
-                                    <a href="{{ route('tentang.fasilitas.byFaculty', $faculty->slug) }}"
-                                    class="block px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition">
-                                        {{ $faculty->name }}
-                                    </a>
-                                </li>
-                            @endforeach
-
-                        </ul>
+                    {{-- ================= FASILITAS KAMPUS ================= --}}
+                    <li class="px-3 py-2 text-xs font-bold uppercase text-slate-400">
+                        Fasilitas Kampus
 
                     </li>
-                </ul>
-            </div>
 
-            {{-- Dropdown: Faculties --}}
-            <div class="relative group h-14 flex items-center">
-                <button class="flex items-center gap-1 px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition-all duration-300 focus:outline-none group-hover:bg-sky-50 group-hover:text-sky-600">
-                    Faculties
-                    <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </button>
+                    <li>
+                        <a href="{{ route('tentang.fasilitas.umum') }}"
+                        class="block px-4 py-2 rounded-lg font-semibold
+                                bg-sky-600 text-white hover:bg-sky-700 transition">
+                            Lihat Semua
+                        </a>
+                    </li>
 
-                <ul class="absolute top-full left-0 w-64 bg-white border border-slate-100 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top translate-y-2 group-hover:translate-y-0 p-2 z-50">
-                    @foreach($faculties as $faculty)
-                        <li class="relative group/prodi">
-                            <a href="{{ route('faculties.index', $faculty->slug) }}" class="flex justify-between items-center px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white cursor-pointer transition">
-                                {{ $faculty->name }}
-                                <svg class="w-4 h-4 -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                            </a>
-                            <ul class="absolute top-0 left-full w-64 bg-white border border-slate-100 rounded-xl shadow-xl opacity-0 invisible group-hover/prodi:opacity-100 group-hover/prodi:visible transition-all ml-2 p-2 max-h-80 overflow-y-auto">
-                                @forelse($faculty->prodis as $prodi)
-                                    <li><a href="{{ route('prodis.show', [$faculty->slug, $prodi->slug]) }}" class="block px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition text-sm">{{ $prodi->name }}</a></li>
-                                @empty
-                                    <li class="px-4 py-2 text-slate-400 text-xs italic">Belum ada prodi</li>
-                                @endforelse
-                            </ul>
+                    <li class="border-t my-2"></li>
+
+                        {{-- ================= FASILITAS JURUSAN ================= --}}
+                        <li class="px-3 py-2 text-xs font-bold uppercase text-slate-400">
+                            Fasilitas Jurusan
                         </li>
-                    @endforeach
+
+                        @foreach($faculties as $faculty)
+                            <li>
+                                <a href="{{ route('tentang.fasilitas.faculty', $faculty->slug) }}"
+                                class="block px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition">
+                                    {{ $faculty->name }}
+                                </a>
+                            </li>
+                        @endforeach
+
+                    </ul>
+
+                </li>
+
+                                    
                 </ul>
             </div>
+
+        {{-- Dropdown: Faculties --}}
+<div class="relative group h-14 flex items-center">
+    <button class="flex items-center gap-1 px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition-all duration-300 focus:outline-none group-hover:bg-sky-50 group-hover:text-sky-600">
+        Faculties
+        <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+    </button>
+
+    {{-- MAIN DROPDOWN --}}
+    <ul class="absolute top-full mt-2 left-0 w-64 bg-white border border-slate-100 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top translate-y-2 group-hover:translate-y-0 p-2 z-50">
+        @foreach($faculties as $faculty)
+            <li class="relative group/prodi">
+                <div class="flex justify-between items-center px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white cursor-pointer transition">
+                    {{ $faculty->name }}
+                    <svg class="w-4 h-4 -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </div>
+
+                {{-- NESTED PRODI DROPDOWN --}}
+                <ul class="absolute top-0 left-full ml-3 w-64 bg-white border border-slate-100 rounded-xl shadow-xl opacity-0 invisible group-hover/prodi:opacity-100 group-hover/prodi:visible transition-all p-2 max-h-80 overflow-y-auto">
+                    @forelse($faculty->prodis as $prodi)
+                        <li>
+                            <a href="{{ route('faculties.prodis.show', [$faculty->slug, $prodi->slug]) }}"
+                               class="block px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition">
+                                {{ $prodi->name }}
+                            </a>
+                        </li>
+                    @empty
+                        <li class="px-4 py-2 text-slate-400 text-xs italic">Belum ada prodi</li>
+                    @endforelse
+                </ul>
+            </li>
+        @endforeach
+    </ul>
+</div>
+
 
             <a href="/admissions" class="px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition-all duration-300">Admissions</a>
             <a href="/careers" class="px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition-all duration-300">Careers</a>

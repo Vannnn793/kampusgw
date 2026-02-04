@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Faculty;
 use App\Models\Post;
+use App\Models\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,38 +18,54 @@ use App\Http\Controllers\AdmissionController;
 use App\Http\Controllers\TentangController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\lancingController;
+use App\Http\Controllers\ProdiController;
+
 // Admin Controllers
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FacultyController as AdminFacultyController;
-use App\Http\Controllers\Admin\ProdiController;
+use App\Http\Controllers\Admin\ProdiController as AdminProdiController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\AlumniController as AdminAlumni;
 
+/*
+|--------------------------------------------------------------------------
+| STATIC / TENTANG ROUTES
+|--------------------------------------------------------------------------
+*/
 
-Route::get(
-    '/faculties/{faculty:slug}/prodi/{prodi:slug}',
-    [ProdiController::class, 'show']
-)->name('faculties.prodis.show');
+Route::get('/tentang/sambutan', function () {
+    $rektor = Profile::select(
+        'nama_rektor',
+        'foto_rektor',
+        'sambutan_rektor',
+        'logo_path'
+    )->first();
+
+    return view('tentang.sambutan', compact('rektor'));
+})->name('sambutan.rektor');
+
+Route::prefix('tentang')->name('tentang.')->group(function () {
+
+    Route::get('/', fn () => view('tentang.index'))->name('index');
+    Route::get('/visi-misi', fn () => view('tentang.visi-misi'))->name('visi-misi');
+    Route::get('/akreditasi', [TentangController::class, 'akreditasi'])->name('akreditasi');
+    Route::get('/struktur', [TentangController::class, 'struktur'])->name('struktur');
+    Route::get('/sejarah', [TentangController::class, 'sejarah'])->name('sejarah');
+
+    // Fasilitas
+    Route::get('/fasilitas', [FacilityController::class, 'index'])->name('fasilitas.index');
+    Route::get('/fasilitas/umum', [FacilityController::class, 'campus'])->name('fasilitas.umum');
+    Route::get('/fasilitas/fakultas/{faculty:slug}', [FacilityController::class, 'byFaculty'])->name('fasilitas.faculty');
+});
 
 /*
 |--------------------------------------------------------------------------
 | PUBLIC ROUTES
 |--------------------------------------------------------------------------
 */
-// JSON endpoint untuk landing page
-Route::get('/posts/{post:slug}/json', function (Post $post) {
-    return response()->json($post);
-})->name('posts.json');
 
-Route::get('/', function () {
-    return view('landing', [
-        'posts'      => Post::latest()->take(6)->get(),
-        'faculties'  => Faculty::all(),
-        'partners'   => \App\Models\Partner::all(),
-        'categories' => \App\Models\Category::all(),
-    ]);
-})->name('home');
+// Landing Page
 Route::get('/', [lancingController::class, 'index'])->name('landing');
 
 // Careers
@@ -58,32 +75,24 @@ Route::get('/careers', [CareerController::class, 'index'])->name('careers');
 Route::get('/admissions', [AdmissionController::class, 'index'])->name('admissions.index');
 Route::post('/admissions', [AdmissionController::class, 'store'])->name('admissions.store');
 
-// Fakultas (PUBLIC)
-Route::get('/faculties', [FacultyController::class, 'index'])
-    ->name('faculties.index');
+// Posts JSON & detail
+Route::get('/posts/{post:slug}/json', fn (Post $post) => response()->json($post))->name('posts.json');
+Route::get('/posts/{post:slug}', fn (Post $post) => view('posts.show', compact('post')))->name('posts.show');
 
-Route::get('/faculties/{slug}', [FacultyController::class, 'show'])
-    ->name('faculties.show');
+// Fakultas & Prodi PUBLIC
+Route::prefix('faculties')->group(function () {
 
-// Prodi (PUBLIC)
-Route::get('/faculties/{faculty}/prodis/{prodi}', [ProdiController::class, 'show'])
-    ->name('faculties.prodis.show');
+    // List Fakultas
+    Route::get('/', [FacultyController::class, 'index'])->name('faculties.index');
 
-// Posts
-Route::get('/posts/{post:slug}', function (Post $post) {
-    return view('posts.show', compact('post'));
-})->name('posts.show');
+    // Fakultas detail
+    Route::get('{faculty:slug}', [FacultyController::class, 'show'])->name('faculties.show');
 
-Route::resource('prodis', ProdiController::class)->only(['show']);
-/*
-|--------------------------------------------------------------------------
-| TENTANG ROUTES
-|--------------------------------------------------------------------------
-*/
-Route::resource('tentang', TentangController::class)->only(['index']);
-Route::get('/tentang/fasilitas', [FacilityController::class, 'campus'])->name('tentang.fasilitas.campus');
-Route::get('/tentang/fasilitas/{slug}', [FacilityController::class, 'byFaculty'])->name('tentang.fasilitas.byFaculty');
-Route::get('/tentang/fasilitas', [FacilityController::class, 'index'])->name('tentang.fasilitas.index');
+
+    // Prodi detail
+    Route::get('{faculty:slug}/prodis/{prodi:slug}', [ProdiController::class, 'show'])->name('faculties.prodis.show');
+});
+
 /*
 |--------------------------------------------------------------------------
 | ADMIN ROUTES
@@ -92,13 +101,13 @@ Route::get('/tentang/fasilitas', [FacilityController::class, 'index'])->name('te
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])
-        ->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('admin')->name('admin.')->group(function () {
 
+        // CRUD Admin
         Route::resource('faculties', AdminFacultyController::class);
-        Route::resource('prodis', ProdiController::class);
+        Route::resource('prodis', AdminProdiController::class);
         Route::resource('posts', PostController::class);
         Route::resource('partners', PartnerController::class);
 
@@ -111,19 +120,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('pmb-info', \App\Http\Controllers\Admin\PmbInfoController::class);
 
         // Admissions admin
-        Route::get('/admissions', [AdmissionController::class, 'adminIndex'])
-            ->name('admissions.index');
-
-        Route::delete('/admissions/{id}', [AdmissionController::class, 'destroy'])
-            ->name('admissions.destroy');
+        Route::get('/admissions', [AdmissionController::class, 'adminIndex'])->name('admissions.index');
+        Route::delete('/admissions/{id}', [AdmissionController::class, 'destroy'])->name('admissions.destroy');
 
         // Alumni
-        Route::get('/alumni', [AdminAlumni::class, 'index'])
-            ->name('alumni.index');
-
-        Route::post('/alumni/store', [AdminAlumni::class, 'store'])
-            ->name('alumni.store');
-
+        Route::get('/alumni', [AdminAlumni::class, 'index'])->name('alumni.index');
+        Route::post('/alumni/store', [AdminAlumni::class, 'store'])->name('alumni.store');
         Route::get('/get-prodi/{faculty_id}', [AdminAlumni::class, 'getProdi']);
     });
 });
