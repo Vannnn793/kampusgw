@@ -19,8 +19,6 @@ use App\Http\Controllers\TentangController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\lancingController;
 use App\Http\Controllers\ProdiController;
-use App\Models\PmbInfo;
-
 
 // Admin Controllers
 use App\Http\Controllers\Admin\DashboardController;
@@ -29,6 +27,8 @@ use App\Http\Controllers\Admin\ProdiController as AdminProdiController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\AlumniController as AdminAlumni;
+
+use App\Models\PmbInfo;
 
 Route::get('/pmb', function () {
     $pmbs = PmbInfo::where('is_active', 1)
@@ -87,6 +87,7 @@ Route::get('/careers', [CareerController::class, 'index'])->name('careers');
 // Admissions
 Route::get('/admissions', [AdmissionController::class, 'index'])->name('admissions.index');
 Route::post('/admissions', [AdmissionController::class, 'store'])->name('admissions.store');
+
 
 // Posts JSON & detail
 Route::get('/posts/{post:slug}/json', fn (Post $post) => response()->json($post))->name('posts.json');

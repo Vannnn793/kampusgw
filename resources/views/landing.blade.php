@@ -40,9 +40,11 @@
                     Penerimaan Mahasiswa Baru KampusGw 2026 Telah Dibuka!
                 </span>
                 Simak Jadwal, Syarat, dan Program Studi.
-                <a href="/pmb"
-                   class="ml-1 font-semibold underline underline-offset-4 hover:text-sky-700 transition">
-                    Lihat di Sini!
+               <a href="https://reg.snpmb.id/"
+                class="ml-1 font-semibold underline underline-offset-4 hover:text-sky-700 transition"
+                target="_blank"
+                rel="noopener">
+                Lihat di Sini!
                 </a>
             </p>
         </div>
