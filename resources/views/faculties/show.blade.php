@@ -116,7 +116,7 @@
         <div class="grid md:grid-cols-3 gap-8">
 
             @foreach ($faculty->prodis as $prodi)
-            <a href="{{ route('faculties.prodis.show', ['faculty' => $faculty->id, 'prodi' => $prodi->id]) }}"
+            <a href="{{ route('faculties.prodis.show', [$faculty->slug, $prodi->slug]) }}"
                data-aos="fade-up"
                class="block rounded-2xl bg-[#CDE2F9] border border-slate-200 p-6 hover:bg-[#B9D4F2] transition">
 

@@ -16,7 +16,7 @@ class lancingController extends Controller
                         ->latest('published_at') // Urutkan dari yang terbaru
                         ->take(5) // Batasi 5 slide
                         ->get();
-        $pmbInfos = \App\Models\PmbInfo::where('is_active', 1)->get();
+        $pmbInfos = \App\Models\PmbInfo::where('is_active', 1)->first(); // Mengambil satu info PMB yang aktif
         $profile = \App\Models\Profile::first();
         $testimoni = \App\Models\Alumni::latest()->take(3)->get();
 

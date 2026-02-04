@@ -4,7 +4,7 @@
         <div class="space-y-4">
             <div class="flex items-center gap-2">
                 {{-- Logo Kecil (Opsional, kalau mau dimunculin) --}}
-                @if(isset($profile) && $profile->logo)
+                @if(isset($profile) && $profile->logo_path)
                     <img src="{{ asset('storage/'.$profile->logo) }}" class="h-8 w-auto" alt="Logo">
                 @endif
                 

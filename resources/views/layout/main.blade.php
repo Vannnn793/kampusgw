@@ -77,5 +77,44 @@
     {{-- Slot untuk JS tambahan per halaman (misal untuk chart/maps) --}}
     @stack('scripts')
 
+    <script>
+    const menuBtn = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const closeIcon = document.getElementById('close-icon');
+    const navbar = document.getElementById('main-navbar');
+
+    menuBtn.addEventListener('click', () => {
+        // Toggle Menu
+        const isHidden = mobileMenu.classList.contains('hidden');
+        
+        if (isHidden) {
+            mobileMenu.classList.remove('hidden');
+            // Ganti Ikon
+            hamburgerIcon.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+            // Kasih background solid pas dibuka biar gak tembus pandang
+            navbar.classList.add('bg-white');
+            navbar.classList.remove('bg-white/80');
+        } else {
+            mobileMenu.classList.add('hidden');
+            // Ganti Ikon
+            hamburgerIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+        }
+    });
+
+    // Efek Navbar mengecil/solid saat scroll
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('h-16', 'shadow-md');
+            navbar.classList.remove('h-20');
+        } else {
+            navbar.classList.add('h-20');
+            navbar.classList.remove('h-16', 'shadow-md');
+        }
+    });
+</script>
+
 </body>
 </html>
