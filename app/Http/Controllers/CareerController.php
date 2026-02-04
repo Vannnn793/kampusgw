@@ -10,6 +10,8 @@ class CareerController extends Controller
     public function index()
     {
         $alumni = Alumni::latest()->get();
-        return view('careers.index', compact('alumni'));
+        $profile = \App\Models\Profile::first();
+
+        return view('careers.index', compact('alumni', 'profile'));
     }
 }

@@ -18,6 +18,7 @@ class lancingController extends Controller
                         ->get();
         $pmbInfos = \App\Models\PmbInfo::where('is_active', 1)->get();
         $profile = \App\Models\Profile::first();
+        $testimoni = \App\Models\Alumni::latest()->take(3)->get();
 
         // PENTING: Perhatikan bagian compact('sliders')
         // Ini artinya kita kirim data ke view dengan nama "$sliders"
@@ -29,6 +30,8 @@ class lancingController extends Controller
         'sliders'    => $sliders,
         'pmbInfos'   => $pmbInfos,
         'profile'    => $profile,
+        'testimoni'  => $testimoni,
+        
         ]); 
     }
 }

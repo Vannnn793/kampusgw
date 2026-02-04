@@ -18,10 +18,15 @@ class FacilityController extends Controller
     {
         $faculty = Faculty::where('slug', $slug)->firstOrFail();
 
-        $facilities = Facility::with('faculty')
-            ->where('faculty_id', $faculty->id)
-            ->get();
+        $facilities = Facility::where('faculty_id', $faculty->id)->get();
 
-        return view('tentang.fasilitas', compact('facilities', 'faculty'));
+        return view('tentang.fasilitas', compact('facilities','faculty'));
+    }
+
+    public function campus()
+    {
+        $facilities = Facility::whereNull('faculty_id')->get();
+
+        return view('tentang.fasilitas', compact('facilities'));
     }
 }
