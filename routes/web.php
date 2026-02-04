@@ -74,27 +74,16 @@ Route::get('/posts/{post:slug}', function (Post $post) {
     return view('posts.show', compact('post'));
 })->name('posts.show');
 
+Route::resource('prodis', ProdiController::class)->only(['show']);
 /*
 |--------------------------------------------------------------------------
 | TENTANG ROUTES
 |--------------------------------------------------------------------------
 */
-Route::prefix('tentang')->name('tentang.')->group(function () {
-
-    Route::get('/', fn () => view('tentang.index'))->name('index');
-    Route::get('/visi-misi', fn () => view('tentang.visi-misi'))->name('visi-misi');
-
-    Route::get('/akreditasi', [TentangController::class, 'akreditasi'])->name('akreditasi');
-    Route::get('/struktur', [TentangController::class, 'struktur'])->name('struktur');
-    Route::get('/sejarah', [TentangController::class, 'sejarah'])->name('sejarah');
-
-    // ✅ FASILITAS
-    Route::get('/fasilitas', [FacilityController::class, 'index'])
-        ->name('fasilitas.index');
-
-    Route::get('/fasilitas/{faculty:slug}', [FacilityController::class, 'byFaculty'])
-        ->name('fasilitas.faculty');
-});
+Route::resource('tentang', TentangController::class)->only(['index']);
+Route::get('/tentang/fasilitas', [FacilityController::class, 'campus'])->name('tentang.fasilitas.campus');
+Route::get('/tentang/fasilitas/{slug}', [FacilityController::class, 'byFaculty'])->name('tentang.fasilitas.byFaculty');
+Route::get('/tentang/fasilitas', [FacilityController::class, 'index'])->name('tentang.fasilitas.index');
 /*
 |--------------------------------------------------------------------------
 | ADMIN ROUTES

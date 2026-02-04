@@ -14,6 +14,6 @@ class ProdiController extends Controller
             abort(404);
         }
 
-        return view('fakultas.prodi', compact('faculty', 'prodi'));
+        return view('faculties.prodi', compact('faculty', 'prodi'));
     }
 }

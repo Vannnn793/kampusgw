@@ -43,17 +43,53 @@
                     <li><a href="/tentang/struktur" class="block px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition">Struktur Organisasi</a></li>
                     <li><a href="/tentang/akreditasi" class="block px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition">Akreditasi</a></li>
                     
-                    {{-- Nested Menu: Fasilitas --}}
+                   {{-- Nested Menu: Fasilitas --}}
                     <li class="relative group/sub">
+
                         <div class="flex justify-between items-center px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white cursor-pointer transition">
                             Fasilitas
-                            <svg class="w-4 h-4 -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            <svg class="w-4 h-4 -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"/>
+                            </svg>
                         </div>
-                        <ul class="absolute top-0 left-full w-56 bg-white border border-slate-100 rounded-xl shadow-xl opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all ml-2 p-2">
-                             @foreach($faculties as $faculty)
-                                <li><a href="{{ route('tentang.fasilitas.faculty', $faculty->slug) }}" class="block px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition">{{ $faculty->name }}</a></li>
-                             @endforeach
+
+                        <ul class="absolute top-0 left-full w-60 bg-white border border-slate-100
+                                rounded-xl shadow-xl opacity-0 invisible
+                                group-hover/sub:opacity-100 group-hover/sub:visible
+                                transition-all ml-2 p-2">
+
+                            {{-- ================= FASILITAS KAMPUS ================= --}}
+                            <li class="px-3 py-2 text-xs font-bold uppercase text-slate-400">
+                                Fasilitas Kampus
+                            </li>
+
+                            <li>
+                                <a href="{{ route('tentang.fasilitas.index') }}"
+                                class="block px-4 py-2 rounded-lg font-semibold
+                                        bg-sky-600 text-white hover:bg-sky-700 transition">
+                                    Lihat Semua
+                                </a>
+                            </li>
+
+                            <li class="border-t my-2"></li>
+
+                            {{-- ================= FASILITAS JURUSAN ================= --}}
+                            <li class="px-3 py-2 text-xs font-bold uppercase text-slate-400">
+                                Fasilitas Jurusan
+                            </li>
+
+                            @foreach($faculties as $faculty)
+                                <li>
+                                    <a href="{{ route('tentang.fasilitas.byFaculty', $faculty->slug) }}"
+                                    class="block px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition">
+                                        {{ $faculty->name }}
+                                    </a>
+                                </li>
+                            @endforeach
+
                         </ul>
+
                     </li>
                 </ul>
             </div>
@@ -68,13 +104,13 @@
                 <ul class="absolute top-full left-0 w-64 bg-white border border-slate-100 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top translate-y-2 group-hover:translate-y-0 p-2 z-50">
                     @foreach($faculties as $faculty)
                         <li class="relative group/prodi">
-                            <div class="flex justify-between items-center px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white cursor-pointer transition">
+                            <a href="{{ route('faculties.index', $faculty->slug) }}" class="flex justify-between items-center px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white cursor-pointer transition">
                                 {{ $faculty->name }}
                                 <svg class="w-4 h-4 -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                            </div>
+                            </a>
                             <ul class="absolute top-0 left-full w-64 bg-white border border-slate-100 rounded-xl shadow-xl opacity-0 invisible group-hover/prodi:opacity-100 group-hover/prodi:visible transition-all ml-2 p-2 max-h-80 overflow-y-auto">
                                 @forelse($faculty->prodis as $prodi)
-                                    <li><a href="#" class="block px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition text-sm">{{ $prodi->name }}</a></li>
+                                    <li><a href="{{ route('prodis.show', [$faculty->slug, $prodi->slug]) }}" class="block px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition text-sm">{{ $prodi->name }}</a></li>
                                 @empty
                                     <li class="px-4 py-2 text-slate-400 text-xs italic">Belum ada prodi</li>
                                 @endforelse
