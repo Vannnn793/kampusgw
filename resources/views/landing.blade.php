@@ -40,7 +40,7 @@
                     Penerimaan Mahasiswa Baru KampusGw 2026 Telah Dibuka!
                 </span>
                 Simak Jadwal, Syarat, dan Program Studi.
-                <a href="/admissions"
+                <a href="/pmb"
                    class="ml-1 font-semibold underline underline-offset-4 hover:text-sky-700 transition">
                     Lihat di Sini!
                 </a>

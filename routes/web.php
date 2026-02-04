@@ -25,6 +25,23 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\AlumniController as AdminAlumni;
 
+use App\Models\PmbInfo;
+
+Route::get('/pmb', function () {
+    $pmbs = PmbInfo::where('is_active', 1)
+        ->orderBy('start_date')
+        ->get();
+
+    return view('pmb.index', compact('pmbs'));
+})->name('pmb.index');
+
+Route::get('/pmb/{slug}', function ($slug) {
+    $pmb = PmbInfo::where('slug', $slug)
+        ->where('is_active', 1)
+        ->firstOrFail();
+
+    return view('pmb.show', compact('pmb'));
+})->name('pmb.show');
 
 Route::get(
     '/faculties/{faculty:slug}/prodi/{prodi:slug}',
