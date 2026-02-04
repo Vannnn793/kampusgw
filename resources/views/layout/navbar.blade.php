@@ -2,8 +2,8 @@
     <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 
         <a href="/" class="flex items-center gap-3 group">
-            @if(isset($profile) && $profile->logo)
-                <img src="{{ asset('storage/'.$profile->logo) }}" 
+            @if(isset($profile) && $profile->logo_path)
+                <img src="{{ asset('storage/'.$profile->logo_path) }}" 
                      alt="Logo" 
                      class="h-10 w-auto object-contain group-hover:scale-105 transition-transform">
             @else
@@ -14,7 +14,7 @@
 
             <div class="flex flex-col">
                 <span class="text-xl font-black text-sky-600 tracking-tight leading-none uppercase">
-                    {{ $profile->name ?? 'KampusGW' }}
+                    {{ $profile->campus_name ?? 'KampusGW' }}
                 </span>
                 <span class="text-[10px] font-bold text-slate-400 tracking-[0.2em] uppercase mt-1">
                     University Profile
@@ -35,6 +35,7 @@
                     <li><a href="/tentang/sejarah" class="block px-4 py-2.5 rounded-xl hover:bg-sky-600 hover:text-white transition">Sejarah Singkat</a></li>
                     <li><a href="/tentang/struktur" class="block px-4 py-2.5 rounded-xl hover:bg-sky-600 hover:text-white transition">Struktur Organisasi</a></li>
                     <li><a href="/tentang/akreditasi" class="block px-4 py-2.5 rounded-xl hover:bg-sky-600 hover:text-white transition">Akreditasi</a></li>
+                    <li class="border-t border-slate-50 my-2"><a href="/tentang/sambutan" class="block px-4 py-2.5 rounded-xl hover:bg-sky-600 hover:text-white transition">Sambutan Rektor</a></li>
                     
                     <li class="relative group/sub">
                         <div class="flex justify-between items-center px-4 py-2.5 rounded-xl hover:bg-sky-600 hover:text-white cursor-pointer transition">

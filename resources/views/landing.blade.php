@@ -97,10 +97,10 @@
                 </p>
 
                 <div class="mt-10 flex flex-wrap gap-4">
-                    <a href="#" class="px-8 py-4 bg-[#1E5FA3] text-white font-bold rounded-2xl shadow-lg shadow-blue-200 hover:bg-[#0F3E73] hover:-translate-y-1 transition-all duration-300">
+                    <a href="/pmb" class="px-8 py-4 bg-[#1E5FA3] text-white font-bold rounded-2xl shadow-lg shadow-blue-200 hover:bg-[#0F3E73] hover:-translate-y-1 transition-all duration-300">
                         Daftar Sekarang
                     </a>
-                    <a href="#" class="px-8 py-4 bg-white text-[#1E5FA3] font-bold border-2 border-[#1E5FA3]/10 rounded-2xl hover:bg-gray-50 hover:border-[#1E5FA3] transition-all">
+                    <a href="/tentang/sejarah" class="px-8 py-4 bg-white text-[#1E5FA3] font-bold border-2 border-[#1E5FA3]/10 rounded-2xl hover:bg-gray-50 hover:border-[#1E5FA3] transition-all">
                         Jelajahi Kampus
                     </a>
                 </div>
@@ -607,7 +607,7 @@
                 </h2>
             </div>
             
-            <a href="/berita" class="group flex items-center gap-3 text-xs font-black text-[#0F2A44] uppercase tracking-widest hover:text-[#1E5FA3] transition-all">
+            <a href="/posts" class="group flex items-center gap-3 text-xs font-black text-[#0F2A44] uppercase tracking-widest hover:text-[#1E5FA3] transition-all">
                 Semua Berita
                 <span class="w-10 h-10 rounded-full bg-[#E6F0FB] flex items-center justify-center group-hover:bg-[#1E5FA3] group-hover:text-white transition-all">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
@@ -750,7 +750,7 @@
                         </span>
                     </a>
                     
-                    <a href="/contact"
+                    <a href="#"
                        class="inline-flex items-center justify-center px-10 py-6 rounded-2xl font-black text-sm uppercase tracking-widest border-2 border-white/20 text-white hover:bg-white/10 transition-all duration-300">
                         Konsultasi
                     </a>
