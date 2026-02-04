@@ -136,7 +136,7 @@
 </div>
 
 
-            <a href="/admissions" class="px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition-all duration-300">Admissions</a>
+            <a href="/pmb" class="px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition-all duration-300">Admissions</a>
             <a href="/careers" class="px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition-all duration-300">Careers</a>
         </div>
 
