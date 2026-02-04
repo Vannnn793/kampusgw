@@ -478,10 +478,10 @@
                         <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Program Studi Unggulan:</p>
                         <div class="flex flex-wrap gap-2">
                             {{-- Contoh looping prodi (sesuaikan dengan relasi DB lu) --}}
-                            @if(isset($faculty->programs))
-                                @foreach($faculty->programs->take(3) as $program)
+                            @if(isset($faculty->faculty_id->prodis) && $faculty->faculty_id->prodis->count() > 0)
+                                @foreach($faculty->faculty_id->prodis->take(3) as $prodis)
                                     <span class="text-[11px] font-bold bg-slate-50 text-[#1583D7] px-3 py-1 rounded-md border border-slate-100">
-                                        {{ $program->name }}
+                                        {{ $prodis->name }}
                                     </span>
                                 @endforeach
                             @else
