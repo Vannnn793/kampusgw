@@ -7,7 +7,6 @@ use App\Models\Faculty;
 
 class FacilityController extends Controller
 {
-    // SEMUA FASILITAS
     public function index()
     {
         $facilities = Facility::with('faculty')->get();
@@ -15,17 +14,15 @@ class FacilityController extends Controller
         return view('tentang.fasilitas', compact('facilities'));
     }
 
-    // FASILITAS JURUSAN
     public function byFaculty($slug)
     {
         $faculty = Faculty::where('slug', $slug)->firstOrFail();
 
         $facilities = Facility::where('faculty_id', $faculty->id)->get();
 
-        return view('tentang.fasilitas', compact('facilities', 'faculty'));
+        return view('tentang.fasilitas', compact('facilities','faculty'));
     }
 
-    // FASILITAS UMUM (KAMPUS)
     public function campus()
     {
         $facilities = Facility::whereNull('faculty_id')->get();
@@ -33,4 +30,3 @@ class FacilityController extends Controller
         return view('tentang.fasilitas', compact('facilities'));
     }
 }
-
