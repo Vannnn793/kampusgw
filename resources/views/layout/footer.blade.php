@@ -1,134 +1,132 @@
-<footer class="mt-32 bg-slate-50 border-t border-slate-200 font-sans">
-    <div class="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-4 gap-10 text-sm">
+<footer class="mt-32 bg-slate-50 border-t border-slate-200 font-sans relative overflow-hidden">
+    {{-- Hiasan Background biar gak sepi --}}
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-sky-500/20 to-transparent"></div>
 
-        <div class="space-y-4">
-            <div class="flex items-center gap-2">
-                {{-- Logo Kecil (Opsional, kalau mau dimunculin) --}}
-               @if(!empty($profile) && $profile->logo_path)
-                    <img 
-                        src="{{ asset('storage/' . $profile->logo_path) }}"
-                        alt="Logo Kampus"
-                        class="h-10 w-auto object-contain"
-                    >
-                @endif
-                <h3 class="text-xl font-extrabold text-sky-600 tracking-tight">
-                    {{-- Ambil Nama Kampus dari DB --}}
-                    {{ $profile->campus_name ?? config('app.name', 'KampusGW') }}
-                </h3>
-            </div>
-            
-          <p class="text-slate-500 leading-relaxed">
-    {{ \Illuminate\Support\Str::words(
-        trim(preg_replace('/\s+/', ' ', html_entity_decode(strip_tags($profile->visi ?? 'Mencetak talenta global dengan kurikulum berbasis industri dan teknologi terkini.')))),
-        12,
-        '...'
-    ) }}
-</p>
+    <div class="max-w-7xl mx-auto px-6 py-20 relative z-10">
+        {{-- Grid utama kita bikin 5 kolom biar padet --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 text-sm">
 
-
-        
-            {{-- Sosmed (Hardcode atau tambah kolom nanti) --}}
-            <div class="flex gap-4 pt-2">
-                <a href="#" class="text-slate-400 hover:text-sky-600 transition"><span class="sr-only">Facebook</span><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg></a>
-                <a href="#" class="text-slate-400 hover:text-sky-600 transition"><span class="sr-only">Twitter</span><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" /></svg></a>
-            </div>
-        </div>
-
-        <div>
-            <h4 class="font-bold mb-4 text-slate-800 uppercase tracking-wider text-xs">Campus</h4>
-            <ul class="space-y-2 text-slate-500">
-                <li><a href="/tentang/sejarah" class="hover:text-sky-600 transition duration-300">About Us</a></li>
-                <li><a href="/faculties" class="hover:text-sky-600 transition duration-300">Faculties</a></li>
-                <li><a href="/admissions" class="hover:text-sky-600 transition duration-300">Admissions</a></li>
-                <li><a href="/careers" class="hover:text-sky-600 transition duration-300">Careers</a></li>
-            </ul>
-        </div>
-
-        <div>
-            <h4 class="font-bold mb-4 text-slate-800 uppercase tracking-wider text-xs">Resources</h4>
-            <ul class="space-y-2 text-slate-500">
-                <li><a href="#" class="hover:text-sky-600 transition duration-300">Academic Calendar</a></li>
-                <li><a href="#" class="hover:text-sky-600 transition duration-300">Library & Journal</a></li>
-                <li><a href="#" class="hover:text-sky-600 transition duration-300">Student Portal</a></li>
-                <li><a href="#" class="hover:text-sky-600 transition duration-300">Alumni Network</a></li>
-            </ul>
-        </div>
-
-        <div>
-    <h4 class="font-bold mb-4 text-slate-800 uppercase tracking-wider text-xs">Contact Us</h4>
-    
-    <ul class="space-y-4 text-slate-500">
-
-        <li class="w-full mb-4">
-            {{-- 1. Siapkan Query Pencarian Maps --}}
-            @php
-                $campusName = $profile->campus_name ?? config('app.name', 'Universitas');
-                $address    = $profile->address ?? 'Jakarta, Indonesia';
-                // Gabung Nama + Alamat, lalu encode biar aman di URL
-                $mapQuery   = urlencode($campusName . ' ' . $address);
-            @endphp
-
-            {{-- 2. Tampilkan Iframe --}}
-            <div class="relative w-full h-48 rounded-xl overflow-hidden shadow-md border border-slate-200 group">
+            {{-- Kolom 1: Identity & About (Lebih Lebar) --}}
+            <div class="lg:col-span-1 space-y-6">
+                <div class="space-y-4">
+                    @if(!empty($profile) && $profile->logo_path)
+                        <img src="{{ asset('storage/' . $profile->logo_path) }}" 
+                             class="h-12 w-auto object-contain brightness-110" alt="Logo">
+                    @endif
+                    <h3 class="text-xl font-black text-slate-800 tracking-tighter uppercase">
+                        {{ $profile->campus_name ?? 'KAMPUS KITA' }}
+                    </h3>
+                    <p class="text-slate-500 leading-relaxed text-[13px]">
+                        {{ \Illuminate\Support\Str::words(strip_tags($profile->visi ?? 'Mencetak talenta global dengan kurikulum industri.'), 20) }}
+                    </p>
+                </div>
                 
-                {{-- Efek Grayscale (Hitam Putih) biar estetik, berwarna pas di-hover --}}
-                <iframe 
-                    width="100%" 
-                    height="100%" 
-                    frameborder="0" 
-                    scrolling="no" 
-                    marginheight="0" 
-                    marginwidth="0" 
-                    class="w-full h-full grayscale group-hover:grayscale-0 transition duration-700"
-                    src="https://maps.google.com/maps?q={{ $mapQuery }}&t=&z=15&ie=UTF8&iwloc=&output=embed">
-                </iframe>
-
-                {{-- Tombol Overlay "Buka di Google Maps" --}}
-                <a href="https://www.google.com/maps/search/?api=1&query={{ $mapQuery }}" 
-                   target="_blank" 
-                   class="absolute inset-0 bg-black/0 hover:bg-black/10 transition flex items-center justify-center pointer-events-none group-hover:pointer-events-auto">
-                    <span class="opacity-0 group-hover:opacity-100 bg-white/90 text-xs font-bold px-4 py-2 rounded-full text-slate-800 shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                        Buka Peta 🗺️
-                    </span>
-                </a>
+                {{-- Sosmed dengan Style Card Kecil --}}
+                <div class="flex gap-3">
+                    <a href="#" class="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-sky-600 hover:border-sky-600 transition-all shadow-sm">
+                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+                    </a>
+                    <a href="#" class="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-sky-600 hover:border-sky-600 transition-all shadow-sm">
+                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.315 2c2.43 0 2.784.01 3.71.054 1.14.074 1.908.305 2.5.547a4.387 4.387 0 011.57 1.022c.41.408.74.882 1.022 1.57.242.592.474 1.36.547 2.502.045.927.054 1.28.054 3.71s-.01 2.784-.054 3.71c-.074 1.14-.305 1.908-.547 2.5a4.508 4.508 0 01-1.022 1.57 4.387 4.387 0 01-1.57 1.022c-.592.242-1.36.474-2.502.547-.927.045-1.28.054-3.71.054s-2.784-.01-3.71-.054c-1.14-.074-1.908-.305-2.5-.547a4.387 4.387 0 01-1.57-1.022 4.387 4.387 0 01-1.022-1.57c-.242-.592-.474-1.36-.547-2.502C2.01 14.784 2 14.43 2 12c0-2.43.01-2.784.054-3.71.074-1.14.305-1.908.547-2.5a4.387 4.387 0 011.022-1.57A4.387 4.387 0 014.63 2.547c.592-.242 1.36-.474 2.502-.547C8.086 2.01 8.43 2 10.875 2h1.44z"/></svg>
+                    </a>
+                </div>
             </div>
-        </li>
-        
-        <li class="flex items-start gap-3">
-            <svg class="w-5 h-5 text-sky-600 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            <span class="leading-snug text-sm">
-                {{ $profile->address ?? 'Alamat belum diatur' }}
-            </span>
-        </li>
 
-        <li class="flex items-center gap-3">
-            <svg class="w-5 h-5 text-sky-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            <a href="mailto:{{ $profile->email }}" class="hover:text-sky-600 transition break-all text-sm">
-                {{ $profile->email ?? '-' }}
-            </a>
-        </li>
+            {{-- Kolom 2: Quick Links --}}
+            <div>
+                <h4 class="font-black mb-6 text-slate-800 uppercase tracking-[0.2em] text-[10px]">Ecosystem</h4>
+                <ul class="space-y-3 text-slate-500 font-medium">
+                    <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> About Us</a></li>
+                    <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Faculties</a></li>
+                    <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Admissions</a></li>
+                    <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Careers</a></li>
+                </ul>
+            </div>
 
-        <li class="flex items-center gap-3">
-            <svg class="w-5 h-5 text-sky-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-            <span class="text-sm">
-                {{ $profile->phone ?? '-' }}
-            </span>
-        </li>
+            {{-- Kolom 3: Resources --}}
+            <div>
+                <h4 class="font-black mb-6 text-slate-800 uppercase tracking-[0.2em] text-[10px]"><a href="{{ route('downloads.index') }}">Resources & Downloads</a></h4>
+                <ul class="space-y-4 text-slate-500 font-medium">
+                    @forelse($downloads as $dl)
+                        <li>
+                            <a href="{{ asset('storage/' . $dl->file_path) }}" 
+                            class="hover:text-sky-600 transition flex items-start gap-3 group" 
+                            download>
+                                {{-- Icon File Kecil --}}
+                                <svg class="w-4 h-4 mt-0.5 text-slate-300 group-hover:text-sky-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                </svg>
+                                <div class="flex flex-col">
+                                    <span class="leading-tight text-[13px]">{{ $dl->title }}</span>
+                                    <span class="text-[9px] text-slate-400 uppercase tracking-tighter">{{ $dl->category }}</span>
+                                </div>
+                            </a>
+                        </li>
+                    @empty
+                        <li class="text-[11px] italic text-slate-400">Belum ada dokumen tersedia.</li>
+                    @endforelse
+                </ul>
+            </div>
 
-    </ul>
-</div>
+            {{-- Kolom 4: Top Programs (Tambahan biar Padet) --}}
+            <div>
+                <h4 class="font-black mb-6 text-slate-800 uppercase tracking-[0.2em] text-[10px]">Top Programs</h4>
+                <ul class="space-y-3 text-slate-500 font-medium">
+                    @foreach ($prodis as $prodi)
+                        <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> {{ $prodi->name }}</a></li>
+                    @endforeach
+                </ul>
+            </div>
+
+            {{-- Kolom 5: Contact & Maps (Lebar) --}}
+            <div class="space-y-6">
+                <h4 class="font-black mb-6 text-slate-800 uppercase tracking-[0.2em] text-[10px]">Get In Touch</h4>
+                
+                {{-- Mini Maps dengan border mewah --}}
+                <div class="relative h-28 rounded-2xl overflow-hidden border-2 border-white shadow-sm group">
+                    @php
+                        $mapQuery = urlencode(($profile->campus_name ?? 'Kampus') . ' ' . ($profile->address ?? 'Jakarta'));
+                    @endphp
+                    <iframe width="100%" height="100%" frameborder="0" class="grayscale group-hover:grayscale-0 transition duration-700"
+                            src="https://maps.google.com/maps?q={{ $mapQuery }}&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+                    <div class="absolute inset-0 bg-sky-600/5 pointer-events-none"></div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-sky-50 flex items-center justify-center shrink-0">
+                            <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </div>
+                        <p class="text-[12px] font-bold text-slate-600 leading-tight">
+                            {{ $profile->email ?? 'info@kampus.ac.id' }}
+                        </p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-sky-50 flex items-center justify-center shrink-0">
+                            <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.213l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.213-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                        </div>  
+                        <p class="text-[12px] font-bold text-slate-600 leading-tight">
+                            {{ $profile->phone ?? '+62 123 4567 890' }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="bg-slate-100 border-t border-slate-200">
-        <div class="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
-            <p>
-                &copy; {{ date('Y') }} 
-                <span class="font-bold text-slate-700">{{ $profile->campus_name ?? config('app.name') }}</span>. 
-                All rights reserved.
-            </p>
-            <div class="flex gap-4 mt-2 md:mt-0">
+    {{-- Bottom Bar --}}
+    <div class="bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] font-bold uppercase tracking-widest text-slate-400">
+            <div class="flex items-center gap-2">
+                <span>© {{ date('Y') }}</span>
+                <span class="text-slate-800">{{ $profile->campus_name ?? config('app.name') }}</span>
+                <span class="hidden md:inline text-slate-200">|</span>
+                <span class="hidden md:inline">Built for Excellence</span>
+            </div>
+            <div class="flex gap-6">
                 <a href="#" class="hover:text-sky-600 transition">Privacy Policy</a>
                 <a href="#" class="hover:text-sky-600 transition">Terms of Service</a>
+                <a href="#" class="hover:text-sky-600 transition">Site Map</a>
             </div>
         </div>
     </div>

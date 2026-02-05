@@ -180,7 +180,7 @@
         </div>
         <div class="nav-item">
             <a href="/admin/badges" class="nav-link {{ request()->is('admin/badges*') ? 'active' : '' }}">
-                <i class="bi bi-badge-check"></i> Gelar & Slogan
+                <i class="bi bi-award"></i> Gelar & Slogan
             </a>
         </div>
         <div class="nav-item">
@@ -216,7 +216,7 @@
 
         <div class="nav-item">
             <a href="/admin/partners" class="nav-link {{ request()->is('admin/partners*') ? 'active' : '' }}">
-                <i class="bi bi-handshake"></i> Mitra & Partner
+                <i class="bi bi-briefcase"></i> Mitra & Partner
             </a>
         </div>
 

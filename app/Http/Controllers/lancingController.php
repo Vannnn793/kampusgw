@@ -21,6 +21,7 @@ class lancingController extends Controller
         $testimoni = \App\Models\Alumni::latest()->take(3)->get();
         $badges = \App\Models\Badge::where('is_active', 1)->get();
         $prodis = \App\Models\Prodi::all();
+        $downloads = \App\Models\Download::latest()->take(5)->get();
 
         // PENTING: Perhatikan bagian compact('sliders')
         // Ini artinya kita kirim data ke view dengan nama "$sliders"
@@ -35,6 +36,7 @@ class lancingController extends Controller
         'testimoni'  => $testimoni,
         'badges' => $badges,
         'prodis' => $prodis,
+        'downloads' => $downloads,
         
         ]); 
     }

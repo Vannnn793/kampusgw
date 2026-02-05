@@ -100,7 +100,7 @@
                     <li class="border-t border-slate-50 my-1"></li>
                     
                     {{-- Looping Kategori dari Database --}}
-                    @foreach($categories as $category)
+                    @foreach($navCategories as $category)
                         <li>
                             <a href="/posts?category={{ $category->slug }}" class="block px-4 py-2.5 rounded-xl hover:bg-sky-600 hover:text-white transition">
                                 {{ $category->name }}

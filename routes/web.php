@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\AlumniController as AdminAlumni;
 use App\Http\Controllers\Admin\BadgeController;
+use App\Http\Controllers\Admin\DownloadController;
 
 use App\Models\PmbInfo;
 
@@ -93,6 +94,10 @@ Route::get('/careers', [CareerController::class, 'index'])->name('careers');
 // Admissions
 Route::get('/admissions', [AdmissionController::class, 'index'])->name('admissions.index');
 Route::post('/admissions', [AdmissionController::class, 'store'])->name('admissions.store');
+
+Route::get('/downloads', [DownloadController::class, 'download'])->name('downloads.index');
+Route::get('/download/{id}', [DownloadController::class, 'downloadFile'])->name('download.file');
+
 
 
 // Posts JSON & detail

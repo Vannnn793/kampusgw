@@ -106,15 +106,23 @@
                 </div>
 
                 {{-- STATS BAR (Pelega Ruang Kosong) --}}
+                {{-- STATS BAR (Pelega Ruang Kosong) --}}
                 <div class="mt-16 grid grid-cols-3 gap-8 border-t border-gray-200 pt-8">
-                    <div>
-                        <p class="text-3xl font-bold text-[#0F2A44]">{{ $profile->total_alumni ?? 0 }}</p>
+                    {{-- Alumni Stats --}}
+                    <div x-data="{ count: 0, target: {{ $profile->total_alumni ?? 0 }} }" 
+                        x-intersect.once="let interval = setInterval(() => { if(count < target) { count += Math.ceil(target/50); if(count > target) count = target; } else { clearInterval(interval); } }, 30)">
+                        <p class="text-3xl font-bold text-[#0F2A44]" x-text="count"></p>
                         <p class="text-sm text-gray-500 font-medium">Alumni Sukses</p>
                     </div>
-                    <div>
-                        <p class="text-3xl font-bold text-[#0F2A44]">{{ $partners->count() ?? 0 }}</p>
+
+                    {{-- Partner Stats --}}
+                    <div x-data="{ count: 0, target: {{ $partners->count() ?? 0 }} }" 
+                        x-intersect.once="let interval = setInterval(() => { if(count < target) { count += 1; } else { clearInterval(interval); } }, 50)">
+                        <p class="text-3xl font-bold text-[#0F2A44]" x-text="count"></p>
                         <p class="text-sm text-gray-500 font-medium">Partner Industri</p>
                     </div>
+
+                    {{-- Akreditasi (Statik) --}}
                     <div>
                         <p class="text-3xl font-bold text-[#0F2A44]">A+</p>
                         <p class="text-sm text-gray-500 font-medium">Akreditasi Ban-PT</p>
@@ -516,22 +524,22 @@
 
                     {{-- MINI PRODI LIST (Ini yang bikin kelihatan "Berisi") --}}
                     <div class="mt-auto space-y-3 pt-6 border-t border-slate-100">
-                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Program Studi Unggulan:</p>
-                        <div class="flex flex-wrap gap-2">
-                            {{-- Langsung panggil relasi prodis dari object $faculty --}}
-                            @if($faculty->prodis && $faculty->prodis->count() > 0)
-                                @foreach($faculty->prodis->take(3) as $prodi)
-                                    <span class="text-[11px] font-bold bg-slate-50 text-[#1583D7] px-3 py-1 rounded-md border border-slate-100">
-                                        {{ $prodi->name }}
-                                    </span>
-                                @endforeach
-                            @else
-                                <span class="text-[11px] font-bold bg-slate-50 text-slate-400 px-3 py-1 rounded-md border border-slate-100 italic">
-                                    Belum ada prodi
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Program Studi Unggulan:</p>
+                    <div class="flex flex-wrap gap-2">
+                        {{-- Langsung panggil relasi prodis dari object $faculty --}}
+                        @if($faculty->prodis && $faculty->prodis->count() > 0)
+                            @foreach($faculty->prodis->take(3) as $prodi)
+                                <span class="text-[11px] font-bold bg-slate-50 text-[#1583D7] px-3 py-1 rounded-md border border-slate-100">
+                                    {{ $prodi->name }}
                                 </span>
-                            @endif
-                        </div>
+                            @endforeach
+                        @else
+                            <span class="text-[11px] font-bold bg-slate-50 text-slate-400 px-3 py-1 rounded-md border border-slate-100 italic">
+                                Belum ada prodi
+                            </span>
+                        @endif
                     </div>
+                </div>
                     {{-- Floating Arrow Button --}}
                     <div class="absolute bottom-6 right-8">
                         <div class="w-12 h-12 rounded-2xl bg-slate-50 text-[#1583D7] flex items-center justify-center group-hover:bg-[#1583D7] group-hover:text-white group-hover:rotate-45 transition-all duration-500 shadow-sm group-hover:shadow-lg group-hover:shadow-blue-200">
