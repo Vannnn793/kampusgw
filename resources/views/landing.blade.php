@@ -180,7 +180,7 @@
         @if($video_id)
             {{-- Perubahan: Hapus h-64/h-[450px], ganti object-cover jadi object-contain --}}
             <iframe 
-                class="absolute inset-0 w-full h-full object-contain opacity-60 pointer-events-none" 
+                class="absolute inset-0 w-full h-full object-contain opacity-100 pointer-events-none" 
                 src="https://www.youtube.com/embed/{{ $video_id }}?autoplay=1&mute=1&loop=1&playlist={{ $video_id }}&controls=0"
                 frameborder="0"
                 allow="autoplay; encrypted-media"
@@ -188,13 +188,13 @@
             </iframe>
 
             {{-- Overlay Button --}}
-            <a href="{{ $profile->link_video_profil }}" target="_blank" class="absolute inset-0 flex items-center justify-center group-hover:bg-black/20 transition duration-500">
+            {{-- <a href="{{ $profile->link_video_profil }}" target="_blank" class="absolute inset-0 flex items-center justify-center group-hover:bg-black/20 transition duration-500">
                 <div class="w-20 h-20 bg-white/10 backdrop-blur-xl rounded-full flex items-center justify-center border border-white/40 group-hover:scale-110 transition duration-500">
                     <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center text-blue-600 shadow-xl">
                         <svg class="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </div>
                 </div>
-            </a>
+            </a> --}}
         @endif
     </div>
 </div>
@@ -410,7 +410,7 @@
                 </div>
                 <div class="text-center md:border-r border-white/10 last:border-0">
                     <h3 class="text-5xl font-black mb-2">{{ $profile->total_alumni ?? '-' }}</h3>
-                    <p class="text-blue-200 text-xs font-bold uppercase tracking-widest">Lulusan Sukses</p>
+                    <p class="text-blue-200 text-xs font-bold uppercase tracking-widest">Alumni</p>
                 </div>
                 <div class="text-center">
                     <h3 class="text-5xl font-black mb-2">{{ $profile->total_dosen ?? '-' }}</h3>
@@ -535,7 +535,7 @@
                 {{-- Mini Stats buat ngisi ruang --}}
                 <div class="pt-8 border-t border-slate-200 grid grid-cols-2 gap-4">
                     <div>
-                        <p class="text-2xl font-black text-[#0F2A44]">{{ $profile->total_alumni ?? 0 }}</p>
+                        <p class="text-2xl font-black text-[#0F2A44]">{{ $testimoni->count() }}</p>
                         <p class="text-[10px] font-bold text-slate-400 uppercase">Lulusan Bekerja</p>
                     </div>
                     <div>

@@ -86,12 +86,16 @@
                     <div class="space-y-2">
                         @foreach($categories as $cat)
                             <a href="/posts?category={{ $cat->slug }}" 
-                               class="flex items-center justify-between px-4 py-3 rounded-xl transition group {{ request('category') == $cat->slug ? 'bg-sky-600 text-white' : 'hover:bg-sky-50 text-slate-600 hover:text-sky-600' }}">
+                            class="flex items-center justify-between px-4 py-3 rounded-xl transition group {{ request('category') == $cat->slug ? 'bg-sky-600 text-white' : 'hover:bg-sky-50 text-slate-600 hover:text-sky-600' }}">
                                 <span class="font-bold text-sm">{{ $cat->name }}</span>
                                 
-                                {{-- Ini hitungan otomatisnya --}}
-                                <span class="text-[10px] px-2 py-1 rounded-md transition {{ request('category') == $cat->slug ? 'bg-sky-500 text-white' : 'bg-slate-100 text-slate-500 group-hover:bg-sky-200' }}">
-                                    {{ $cat->posts_count }}
+                                {{-- Badge dengan animasi counter --}}
+                                <span 
+                                    x-data="{ count: 0, target: {{ $cat->posts_count }} }"
+                                    x-init="let interval = setInterval(() => { if (count < target) { count++ } else { clearInterval(interval) } }, 50)"
+                                    class="text-[10px] px-2 py-1 rounded-md transition {{ request('category') == $cat->slug ? 'bg-sky-500 text-white' : 'bg-slate-100 text-slate-500 group-hover:bg-sky-200' }}"
+                                >
+                                    <span x-text="count">0</span> Berita
                                 </span>
                             </a>
                         @endforeach
