@@ -55,6 +55,7 @@ class ProfileController extends Controller
         'address' => 'nullable|string',
         'phone' => 'nullable|string|max:255',
         'email' => 'nullable|email|max:255',
+        'mahasiswa_aktif' => 'nullable|integer|min:0',
     ]);
 
     $profil = Profile::first(); // Asumsi ID selalu 1
@@ -70,6 +71,7 @@ class ProfileController extends Controller
     $profil->total_prodi     = $request->total_prodi;
     $profil->total_alumni    = $request->total_alumni;
     $profil->total_dosen     = $request->total_dosen;
+    $profil->mahasiswa_aktif = $request->mahasiswa_aktif;
     $profil->gambar_kampus   = $request->gambar_kampus;
     $profil->campus_name     = $request->campus_name;
     $profil->gmaps_iframe    = $request->gmaps_iframe;

@@ -93,4 +93,40 @@ class DownloadController extends Controller
 
         return redirect()->route('admin.downloads.index')->with('success', 'Dokumen dihapus permanen.');
     }
+    public function downloadFile($id)
+    {
+        $download = Download::findOrFail($id);
+
+        if ($download->file_path && Storage::exists('public/' . $download->file_path)) {
+            return Storage::download('public/' . $download->file_path, $download->title . '.' . pathinfo($download->file_path, PATHINFO_EXTENSION));
+        }
+
+        return redirect()->back()->with('error', 'File tidak ditemukan.');
+    }
+    public function download(Request $request)
+    {
+        $query = Download::query();
+
+        // 2. Filter berdasarkan kategori (jika user klik kategori di sidebar/tab)
+        if ($request->has('category') && $request->category != 'all') {
+            $query->where('category', $request->category);
+        }
+
+        // 3. Fitur Search (jika lu mau tambahin input search di view)
+        if ($request->has('search')) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+
+        // 4. Ambil data dengan pagination agar halaman tidak terlalu berat
+        $downloads = $query->latest()->paginate(9);
+
+        // 5. Ambil daftar kategori unik untuk ditampilkan di sidebar/filter tab
+        $categories = ['akademik', 'kemahasiswaan', 'panduan', 'umum'];
+
+        return view('downloads.index', compact('downloads', 'categories'));
+    }
+
+    /**
+     * Opsional: Fitur hitung jumlah download (Counter)
+     */
 }

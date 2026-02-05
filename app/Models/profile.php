@@ -29,5 +29,6 @@ class profile extends Model
         'gambar_kampus',
         'created_at',
         'updated_at',
+        'mahasiswa_aktif',
     ];
 }

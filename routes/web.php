@@ -27,8 +27,13 @@ use App\Http\Controllers\Admin\ProdiController as AdminProdiController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\AlumniController as AdminAlumni;
+use App\Http\Controllers\Admin\BadgeController;
+use App\Http\Controllers\Admin\DownloadController;
 
 use App\Models\PmbInfo;
+
+Route::get('/posts', [PostController::class, 'index']);
+Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 
 Route::get('/pmb', function () {
     $pmbs = PmbInfo::where('is_active', 1)
@@ -90,6 +95,10 @@ Route::get('/careers', [CareerController::class, 'index'])->name('careers');
 Route::get('/admissions', [AdmissionController::class, 'index'])->name('admissions.index');
 Route::post('/admissions', [AdmissionController::class, 'store'])->name('admissions.store');
 
+Route::get('/downloads', [DownloadController::class, 'download'])->name('downloads.index');
+Route::get('/download/{id}', [DownloadController::class, 'downloadFile'])->name('download.file');
+
+
 
 // Posts JSON & detail
 Route::get('/posts/{post:slug}/json', fn (Post $post) => response()->json($post))->name('posts.json');
@@ -134,6 +143,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('sliders', \App\Http\Controllers\Admin\SliderController::class);
         Route::resource('download', \App\Http\Controllers\Admin\DownloadController::class);
         Route::resource('pmb-info', \App\Http\Controllers\Admin\PmbInfoController::class);
+        Route::resource('badges', BadgeController::class);
+        Route::patch('/badges/{badge}/toggle', [BadgeController::class, 'toggle'])->name('badges.toggle');
 
         // Admissions admin
         Route::get('/admissions', [AdmissionController::class, 'adminIndex'])->name('admissions.index');
