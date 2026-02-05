@@ -518,20 +518,20 @@
                     <div class="mt-auto space-y-3 pt-6 border-t border-slate-100">
                         <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Program Studi Unggulan:</p>
                         <div class="flex flex-wrap gap-2">
-                            {{-- Contoh looping prodi (sesuaikan dengan relasi DB lu) --}}
-                            @if(isset($faculty->faculty_id->prodis) && $faculty->faculty_id->prodis->count() > 0)
-                                @foreach($faculty->faculty_id->prodis->take(3) as $prodis)
+                            {{-- Langsung panggil relasi prodis dari object $faculty --}}
+                            @if($faculty->prodis && $faculty->prodis->count() > 0)
+                                @foreach($faculty->prodis->take(3) as $prodi)
                                     <span class="text-[11px] font-bold bg-slate-50 text-[#1583D7] px-3 py-1 rounded-md border border-slate-100">
-                                        {{ $prodis->name }}
+                                        {{ $prodi->name }}
                                     </span>
                                 @endforeach
                             @else
-                                <span class="text-[11px] font-bold bg-slate-50 text-[#1583D7] px-3 py-1 rounded-md">Informatika</span>
-                                <span class="text-[11px] font-bold bg-slate-50 text-[#1583D7] px-3 py-1 rounded-md">Sistem Informasi</span>
+                                <span class="text-[11px] font-bold bg-slate-50 text-slate-400 px-3 py-1 rounded-md border border-slate-100 italic">
+                                    Belum ada prodi
+                                </span>
                             @endif
                         </div>
                     </div>
-
                     {{-- Floating Arrow Button --}}
                     <div class="absolute bottom-6 right-8">
                         <div class="w-12 h-12 rounded-2xl bg-slate-50 text-[#1583D7] flex items-center justify-center group-hover:bg-[#1583D7] group-hover:text-white group-hover:rotate-45 transition-all duration-500 shadow-sm group-hover:shadow-lg group-hover:shadow-blue-200">
