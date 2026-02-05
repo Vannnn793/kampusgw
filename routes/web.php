@@ -31,6 +31,9 @@ use App\Http\Controllers\Admin\BadgeController;
 
 use App\Models\PmbInfo;
 
+Route::get('/posts', [PostController::class, 'index']);
+Route::get('/posts/{post:slug}', [PostController::class, 'show']);
+
 Route::get('/pmb', function () {
     $pmbs = PmbInfo::where('is_active', 1)
         ->orderBy('start_date')
