@@ -308,42 +308,75 @@
             <div class="relative group h-[550px]">
                 {{-- Border hiasan di belakang --}}
                 <div class="absolute -top-6 -left-6 w-32 h-32 border-l-8 border-t-8 border-[#1E5FA3]/20 rounded-tl-[3rem]"></div>
-                
-                {{-- GAMBAR UTAMA (Fixed & Solid) --}}
-                <div class="absolute inset-0 rounded-[3rem] overflow-hidden shadow-2xl border-[12px] border-white z-10">
-                    @if($profile && $profile->gambar_kampus)
-                        <img src="{{ asset('storage/' . $profile->gambar_kampus) }}" 
-                             class="w-full h-full object-cover group-hover:scale-110 transition duration-[2s]" 
-                             alt="Gedung Kampus">
-                    @else
-                        <div class="w-full h-full bg-slate-200 flex items-center justify-center">No Image</div>
-                    @endif
-                    {{-- Overlay gelap tipis biar text melayang kebaca --}}
-                    <div class="absolute inset-0 bg-gradient-to-tr from-[#0F2A44]/20 to-transparent"></div>
-                </div>
-
                 {{-- KARTU MELAYANG (Dibuat Lebih Berbobot) --}}
-                <div class="absolute -right-10 top-10 z-20 space-y-4">
-                    {{-- Card 1 --}}
-                    <div class="bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white flex items-center gap-4 w-60 transform hover:-translate-x-4 transition duration-500">
-                        <div class="w-12 h-12 rounded-xl bg-[#1E5FA3] flex items-center justify-center text-white shadow-lg shadow-blue-200">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                <div class="relative group h-[550px]">
+                    {{-- Border hiasan di belakang --}}
+                    <div class="absolute -top-6 -left-6 w-32 h-32 border-l-8 border-t-8 border-[#1E5FA3]/20 rounded-tl-[3rem]"></div>
+                    
+                    {{-- GAMBAR UTAMA --}}
+                    <div class="absolute inset-0 rounded-[3rem] overflow-hidden shadow-2xl border-[12px] border-white z-10">
+                        @if($profile && $profile->gambar_kampus)
+                            <img src="{{ asset('storage/' . $profile->gambar_kampus) }}" 
+                                class="w-full h-full object-cover group-hover:scale-110 transition duration-[2s]" 
+                                alt="Gedung Kampus">
+                        @else
+                            <div class="w-full h-full bg-slate-200 flex items-center justify-center">No Image</div>
+                        @endif
+                        <div class="absolute inset-0 bg-gradient-to-tr from-[#0F2A44]/20 to-transparent"></div>
+                    </div>
+
+                    {{-- ========================================== --}}
+                    {{-- KELOMPOK KANAN ATAS (STATISTIK)            --}}
+                    {{-- ========================================== --}}
+                    <div class="absolute -right-10 top-10 z-20 space-y-4">
+                        {{-- Card Prodi --}}
+                        <div class="bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white flex items-center gap-4 w-60 transform hover:-translate-x-4 transition duration-500"
+                            x-data="{ count: 0, target: {{ $faculties->count() }}, animate() { let step = Math.ceil(this.target / 50); let timer = setInterval(() => { this.count += step; if (this.count >= this.target) { this.count = this.target; clearInterval(timer); } }, 30); } }"
+                            x-intersect.once="animate()">
+                            <div class="w-12 h-12 rounded-xl bg-[#1E5FA3] flex items-center justify-center text-white shadow-lg shadow-blue-200">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-black text-[#0F2A44] text-xl leading-none" x-text="count">0</h4>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Fakultas Unggulan</p>
+                            </div>
                         </div>
-                        <div>
-                            <h4 class="font-black text-[#0F2A44] text-xl leading-none">{{ $profile->total_prodi ?? '0' }}</h4>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Program Studi</p>
+
+                        {{-- Card Mahasiswa Aktif --}}
+                        <div class="bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white flex items-center gap-4 w-60 transform hover:-translate-x-4 transition duration-500"
+                            x-data="{ count: 0, target: {{ $profile->mahasiswa_aktif ?? 0 }}, animate() { let step = Math.ceil(this.target / 50); let timer = setInterval(() => { this.count += step; if (this.count >= this.target) { this.count = this.target; clearInterval(timer); } }, 30); } }"
+                            x-intersect.once="animate()">
+                            <div class="w-12 h-12 rounded-xl bg-green-500 flex items-center justify-center text-white shadow-lg shadow-green-200">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                            </div>
+                            <div>
+                                <div class="flex items-baseline gap-0.5">
+                                    <h4 class="font-black text-[#0F2A44] text-xl leading-none" x-text="count">0</h4>
+                                    <span class="text-sm font-bold text-green-500">+</span>
+                                </div>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Mahasiswa Aktif</p>
+                            </div>
                         </div>
                     </div>
 
-                    {{-- Card 2 --}}
-                    <div class="bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white flex items-center gap-4 w-60 transform translate-x-4 hover:translate-x-0 transition duration-500">
-                        <div class="w-12 h-12 rounded-xl bg-yellow-500 flex items-center justify-center text-white shadow-lg shadow-yellow-200">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                        </div>
-                        <div>
-                            <h4 class="font-black text-[#0F2A44] text-xl leading-none">{{ $profile->total_dosen ?? '0' }}</h4>
-                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Dosen Ahli</p>
-                        </div>
+                    {{-- ========================================== --}}
+                    {{-- KELOMPOK KIRI BAWAH (BADGES/SLOGAN)       --}}
+                    {{-- ========================================== --}}
+                    <div class="absolute -left-10 bottom-10 z-20 space-y-3">
+                        @foreach($badges as $badge)
+                            <div class="bg-white/95 backdrop-blur-md p-3 px-5 rounded-2xl shadow-lg border border-white flex items-center gap-4 w-fit max-w-[280px] transform hover:translate-x-4 transition duration-500 group"
+                                x-data x-intersect.once="$el.classList.add('translate-x-0', 'opacity-100')"
+                                class="translate-x-[-30px] opacity-0 transition-all duration-1000">
+                                
+                                <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-yellow-500 to-amber-300 flex items-center justify-center text-white shadow-md group-hover:rotate-12 transition-transform">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-black text-[#0F2A44] text-xs leading-tight tracking-tight">{{ $badge->name }}</h4>
+                                    <p class="text-[8px] font-bold text-amber-600 uppercase tracking-tighter mt-0.5">Campus Achievement</p>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -395,27 +428,35 @@
         {{-- =======================
              BAGIAN BAWAH: STATS STRIP (SOLID Navy)
              ======================= --}}
-        <div class="relative rounded-[3rem] bg-[#1E5FA3] p-12 overflow-hidden shadow-2xl shadow-blue-900/20">
-            {{-- Background Pattern --}}
-            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+        <div class="relative rounded-[3rem] bg-[#1E5FA3] p-12 overflow-hidden shadow-2xl shadow-blue-900/30">
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 30px 30px;"></div>
+            <div class="absolute -right-20 -top-20 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
             
-            <div class="relative grid grid-cols-2 md:grid-cols-4 gap-12 text-white">
-                <div class="text-center md:border-r border-white/10 last:border-0">
-                    <h3 class="text-5xl font-black mb-2">{{ $profile->tahun_beroperasi ?? '-' }}</h3>
-                    <p class="text-blue-200 text-xs font-bold uppercase tracking-widest">Tahun Beroperasi</p>
+            <div class="relative grid grid-cols-2 lg:grid-cols-4 gap-8 text-white">
+                
+                @php
+                    $finalStats = [
+                        ['label' => 'Tahun Beroperasi', 'target' => $profile->tahun_beroperasi ?? 0, 'plus' => true],
+                        ['label' => 'Program Studi', 'target' => $prodis->count(), 'plus' => false],
+                        ['label' => 'Alumni Tersebar', 'target' => $profile->total_alumni ?? 0, 'plus' => true],
+                        ['label' => 'Dosen Pengajar', 'target' => $profile->total_dosen ?? 0, 'plus' => true],
+                    ];
+                @endphp
+
+                @foreach($finalStats as $stat)
+                <div class="text-center md:border-r border-white/20 last:border-0" 
+                     x-data="{ count: 0, target: {{ $stat['target'] }}, animate() { let step = Math.ceil(this.target / 50); let timer = setInterval(() => { this.count += step; if (this.count >= this.target) { this.count = this.target; clearInterval(timer); } }, 30); } }"
+                     x-intersect.once="animate()">
+                    <div class="flex items-center justify-center gap-0.5">
+                        <h3 class="text-4xl font-black mb-1 tracking-tighter" x-text="count">0</h3>
+                        @if($stat['plus'])
+                            <span class="text-xl font-bold text-blue-300">+</span>
+                        @endif
+                    </div>
+                    <p class="text-blue-100/70 text-[9px] font-black uppercase tracking-[0.2em]">{{ $stat['label'] }}</p>
                 </div>
-                <div class="text-center md:border-r border-white/10 last:border-0">
-                    <h3 class="text-5xl font-black mb-2">{{ $profile->total_prodi ?? '-' }}</h3>
-                    <p class="text-blue-200 text-xs font-bold uppercase tracking-widest">Program Studi</p>
-                </div>
-                <div class="text-center md:border-r border-white/10 last:border-0">
-                    <h3 class="text-5xl font-black mb-2">{{ $profile->total_alumni ?? '-' }}</h3>
-                    <p class="text-blue-200 text-xs font-bold uppercase tracking-widest">Alumni</p>
-                </div>
-                <div class="text-center">
-                    <h3 class="text-5xl font-black mb-2">{{ $profile->total_dosen ?? '-' }}</h3>
-                    <p class="text-blue-200 text-xs font-bold uppercase tracking-widest">Tenaga Pengajar</p>
-                </div>
+                @endforeach
+
             </div>
         </div>
     </div>

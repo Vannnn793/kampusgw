@@ -19,6 +19,8 @@ class lancingController extends Controller
         $pmbInfos = \App\Models\PmbInfo::where('is_active', 1)->first(); // Mengambil satu info PMB yang aktif
         $profile = \App\Models\Profile::first();
         $testimoni = \App\Models\Alumni::latest()->take(3)->get();
+        $badges = \App\Models\Badge::where('is_active', 1)->get();
+        $prodis = \App\Models\Prodi::all();
 
         // PENTING: Perhatikan bagian compact('sliders')
         // Ini artinya kita kirim data ke view dengan nama "$sliders"
@@ -31,6 +33,8 @@ class lancingController extends Controller
         'pmbInfos'   => $pmbInfos,
         'profile'    => $profile,
         'testimoni'  => $testimoni,
+        'badges' => $badges,
+        'prodis' => $prodis,
         
         ]); 
     }

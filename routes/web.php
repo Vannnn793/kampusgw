@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\ProdiController as AdminProdiController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\AlumniController as AdminAlumni;
+use App\Http\Controllers\Admin\BadgeController;
 
 use App\Models\PmbInfo;
 
@@ -134,6 +135,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('sliders', \App\Http\Controllers\Admin\SliderController::class);
         Route::resource('download', \App\Http\Controllers\Admin\DownloadController::class);
         Route::resource('pmb-info', \App\Http\Controllers\Admin\PmbInfoController::class);
+        Route::resource('badges', BadgeController::class);
+        Route::patch('/badges/{badge}/toggle', [BadgeController::class, 'toggle'])->name('badges.toggle');
 
         // Admissions admin
         Route::get('/admissions', [AdmissionController::class, 'adminIndex'])->name('admissions.index');

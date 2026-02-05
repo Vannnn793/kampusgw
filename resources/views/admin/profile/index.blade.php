@@ -162,7 +162,7 @@
                     <label class="form-label fw-semibold">Tahun Beroperasi</label>
                     <div class="input-group">
                         <span class="input-group-text bg-light"><i class="bi bi-calendar-check"></i></span>
-                        <input type="text" name="tahun_beroperasi" class="form-control" value="{{ old('tahun_beroperasi', $profile->tahun_beroperasi) }}" placeholder="Contoh: 15+">
+                        <input type="text" name="tahun_beroperasi" class="form-control" value="{{ old('tahun_beroperasi', $profile->tahun_beroperasi) }}" placeholder="Contoh: 15">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -176,14 +176,21 @@
                     <label class="form-label fw-semibold">Total Alumni</label>
                     <div class="input-group">
                         <span class="input-group-text bg-light"><i class="bi bi-people"></i></span>
-                        <input type="text" name="total_alumni" class="form-control" value="{{ old('total_alumni', $profile->total_alumni) }}" placeholder="Contoh: 3000+">
+                        <input type="text" name="total_alumni" class="form-control" value="{{ old('total_alumni', $profile->total_alumni) }}" placeholder="Contoh: 3000">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Total Dosen & Staf</label>
                     <div class="input-group">
                         <span class="input-group-text bg-light"><i class="bi bi-person-workspace"></i></span>
-                        <input type="text" name="total_dosen" class="form-control" value="{{ old('total_dosen', $profile->total_dosen) }}" placeholder="Contoh: 100+">
+                        <input type="text" name="total_dosen" class="form-control" value="{{ old('total_dosen', $profile->total_dosen) }}" placeholder="Contoh: 100">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Jumlah Mahasiswa Aktif</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light"><i class="bi bi-journal-bookmark-fill"></i></span>
+                        <input type="text" name="mahasiswa_aktif" class="form-control" value="{{ old('mahasiswa_aktif', $profile->mahasiswa_aktif) }}" placeholder="Contoh: 5000">
                     </div>
                 </div>
             </div>

@@ -179,6 +179,11 @@
             </a>
         </div>
         <div class="nav-item">
+            <a href="/admin/badges" class="nav-link {{ request()->is('admin/badges*') ? 'active' : '' }}">
+                <i class="bi bi-badge-check"></i> Gelar & Slogan
+            </a>
+        </div>
+        <div class="nav-item">
             <a href="/admin/facilities" class="nav-link {{ request()->is('admin/facilities*') ? 'active' : '' }}">
                 <i class="bi bi-house-gear"></i> Fasilitas
             </a>
