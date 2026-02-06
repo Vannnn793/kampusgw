@@ -50,12 +50,30 @@
 
         <h2 class="text-4xl font-bold text-slate-900 mb-20 text-center"
             data-aos="fade-up">
-            Misi & Visi
+            Visi & Misi
         </h2>
 
         <div class="grid md:grid-cols-2 gap-14">
 
-            {{-- MISI --}}
+            {{-- VISI --}}
+            <div class="bg-[#E0B100]
+                        rounded-3xl p-12
+                        shadow-xl"
+                 data-aos="fade-left"
+                 data-aos-delay="150">
+
+                <h3 class="text-3xl font-bold text-slate-900 mb-8 text-center">
+                    Visi
+                </h3>
+
+                <div class="prose max-w-none italic text-center
+                            prose-p:text-slate-900
+                            prose-p:text-xl
+                            prose-p:leading-relaxed">
+                    {!! nl2br(e($faculty->vision)) !!}
+                </div>
+            </div>
+                {{-- MISI --}}
             <div class="bg-[#151B54]
                         rounded-3xl p-10
                         shadow-lg hover:shadow-xl transition"
@@ -76,25 +94,6 @@
                             [&_p]:text-lg
                             text-center">
                     {!! nl2br(e($faculty->mission)) !!}
-                </div>
-            </div>
-
-            {{-- VISI --}}
-            <div class="bg-[#E0B100]
-                        rounded-3xl p-12
-                        shadow-xl"
-                 data-aos="fade-left"
-                 data-aos-delay="150">
-
-                <h3 class="text-3xl font-bold text-slate-900 mb-8 text-center">
-                    Visi
-                </h3>
-
-                <div class="prose max-w-none italic text-center
-                            prose-p:text-slate-900
-                            prose-p:text-xl
-                            prose-p:leading-relaxed">
-                    {!! nl2br(e($faculty->vision)) !!}
                 </div>
             </div>
 
@@ -136,4 +135,23 @@
 
 </section>
 
+{{-- ================= AOS ================= --}}
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<style>
+@keyframes zoomHero {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+</style>
+
+<script>
+AOS.init({
+    duration: 800,
+    easing: 'ease-out-cubic',
+    once: true
+});
+</script>
 @endsection

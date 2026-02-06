@@ -16,11 +16,11 @@ class TentangController extends Controller
     }
         public function struktur()
     {
-        $top = OrganizationStructure::where('position','pimpinan_fakultas')
+        $top = OrganizationStructure::where('position','pimpinan_univ')
                 ->orderBy('order','asc')
                 ->first();
 
-        $bottom = OrganizationStructure::where('position','!=','pimpinan_fakultas')
+        $bottom = OrganizationStructure::where('position','!=','pimpinan_univ')
                 ->orderBy('order','asc')
                 ->limit(3)
                 ->get();
