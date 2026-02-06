@@ -19,29 +19,34 @@
     <div class="absolute inset-0 bg-[#151B54]/70"></div>
 
     <div class="relative z-10 h-full flex items-center">
-        <div class="max-w-6xl mx-auto px-6">
-            <p class="text-sky-200 uppercase tracking-widest mb-4"
-               data-aos="fade-down">
-                Sejarah Institusi
-            </p>
+    <div class="max-w-6xl mx-auto px-6">
 
-            <h1 class="text-6xl md:text-7xl font-extrabold text-white leading-tight mb-8"
-                data-aos="fade-up"
-                data-aos-delay="150">
-                Politeknik<br>
-                <span class="text-sky-300">Negeri Indramayu</span>
-            </h1>
+        <p class="text-sky-200 uppercase tracking-widest mb-4"
+           data-aos="fade-down">
+            Sejarah Institusi
+        </p>
 
-            <p class="text-xl text-sky-100 max-w-3xl leading-relaxed text-justify italic"
-               data-aos="fade-up"
-               data-aos-delay="300">
-                {{ $profile
-                    ? \Illuminate\Support\Str::limit(strip_tags($profile->sejarah_kampus), 220)
-                    : 'Sejarah kampus belum diisi.' }}
-            </p>
-        </div>
+        <h1 class="text-6xl md:text-7xl font-extrabold text-white leading-tight mb-8"
+            data-aos="fade-up"
+            data-aos-delay="150">
+            <span class="text-sky-300">
+                {{ \Illuminate\Support\Str::after($profile->campus_name, ' ') }}
+            </span>
+
+        </h1>
+
+        <p class="text-xl text-sky-100 max-w-3xl leading-relaxed text-justify italic"
+           data-aos="fade-up"
+           data-aos-delay="300">
+            {{ $profile
+                ? \Illuminate\Support\Str::limit(strip_tags($profile->sejarah_kampus), 220)
+                : 'Sejarah kampus belum diisi.' }}
+        </p>
+
     </div>
+</div>
 </section>
+
 
 {{-- ===================== --}}
 {{-- SECTION SEJARAH KAMPUS --}}
@@ -145,6 +150,21 @@
         </h2>
 
         <div class="grid md:grid-cols-2 gap-14">
+            {{-- VISI --}}
+            <div class="bg-[#E0B100] rounded-3xl p-12 shadow-xl"
+                 data-aos="fade-left"
+                 data-aos-delay="150">
+                <h3 class="text-3xl font-bold text-slate-900 mb-8 text-center">
+                    Visi
+                </h3>
+
+                <div class="prose max-w-none italic text-center
+                            prose-p:text-slate-900
+                            prose-p:text-xl
+                            prose-p:leading-relaxed">
+                    {!! $profile->visi !!}
+                </div>
+            </div>
 
             {{-- MISI --}}
             <div class="bg-[#151B54]
@@ -169,22 +189,7 @@
                     {!! $profile->misi !!}
                 </div>
             </div>
-
-            {{-- VISI --}}
-            <div class="bg-[#E0B100] rounded-3xl p-12 shadow-xl"
-                 data-aos="fade-left"
-                 data-aos-delay="150">
-                <h3 class="text-3xl font-bold text-slate-900 mb-8 text-center">
-                    Visi
-                </h3>
-
-                <div class="prose max-w-none italic text-center
-                            prose-p:text-slate-900
-                            prose-p:text-xl
-                            prose-p:leading-relaxed">
-                    {!! $profile->visi !!}
-                </div>
-            </div>
+        
 
         </div>
     </div>

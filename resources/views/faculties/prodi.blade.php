@@ -197,10 +197,24 @@
 
     </div>
 </section>
-            {{-- <p class="text-slate-300 leading-relaxed">
-                Fakultas {{ str_replace('-', ' ', $slug) }} dirancang untuk
-                mencetak lulusan siap industri dengan kurikulum berbasis teknologi,
-                inovasi, dan kebutuhan global.
-            </p> --}}
 
+{{-- ================= AOS ================= --}}
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<style>
+@keyframes zoomHero {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+</style>
+
+<script>
+AOS.init({
+    duration: 800,
+    easing: 'ease-out-cubic',
+    once: true
+});
+</script>
 @endsection
