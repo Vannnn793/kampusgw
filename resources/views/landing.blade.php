@@ -816,7 +816,7 @@
                     <div id="modalContent" class="text-slate-600 text-sm md:text-base leading-relaxed mb-8"></div>
                     
                     <div class="mt-auto pt-6 border-t border-slate-100 flex justify-end">
-                        <button onclick="closeModal()" class="px-8 py-3 bg-[#0F2A44] text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-[#1E5FA3] transition-colors shadow-lg shadow-blue-900/20">Tutup</button>
+                      <button onclick="closeModal()" class="px-8 py-3 bg-[#0F2A44] text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-[#1E5FA3] transition-colors shadow-lg shadow-blue-900/20">Tutup</button>
                     </div>
                 </div>
             </div>
@@ -884,6 +884,7 @@
     </div>
 
 </section>
+
 <script>
     function openModal(title, content, img, date) {
         const modal = document.getElementById('newsModal');
