@@ -42,7 +42,6 @@
                     <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Faculties</a></li>
                     <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Admissions</a></li>
                     <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Careers</a></li>
-                    <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Alumni</a></li>
                     <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> News & Events</a></li>
                 </ul>
             </div>

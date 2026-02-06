@@ -671,8 +671,8 @@
                         <div>
                             <h4 class="text-[#0F2A44] font-black text-sm"><?php echo e($alumni->nama); ?></h4>
                             <div class="flex flex-col">
-                                <span class="text-[10px] text-[#1E5FA3] font-black uppercase tracking-wider"><?php echo e($alumni->jabatan ?? 'Software Engineer'); ?></span>
-                                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-tighter"><?php echo e($alumni->perusahaan ?? 'Global Tech Corp'); ?></span>
+                                <span class="text-[10px] text-[#1E5FA3] font-black uppercase tracking-wider"><?php echo e($alumni->jabatan ?? 'gatau'); ?></span>
+                                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-tighter"><?php echo e($alumni->perusahaan ?? 'gatau juga'); ?></span>
                             </div>
                         </div>
                     </div>
