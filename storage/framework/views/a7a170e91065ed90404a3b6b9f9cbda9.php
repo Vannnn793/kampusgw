@@ -695,15 +695,13 @@
     </div>
 </section>
 
-<section id="berita-kampus" class="relative py-24 bg-white overflow-hidden">
-
+<section id="berita-kampus" class="relative py-20 bg-white overflow-hidden">
     
-    <div class="absolute inset-0 opacity-[0.05]" style="background-image: linear-gradient(#1E5FA3 1.5px, transparent 1.5px), linear-gradient(90deg, #1E5FA3 1.5px, transparent 1.5px); background-size: 40px 40px;"></div>
+    <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: linear-gradient(#1E5FA3 1.5px, transparent 1.5px), linear-gradient(90deg, #1E5FA3 1.5px, transparent 1.5px); background-size: 40px 40px;"></div>
 
     <div class="relative max-w-7xl mx-auto px-6">
-
         
-        <div class="flex flex-row justify-between items-end mb-12 border-b-2 border-slate-100 pb-6">
+        <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-10 border-b-2 border-slate-50 pb-6 gap-4">
             <div class="space-y-1">
                 <span class="text-[#1E5FA3] font-black tracking-[0.3em] uppercase text-[10px] block">Lensa Kampus</span>
                 <h2 class="text-3xl md:text-5xl font-black text-[#0F2A44] tracking-tighter">
@@ -711,7 +709,7 @@
                 </h2>
             </div>
             
-            <a href="/posts" class="group flex items-center gap-3 text-xs font-black text-[#0F2A44] uppercase tracking-widest hover:text-[#1E5FA3] transition-all">
+            <a href="/posts" class="group flex items-center gap-3 text-[10px] font-black text-[#0F2A44] uppercase tracking-widest hover:text-[#1E5FA3] transition-all">
                 Semua Berita
                 <span class="w-10 h-10 rounded-full bg-[#E6F0FB] flex items-center justify-center group-hover:bg-[#1E5FA3] group-hover:text-white transition-all">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
@@ -720,38 +718,41 @@
         </div>
 
         <div class="grid lg:grid-cols-5 gap-8">
-
             
             <?php if($posts->count()): ?>
+            <?php 
+                $headline = $posts[0];
+                // Bersihkan konten dari tag HTML & karakter aneh untuk JS
+                $cleanContent = str_replace(["\r", "\n", "'"], ["", " ", "\\'"], strip_tags($headline->content));
+            ?>
             <div class="lg:col-span-3">
-                <div class="group relative h-[550px] rounded-[2.5rem] overflow-hidden shadow-2xl transition-all duration-700 cursor-pointer"
-                     onclick="openModal('<?php echo e($posts[0]->title); ?>', '<?php echo e($posts[0]->content); ?>', '<?php echo e(asset('storage/'.$posts[0]->thumbnail)); ?>', '<?php echo e($posts[0]->created_at->format('d M Y')); ?>')">
+                <div class="group relative h-[400px] md:h-[550px] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl transition-all duration-700 cursor-pointer border border-slate-100"
+                     onclick="openModal('<?php echo e(addslashes($headline->title)); ?>', '<?php echo e($cleanContent); ?>', '<?php echo e(asset('storage/'.$headline->thumbnail)); ?>', '<?php echo e($headline->created_at->format('d M Y')); ?>')">
                     
-                    <img src="<?php echo e(asset('storage/'.$posts[0]->thumbnail)); ?>" 
-                         alt="<?php echo e($posts[0]->title); ?>"
-                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000">
+                    <img src="<?php echo e(asset('storage/'.$headline->thumbnail)); ?>" 
+                         alt="<?php echo e($headline->title); ?>"
+                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[2000ms]">
 
-                    
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#0F2A44] via-[#0F2A44]/20 to-transparent opacity-90"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0F2A44] via-[#0F2A44]/40 to-transparent opacity-90 transition-opacity group-hover:opacity-100"></div>
 
-                    <div class="absolute bottom-0 left-0 p-8 md:p-12 w-full">
+                    <div class="absolute inset-0 flex flex-col justify-end p-6 md:p-12">
                         <div class="flex gap-2 mb-4">
-                            <span class="px-3 py-1 bg-[#1E5FA3] text-white text-[10px] font-black uppercase tracking-widest rounded-md">Headline</span>
-                            <span class="px-3 py-1 bg-white/20 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest rounded-md"><?php echo e($posts[0]->category->name ?? 'Berita'); ?></span>
+                            <span class="px-3 py-1 bg-[#1E5FA3] text-white text-[9px] font-black uppercase tracking-widest rounded-md">Terbaru</span>
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-md text-white text-[9px] font-black uppercase tracking-widest rounded-md"><?php echo e($headline->category->name ?? 'Berita'); ?></span>
                         </div>
 
-                        <h3 class="text-3xl md:text-4xl font-black text-white leading-[1.1] mb-6 group-hover:text-blue-200 transition-colors">
-                            <?php echo e($posts[0]->title); ?>
+                        <h3 class="text-2xl md:text-4xl font-black text-white leading-tight mb-6 group-hover:text-blue-300 transition-colors">
+                            <?php echo e($headline->title); ?>
 
                         </h3>
 
-                        <div class="flex items-center justify-between text-white/70">
-                            <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
+                        <div class="flex items-center justify-between text-white/70 border-t border-white/10 pt-6">
+                            <div class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                <?php echo e($posts[0]->created_at->format('d M Y')); ?>
+                                <?php echo e($headline->created_at->format('d M Y')); ?>
 
                             </div>
-                            <span class="text-sm font-black uppercase tracking-tighter group-hover:translate-x-2 transition-transform">Read Story →</span>
+                            <span class="text-xs font-black uppercase tracking-tighter group-hover:translate-x-2 transition-transform">Baca Selengkapnya →</span>
                         </div>
                     </div>
                 </div>
@@ -761,18 +762,19 @@
             
             <div class="lg:col-span-2 flex flex-col gap-4">
                 <?php $__currentLoopData = $posts->skip(1)->take(4); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <div class="group flex gap-5 p-4 rounded-3xl bg-white border border-slate-100 hover:border-[#1E5FA3]/30 hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 cursor-pointer"
-                     onclick="openModal('<?php echo e($post->title); ?>', '<?php echo e($post->content); ?>', '<?php echo e(asset('storage/'.$post->thumbnail)); ?>', '<?php echo e($post->created_at->format('d M Y')); ?>')">
+                <?php 
+                    $cleanListContent = str_replace(["\r", "\n", "'"], ["", " ", "\\'"], strip_tags($post->content));
+                ?>
+                <div class="group flex gap-4 p-3 rounded-2xl bg-white border border-slate-100 hover:border-[#1E5FA3]/30 hover:shadow-lg hover:shadow-blue-900/5 transition-all duration-300 cursor-pointer"
+                     onclick="openModal('<?php echo e(addslashes($post->title)); ?>', '<?php echo e($cleanListContent); ?>', '<?php echo e(asset('storage/'.$post->thumbnail)); ?>', '<?php echo e($post->created_at->format('d M Y')); ?>')">
                     
-                    
-                    <div class="shrink-0 w-24 h-24 rounded-2xl overflow-hidden shadow-inner bg-slate-100">
+                    <div class="shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-xl overflow-hidden shadow-inner bg-slate-100">
                         <img src="<?php echo e(asset('storage/'.$post->thumbnail)); ?>" 
                              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     </div>
 
-                    
-                    <div class="flex flex-col justify-center">
-                        <span class="text-[10px] font-black text-[#1E5FA3] uppercase tracking-widest mb-1">
+                    <div class="flex flex-col justify-center min-w-0">
+                        <span class="text-[9px] font-black text-[#1E5FA3] uppercase tracking-widest mb-1">
                             <?php echo e($post->category->name ?? 'Update'); ?>
 
                         </span>
@@ -780,7 +782,7 @@
                             <?php echo e($post->title); ?>
 
                         </h4>
-                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-tighter flex items-center gap-1">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-tighter flex items-center gap-1">
                             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             <?php echo e($post->created_at->diffForHumans()); ?>
 
@@ -793,25 +795,31 @@
     </div>
 
     
-    <div id="newsModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6">
-        <div class="absolute inset-0 bg-[#0F2A44]/80 backdrop-blur-md transition-opacity" onclick="closeModal()"></div>
+    <div id="newsModal" class="fixed inset-0 z-[1000] hidden items-center justify-center p-4 sm:p-6 overflow-hidden">
+        <div class="absolute inset-0 bg-[#0F2A44]/90 backdrop-blur-md transition-opacity" onclick="closeModal()"></div>
         
-        <div class="relative bg-white w-full max-w-4xl rounded-[3rem] overflow-hidden shadow-2xl transform transition-all scale-95 opacity-0 duration-300" id="modalPanel">
-            <button onclick="closeModal()" class="absolute top-6 right-6 z-30 w-10 h-10 bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-[#0F2A44] rounded-full transition-all flex items-center justify-center">
+        <div class="relative bg-white w-full max-w-4xl rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl transform transition-all scale-95 opacity-0 duration-300 flex flex-col" id="modalPanel">
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-[1100] w-10 h-10 bg-[#1E5FA3] text-white rounded-full flex items-center justify-center shadow-lg md:hidden">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
 
-            <div class="flex flex-col md:flex-row h-full max-h-[85vh] overflow-y-auto md:overflow-hidden">
-                <div class="md:w-1/2 h-64 md:h-auto overflow-hidden">
+            <div class="flex flex-col md:flex-row h-full max-h-[90vh] md:max-h-[80vh]">
+                <div class="md:w-1/2 h-56 md:h-auto shrink-0 relative">
                     <img id="modalImg" src="" class="w-full h-full object-cover">
+                    <button onclick="closeModal()" class="hidden md:flex absolute top-6 left-6 w-10 h-10 bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-[#0F2A44] rounded-full transition-all items-center justify-center">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
                 </div>
-                <div class="md:w-1/2 p-8 md:p-12 overflow-y-auto flex flex-col">
-                    <span id="modalDate" class="text-[#1E5FA3] font-black text-[10px] uppercase tracking-widest mb-4"></span>
-                    <h3 id="modalTitle" class="text-2xl md:text-3xl font-black text-[#0F2A44] leading-tight mb-6"></h3>
-                    <div id="modalContent" class="text-slate-600 text-sm leading-relaxed prose prose-blue mb-8"></div>
-                    <div class="mt-auto pt-6 border-t border-slate-100 flex justify-between items-center">
-                        <span class="text-[10px] font-bold text-slate-400">Share this news</span>
-                        <button onclick="closeModal()" class="px-8 py-3 bg-[#0F2A44] text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-[#1E5FA3] transition-colors">Tutup</button>
+
+                <div class="md:w-1/2 p-6 md:p-12 overflow-y-auto custom-scrollbar flex flex-col">
+                    <div class="mb-4">
+                        <span id="modalDate" class="text-[#1E5FA3] font-black text-[10px] uppercase tracking-widest"></span>
+                    </div>
+                    <h3 id="modalTitle" class="text-xl md:text-3xl font-black text-[#0F2A44] leading-tight mb-6"></h3>
+                    <div id="modalContent" class="text-slate-600 text-sm md:text-base leading-relaxed mb-8"></div>
+                    
+                    <div class="mt-auto pt-6 border-t border-slate-100 flex justify-end">
+                        <button onclick="closeModal()" class="px-8 py-3 bg-[#0F2A44] text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-[#1E5FA3] transition-colors shadow-lg shadow-blue-900/20">Tutup</button>
                     </div>
                 </div>
             </div>
@@ -880,69 +888,47 @@
 
 </section>
 <script>
-    const modal = document.getElementById('newsModal');
-    const modalPanel = document.getElementById('modalPanel');
-    
-    // Fungsi Buka Modal
-    function openModal(title, content, image, date) {
-        // Isi konten modal
-        document.getElementById('modalTitle').innerText = title;
-        document.getElementById('modalImg').src = image;
-        document.getElementById('modalDate').innerText = date;
+    function openModal(title, content, img, date) {
+        const modal = document.getElementById('newsModal');
+        const panel = document.getElementById('modalPanel');
         
-        // Dekode HTML content (agar tag <p>, <strong> dll muncul beneran)
-        const contentArea = document.getElementById('modalContent');
-        const doc = new DOMParser().parseFromString(content, 'text/html');
-        contentArea.innerHTML = doc.documentElement.textContent || doc.body.innerHTML;
+        document.getElementById('modalTitle').innerText = title;
+        document.getElementById('modalContent').innerText = content;
+        document.getElementById('modalImg').src = img;
+        document.getElementById('modalDate').innerText = date;
 
-        // Tampilkan Modal (Ubah class hidden jadi flex)
         modal.classList.remove('hidden');
         modal.classList.add('flex');
         
-        // Animasi masuk (Delay dikit biar transisinya kelihatan)
-        setTimeout(() => {
-            modalPanel.classList.remove('scale-95', 'opacity-0');
-            modalPanel.classList.add('scale-100', 'opacity-100');
-        }, 10);
-        
-        // Cegah scroll pada body
+        // Prevent body scroll
         document.body.style.overflow = 'hidden';
+
+        setTimeout(() => {
+            panel.classList.remove('scale-95', 'opacity-0');
+            panel.classList.add('scale-100', 'opacity-100');
+        }, 10);
     }
 
-    // Fungsi Tutup Modal
     function closeModal() {
-        modalPanel.classList.remove('scale-100', 'opacity-100');
-        modalPanel.classList.add('scale-95', 'opacity-0');
-        
+        const modal = document.getElementById('newsModal');
+        const panel = document.getElementById('modalPanel');
+
+        panel.classList.remove('scale-100', 'opacity-100');
+        panel.classList.add('scale-95', 'opacity-0');
+
         setTimeout(() => {
             modal.classList.add('hidden');
             modal.classList.remove('flex');
             document.body.style.overflow = 'auto';
         }, 300);
     }
-
-    // Menangani klik pada kartu berita (Gaya Event Delegation)
-    document.addEventListener('click', function(e) {
-        const card = e.target.closest('.news-card'); // Pastikan card punya class 'news-card'
-        if (card) {
-            const data = card.dataset;
-            openModal(data.title, data.content, data.image, data.date);
-        }
-    });
-
-    // Tutup modal kalau klik di luar panel (backdrop)
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal || e.target.id === 'modalBackdrop') {
-            closeModal();
-        }
-    });
-
-    // Tutup pake tombol ESC
-    document.addEventListener('keydown', function(e) {
-        if (e.key === "Escape" && !modal.classList.contains('hidden')) {
-            closeModal();
-        }
-    });
 </script>
+
+<style>
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #1E5FA3; border-radius: 10px; }
+    .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+</style>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layout.main', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\kampus_anda\resources\views/landing.blade.php ENDPATH**/ ?>
