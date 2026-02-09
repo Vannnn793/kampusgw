@@ -1,4 +1,4 @@
-<footer class="mt-32 bg-slate-50 border-t border-slate-200 font-sans relative overflow-hidden">
+<footer id="footer" class="mt-32 bg-slate-50 border-t border-slate-200 font-sans relative overflow-hidden">
     {{-- Hiasan Background biar gak sepi --}}
     <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-sky-500/20 to-transparent"></div>
 
@@ -36,16 +36,18 @@
             <div>
                 <h4 class="font-black mb-6 text-slate-800 uppercase tracking-[0.2em] text-[10px]">Ecosystem</h4>
                 <ul class="space-y-3 text-slate-500 font-medium">
-                    <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> About Us</a></li>
-                    <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Faculties</a></li>
-                    <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Admissions</a></li>
-                    <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Careers</a></li>
+                    <li><a href="#About" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> About Us</a></li>
+                    <li><a href="#Fakultas" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Akademik</a></li>
+                    <li><a href="#Hero" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Admissions</a></li>
+                    <li><a href="#Testimoni" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Careers</a></li>
+                    <li><a href="#berita-kampus" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> News & Events</a></li>
+                    <li><a href="#Partners" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Our Partners</a></li>
                 </ul>
             </div>
 
             {{-- Kolom 3: Resources --}}
             <div>
-                <h4 class="font-black mb-6 text-slate-800 uppercase tracking-[0.2em] text-[10px]"><a href="{{ route('downloads.index') }}">Resources & Downloads</a></h4>
+                <h4 class="font-black mb-6 text-slate-800 uppercase tracking-[0.2em] text-[10px]">Resources & Downloads</h4>
                 <ul class="space-y-4 text-slate-500 font-medium">
                     @forelse($downloads as $dl)
                         <li>
@@ -72,7 +74,7 @@
             <div>
                 <h4 class="font-black mb-6 text-slate-800 uppercase tracking-[0.2em] text-[10px]">Top Programs</h4>
                 <ul class="space-y-3 text-slate-500 font-medium">
-                    @foreach ($prodis as $prodi)
+                    @foreach ($prodis->take(4) as $prodi)
                         <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> {{ $prodi->name }}</a></li>
                     @endforeach
                 </ul>

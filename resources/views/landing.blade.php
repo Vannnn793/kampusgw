@@ -51,7 +51,7 @@
     </div>
 </div>
 {{-- ================= HERO SECTION ================= --}}
-<section class="relative min-h-screen flex items-center overflow-hidden bg-[#FAFAF9]">
+<section id="Hero" class="relative min-h-screen flex items-center overflow-hidden bg-[#FAFAF9]">
     {{-- ORNAMEN BACKGROUND (Biar gak sepi) --}}
     <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
         <div class="absolute -top-[10%] -left-[5%] w-[40%] h-[60%] bg-blue-100/50 rounded-full blur-[120px]"></div>
@@ -100,7 +100,7 @@
                     <a href="/pmb" class="px-8 py-4 bg-[#1E5FA3] text-white font-bold rounded-2xl shadow-lg shadow-blue-200 hover:bg-[#0F3E73] hover:-translate-y-1 transition-all duration-300">
                         Daftar Sekarang
                     </a>
-                    <a href="/tentang/sejarah" class="px-8 py-4 bg-white text-[#1E5FA3] font-bold border-2 border-[#1E5FA3]/10 rounded-2xl hover:bg-gray-50 hover:border-[#1E5FA3] transition-all">
+                    <a href="/faculties" class="px-8 py-4 bg-white text-[#1E5FA3] font-bold border-2 border-[#1E5FA3]/10 rounded-2xl hover:bg-gray-50 hover:border-[#1E5FA3] transition-all">
                         Jelajahi Kampus
                     </a>
                 </div>
@@ -109,10 +109,13 @@
                 {{-- STATS BAR (Pelega Ruang Kosong) --}}
                 <div class="mt-16 grid grid-cols-3 gap-8 border-t border-gray-200 pt-8">
                     {{-- Alumni Stats --}}
-                    <div x-data="{ count: 0, target: {{ $profile->total_alumni ?? 0 }} }" 
+                    <div x-data="{ count: 0, target: {{ $profile->mahasiswa_aktif ?? 0 }} }" 
                         x-intersect.once="let interval = setInterval(() => { if(count < target) { count += Math.ceil(target/50); if(count > target) count = target; } else { clearInterval(interval); } }, 30)">
-                        <p class="text-3xl font-bold text-[#0F2A44]" x-text="count"></p>
-                        <p class="text-sm text-gray-500 font-medium">Alumni Sukses</p>
+                        <div class="flex items-baseline gap-0.5">
+                            <h4 class="font-black text-[#0F2A44] text-xl leading-none" x-text="count">0</h4>
+                            <span class="text-sm font-bold text-gray-500">+</span>
+                        </div>
+                        <p class="text-sm text-gray-500 font-medium">Mahasiswa mempercayai kami</p>
                     </div>
 
                     {{-- Partner Stats --}}
@@ -123,9 +126,22 @@
                     </div>
 
                     {{-- Akreditasi (Statik) --}}
-                    <div>
-                        <p class="text-3xl font-bold text-[#0F2A44]">A+</p>
-                        <p class="text-sm text-gray-500 font-medium">Akreditasi Ban-PT</p>
+                    <div x-data="{ show: false }" x-intersect.once="show = true">
+                        @if($accreditationLevel && $accreditationLevel !== '-')
+                            {{-- Jika Data Ada --}}
+                            <p class="text-3xl font-bold text-[#0F2A44]" 
+                            x-show="show" 
+                            x-transition:enter="transition ease-out duration-1000"
+                            x-transition:enter-start="opacity-0 transform translate-y-4"
+                            x-transition:enter-end="opacity-100 transform translate-y-0">
+                            {{ $accreditationLevel }}
+                            </p>
+                            <p class="text-sm text-gray-500 font-medium">Akreditasi Ban-PT</p>
+                        @else
+                            {{-- Jika Data Kosong/Tidak Ditemukan --}}
+                            <p class="text-3xl font-bold text-gray-300">N/A</p>
+                            <p class="text-[10px] text-gray-400 font-medium uppercase tracking-widest">Data Belum Tersedia</p>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -210,101 +226,129 @@
     </div>
 </section>
 {{-- ================= PARTNERS MODIFIED ================= --}}
-<section class="py-15 relative overflow-hidden bg-gradient-to-br from-sky-50 via-[#E6F0FB] to-sky-100">
+<section id="Partners" class="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-sky-50 via-[#E6F0FB] to-sky-100">
     
-    {{-- ORNAMEN BACKGROUND (Biar gak boring) --}}
-    <div class="absolute top-0 right-0 w-96 h-96 bg-white/40 rounded-full blur-3xl -mr-20 -mt-20"></div>
-    <div class="absolute bottom-0 left-0 w-80 h-80 bg-[#1E5FA3]/5 rounded-full blur-3xl -ml-20 -mb-20"></div>
+    {{-- ORNAMEN BACKGROUND --}}
+    <div class="absolute top-0 right-0 w-72 h-72 md:w-96 md:h-96 bg-white/40 rounded-full blur-3xl -mr-20 -mt-20"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 md:w-80 md:h-80 bg-[#1E5FA3]/5 rounded-full blur-3xl -ml-20 -mb-20"></div>
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
-        <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
-            {{-- SISI KIRI: Headline & Stats (Biru Navy Lu Main Di Sini) --}}
-            <div class="lg:col-span-5 space-y-8">
+            {{-- SISI KIRI: Headline & Stats --}}
+            <div class="lg:col-span-5 space-y-8 text-center lg:text-left">
                 <div>
                     <span class="inline-block px-4 py-1.5 rounded-full bg-[#1E5FA3] text-white text-[10px] font-black uppercase tracking-widest mb-6 shadow-md shadow-blue-200">
                         Networking & Partnership
                     </span>
-                    <h2 class="text-4xl md:text-5xl font-black text-[#0F2A44] leading-tight tracking-tight">
-                        Ekosistem <br>
+                    <h2 class="text-3xl md:text-5xl font-black text-[#0F2A44] leading-tight tracking-tight">
+                        Ekosistem <br class="hidden lg:block">
                         <span class="text-[#1E5FA3]">Industri Terintegrasi</span>
                     </h2>
-                    <p class="mt-5 text-[#1F3E63]/80 text-lg leading-relaxed font-medium">
+                    <p class="mt-5 text-[#1F3E63]/80 text-base md:text-lg leading-relaxed font-medium max-w-2xl mx-auto lg:mx-0">
                         Membangun jembatan antara akademisi dan kebutuhan nyata industri global untuk menjamin karir lulusan.
                     </p>
                 </div>
 
-                {{-- STATS AREA (Dibuat Lebih Kontras) --}}
+                {{-- STATS AREA --}}
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="p-6 rounded-2xl bg-white shadow-sm border border-blue-100">
-                        <p class="text-3xl font-black text-[#1E5FA3]">{{ $partners->count() }}+</p>
-                        <p class="text-xs font-bold text-[#1F3E63]/60 uppercase tracking-tighter">Mitra Aktif</p>
+                    <div class="p-5 md:p-6 rounded-2xl bg-white shadow-sm border border-blue-100">
+                        <p class="text-2xl md:text-3xl font-black text-[#1E5FA3]">{{ $partners->count() }}+</p>
+                        <p class="text-[10px] font-bold text-[#1F3E63]/60 uppercase tracking-tighter">Mitra Aktif</p>
                     </div>
-                    <div class="p-6 rounded-2xl bg-white shadow-sm border border-blue-100">
-                        <p class="text-3xl font-black text-[#1E5FA3]">92%</p>
-                        <p class="text-xs font-bold text-[#1F3E63]/60 uppercase tracking-tighter">Hiring Rate</p>
+                    <div class="p-5 md:p-6 rounded-2xl bg-white shadow-sm border border-blue-100 transition-all hover:shadow-md text-left">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-2xl md:text-3xl font-black text-[#1E5FA3]">{{ $hiringRate }}%</p>
+                                <p class="text-[10px] font-bold text-[#1F3E63]/60 uppercase tracking-tighter">Hiring Rate</p>
+                            </div>
+                            <div class="bg-blue-50 p-2 rounded-lg hidden sm:block">
+                                <i class="bi bi-briefcase-fill text-[#1E5FA3]"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 w-full bg-slate-100 rounded-full h-1.5">
+                            <div class="bg-[#1E5FA3] h-1.5 rounded-full" style="width: {{ $hiringRate }}%"></div>
+                        </div>
+                        <p class="mt-2 text-[9px] text-slate-400 italic">
+                            *Data {{ $totalAlumni }} alumni
+                        </p>
                     </div>
                 </div>
             </div>
 
-            {{-- SISI KANAN: VERTICAL DOUBLE MARQUEE (Frame Solid) --}}
-            <div class="lg:col-span-7 relative h-[500px] overflow-hidden rounded-[2.5rem] bg-white/40 backdrop-blur-sm border border-white/60 shadow-inner">
+            {{-- SISI KANAN: ADAPTIVE MARQUEE --}}
+            {{-- Mobile: Horizontal Marquee | Desktop: Vertical Double Marquee --}}
+            <div class="lg:col-span-7 relative h-[300px] md:h-[500px] overflow-hidden rounded-[2rem] md:rounded-[2.5rem] bg-white/40 backdrop-blur-sm border border-white/60 shadow-inner">
                 
-                {{-- Fade Overlay (Makin halus dengan warna sky-blue) --}}
-                <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#f1f7fe] to-transparent z-10 pointer-events-none"></div>
-                <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#f1f7fe] to-transparent z-10 pointer-events-none"></div>
+                {{-- Fade Overlays --}}
+                <div class="absolute inset-y-0 lg:inset-x-0 left-0 lg:top-0 w-16 lg:w-full lg:h-24 bg-gradient-to-r lg:bg-gradient-to-b from-[#f1f7fe] to-transparent z-10 pointer-events-none"></div>
+                <div class="absolute inset-y-0 lg:inset-x-0 right-0 lg:bottom-0 w-16 lg:w-full lg:h-24 bg-gradient-to-l lg:bg-gradient-to-t from-[#f1f7fe] to-transparent z-10 pointer-events-none"></div>
 
-                <div class="grid grid-cols-2 gap-5 p-5 h-full">
+                {{-- Container Animasi --}}
+                <div class="flex lg:grid lg:grid-cols-2 gap-4 md:gap-5 p-5 h-full overflow-hidden">
                     
-                    {{-- Kolom 1 (Atas) --}}
-                    <div class="flex flex-col gap-5 animate-marquee-vertical">
-                        @for ($i = 0; $i < 3; $i++)
+                    {{-- Kolom 1 / Row 1 --}}
+                    <div class="flex lg:flex-col gap-4 md:gap-5 animate-marquee-adaptive whitespace-nowrap lg:whitespace-normal">
+                        @for ($i = 0; $i < 4; $i++)
                             @foreach($partners as $partner)
-                                <div class="group aspect-[3/2] flex items-center justify-center p-6 bg-white rounded-3xl border border-blue-50 shadow-sm hover:shadow-xl hover:shadow-[#1E5FA3]/10 hover:-translate-y-1 transition-all duration-300">
+                                <div class="group flex-shrink-0 w-40 h-28 lg:w-auto lg:aspect-[3/2] flex items-center justify-center p-5 md:p-6 bg-white rounded-2xl md:rounded-3xl border border-blue-50 shadow-sm hover:shadow-xl hover:shadow-[#1E5FA3]/10 hover:-translate-y-1 transition-all duration-300">
                                     <img src="{{ asset('storage/'.$partner->logo) }}" alt="{{ $partner->name }}" 
-                                         class="max-w-full max-h-full object-contain opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
+                                         class="max-w-full max-h-full object-contain opacity-60 group-hover:opacity-100 transition-all duration-500">
                                 </div>
                             @endforeach
                         @endfor
                     </div>
 
-                    {{-- Kolom 2 (Bawah) --}}
-                    <div class="flex flex-col gap-5 animate-marquee-vertical-reverse">
-                        @for ($i = 0; $i < 3; $i++)
+                    {{-- Kolom 2 (Hanya muncul di Desktop) --}}
+                    <div class="hidden lg:flex flex-col gap-5 animate-marquee-vertical-reverse">
+                        @for ($i = 0; $i < 4; $i++)
                             @foreach($partners->shuffle() as $partner)
                                 <div class="group aspect-[3/2] flex items-center justify-center p-6 bg-white rounded-3xl border border-blue-50 shadow-sm hover:shadow-xl hover:shadow-[#1E5FA3]/10 hover:-translate-y-1 transition-all duration-300">
                                     <img src="{{ asset('storage/'.$partner->logo) }}" alt="{{ $partner->name }}" 
-                                         class="max-w-full max-h-full object-contain opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
+                                         class="max-w-full max-h-full object-contain opacity-60 group-hover:opacity-100 transition-all duration-500">
                                 </div>
                             @endforeach
                         @endfor
                     </div>
                 </div>
 
-                {{-- CSS Animasi --}}
+                {{-- CSS Animasi Dinamis --}}
                 <style>
-                    @keyframes marquee-vertical {
-                        0% { transform: translateY(0); }
-                        100% { transform: translateY(-33.33%); }
+                    /* Mobile: Horizontal */
+                    @keyframes marquee-adaptive {
+                        0% { transform: translateX(0); }
+                        100% { transform: translateX(-50%); }
                     }
-                    @keyframes marquee-vertical-reverse {
-                        0% { transform: translateY(-33.33%); }
-                        100% { transform: translateY(0); }
+                    .animate-marquee-adaptive { animation: marquee-adaptive 25s linear infinite; }
+
+                    /* Desktop: Vertical Overwrite */
+                    @media (min-width: 1024px) {
+                        @keyframes marquee-vertical {
+                            0% { transform: translateY(0); }
+                            100% { transform: translateY(-50%); }
+                        }
+                        @keyframes marquee-vertical-reverse {
+                            0% { transform: translateY(-50%); }
+                            100% { transform: translateY(0); }
+                        }
+                        .animate-marquee-adaptive { 
+                            animation: marquee-vertical 30s linear infinite; 
+                        }
+                        .animate-marquee-vertical-reverse { 
+                            animation: marquee-vertical-reverse 35s linear infinite; 
+                        }
                     }
-                    .animate-marquee-vertical { animation: marquee-vertical 30s linear infinite; }
-                    .animate-marquee-vertical-reverse { animation: marquee-vertical-reverse 35s linear infinite; }
-                    .lg:col-span-7:hover .animate-marquee-vertical,
-                    .lg:col-span-7:hover .animate-marquee-vertical-reverse {
+                    
+                    .lg:col-span-7:hover div {
                         animation-play-state: paused;
                     }
                 </style>
             </div>
-
         </div>
     </div>
 </section>
 {{-- ================= SEJARAH & STATISTIK KAMPUS: ULTRA COMPACT ================= --}}
-<section class="py-24 relative overflow-hidden bg-white">
+<section id="About" class="py-24 relative overflow-hidden bg-white">
     
     {{-- Background Aksen (Biar gak boring) --}}
     <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-sky-50 to-transparent"></div>
@@ -470,7 +514,7 @@
     </div>
 </section>
 {{-- ================= FAKULTAS SECTION: COMPACT & POWERFUL ================= --}}
-<section class="relative py-24 bg-[#1583D7] overflow-hidden">
+<section id="Fakultas" class="relative py-24 bg-[#1583D7] overflow-hidden">
     
     {{-- Background Ornaments (Diperhalus agar fokus ke Card) --}}
     <div class="absolute -top-24 -left-20 w-[40rem] h-[40rem] bg-white/10 blur-[120px] rounded-full pointer-events-none"></div>
@@ -562,7 +606,7 @@
     </div>
 </section>
 {{-- ===================== TESTIMONI ALUMNI: SOLID & COMPACT ===================== --}}
-<section class="py-24 bg-[#F8FAFC] relative overflow-hidden">
+<section id="Testimoni" class="py-24 bg-[#F8FAFC] relative overflow-hidden">
     {{-- Aksen Background --}}
     <div class="absolute top-0 right-0 w-1/3 h-full bg-[#1E5FA3]/5 skew-x-12 translate-x-20"></div>
 
@@ -598,7 +642,7 @@
             <div class="lg:col-span-8 grid md:grid-cols-2 gap-6">
                 @forelse($testimoni->take(4) as $alumni)
                 <div class="group bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-500 flex flex-col h-full relative overflow-hidden">
-                    
+                    <a href="careers/#{{ $alumni->nama }}" class="flex flex-col h-full">
                     {{-- Quote Icon Background --}}
                     <div class="absolute -top-4 -right-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
                         <svg class="w-32 h-32 text-[#0F2A44]" fill="currentColor" viewBox="0 0 24 24">
@@ -607,7 +651,7 @@
                     </div>
 
                     <p class="text-slate-600 mb-8 relative z-10 font-medium leading-relaxed italic">
-                        "{{ Str::limit($alumni->pesan_kesan, 120) }}"
+                        "{{ Str::limit($alumni->pesan_kesan, 70) }}"
                     </p>
 
                     <div class="flex items-center gap-4 mt-auto pt-6 border-t border-slate-50">
@@ -629,11 +673,12 @@
                         <div>
                             <h4 class="text-[#0F2A44] font-black text-sm">{{ $alumni->nama }}</h4>
                             <div class="flex flex-col">
-                                <span class="text-[10px] text-[#1E5FA3] font-black uppercase tracking-wider">{{ $alumni->jabatan ?? 'Software Engineer' }}</span>
-                                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">{{ $alumni->perusahaan ?? 'Global Tech Corp' }}</span>
+                                <span class="text-[10px] text-[#1E5FA3] font-black uppercase tracking-wider">{{ $alumni->jabatan ?? 'gatau' }}</span>
+                                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">{{ $alumni->perusahaan ?? 'gatau juga' }}</span>
                             </div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 @empty
                     <p class="text-slate-400">Belum ada testimoni.</p>
@@ -653,15 +698,13 @@
     </div>
 </section>
 {{-- ================= NEWS SECTION: BENTO GRID STYLE ================= --}}
-<section id="berita-kampus" class="relative py-24 bg-white overflow-hidden">
-
-    {{-- Aksen Background (Grid Pattern) --}}
-    <div class="absolute inset-0 opacity-[0.05]" style="background-image: linear-gradient(#1E5FA3 1.5px, transparent 1.5px), linear-gradient(90deg, #1E5FA3 1.5px, transparent 1.5px); background-size: 40px 40px;"></div>
+<section id="berita-kampus" class="relative py-20 bg-white overflow-hidden">
+    {{-- Aksen Background --}}
+    <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: linear-gradient(#1E5FA3 1.5px, transparent 1.5px), linear-gradient(90deg, #1E5FA3 1.5px, transparent 1.5px); background-size: 40px 40px;"></div>
 
     <div class="relative max-w-7xl mx-auto px-6">
-
-        {{-- HEADER: COMPACT --}}
-        <div class="flex flex-row justify-between items-end mb-12 border-b-2 border-slate-100 pb-6">
+        {{-- HEADER --}}
+        <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-10 border-b-2 border-slate-50 pb-6 gap-4">
             <div class="space-y-1">
                 <span class="text-[#1E5FA3] font-black tracking-[0.3em] uppercase text-[10px] block">Lensa Kampus</span>
                 <h2 class="text-3xl md:text-5xl font-black text-[#0F2A44] tracking-tighter">
@@ -669,7 +712,7 @@
                 </h2>
             </div>
             
-            <a href="/posts" class="group flex items-center gap-3 text-xs font-black text-[#0F2A44] uppercase tracking-widest hover:text-[#1E5FA3] transition-all">
+            <a href="/posts" class="group flex items-center gap-3 text-[10px] font-black text-[#0F2A44] uppercase tracking-widest hover:text-[#1E5FA3] transition-all">
                 Semua Berita
                 <span class="w-10 h-10 rounded-full bg-[#E6F0FB] flex items-center justify-center group-hover:bg-[#1E5FA3] group-hover:text-white transition-all">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
@@ -678,63 +721,67 @@
         </div>
 
         <div class="grid lg:grid-cols-5 gap-8">
-
-            {{-- ================= KOLOM KIRI (HEADLINE - 3 KOLOM) ================= --}}
+            {{-- HEADLINE (Berita Paling Baru) --}}
             @if($posts->count())
+            @php 
+                $headline = $posts[0];
+                // Bersihkan konten dari tag HTML & karakter aneh untuk JS
+                $cleanContent = str_replace(["\r", "\n", "'"], ["", " ", "\\'"], strip_tags($headline->content));
+            @endphp
             <div class="lg:col-span-3">
-                <div class="group relative h-[550px] rounded-[2.5rem] overflow-hidden shadow-2xl transition-all duration-700 cursor-pointer"
-                     onclick="openModal('{{ $posts[0]->title }}', '{{ $posts[0]->content }}', '{{ asset('storage/'.$posts[0]->thumbnail) }}', '{{ $posts[0]->created_at->format('d M Y') }}')">
+                <div class="group relative h-[400px] md:h-[550px] rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-2xl transition-all duration-700 cursor-pointer border border-slate-100"
+                     onclick="openModal('{{ addslashes($headline->title) }}', '{{ $cleanContent }}', '{{ asset('storage/'.$headline->thumbnail) }}', '{{ $headline->created_at->format('d M Y') }}')">
                     
-                    <img src="{{ asset('storage/'.$posts[0]->thumbnail) }}" 
-                         alt="{{ $posts[0]->title }}"
-                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000">
+                    <img src="{{ asset('storage/'.$headline->thumbnail) }}" 
+                         alt="{{ $headline->title }}"
+                         class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-[2000ms]">
 
-                    {{-- Gradient Darkener --}}
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#0F2A44] via-[#0F2A44]/20 to-transparent opacity-90"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0F2A44] via-[#0F2A44]/40 to-transparent opacity-90 transition-opacity group-hover:opacity-100"></div>
 
-                    <div class="absolute bottom-0 left-0 p-8 md:p-12 w-full">
+                    <div class="absolute inset-0 flex flex-col justify-end p-6 md:p-12">
                         <div class="flex gap-2 mb-4">
-                            <span class="px-3 py-1 bg-[#1E5FA3] text-white text-[10px] font-black uppercase tracking-widest rounded-md">Headline</span>
-                            <span class="px-3 py-1 bg-white/20 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest rounded-md">{{ $posts[0]->category->name ?? 'Berita' }}</span>
+                            <span class="px-3 py-1 bg-[#1E5FA3] text-white text-[9px] font-black uppercase tracking-widest rounded-md">Terbaru</span>
+                            <span class="px-3 py-1 bg-white/20 backdrop-blur-md text-white text-[9px] font-black uppercase tracking-widest rounded-md">{{ $headline->category->name ?? 'Berita' }}</span>
                         </div>
 
-                        <h3 class="text-3xl md:text-4xl font-black text-white leading-[1.1] mb-6 group-hover:text-blue-200 transition-colors">
-                            {{ $posts[0]->title }}
+                        <h3 class="text-2xl md:text-4xl font-black text-white leading-tight mb-6 group-hover:text-blue-300 transition-colors">
+                            {{ $headline->title }}
                         </h3>
 
-                        <div class="flex items-center justify-between text-white/70">
-                            <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
+                        <div class="flex items-center justify-between text-white/70 border-t border-white/10 pt-6">
+                            <div class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                {{ $posts[0]->created_at->format('d M Y') }}
+                                {{ $headline->created_at->format('d M Y') }}
                             </div>
-                            <span class="text-sm font-black uppercase tracking-tighter group-hover:translate-x-2 transition-transform">Read Story →</span>
+                            <span class="text-xs font-black uppercase tracking-tighter group-hover:translate-x-2 transition-transform">Baca Selengkapnya →</span>
                         </div>
                     </div>
                 </div>
             </div>
             @endif
 
-            {{-- ================= KOLOM KANAN (LIST - 2 KOLOM) ================= --}}
+            {{-- LIST BERITA (Berita Lainnya) --}}
             <div class="lg:col-span-2 flex flex-col gap-4">
                 @foreach($posts->skip(1)->take(4) as $post)
-                <div class="group flex gap-5 p-4 rounded-3xl bg-white border border-slate-100 hover:border-[#1E5FA3]/30 hover:shadow-xl hover:shadow-blue-900/5 transition-all duration-300 cursor-pointer"
-                     onclick="openModal('{{ $post->title }}', '{{ $post->content }}', '{{ asset('storage/'.$post->thumbnail) }}', '{{ $post->created_at->format('d M Y') }}')">
+                @php 
+                    $cleanListContent = str_replace(["\r", "\n", "'"], ["", " ", "\\'"], strip_tags($post->content));
+                @endphp
+                <div class="group flex gap-4 p-3 rounded-2xl bg-white border border-slate-100 hover:border-[#1E5FA3]/30 hover:shadow-lg hover:shadow-blue-900/5 transition-all duration-300 cursor-pointer"
+                     onclick="openModal('{{ addslashes($post->title) }}', '{{ $cleanListContent }}', '{{ asset('storage/'.$post->thumbnail) }}', '{{ $post->created_at->format('d M Y') }}')">
                     
-                    {{-- Mini Thumbnail --}}
-                    <div class="shrink-0 w-24 h-24 rounded-2xl overflow-hidden shadow-inner bg-slate-100">
+                    <div class="shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-xl overflow-hidden shadow-inner bg-slate-100">
                         <img src="{{ asset('storage/'.$post->thumbnail) }}" 
                              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     </div>
 
-                    {{-- News Meta --}}
-                    <div class="flex flex-col justify-center">
-                        <span class="text-[10px] font-black text-[#1E5FA3] uppercase tracking-widest mb-1">
+                    <div class="flex flex-col justify-center min-w-0">
+                        <span class="text-[9px] font-black text-[#1E5FA3] uppercase tracking-widest mb-1">
                             {{ $post->category->name ?? 'Update' }}
                         </span>
                         <h4 class="text-[#0F2A44] font-bold text-sm leading-snug line-clamp-2 group-hover:text-[#1E5FA3] transition-colors mb-2">
                             {{ $post->title }}
                         </h4>
-                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-tighter flex items-center gap-1">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-tighter flex items-center gap-1">
                             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             {{ $post->created_at->diffForHumans() }}
                         </p>
@@ -745,26 +792,32 @@
         </div>
     </div>
 
-    {{-- MODAL (Refined Style) --}}
-    <div id="newsModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6">
-        <div class="absolute inset-0 bg-[#0F2A44]/80 backdrop-blur-md transition-opacity" onclick="closeModal()"></div>
+    {{-- MODAL (Ditingkatkan UX-nya) --}}
+    <div id="newsModal" class="fixed inset-0 z-[1000] hidden items-center justify-center p-4 sm:p-6 overflow-hidden">
+        <div class="absolute inset-0 bg-[#0F2A44]/90 backdrop-blur-md transition-opacity" onclick="closeModal()"></div>
         
-        <div class="relative bg-white w-full max-w-4xl rounded-[3rem] overflow-hidden shadow-2xl transform transition-all scale-95 opacity-0 duration-300" id="modalPanel">
-            <button onclick="closeModal()" class="absolute top-6 right-6 z-30 w-10 h-10 bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-[#0F2A44] rounded-full transition-all flex items-center justify-center">
+        <div class="relative bg-white w-full max-w-4xl rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl transform transition-all scale-95 opacity-0 duration-300 flex flex-col" id="modalPanel">
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-[1100] w-10 h-10 bg-[#1E5FA3] text-white rounded-full flex items-center justify-center shadow-lg md:hidden">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
 
-            <div class="flex flex-col md:flex-row h-full max-h-[85vh] overflow-y-auto md:overflow-hidden">
-                <div class="md:w-1/2 h-64 md:h-auto overflow-hidden">
+            <div class="flex flex-col md:flex-row h-full max-h-[90vh] md:max-h-[80vh]">
+                <div class="md:w-1/2 h-56 md:h-auto shrink-0 relative">
                     <img id="modalImg" src="" class="w-full h-full object-cover">
+                    <button onclick="closeModal()" class="hidden md:flex absolute top-6 left-6 w-10 h-10 bg-white/20 backdrop-blur-md hover:bg-white text-white hover:text-[#0F2A44] rounded-full transition-all items-center justify-center">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
                 </div>
-                <div class="md:w-1/2 p-8 md:p-12 overflow-y-auto flex flex-col">
-                    <span id="modalDate" class="text-[#1E5FA3] font-black text-[10px] uppercase tracking-widest mb-4"></span>
-                    <h3 id="modalTitle" class="text-2xl md:text-3xl font-black text-[#0F2A44] leading-tight mb-6"></h3>
-                    <div id="modalContent" class="text-slate-600 text-sm leading-relaxed prose prose-blue mb-8"></div>
-                    <div class="mt-auto pt-6 border-t border-slate-100 flex justify-between items-center">
-                        <span class="text-[10px] font-bold text-slate-400">Share this news</span>
-                        <button onclick="closeModal()" class="px-8 py-3 bg-[#0F2A44] text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-[#1E5FA3] transition-colors">Tutup</button>
+
+                <div class="md:w-1/2 p-6 md:p-12 overflow-y-auto custom-scrollbar flex flex-col">
+                    <div class="mb-4">
+                        <span id="modalDate" class="text-[#1E5FA3] font-black text-[10px] uppercase tracking-widest"></span>
+                    </div>
+                    <h3 id="modalTitle" class="text-xl md:text-3xl font-black text-[#0F2A44] leading-tight mb-6"></h3>
+                    <div id="modalContent" class="text-slate-600 text-sm md:text-base leading-relaxed mb-8"></div>
+                    
+                    <div class="mt-auto pt-6 border-t border-slate-100 flex justify-end">
+                      <button onclick="closeModal()" class="px-8 py-3 bg-[#0F2A44] text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-[#1E5FA3] transition-colors shadow-lg shadow-blue-900/20">Tutup</button>
                     </div>
                 </div>
             </div>
@@ -772,7 +825,7 @@
     </div>
 </section>
 {{-- ================= CTA: THE POWER BLOCK ================= --}}
-<section class="relative py-20 px-6 overflow-hidden bg-white">
+<section id="CTA" class="relative py-20 px-6 overflow-hidden bg-white">
     
     {{-- Container utama dengan background gelap biar kontras sama putihnya section berita --}}
     <div class="max-w-7xl mx-auto relative">
@@ -812,7 +865,7 @@
                         </span>
                     </a>
                     
-                    <a href="#"
+                    <a href="#footer"
                        class="inline-flex items-center justify-center px-10 py-6 rounded-2xl font-black text-sm uppercase tracking-widest border-2 border-white/20 text-white hover:bg-white/10 transition-all duration-300">
                         Konsultasi
                     </a>
@@ -832,69 +885,48 @@
     </div>
 
 </section>
-<script>
-    const modal = document.getElementById('newsModal');
-    const modalPanel = document.getElementById('modalPanel');
-    
-    // Fungsi Buka Modal
-    function openModal(title, content, image, date) {
-        // Isi konten modal
-        document.getElementById('modalTitle').innerText = title;
-        document.getElementById('modalImg').src = image;
-        document.getElementById('modalDate').innerText = date;
-        
-        // Dekode HTML content (agar tag <p>, <strong> dll muncul beneran)
-        const contentArea = document.getElementById('modalContent');
-        const doc = new DOMParser().parseFromString(content, 'text/html');
-        contentArea.innerHTML = doc.documentElement.textContent || doc.body.innerHTML;
 
-        // Tampilkan Modal (Ubah class hidden jadi flex)
+<script>
+    function openModal(title, content, img, date) {
+        const modal = document.getElementById('newsModal');
+        const panel = document.getElementById('modalPanel');
+        
+        document.getElementById('modalTitle').innerText = title;
+        document.getElementById('modalContent').innerText = content;
+        document.getElementById('modalImg').src = img;
+        document.getElementById('modalDate').innerText = date;
+
         modal.classList.remove('hidden');
         modal.classList.add('flex');
         
-        // Animasi masuk (Delay dikit biar transisinya kelihatan)
-        setTimeout(() => {
-            modalPanel.classList.remove('scale-95', 'opacity-0');
-            modalPanel.classList.add('scale-100', 'opacity-100');
-        }, 10);
-        
-        // Cegah scroll pada body
+        // Prevent body scroll
         document.body.style.overflow = 'hidden';
+
+        setTimeout(() => {
+            panel.classList.remove('scale-95', 'opacity-0');
+            panel.classList.add('scale-100', 'opacity-100');
+        }, 10);
     }
 
-    // Fungsi Tutup Modal
     function closeModal() {
-        modalPanel.classList.remove('scale-100', 'opacity-100');
-        modalPanel.classList.add('scale-95', 'opacity-0');
-        
+        const modal = document.getElementById('newsModal');
+        const panel = document.getElementById('modalPanel');
+
+        panel.classList.remove('scale-100', 'opacity-100');
+        panel.classList.add('scale-95', 'opacity-0');
+
         setTimeout(() => {
             modal.classList.add('hidden');
             modal.classList.remove('flex');
             document.body.style.overflow = 'auto';
         }, 300);
     }
-
-    // Menangani klik pada kartu berita (Gaya Event Delegation)
-    document.addEventListener('click', function(e) {
-        const card = e.target.closest('.news-card'); // Pastikan card punya class 'news-card'
-        if (card) {
-            const data = card.dataset;
-            openModal(data.title, data.content, data.image, data.date);
-        }
-    });
-
-    // Tutup modal kalau klik di luar panel (backdrop)
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal || e.target.id === 'modalBackdrop') {
-            closeModal();
-        }
-    });
-
-    // Tutup pake tombol ESC
-    document.addEventListener('keydown', function(e) {
-        if (e.key === "Escape" && !modal.classList.contains('hidden')) {
-            closeModal();
-        }
-    });
 </script>
+
+<style>
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #1E5FA3; border-radius: 10px; }
+    .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+</style>
 @endsection

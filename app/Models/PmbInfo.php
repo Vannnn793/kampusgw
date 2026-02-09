@@ -22,4 +22,8 @@ class PmbInfo extends Model
         'updated_at',
 
     ];
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+    ];
 }

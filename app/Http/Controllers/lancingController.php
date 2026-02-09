@@ -22,6 +22,20 @@ class lancingController extends Controller
         $badges = \App\Models\Badge::where('is_active', 1)->get();
         $prodis = \App\Models\Prodi::all();
         $downloads = \App\Models\Download::latest()->take(5)->get();
+        $accreditationData = \App\Models\Accreditation::where('program_name', 'Kampus')->first();
+    
+        // Kalau datanya ada, ambil level-nya. Kalau GAK ADA, tampilin 'Unggul' atau '-'
+        $accreditationLevel = $accreditationData ? $accreditationData->level : 'Unggul';
+        
+        $totalAlumni = \App\Models\Alumni::count();
+    
+        // Hitung yang sudah punya nama perusahaan (dianggap sudah kerja)
+        $bekerjaCount = \App\Models\Alumni::whereNotNull('perusahaan')
+                                        ->where('perusahaan', '!=', '')
+                                        ->count();
+
+        // Rumus Hiring Rate
+        $hiringRate = $totalAlumni > 0 ? round(($bekerjaCount / $totalAlumni) * 100) : 0;
 
         // PENTING: Perhatikan bagian compact('sliders')
         // Ini artinya kita kirim data ke view dengan nama "$sliders"
@@ -37,6 +51,9 @@ class lancingController extends Controller
         'badges' => $badges,
         'prodis' => $prodis,
         'downloads' => $downloads,
+        'accreditationLevel' => $accreditationLevel,
+        'hiringRate' => $hiringRate,
+        'totalAlumni' => $totalAlumni,
         
         ]); 
     }

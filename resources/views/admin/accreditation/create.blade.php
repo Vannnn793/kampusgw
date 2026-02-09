@@ -53,6 +53,7 @@
                             <span class="input-group-text bg-light"><i class="bi bi-mortarboard"></i></span>
                             <select class="form-select @error('program_name') is-invalid @enderror" name="program_name" required>
                                 <option value="" disabled selected>-- Pilih Program Studi --</option>
+                                <option value="Kampus" {{ old('program_name') == 'Kampus' ? 'selected' : '' }}>Kampus (Umum)</option>
                                 @foreach ($prodi as $item)
                                     <option value="{{ $item->name }}" {{ old('program_name') == $item->name ? 'selected' : '' }}>
                                         {{ $item->name }}

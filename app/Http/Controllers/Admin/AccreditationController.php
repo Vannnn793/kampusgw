@@ -18,11 +18,17 @@ class AccreditationController extends Controller
     }
 
     public function create()
-    {
-        return view('admin.accreditation.create',[
-            'prodi'   => Prodi::all(),
-        ]);
-    }
+{
+    // Ambil data prodi untuk dropdown
+    $prodi = \App\Models\Prodi::all();
+    
+    // Ambil semua data akreditasi untuk tabel (ini variabel yang ditunggu Blade)
+    $accreditations = \App\Models\Accreditation::latest()->get();
+
+    // Pastikan path-nya benar: admin/accreditations/index atau create
+    // Gua saranin satu halaman aja biar simpel
+    return view('admin.accreditation.create', compact('prodi', 'accreditations'));
+}
 
     public function store(Request $request)
     {

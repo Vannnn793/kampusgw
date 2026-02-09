@@ -176,7 +176,98 @@
                 </ul>
             </div>
         </div>
-
+        <br>
+        {{-- TABEL AKREDITASI LENGKAP --}}
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <h5 class="m-0 fw-bold text-dark">
+                    <i class="bi bi-award-fill me-2 text-warning"></i>Daftar Akreditasi Program Studi
+                </h5>
+                {{-- Tombol tambah tetap ada, tapi diarahkan ke halaman input khusus --}}
+                <a href="{{ route('admin.accreditations.create') }}" class="btn btn-sm btn-primary">
+                    <i class="bi bi-plus-lg me-1"></i> Kelola Data
+                </a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr class="small text-uppercase">
+                                <th class="ps-4">Program / Instansi</th>
+                                <th class="text-center">Peringkat</th>
+                                <th>Lembaga Penerbit</th>
+                                <th>Masa Berlaku</th>
+                                <th class="text-end pe-4">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($accreditations as $acc)
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="fw-bold text-dark">{{ $acc->program_name }}</div>
+                                    <small class="text-muted">ID: #ACC-00{{ $acc->id }}</small>
+                                </td>
+                                <td class="text-center">
+                                    @php
+                                        $badgeColor = match(strtoupper($acc->level)) {
+                                            'A', 'UNGGUL' => 'bg-success',
+                                            'B', 'BAIK SEKALI' => 'bg-primary',
+                                            default => 'bg-secondary'
+                                        };
+                                    @endphp
+                                    <span class="badge {{ $badgeColor }} px-3 py-2 text-uppercase">
+                                        {{ $acc->level }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="text-muted"><i class="bi bi-patch-check me-1"></i>{{ $acc->issued_by ?? 'BAN-PT' }}</span>
+                                </td>
+                                <td>
+                                    @if($acc->valid_until)
+                                        @if(\Carbon\Carbon::parse($acc->valid_until)->isPast())
+                                            <span class="text-danger small fw-bold">
+                                                <i class="bi bi-exclamation-triangle-fill me-1"></i>Kadaluwarsa
+                                            </span>
+                                        @else
+                                            <span class="text-dark small">
+                                                {{ \Carbon\Carbon::parse($acc->valid_until)->format('d M Y') }}
+                                            </span>
+                                        @endif
+                                    @else
+                                        <span class="badge bg-light text-success border border-success-subtle">Seumur Hidup</span>
+                                    @endif
+                                </td>
+                                <td class="text-end pe-4">
+                                    <div class="d-flex justify-content-end gap-2">
+                                        {{-- Form Hapus Langsung --}}
+                                        <form action="{{ route('admin.accreditations.destroy', $acc->id) }}" method="POST" onsubmit="return confirm('Hapus data akreditasi ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="5" class="text-center py-5 text-muted">
+                                    <i class="bi bi-folder2-open d-block fs-2 mb-2"></i>
+                                    <span class="small">Belum ada data akreditasi yang tersimpan.</span>
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            @if($accreditations->count() > 5)
+            <div class="card-footer bg-white text-center py-2">
+                <small class="text-muted">Menampilkan data akreditasi terbaru.</small>
+            </div>
+            @endif
+        </div>
     </div>
 
     <div class="col-lg-4">
@@ -249,6 +340,7 @@
         </div>
 
     </div>
+    
 </div>
 
 @endsection
