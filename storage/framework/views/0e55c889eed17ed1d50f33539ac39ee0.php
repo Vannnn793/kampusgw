@@ -45,7 +45,7 @@
                         </div>
                         <ul class="absolute top-0 left-full ml-2 w-64 bg-white border border-slate-100 rounded-2xl shadow-xl opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all p-2">
                             <li class="px-3 py-2 text-[10px] font-black uppercase text-slate-400 tracking-widest">Fasilitas Kampus</li>
-                            <li><a href="<?php echo e(route('tentang.fasilitas.umum')); ?>" class="block px-4 py-2 rounded-lg bg-sky-50 text-sky-600 font-bold hover:bg-sky-600 hover:text-white transition mb-2">Lihat Semua</a></li>
+                            <li><a href="<?php echo e(route('tentang.fasilitas.umum')); ?>" class="block px-4 py-2 rounded-lg bg-sky-50 text-sky-600 font-bold hover:bg-sky-600 hover:text-white transition mb-2">Fasilitas Umum</a></li>
                             <li class="border-t border-slate-50 my-2"></li>
                             <li class="px-3 py-2 text-[10px] font-black uppercase text-slate-400 tracking-widest">Fasilitas Jurusan</li>
                             <?php $__currentLoopData = $faculties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $faculty): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -58,18 +58,20 @@
 
             <div class="relative group h-20 flex items-center">
                 <button class="flex items-center gap-1 px-4 py-2 rounded-lg group-hover:bg-sky-50 group-hover:text-sky-600 transition focus:outline-none">
-                    Faculties
+                    Akademik
                     <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </button>
 
                 <ul class="absolute top-full left-0 w-64 bg-white border border-slate-100 rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top translate-y-2 group-hover:translate-y-0 p-2 z-50">
                     <?php $__currentLoopData = $faculties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $faculty): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <li class="relative group/prodi">
+                            <a href="<?php echo e(route('faculties.show', [$faculty->slug])); ?>">
                             <div class="flex justify-between items-center px-4 py-2.5 rounded-xl hover:bg-sky-600 hover:text-white cursor-pointer transition">
                                 <?php echo e($faculty->name); ?>
 
                                 <svg class="w-4 h-4 -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                             </div>
+                            </a>
                             <ul class="absolute top-0 left-full ml-2 w-64 bg-white border border-slate-100 rounded-2xl shadow-xl opacity-0 invisible group-hover/prodi:opacity-100 group-hover/prodi:visible transition-all p-2 max-h-80 overflow-y-auto">
                                 <?php $__empty_1 = true; $__currentLoopData = $faculty->prodis; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $prodi): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                     <li><a href="<?php echo e(route('faculties.prodis.show', [$faculty->slug, $prodi->slug])); ?>" class="block px-4 py-2 rounded-lg hover:bg-sky-600 hover:text-white transition text-xs"><?php echo e($prodi->name); ?></a></li>
@@ -79,10 +81,15 @@
                             </ul>
                         </li>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <li class="relative group/prodi"> 
+                        <div class="flex justify-between items-center px-4 py-2.5 rounded-xl hover:bg-sky-600 hover:text-white cursor-pointer transition">
+                            <a href="<?php echo e(route('downloads.index')); ?>">Dokumen Akademik</a>
+                        </div>
+                    </li>
                 </ul>
             </div>
 
-            <a href="/pmb" class="px-4 py-2 rounded-lg hover:bg-sky-50 hover:text-sky-600 transition">Admissions</a>
+            <a href="/pmb" class="px-4 py-2 rounded-lg hover:bg-sky-50 hover:text-sky-600 transition">Pendaftaran</a>
             <a href="/careers" class="px-4 py-2 rounded-lg hover:bg-sky-50 hover:text-sky-600 transition">Careers</a>
             
             <div class="relative group h-20 flex items-center">
@@ -175,7 +182,7 @@
 
             <div x-data="{ openFac: false }">
                 <button @click="openFac = !openFac" class="flex items-center justify-between w-full px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-sky-50">
-                    Faculties
+                    Akademik
                     <svg :class="{'rotate-180': openFac}" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </button>
                 <div x-show="openFac" x-collapse class="pl-4 mt-2 space-y-1 bg-slate-50 rounded-2xl p-2">
@@ -193,6 +200,9 @@
                             </div>
                         </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <button class="flex items-center justify-between w-full px-4 py-2 text-sm font-bold text-slate-600">
+                        <a href="<?php echo e(route('downloads.index')); ?>">Dokumen Akademik</a>
+                    </button>
                 </div>
             </div>
 

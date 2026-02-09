@@ -1,220 +1,218 @@
 @extends('layout.main')
-@section('title','Program Studi Detail')
+@section('title', $prodi->name)
+
 @section('content')
 
-{{-- <section class="py-28 bg-slate-950 text-white">
-
-    <div class="max-w-7xl mx-auto px-6">
-
-        <div class="text-center mb-16">
-            <h2 data-aos="fade-up"
-                class="text-4xl font-extrabold">
-                Program Studi
-            </h2>
-            <p class="text-slate-400 mt-3">
-                Pilih program studi sesuai minat dan karier masa depan
-            </p>
-        </div>
-
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
-            @foreach($prodi->faculty->prodis as $prodi)
-            <a href="{{ url('/prodi/'.$prodi->id) }}"
-               data-aos="zoom-in"
-               class="group relative rounded-2xl overflow-hidden
-                      bg-white/5 border border-white/10
-                      hover:border-sky-400/40
-                      hover:shadow-xl hover:shadow-sky-500/20
-                      transition duration-300 p-6">
-
-                <h3 class="text-xl font-bold mb-2 group-hover:text-sky-400 transition">
-                    {{ $prodi->name }}
-                </h3>
-
-                <p class="text-slate-400 text-sm">
-                    {{ $prodi->degree }}
-                </p>
-
-            </a>
-            @endforeach
-
-        </div>
-
+{{-- ================= HERO SECTION (MATCHING FAKULTAS) ================= --}}
+<div class="relative py-24 md:py-32 lg:py-40 overflow-hidden">
+    
+    {{-- 1. Background Image --}}
+    <div class="absolute inset-0">
+        <img 
+            src="{{ $prodi->image ? asset('storage/'.$prodi->image) : asset('storage/images/default-prodi.jpg') }}" 
+            class="w-full h-full object-cover object-center transform scale-105 animate-slow-zoom"
+            alt="{{ $prodi->name }}"
+        >
+        {{-- Overlay Biru Tua (PERSIS FAKULTAS) --}}
+        <div class="absolute inset-0 bg-blue-900/80 mix-blend-multiply"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-sky-900 via-blue-900/40 to-transparent"></div>
     </div>
 
-</section> --}}
-{{-- HERO --}}
-<section class="relative h-[65vh] flex items-center justify-center overflow-hidden">
+    {{-- 2. Konten Hero --}}
+    <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
+        
+        {{-- Badge --}}
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sky-500/20 border border-sky-300/30 backdrop-blur-md text-sky-100 text-xs font-bold tracking-widest uppercase mb-6 animate-fade-down">
+            <span class="w-2 h-2 rounded-full bg-sky-300 animate-pulse"></span>
+            Program Studi
+        </div>
 
-    <img src="{{ asset('storage/'.$prodi->image) }}"
-         class="absolute inset-0 w-full h-full object-cover scale-105"
-         alt="{{ $prodi->name }}">
-
-    {{-- overlay terang --}}
-    <div class="absolute inset-0 bg-white/60"></div>
-
-    <div class="relative text-center max-w-4xl px-6">
-        <h1 data-aos="fade-up"
-            class="text-5xl font-extrabold text-slate-900">
+        {{-- Title --}}
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight tracking-tight animate-fade-up">
             {{ $prodi->name }}
         </h1>
 
-        <p data-aos="fade-up" data-aos-delay="100"
-           class="mt-4 text-slate-700 text-lg">
-            {{ $prodi->goal }}
+        {{-- Subtitle / Goal --}}
+        <p class="text-lg text-sky-100 max-w-2xl mx-auto font-light animate-fade-up delay-100 leading-relaxed">
+            {{ $prodi->goal ?? 'Wadah pengembangan potensi akademik dan profesionalisme untuk masa depan yang gemilang.' }}
         </p>
+
+        {{-- Info Bar (Degree & Akreditasi) --}}
+        <div class="mt-8 flex flex-wrap justify-center gap-4 animate-fade-up delay-100">
+             <span class="px-5 py-2 rounded-full bg-sky-600/80 backdrop-blur-sm text-white font-bold text-sm shadow-lg border border-sky-500/50">
+                <i class="bi bi-mortarboard-fill mr-2"></i> {{ $prodi->degree ?? 'Sarjana (S1)' }}
+            </span>
+             <span class="px-5 py-2 rounded-full bg-white/10 border border-white/20 text-white font-bold text-sm backdrop-blur-sm">
+                <i class="bi bi-building mr-2"></i> Fakultas {{ $prodi->faculty->name ?? 'Terkait' }}
+            </span>
+        </div>
+
     </div>
-
-</section>
-
-{{-- DESKRIPSI & TUJUAN --}}
-<section class="py-28 bg-[#9DC7F4]">
-
-<div class="max-w-5xl mx-auto px-6 space-y-16">
-
-    {{-- DESKRIPSI --}}
-    <div data-aos="fade-up"
-         class="rounded-2xl bg-white border border-slate-200 p-8 shadow">
-        <h2 class="text-2xl font-bold mb-4 text-[#1583D7]">
-            Deskripsi
-        </h2>
-        <p class="text-slate-800 leading-relaxed">
-            {{ $prodi->description }}
-        </p>
-    </div>
-
-    {{-- TUJUAN --}}
-    <div data-aos="fade-up"
-         class="rounded-2xl bg-white border border-slate-200 p-8 shadow">
-        <h2 class="text-2xl font-bold mb-4 text-[#1583D7]">
-            Tujuan
-        </h2>
-        <p class="text-slate-800 leading-relaxed">
-            {{ $prodi->goal }}
-        </p>
-    </div>
-
 </div>
 
-</section>
+{{-- ================= CONTENT SECTION (MATCHING FAKULTAS) ================= --}}
+<section class="bg-sky-50/50 relative z-20 -mt-10 md:-mt-20 rounded-t-[3rem] min-h-screen">
+    
+    {{-- Decorative Line --}}
+    <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-sky-200/50 to-transparent"></div>
 
-{{-- KURIKULUM --}}
-<section class="py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-6 pt-20 pb-24">
 
-<div class="max-w-7xl mx-auto px-6">
-
-<h2 class="text-3xl font-bold mb-16 text-center text-slate-900">
-    Kurikulum Program Studi
-</h2>
-
-@php
-    $grouped = $prodi->curriculums->groupBy(function ($item) {
-        return $item->semester <= 4 ? '1-4' : '5-8';
-    });
-@endphp
-
-@foreach($grouped as $label => $curriculums)
-<div class="mb-20">
-
-    <h3 class="text-2xl font-bold mb-10 text-[#1583D7] text-center">
-        Semester {{ $label }}
-    </h3>
-
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        @foreach($curriculums as $curriculum)
-
-        <div data-aos="fade-up"
-             class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-
-            {{-- HEADER SEMESTER --}}
-            <div class="bg-[#9DC7F4] px-4 py-3 text-center">
-                <span class="block text-xs uppercase tracking-widest text-slate-700">
-                    Semester
-                </span>
-                <span class="text-2xl font-extrabold text-slate-900">
-                    {{ $curriculum->semester }}
-                </span>
+        {{-- 1. GRID INFO (DESKRIPSI & PROFIL) --}}
+        <div class="grid md:grid-cols-2 gap-8 mb-20">
+            
+            {{-- Card Deskripsi --}}
+            <div class="group relative bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 shadow-xl shadow-sky-900/5 hover:shadow-2xl hover:shadow-sky-200/50 hover:-translate-y-2 transition-all duration-500 reveal-on-scroll p-8 md:p-10">
+                <div class="absolute top-0 right-0 p-8 opacity-10">
+                     <i class="bi bi-text-paragraph text-8xl text-sky-600 rotate-12"></i>
+                </div>
+                
+                <h3 class="text-2xl font-black text-slate-800 mb-6 relative z-10 flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-full bg-sky-50 flex items-center justify-center text-sky-600 text-lg">
+                        <i class="bi bi-info-lg"></i>
+                    </span>
+                    Tentang Program
+                </h3>
+                
+                <div class="prose prose-slate text-slate-500 leading-relaxed relative z-10">
+                    {!! nl2br(e($prodi->description)) !!}
+                </div>
             </div>
 
-            {{-- TABLE --}}
-            <table class="w-full text-sm text-slate-800">
-                <thead class="bg-slate-100">
-                    <tr>
-                        <th class="p-3 text-left font-semibold">Mata Kuliah</th>
-                        <th class="p-3 text-center font-semibold w-16">SKS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                @foreach($curriculum->courses as $course)
-                    <tr class="border-t hover:bg-slate-50">
-                        <td class="p-3">{{ $course->name }}</td>
-                        <td class="p-3 text-center">{{ $course->sks }}</td>
-                    </tr>
+            {{-- Card Tujuan/Karir --}}
+            <div class="group relative bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 shadow-xl shadow-sky-900/5 hover:shadow-2xl hover:shadow-sky-200/50 hover:-translate-y-2 transition-all duration-500 reveal-on-scroll p-8 md:p-10 delay-100">
+                <div class="absolute top-0 right-0 p-8 opacity-10">
+                     <i class="bi bi-trophy text-8xl text-sky-600 rotate-12"></i>
+                </div>
+
+                <h3 class="text-2xl font-black text-slate-800 mb-6 relative z-10 flex items-center gap-3">
+                    <span class="w-10 h-10 rounded-full bg-sky-50 flex items-center justify-center text-sky-600 text-lg">
+                        <i class="bi bi-rocket-takeoff-fill"></i>
+                    </span>
+                    Kompetensi Lulusan
+                </h3>
+                
+                <ul class="space-y-4 relative z-10 text-slate-500">
+                    <li class="flex items-start gap-3">
+                        <i class="bi bi-check-circle-fill text-sky-500 mt-1"></i>
+                        <span>Menguasai dasar keilmuan dan keterampilan praktis di bidang {{ $prodi->name }}.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="bi bi-check-circle-fill text-sky-500 mt-1"></i>
+                        <span>Mampu beradaptasi dengan perkembangan teknologi industri terbaru.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <i class="bi bi-check-circle-fill text-sky-500 mt-1"></i>
+                        <span>Memiliki integritas profesional dan etika kerja yang tinggi.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        {{-- 2. KURIKULUM HEADER --}}
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 reveal-on-scroll">
+            <div>
+                <h2 class="text-3xl font-black text-slate-800 mb-2">Kurikulum & Studi</h2>
+                <p class="text-slate-500">Sebaran mata kuliah per semester.</p>
+            </div>
+            
+            <div class="flex items-center gap-2 px-5 py-2 bg-white rounded-full border border-sky-100 shadow-sm text-sm font-bold text-slate-600">
+                <i class="bi bi-book-half text-sky-500"></i>
+                Total Beban: <span class="text-sky-600">{{ $prodi->curriculums->sum(fn($c) => $c->courses->sum('sks')) }}</span> SKS
+            </div>
+        </div>
+
+        {{-- 3. KURIKULUM GRID --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            @php
+                $grouped = $prodi->curriculums->groupBy('semester');
+            @endphp
+
+            @foreach($grouped as $semester => $curriculums)
+                @foreach($curriculums as $curriculum)
+                
+                {{-- Semester Card (Style Match) --}}
+                <div class="group relative bg-white rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl shadow-sky-900/5 hover:shadow-2xl hover:shadow-sky-200/50 transition-all duration-500 reveal-on-scroll">
+                    
+                    {{-- Header Card --}}
+                    <div class="px-8 py-5 border-b border-slate-50 flex justify-between items-center bg-slate-50/50 group-hover:bg-sky-50/30 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-sky-100 text-sky-600 flex items-center justify-center font-bold text-sm">
+                                {{ $semester }}
+                            </span>
+                            <h4 class="font-bold text-slate-700">Semester {{ $semester }}</h4>
+                        </div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">
+                            {{ $curriculum->courses->sum('sks') }} SKS
+                        </span>
+                    </div>
+
+                    {{-- Content List --}}
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            @foreach($curriculum->courses as $course)
+                            <li class="flex justify-between items-start pb-3 border-b border-slate-50 last:border-0 last:pb-0">
+                                <span class="text-slate-600 text-sm font-medium group-hover:text-slate-800 transition-colors">
+                                    {{ $course->name }}
+                                </span>
+                                <span class="text-sky-500 text-sm font-bold whitespace-nowrap ml-4">
+                                    {{ $course->sks }} SKS
+                                </span>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
                 @endforeach
-                </tbody>
-            </table>
-
+            @endforeach
         </div>
 
-        @endforeach
-    </div>
-
-</div>
-@endforeach
-
-</div>
-</section>
-
-{{-- TENTANG FAKULTAS --}}
-<section class="py-32 bg-[#9DC7F4]">
-    <div class="max-w-5xl mx-auto px-6">
-
-        <div class="bg-white border border-slate-200 rounded-2xl p-10 shadow">
-
-            <h2 class="text-3xl font-bold mb-4 text-slate-900">
-                Tentang Fakultas
-            </h2>
-
-            <h3 class="text-2xl font-bold mt-10 mb-4 text-[#1583D7]">
-                Keunggulan
-            </h3>
-
-            <ul class="list-disc pl-6 text-slate-800 space-y-2">
-                <li>Kurikulum industri</li>
-                <li>Dosen praktisi profesional</li>
-                <li>Program magang wajib</li>
-                <li>Sertifikasi internasional</li>
-            </ul>
-
-            <div class="mt-10">
-                <a href="/faculties"
-                   class="inline-block px-6 py-3 bg-[#1583D7] text-white rounded-xl font-bold hover:scale-105 transition">
-                    ← Kembali ke Faculties
-                </a>
-            </div>
-
+        {{-- 4. CTA BUTTON --}}
+        <div class="mt-20 text-center reveal-on-scroll">
+            <a href="{{ route('faculties.index') }}" class="inline-flex items-center gap-2 px-8 py-4 bg-sky-600 text-white rounded-full font-bold hover:bg-sky-500 transition-all hover:-translate-y-1 shadow-lg shadow-sky-500/30">
+                <i class="bi bi-arrow-left"></i>
+                Kembali ke Daftar Fakultas
+            </a>
         </div>
 
     </div>
 </section>
 
-{{-- ================= AOS ================= --}}
-<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
+{{-- ================= STYLES & SCRIPT (SAME AS FAKULTAS) ================= --}}
 <style>
-@keyframes zoomHero {
-    0%   { transform: scale(1); }
-    50%  { transform: scale(1.08); }
-    100% { transform: scale(1); }
-}
+    /* Hero Animations */
+    .animate-slow-zoom { animation: slowZoom 20s infinite alternate; }
+    @keyframes slowZoom { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+    
+    .animate-fade-up { animation: fadeUp 0.8s ease-out forwards; opacity: 0; transform: translateY(20px); }
+    .animate-fade-down { animation: fadeDown 0.8s ease-out forwards; opacity: 0; transform: translateY(-20px); }
+    .delay-100 { animation-delay: 0.1s; }
+    
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeDown { to { opacity: 1; transform: translateY(0); } }
+
+    /* Scroll Reveal */
+    .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
 </style>
 
 <script>
-AOS.init({
-    duration: 800,
-    easing: 'ease-out-cubic',
-    once: true
-});
+    document.addEventListener('DOMContentLoaded', () => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('is-visible');
+                    }, index * 100); 
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+            observer.observe(el);
+        });
+    });
 </script>
+
 @endsection

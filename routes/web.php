@@ -52,6 +52,15 @@ Route::get('/pmb/{slug}', function ($slug) {
 
     return view('pmb.show', compact('pmb'));
 })->name('pmb.show');
+Route::get('/pmb/{id}/download', function ($id) {
+    $pmb = PmbInfo::findOrFail($id);
+
+    if ($pmb->image && \Storage::disk('public')->exists($pmb->image)) {
+        return \Storage::disk('public')->download($pmb->image);
+    } else {
+        return redirect()->back()->with('error', 'Brosur tidak ditemukan.');
+    }
+})->name('pmb-info.download');
 
 
 Route::get('/tentang/sambutan', function () {

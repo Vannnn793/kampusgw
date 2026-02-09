@@ -1,42 +1,61 @@
 @extends('layout.main')
-@section('title','Admissions')
+@section('title', 'Formulir Pendaftaran')
 
 @section('content')
 
-<div class="pt-32 pb-20 px-4 flex justify-center min-h-screen bg-[#9DC7F4]">
+{{-- ================= HERO SECTION ================= --}}
+<div class="relative py-20 md:py-32 lg:py-40 overflow-hidden">
+    {{-- Background Image --}}
+    <div class="absolute inset-0">
+        <img 
+            src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=2049&auto=format&fit=crop" 
+            class="w-full h-full object-cover object-center brightness-50"
+            alt="Admissions Background"
+        >
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-blue-900/60 to-transparent mix-blend-multiply"></div>
+    </div>
 
-    <div class="w-full max-w-xl
-        bg-white
-        rounded-3xl shadow-2xl
-        p-8 border border-slate-200">
+    {{-- Hero Content --}}
+    <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
+        <h1 class="text-3xl md:text-5xl font-black text-white mb-4 leading-tight drop-shadow-xl">
+            Registrasi Mahasiswa Baru
+        </h1>
+        <p class="text-sky-100 max-w-xl mx-auto font-medium text-lg">
+            Isi data diri Anda dengan lengkap dan benar untuk memulai perjalanan akademik Anda bersama kami.
+        </p>
+    </div>
+</div>
+
+{{-- ================= FORM CONTAINER ================= --}}
+<section class="bg-slate-50 relative z-20 -mt-20 md:-mt-24 rounded-t-[3rem] min-h-screen pb-24">
+    
+    {{-- Decorative Line --}}
+    <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-sky-200/50 to-transparent"></div>
+
+    <div class="max-w-4xl mx-auto px-6 pt-16">
 
         {{-- 🔔 NOTIFIKASI --}}
         @if(session('success'))
-            <div class="alert-box success">
-                <span class="icon">✔</span>
+            <div class="mb-8 p-6 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-start gap-4 shadow-lg shadow-emerald-100/50 animate-fade-down">
+                <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center shrink-0">
+                    <i class="bi bi-check-lg text-xl"></i>
+                </div>
                 <div>
-                    <strong>Berhasil!</strong>
-                    <p>{{ session('success') }}</p>
+                    <h4 class="font-bold text-emerald-800">Registrasi Berhasil!</h4>
+                    <p class="text-sm text-emerald-600 mt-1">{{ session('success') }}</p>
                 </div>
             </div>
         @endif
 
-        @if(session('error'))
-            <div class="alert-box error">
-                <span class="icon">✖</span>
-                <div>
-                    <strong>Gagal!</strong>
-                    <p>{{ session('error') }}</p>
+        @if ($errors->any() || session('error'))
+            <div class="mb-8 p-6 rounded-2xl bg-rose-50 border border-rose-100 flex items-start gap-4 shadow-lg shadow-rose-100/50 animate-fade-down">
+                <div class="w-10 h-10 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center shrink-0">
+                    <i class="bi bi-exclamation-triangle-fill text-xl"></i>
                 </div>
-            </div>
-        @endif
-
-        @if ($errors->any())
-            <div class="alert-box error">
-                <span class="icon">⚠</span>
                 <div>
-                    <strong>Periksa Form</strong>
-                    <ul>
+                    <h4 class="font-bold text-rose-800">Periksa Kembali Form</h4>
+                    <ul class="text-sm text-rose-600 mt-1 list-disc list-inside">
+                        @if(session('error')) <li>{{ session('error') }}</li> @endif
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
@@ -45,189 +64,204 @@
             </div>
         @endif
 
-        {{-- HEADER --}}
-        <div class="text-center mb-8">
-            <h2 class="text-3xl font-bold text-slate-900 tracking-tight">
-                Admissions
-            </h2>
-            <p class="text-sm text-slate-600 mt-1">
-                Pendaftaran Mahasiswa Baru
-            </p>
+        {{-- KARTU FORMULIR --}}
+        <div class="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/60 border border-slate-100 overflow-hidden relative">
+            
+            {{-- Header Form --}}
+            <div class="bg-slate-50 border-b border-slate-100 px-8 py-6 flex justify-between items-center">
+                <span class="text-xs font-black uppercase tracking-widest text-slate-400">
+                    Formulir Online
+                </span>
+                <span class="text-xs font-bold bg-sky-100 text-sky-600 px-3 py-1 rounded-full">
+                    Tahun Akademik {{ date('Y') }}/{{ date('Y')+1 }}
+                </span>
+            </div>
+
+            <div class="p-8 md:p-12">
+                <form method="POST" action="/admissions" class="space-y-8" id="admissionForm">
+                    @csrf
+
+                    {{-- SECTION 1: DATA DIRI --}}
+                    <div>
+                        <h3 class="text-lg font-black text-slate-800 mb-6 flex items-center gap-2">
+                            <i class="bi bi-person-lines-fill text-sky-500"></i> Data Pribadi
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            
+                            {{-- Nama Lengkap --}}
+                            <div class="col-span-2">
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Nama Lengkap</label>
+                                <div class="relative group">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-sky-500 transition-colors">
+                                        <i class="bi bi-person"></i>
+                                    </div>
+                                    <input type="text" name="nama_lengkap" required placeholder="Sesuai ijazah terakhir"
+                                           class="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 font-medium focus:bg-white focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all outline-none">
+                                </div>
+                            </div>
+
+                            {{-- Email --}}
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Alamat Email</label>
+                                <div class="relative group">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-sky-500 transition-colors">
+                                        <i class="bi bi-envelope"></i>
+                                    </div>
+                                    <input type="email" name="email" required placeholder="nama@email.com"
+                                           class="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 font-medium focus:bg-white focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all outline-none">
+                                </div>
+                            </div>
+
+                            {{-- No HP --}}
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Nomor WhatsApp</label>
+                                <div class="relative group">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-sky-500 transition-colors">
+                                        <i class="bi bi-whatsapp"></i>
+                                    </div>
+                                    <input type="tel" name="no_hp" required placeholder="0812xxxx"
+                                           class="w-full pl-11 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 font-medium focus:bg-white focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all outline-none">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-full h-px bg-slate-100"></div>
+
+                    {{-- SECTION 2: DATA AKADEMIK --}}
+                    <div>
+                        <h3 class="text-lg font-black text-slate-800 mb-6 flex items-center gap-2">
+                            <i class="bi bi-mortarboard-fill text-sky-500"></i> Pilihan Akademik
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+
+                            {{-- Fakultas --}}
+                            <div class="col-span-2 md:col-span-1">
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Fakultas</label>
+                                <div class="relative group">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-sky-500 transition-colors">
+                                        <i class="bi bi-building"></i>
+                                    </div>
+                                    <select id="faculty" name="faculty_id" required 
+                                            class="w-full pl-11 pr-10 py-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 font-medium focus:bg-white focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all outline-none appearance-none cursor-pointer">
+                                        <option value="">Pilih Fakultas Tujuan</option>
+                                        @foreach($faculties as $faculty)
+                                            <option value="{{ $faculty->id }}">{{ $faculty->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400">
+                                        <i class="bi bi-chevron-down text-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Program Studi --}}
+                            <div class="col-span-2 md:col-span-1">
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Program Studi</label>
+                                <div class="relative group">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-sky-500 transition-colors">
+                                        <i class="bi bi-book"></i>
+                                    </div>
+                                    <select id="prodi" name="prodi_id" required disabled
+                                            class="w-full pl-11 pr-10 py-4 bg-slate-100 border border-slate-200 rounded-xl text-slate-400 font-medium focus:bg-white focus:border-sky-500 focus:ring-4 focus:ring-sky-500/10 transition-all outline-none appearance-none disabled:cursor-not-allowed">
+                                        <option value="">Pilih Fakultas Terlebih Dahulu</option>
+                                    </select>
+                                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-slate-400">
+                                        <i class="bi bi-chevron-down text-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Tahun Akademik (Hidden/Auto or Visible) --}}
+                            <div class="col-span-2">
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Tahun Akademik</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                                        <i class="bi bi-calendar-range"></i>
+                                    </div>
+                                    <input type="text" name="tahun_akademik" value="2025/2026" readonly 
+                                           class="w-full pl-11 pr-4 py-4 bg-slate-100 border border-slate-200 rounded-xl text-slate-500 font-bold cursor-not-allowed outline-none">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- SUBMIT BUTTON --}}
+                    <div class="pt-4">
+                        <button type="submit" class="w-full group relative overflow-hidden bg-sky-600 text-white font-black text-sm uppercase tracking-widest py-5 rounded-xl hover:bg-sky-500 transition-all duration-300 shadow-xl shadow-sky-200 hover:shadow-sky-400/50 hover:-translate-y-1">
+                            <span class="relative z-10 flex items-center justify-center gap-2">
+                                Kirim Pendaftaran <i class="bi bi-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                            </span>
+                        </button>
+                        <p class="text-center text-[10px] text-slate-400 mt-4">
+                            Dengan mengklik tombol di atas, Anda menyetujui syarat & ketentuan pendaftaran.
+                        </p>
+                    </div>
+
+                </form>
+            </div>
         </div>
 
-        {{-- FORM --}}
-        <form method="POST" action="/admissions" class="space-y-4">
-            @csrf
-
-            <div>
-                <label class="text-xs font-semibold text-slate-700">
-                    Nama Lengkap
-                </label>
-                <input name="nama_lengkap" required class="input-style">
-            </div>
-
-            <div>
-                <label class="text-xs font-semibold text-slate-700">
-                    Email
-                </label>
-                <input type="email" name="email" required class="input-style">
-            </div>
-
-            <div>
-                <label class="text-xs font-semibold text-slate-700">
-                    No HP
-                </label>
-                <input name="no_hp" required class="input-style">
-            </div>
-
-            <div>
-                <label class="text-xs font-semibold text-slate-700">
-                    Fakultas
-                </label>
-                <select id="faculty" name="faculty_id" required class="input-style">
-                    <option value="">Pilih Fakultas</option>
-                    @foreach($faculties as $faculty)
-                        <option value="{{ $faculty->id }}">{{ $faculty->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div>
-                <label class="text-xs font-semibold text-slate-700">
-                    Program Studi
-                </label>
-                <select id="prodi" name="prodi_id" required class="input-style">
-                    <option value="">Pilih Program Studi</option>
-                </select>
-            </div>
-
-            <div>
-                <label class="text-xs font-semibold text-slate-700">
-                    Tahun Akademik
-                </label>
-                <input name="tahun_akademik" placeholder="2025/2026" required class="input-style">
-            </div>
-
-            <button type="submit" class="btn-submit">
-                Daftar Sekarang
-            </button>
-        </form>
-
-        <p class="text-xs text-center text-slate-500 mt-6">
-            © {{ date('Y') }} KampusGW • Admissions Online
-        </p>
     </div>
-</div>
+</section>
 
-{{-- 🎨 STYLE --}}
+{{-- ================= SCRIPTS & STYLES ================= --}}
+
+{{-- Animasi --}}
 <style>
-.input-style {
-    width: 100%;
-    margin-top: 6px;
-    background: #F8FAFC; /* terang */
-    color: #0f172a;
-    border: 1px solid #CBD5E1;
-    border-radius: 12px;
-    padding: 11px 14px;
-    outline: none;
-    transition: all .2s ease;
-}
-
-.input-style:focus {
-    border-color: #1583D7;
-    box-shadow: 0 0 0 3px rgba(21,131,215,0.25);
-    background: white;
-}
-
-.btn-submit {
-    width: 100%;
-    margin-top: 20px;
-    background: #1583D7;
-    border: none;
-    padding: 13px;
-    border-radius: 14px;
-    font-weight: bold;
-    color: white;
-    cursor: pointer;
-    transition: all .25s ease;
-}
-
-.btn-submit:hover {
-    background: #0F6CC0;
-    transform: translateY(-1px);
-    box-shadow: 0 10px 25px rgba(21,131,215,.35);
-}
-
-/* NOTIFIKASI */
-.alert-box {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 14px 16px;
-    border-radius: 14px;
-    margin-bottom: 20px;
-    font-size: 14px;
-    animation: slideDown 0.4s ease;
-}
-
-.alert-box strong {
-    display: block;
-    margin-bottom: 2px;
-    font-size: 15px;
-}
-
-.alert-box p,
-.alert-box ul {
-    margin: 0;
-    font-size: 13px;
-}
-
-.alert-box .icon {
-    font-size: 18px;
-    margin-top: 2px;
-}
-
-.success {
-    background: #ECFDF5;
-    border: 1px solid #22C55E;
-    color: #166534;
-}
-
-.error {
-    background: #FEF2F2;
-    border: 1px solid #EF4444;
-    color: #7F1D1D;
-}
-
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-15px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+    .animate-fade-down { animation: fadeDown 0.5s ease-out forwards; }
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 
-{{-- ⚡ SCRIPT --}}
 <script>
-const faculties = @json($faculties);
+    document.addEventListener('DOMContentLoaded', function() {
+        const faculties = @json($faculties);
+        const facultySelect = document.getElementById('faculty');
+        const prodiSelect = document.getElementById('prodi');
 
-document.getElementById('faculty').addEventListener('change', function () {
-    const prodi = document.getElementById('prodi');
-    prodi.innerHTML = '<option value="">Pilih Program Studi</option>';
+        facultySelect.addEventListener('change', function () {
+            // Reset Prodi
+            prodiSelect.innerHTML = '<option value="">Pilih Program Studi</option>';
+            prodiSelect.disabled = true;
+            prodiSelect.classList.remove('bg-slate-50', 'text-slate-800');
+            prodiSelect.classList.add('bg-slate-100', 'text-slate-400');
 
-    const selected = faculties.find(f => f.id == this.value);
-    if (selected) {
-        selected.prodis.forEach(p => {
-            prodi.innerHTML += `<option value="${p.id}">${p.name}</option>`;
+            if (this.value) {
+                const selectedFaculty = faculties.find(f => f.id == this.value);
+                
+                if (selectedFaculty && selectedFaculty.prodis.length > 0) {
+                    // Enable Select
+                    prodiSelect.disabled = false;
+                    prodiSelect.classList.remove('bg-slate-100', 'text-slate-400');
+                    prodiSelect.classList.add('bg-slate-50', 'text-slate-800');
+
+                    // Populate Options
+                    selectedFaculty.prodis.forEach(p => {
+                        const option = document.createElement('option');
+                        option.value = p.id;
+                        option.textContent = p.name;
+                        prodiSelect.appendChild(option);
+                    });
+                } else {
+                    const option = document.createElement('option');
+                    option.textContent = "Tidak ada program studi";
+                    prodiSelect.appendChild(option);
+                }
+            }
         });
-    }
-});
 
-// notif hilang otomatis
-setTimeout(() => {
-    document.querySelectorAll('.alert-box').forEach(el => {
-        el.style.opacity = '0';
-        setTimeout(() => el.remove(), 300);
+        // Auto Hide Alert
+        const alerts = document.querySelectorAll('.animate-fade-down');
+        if(alerts.length > 0) {
+            setTimeout(() => {
+                alerts.forEach(el => {
+                    el.style.transition = "opacity 0.5s ease";
+                    el.style.opacity = "0";
+                    setTimeout(() => el.remove(), 500);
+                });
+            }, 5000);
+        }
     });
-}, 4000);
 </script>
 
 @endsection

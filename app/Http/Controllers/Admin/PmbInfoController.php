@@ -101,5 +101,5 @@ class PmbInfoController extends Controller
         $pmbInfo->delete();
 
         return redirect()->route('admin.pmb-info.index')->with('success', 'Jalur masuk dihapus.');
-    }
+    }  
 }

@@ -1,4 +1,4 @@
-<footer class="mt-32 bg-slate-50 border-t border-slate-200 font-sans relative overflow-hidden">
+<footer id="footer" class="mt-32 bg-slate-50 border-t border-slate-200 font-sans relative overflow-hidden">
     
     <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-sky-500/20 to-transparent"></div>
 
@@ -38,17 +38,18 @@
             <div>
                 <h4 class="font-black mb-6 text-slate-800 uppercase tracking-[0.2em] text-[10px]">Ecosystem</h4>
                 <ul class="space-y-3 text-slate-500 font-medium">
-                    <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> About Us</a></li>
-                    <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Faculties</a></li>
-                    <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Admissions</a></li>
-                    <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Careers</a></li>
-                    <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> News & Events</a></li>
+                    <li><a href="#About" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> About Us</a></li>
+                    <li><a href="#Fakultas" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Akademik</a></li>
+                    <li><a href="#Hero" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Admissions</a></li>
+                    <li><a href="#Testimoni" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Careers</a></li>
+                    <li><a href="#berita-kampus" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> News & Events</a></li>
+                    <li><a href="#Partners" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> Our Partners</a></li>
                 </ul>
             </div>
 
             
             <div>
-                <h4 class="font-black mb-6 text-slate-800 uppercase tracking-[0.2em] text-[10px]"><a href="<?php echo e(route('downloads.index')); ?>">Resources & Downloads</a></h4>
+                <h4 class="font-black mb-6 text-slate-800 uppercase tracking-[0.2em] text-[10px]">Resources & Downloads</h4>
                 <ul class="space-y-4 text-slate-500 font-medium">
                     <?php $__empty_1 = true; $__currentLoopData = $downloads; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dl): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <li>
@@ -75,7 +76,7 @@
             <div>
                 <h4 class="font-black mb-6 text-slate-800 uppercase tracking-[0.2em] text-[10px]">Top Programs</h4>
                 <ul class="space-y-3 text-slate-500 font-medium">
-                    <?php $__currentLoopData = $prodis->take(5); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $prodi): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__currentLoopData = $prodis->take(4); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $prodi): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <li><a href="#" class="hover:text-sky-600 transition flex items-center gap-2 group"><span class="h-px w-0 group-hover:w-3 bg-sky-600 transition-all"></span> <?php echo e($prodi->name); ?></a></li>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>

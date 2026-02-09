@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->string('image')->nullable();
             $table->text('vision')->nullable();
             $table->text('mission')->nullable();
-            $table->text('facilities')->nullable();
             $table->timestamps();
         });
     }

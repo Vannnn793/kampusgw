@@ -78,9 +78,13 @@ class FacultyController extends Controller
             ->with('success', 'Faculty berhasil diupdate');
     }
 
-    public function show(Faculty $faculty)
+    public function show(Faculty $faculty , $slug)
     {
         $faculty->load('prodis');
-        return view('faculties.show', compact('faculty'));
+        $faculty = Faculty::with(['prodis', 'facilities'])
+                ->where('slug', $slug)
+                ->firstOrFail();
+
+        return view('faculties.show', compact('faculty' , 'slug'));
     }
 }

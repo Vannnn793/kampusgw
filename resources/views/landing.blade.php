@@ -51,7 +51,7 @@
     </div>
 </div>
 {{-- ================= HERO SECTION ================= --}}
-<section class="relative min-h-screen flex items-center overflow-hidden bg-[#FAFAF9]">
+<section id="Hero" class="relative min-h-screen flex items-center overflow-hidden bg-[#FAFAF9]">
     {{-- ORNAMEN BACKGROUND (Biar gak sepi) --}}
     <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
         <div class="absolute -top-[10%] -left-[5%] w-[40%] h-[60%] bg-blue-100/50 rounded-full blur-[120px]"></div>
@@ -226,7 +226,7 @@
     </div>
 </section>
 {{-- ================= PARTNERS MODIFIED ================= --}}
-<section class="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-sky-50 via-[#E6F0FB] to-sky-100">
+<section id="Partners" class="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-sky-50 via-[#E6F0FB] to-sky-100">
     
     {{-- ORNAMEN BACKGROUND --}}
     <div class="absolute top-0 right-0 w-72 h-72 md:w-96 md:h-96 bg-white/40 rounded-full blur-3xl -mr-20 -mt-20"></div>
@@ -348,7 +348,7 @@
     </div>
 </section>
 {{-- ================= SEJARAH & STATISTIK KAMPUS: ULTRA COMPACT ================= --}}
-<section class="py-24 relative overflow-hidden bg-white">
+<section id="About" class="py-24 relative overflow-hidden bg-white">
     
     {{-- Background Aksen (Biar gak boring) --}}
     <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-sky-50 to-transparent"></div>
@@ -514,7 +514,7 @@
     </div>
 </section>
 {{-- ================= FAKULTAS SECTION: COMPACT & POWERFUL ================= --}}
-<section class="relative py-24 bg-[#1583D7] overflow-hidden">
+<section id="Fakultas" class="relative py-24 bg-[#1583D7] overflow-hidden">
     
     {{-- Background Ornaments (Diperhalus agar fokus ke Card) --}}
     <div class="absolute -top-24 -left-20 w-[40rem] h-[40rem] bg-white/10 blur-[120px] rounded-full pointer-events-none"></div>
@@ -606,7 +606,7 @@
     </div>
 </section>
 {{-- ===================== TESTIMONI ALUMNI: SOLID & COMPACT ===================== --}}
-<section class="py-24 bg-[#F8FAFC] relative overflow-hidden">
+<section id="Testimoni" class="py-24 bg-[#F8FAFC] relative overflow-hidden">
     {{-- Aksen Background --}}
     <div class="absolute top-0 right-0 w-1/3 h-full bg-[#1E5FA3]/5 skew-x-12 translate-x-20"></div>
 
@@ -642,7 +642,7 @@
             <div class="lg:col-span-8 grid md:grid-cols-2 gap-6">
                 @forelse($testimoni->take(4) as $alumni)
                 <div class="group bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-500 flex flex-col h-full relative overflow-hidden">
-                    
+                    <a href="careers/#{{ $alumni->nama }}" class="flex flex-col h-full">
                     {{-- Quote Icon Background --}}
                     <div class="absolute -top-4 -right-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
                         <svg class="w-32 h-32 text-[#0F2A44]" fill="currentColor" viewBox="0 0 24 24">
@@ -651,7 +651,7 @@
                     </div>
 
                     <p class="text-slate-600 mb-8 relative z-10 font-medium leading-relaxed italic">
-                        "{{ Str::limit($alumni->pesan_kesan, 120) }}"
+                        "{{ Str::limit($alumni->pesan_kesan, 70) }}"
                     </p>
 
                     <div class="flex items-center gap-4 mt-auto pt-6 border-t border-slate-50">
@@ -678,6 +678,7 @@
                             </div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 @empty
                     <p class="text-slate-400">Belum ada testimoni.</p>
@@ -824,7 +825,7 @@
     </div>
 </section>
 {{-- ================= CTA: THE POWER BLOCK ================= --}}
-<section class="relative py-20 px-6 overflow-hidden bg-white">
+<section id="CTA" class="relative py-20 px-6 overflow-hidden bg-white">
     
     {{-- Container utama dengan background gelap biar kontras sama putihnya section berita --}}
     <div class="max-w-7xl mx-auto relative">
@@ -864,7 +865,7 @@
                         </span>
                     </a>
                     
-                    <a href="#"
+                    <a href="#footer"
                        class="inline-flex items-center justify-center px-10 py-6 rounded-2xl font-black text-sm uppercase tracking-widest border-2 border-white/20 text-white hover:bg-white/10 transition-all duration-300">
                         Konsultasi
                     </a>

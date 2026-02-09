@@ -127,7 +127,7 @@
 
 <nav class="sidebar" id="sidebar">
     <div class="sidebar-brand">
-        <i class="bi bi-mortarboard-fill text-primary me-2"></i> KAMPUS ADMIN
+        <i class="bi bi-mortarboard-fill text-primary me-2"></i> {{ $profile->campus_name }} ADMIN
     </div>
 
     <div class="sidebar-menu">
@@ -255,8 +255,8 @@
                 </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end text-small shadow">
-                <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="#">Profile</a></li>
+                {{-- <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="#">Profile</a></li> --}}
                 <li><hr class="dropdown-divider"></li>
                 <li>
                     <a class="dropdown-item text-danger" href="{{ route('logout') }}"

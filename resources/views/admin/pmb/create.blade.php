@@ -1,16 +1,17 @@
 @extends('admin.layout.main')
-@section('title', 'Tambah Jalur PMB')
+{{-- Cek apakah variabel $pmbInfo ada, jika ada berarti mode EDIT --}}
+@section('title', isset($pmbInfo) ? 'Edit Jalur PMB' : 'Tambah Jalur PMB')
 
 @section('content')
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
     <div>
-        <h1 class="h2 fw-bold">Tambah Jalur PMB</h1>
+        <h1 class="h2 fw-bold">{{ isset($pmbInfo) ? 'Edit Jalur PMB' : 'Tambah Jalur PMB' }}</h1>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/dashboard" class="text-decoration-none">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('admin.pmb-info.index') }}" class="text-decoration-none">Info PMB</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Buat Baru</li>
+                <li class="breadcrumb-item active" aria-current="page">{{ isset($pmbInfo) ? 'Edit Data' : 'Buat Baru' }}</li>
             </ol>
         </nav>
     </div>
@@ -21,8 +22,16 @@
     </div>
 </div>
 
-<form action="{{ route('admin.pmb-info.store') }}" method="POST" enctype="multipart/form-data">
+{{-- ACTION dinamis: Jika edit ke route 'update', jika tambah ke route 'store' --}}
+<form action="{{ isset($pmbInfo) ? route('admin.pmb-info.update', $pmbInfo->id) : route('admin.pmb-info.store') }}" 
+      method="POST" 
+      enctype="multipart/form-data">
+    
     @csrf
+    {{-- Tambahkan Method PUT jika dalam mode edit --}}
+    @if(isset($pmbInfo))
+        @method('PUT')
+    @endif
     
     <div class="row g-4">
         
@@ -39,13 +48,16 @@
                     {{-- Judul Jalur --}}
                     <div class="mb-4">
                         <label class="form-label small fw-bold text-muted">Nama Jalur Masuk <span class="text-danger">*</span></label>
-                        <input type="text" name="title" class="form-control form-control-lg" placeholder="Contoh: Gelombang 1 - Jalur Prestasi" value="{{ old('title') }}" required>
+                        <input type="text" name="title" class="form-control form-control-lg" 
+                               placeholder="Contoh: Gelombang 1 - Jalur Prestasi" 
+                               value="{{ old('title', $pmbInfo->title ?? '') }}" required>
                     </div>
 
                     {{-- Deskripsi --}}
                     <div class="mb-3">
                         <label class="form-label small fw-bold text-muted">Deskripsi Lengkap</label>
-                        <textarea name="content" class="form-control" rows="12" placeholder="Tuliskan syarat, biaya, dan detail pendaftaran di sini...">{{ old('content') }}</textarea>
+                        <textarea name="content" class="form-control" rows="12" 
+                                  placeholder="Tuliskan syarat, biaya, dan detail pendaftaran di sini...">{{ old('content', $pmbInfo->content ?? '') }}</textarea>
                         <div class="form-text small text-muted">
                             <i class="bi bi-info-circle me-1"></i> Tekan Enter untuk membuat paragraf baru. Gunakan (-) untuk poin.
                         </div>
@@ -65,7 +77,9 @@
                 </div>
                 <div class="card-body">
                     <div class="form-check form-switch mb-3">
-                        <input class="form-check-input" type="checkbox" name="is_active" value="1" id="statusSwitch" checked style="cursor: pointer;">
+                        {{-- Logika Checkbox: centang jika data baru (default) atau jika data lama is_active == 1 --}}
+                        <input class="form-check-input" type="checkbox" name="is_active" value="1" id="statusSwitch" 
+                               {{ old('is_active', $pmbInfo->is_active ?? 1) == 1 ? 'checked' : '' }} style="cursor: pointer;">
                         <label class="form-check-label fw-bold text-dark" for="statusSwitch">Buka Pendaftaran</label>
                     </div>
                     <small class="text-muted d-block lh-sm">Jika dimatikan, informasi ini akan disembunyikan dari halaman depan.</small>
@@ -73,7 +87,7 @@
                     <hr>
 
                     <button type="submit" class="btn btn-primary w-100 fw-bold">
-                        <i class="bi bi-send me-1"></i> Terbitkan Info
+                        <i class="bi bi-check-circle me-1"></i> {{ isset($pmbInfo) ? 'Simpan Perubahan' : 'Terbitkan Info' }}
                     </button>
                 </div>
             </div>
@@ -87,10 +101,11 @@
 
                     {{-- Link Pendaftaran --}}
                     <div class="mb-3">
-                        <label class="form-label small fw-bold text-muted">Link External (Google Form/Sistem PMB)</label>
+                        <label class="form-label small fw-bold text-muted">Link External</label>
                         <div class="input-group">
                             <span class="input-group-text bg-light"><i class="bi bi-link-45deg"></i></span>
-                            <input type="url" name="registration_link" class="form-control" placeholder="https://" value="{{ old('registration_link') }}">
+                            <input type="url" name="registration_link" class="form-control" 
+                                   placeholder="https://" value="{{ old('registration_link', $pmbInfo->registration_link ?? '') }}">
                         </div>
                     </div>
 
@@ -98,11 +113,13 @@
                     <div class="row">
                         <div class="col-6 mb-3">
                             <label class="form-label small fw-bold text-muted">Tanggal Buka</label>
-                            <input type="date" name="start_date" class="form-control" value="{{ old('start_date') }}">
+                            <input type="date" name="start_date" class="form-control" 
+                                   value="{{ old('start_date', isset($pmbInfo->start_date) ? $pmbInfo->start_date->format('Y-m-d') : '') }}">
                         </div>
                         <div class="col-6 mb-3">
                             <label class="form-label small fw-bold text-muted">Tanggal Tutup</label>
-                            <input type="date" name="end_date" class="form-control" value="{{ old('end_date') }}">
+                            <input type="date" name="end_date" class="form-control" 
+                                   value="{{ old('end_date', isset($pmbInfo->end_date) ? $pmbInfo->end_date->format('Y-m-d') : '') }}">
                         </div>
                     </div>
 
@@ -110,12 +127,19 @@
                     <div class="mb-2">
                         <label class="form-label small fw-bold text-muted">Poster / Brosur</label>
                         <input type="file" name="image" class="form-control" accept="image/*" onchange="previewImage(event)">
-                        <div class="form-text small text-muted">Format: JPG/PNG, Max: 2MB.</div>
+                        @if(isset($pmbInfo) && $pmbInfo->image)
+                            <div class="form-text small text-info">
+                                <i class="bi bi-info-circle"></i> Biarkan kosong jika tidak ingin mengubah gambar.
+                            </div>
+                        @endif
                     </div>
 
-                    {{-- Preview Gambar JS --}}
-                    <div class="mt-3 text-center d-none" id="imagePreviewBox">
-                        <img id="imagePreview" src="#" alt="Preview" class="img-fluid rounded border shadow-sm" style="max-height: 200px;">
+                    {{-- Preview Gambar --}}
+                    {{-- Jika sedang edit, tampilkan gambar yang sudah ada --}}
+                    <div class="mt-3 text-center {{ isset($pmbInfo) && $pmbInfo->image ? '' : 'd-none' }}" id="imagePreviewBox">
+                        <img id="imagePreview" 
+                             src="{{ isset($pmbInfo) && $pmbInfo->image ? asset('storage/' . $pmbInfo->image) : '#' }}" 
+                             alt="Preview" class="img-fluid rounded border shadow-sm" style="max-height: 200px;">
                     </div>
 
                 </div>
@@ -124,19 +148,4 @@
         </div>
     </div>
 </form>
-
-{{-- SCRIPT PREVIEW GAMBAR --}}
-<script>
-    function previewImage(event) {
-        var reader = new FileReader();
-        reader.onload = function(){
-            var output = document.getElementById('imagePreview');
-            var box = document.getElementById('imagePreviewBox');
-            output.src = reader.result;
-            box.classList.remove('d-none');
-        }
-        reader.readAsDataURL(event.target.files[0]);
-    }
-</script>
-
 @endsection
