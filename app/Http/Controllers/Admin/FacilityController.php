@@ -24,7 +24,8 @@ class FacilityController extends Controller
     public function create()
     {
         $faculties = \App\Models\Faculty::all();
-        return view('admin.facilities.create', compact('faculties'));
+        $taglines = \App\Models\Tagline::all();
+        return view('admin.facilities.create', compact('faculties', 'taglines'));
     }
 
     // Memproses data input
@@ -36,6 +37,8 @@ class FacilityController extends Controller
             'name' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Max 2MB
             'description' => 'nullable|string',
+            'taglines' => 'array',
+            'taglines.*' => 'exists:taglines,id',
         ]);
 
         // 2. Handle Upload Gambar (Jika ada)
@@ -46,7 +49,11 @@ class FacilityController extends Controller
         }
 
         // 3. Simpan ke Database
-        Facility::create($validatedData);
+
+        if($request->has('taglines')){
+            $facility = Facility::create($validatedData);
+            $facility->taglines()->attach($request->taglines);
+        }
 
         // 4. Redirect kembali dengan pesan sukses
         return redirect()->route('admin.facilities.create')->with('success', 'Fasilitas berhasil ditambahkan!');
@@ -66,7 +73,8 @@ class FacilityController extends Controller
     {
         $facility = Facility::findOrFail($id);
         $faculties = \App\Models\Faculty::all();
-        return view('admin.facilities.edit', compact('facility', 'faculties'));
+        $taglines = \App\Models\Tagline::all();
+        return view('admin.facilities.edit', compact('facility', 'faculties', 'taglines'));
     }
 
     // 5. UPDATE: Memproses perubahan data
@@ -78,6 +86,9 @@ class FacilityController extends Controller
             'name' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'description' => 'nullable|string',
+            'faculty_id' => 'nullable|exists:faculties,id',
+            'taglines' => 'array',
+            'taglines.*' => 'exists:taglines,id',
         ]);
 
         // Cek apakah user upload gambar baru
@@ -92,6 +103,11 @@ class FacilityController extends Controller
 
         $facility->update($validatedData);
 
+        // Update taglines
+        if($request->has('taglines')){
+            $facility->taglines()->sync($request->taglines);
+        }
+
         return redirect()->route('admin.facilities.index')->with('success', 'Fasilitas berhasil diperbarui!');
     }
 
@@ -104,6 +120,9 @@ class FacilityController extends Controller
         if ($facility->image) {
             Storage::disk('public')->delete($facility->image);
         }
+
+        // Hapus relasi taglines sebelum menghapus fasilitas
+        $facility->taglines()->detach();
 
         $facility->delete();
 

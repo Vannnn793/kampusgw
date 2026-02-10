@@ -154,6 +154,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('pmb-info', \App\Http\Controllers\Admin\PmbInfoController::class);
         Route::resource('badges', BadgeController::class);
         Route::patch('/badges/{badge}/toggle', [BadgeController::class, 'toggle'])->name('badges.toggle');
+        Route::resource('taglines', \App\Http\Controllers\Admin\TaglineController::class);
 
         // Admissions admin
         Route::get('/admissions', [AdmissionController::class, 'adminIndex'])->name('admissions.index');

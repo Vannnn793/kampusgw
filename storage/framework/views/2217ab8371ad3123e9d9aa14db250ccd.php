@@ -108,24 +108,52 @@
                         </p>
 
                         
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-100 shadow-sm hover:border-sky-200 hover:shadow-sky-100 transition-all">
-                                <i class="bi bi-wifi text-sky-500 text-lg"></i>
-                                <span class="text-sm font-bold text-slate-600">High Speed WiFi</span>
-                            </div>
-                            <div class="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-100 shadow-sm hover:border-sky-200 hover:shadow-sky-100 transition-all">
-                                <i class="bi bi-snow text-sky-500 text-lg"></i>
-                                <span class="text-sm font-bold text-slate-600">Full AC</span>
-                            </div>
-                            <div class="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-100 shadow-sm hover:border-sky-200 hover:shadow-sky-100 transition-all">
-                                <i class="bi bi-shield-check text-sky-500 text-lg"></i>
-                                <span class="text-sm font-bold text-slate-600">Safety First</span>
-                            </div>
-                            <div class="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-100 shadow-sm hover:border-sky-200 hover:shadow-sky-100 transition-all">
-                                <i class="bi bi-check-circle text-sky-500 text-lg"></i>
-                                <span class="text-sm font-bold text-slate-600">Modern Tools</span>
-                            </div>
+                        
+                        
+
+                        <div class="mt-8">
+                            <h4 class="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2">
+                                <i class="bi bi-stars text-sky-500"></i> Fasilitas Unggulan
+                            </h4>
+
+                            
+                            <?php if($facility->taglines->count() > 0): ?>
+                                
+                                <div class="swiper taglineSwiper w-full px-1 py-2">
+                                    <div class="swiper-wrapper">
+                                        
+                                        
+                                        <?php $__currentLoopData = $facility->taglines; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tagline): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <div class="swiper-slide !w-auto">
+                                                <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm text-slate-600 text-sm font-semibold whitespace-nowrap">
+                                                    
+                                                    <i class="<?php echo e($tagline->icon); ?> text-sky-500"></i>
+                                                    
+                                                    
+                                                    <span><?php echo e($tagline->name); ?></span>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                    </div>
+                                </div>
+
+                            <?php else: ?>
+                                <p class="text-xs text-slate-400 italic">Detail fasilitas belum ditambahkan.</p>
+                            <?php endif; ?>
                         </div>
+
+                        
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+                        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+                        <script>
+                            new Swiper(".taglineSwiper", {
+                                slidesPerView: "auto",
+                                spaceBetween: 10,
+                                freeMode: true,
+                            });
+                        </script>
 
                     </div>
                 </div>

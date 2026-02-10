@@ -1,7 +1,7 @@
-@extends('admin.layout.main')
-@section('title', 'Edit Profil Kampus')
 
-@section('content')
+<?php $__env->startSection('title', 'Edit Profil Kampus'); ?>
+
+<?php $__env->startSection('content'); ?>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
     <div>
@@ -15,26 +15,27 @@
     </div>
 </div>
 
-{{-- ALERT NOTIFICATION --}}
-@if(session('success'))
+
+<?php if(session('success')): ?>
     <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
-        <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
+        <i class="bi bi-check-circle-fill me-2"></i> <?php echo e(session('success')); ?>
+
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
-@endif
+<?php endif; ?>
 
-<form action="{{ route('admin.profiles.update', $profile->id) }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    @method('PUT')
+<form action="<?php echo e(route('admin.profiles.update', $profile->id)); ?>" method="POST" enctype="multipart/form-data">
+    <?php echo csrf_field(); ?>
+    <?php echo method_field('PUT'); ?>
 
     <div class="row g-4">
-        {{-- KOLOM KIRI: MENU NAVIGASI TABS --}}
+        
         <div class="col-lg-3">
             <div class="card border-0 shadow-sm sticky-top" style="top: 20px; z-index: 1;">
                 <div class="card-body p-0">
                     <div class="list-group list-group-flush rounded-3" id="profileTabs" role="tablist">
                         
-                        {{-- Tab 1: Statistik & Gambar (BARU - SAYA TARUH ATAS BIAR GAMPANG DIEDIT) --}}
+                        
                         <a class="list-group-item list-group-item-action active py-3 fw-bold d-flex align-items-center" 
                            id="stats-tab" data-bs-toggle="list" href="#stats" role="tab">
                             <i class="bi bi-bar-chart-line fs-5 me-3 text-primary-subtle"></i> Statistik & Gambar
@@ -65,10 +66,10 @@
             </div>
         </div>
 
-        {{-- KOLOM KANAN: KONTEN TABS --}}
+        
         <div class="col-lg-9">
             <div class="tab-content" id="nav-tabContent">
-{{-- TAB 1: LOGO, GAMBAR & STATISTIK (UPDATED) --}}
+
 <div class="tab-pane fade show active" id="stats" role="tabpanel">
     <div class="card border-0 shadow-sm">
         <div class="card-header bg-white py-3 border-bottom">
@@ -76,20 +77,20 @@
         </div>
         <div class="card-body p-4">
 
-            {{-- SECTION 1: LOGO KAMPUS (BARU) --}}
+            
             <div class="row mb-5 pb-4 border-bottom">
                 <div class="col-md-3 text-center">
                     <label class="form-label fw-bold mb-2">Logo Kampus</label>
                     <div class="mx-auto position-relative bg-light border rounded p-3 d-flex align-items-center justify-content-center" style="width: 150px; height: 150px;">
-                        @if($profile->logo_path)
-                            <img src="{{ asset('storage/'.$profile->logo_path) }}" id="preview-logo-img" class="img-fluid" style="max-height: 100%;">
-                        @else
+                        <?php if($profile->logo_path): ?>
+                            <img src="<?php echo e(asset('storage/'.$profile->logo_path)); ?>" id="preview-logo-img" class="img-fluid" style="max-height: 100%;">
+                        <?php else: ?>
                             <div class="text-muted text-center" id="placeholder-logo">
                                 <i class="bi bi-shield-fill fs-1"></i>
                                 <div class="small mt-1">No Logo</div>
                             </div>
                             <img src="" id="preview-logo-img" class="d-none img-fluid" style="max-height: 100%;">
-                        @endif
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="col-md-9 d-flex flex-column justify-content-center">
@@ -111,7 +112,7 @@
                     <input type="text" 
                         name="campus_name" 
                         id="campus_name" 
-                        value="{{ old('campus_name', $profile->campus_name ?? '') }}"
+                        value="<?php echo e(old('campus_name', $profile->campus_name ?? '')); ?>"
                         class="form-control" 
                         placeholder="Contoh: Universitas Teknologi FutureTech">
                 </div>
@@ -122,22 +123,22 @@
                     <input type="text" 
                         name="tagline" 
                         id="tagline" 
-                        value="{{ old('tagline', $profile->tagline ?? '') }}"
+                        value="<?php echo e(old('tagline', $profile->tagline ?? '')); ?>"
                         class="form-control" 
                         placeholder="Contoh: Mencetak Generasi Emas Inovatif">
             </div>    
             <br>
             
-            {{-- SECTION 2: GAMBAR KAMPUS --}}
+            
             <div class="mb-5 pb-4 border-bottom">
                 <div class="col-md-12 mb-4">
                     <label class="form-label fw-bold mb-3">Foto Gedung Utama (Tampil di Home)</label>
                     <div class="row">
                         <div class="col-md-5">
                             <div class="position-relative overflow-hidden rounded bg-light border shadow-sm" style="height: 300px;">
-                                @if($profile->gambar_kampus)
-                                    <img src="{{ asset('storage/'.$profile->gambar_kampus) }}" id="preview-kampus-img" class="w-100 h-100 object-fit-cover">
-                                @else
+                                <?php if($profile->gambar_kampus): ?>
+                                    <img src="<?php echo e(asset('storage/'.$profile->gambar_kampus)); ?>" id="preview-kampus-img" class="w-100 h-100 object-fit-cover">
+                                <?php else: ?>
                                     <div class="d-flex align-items-center justify-content-center h-100 text-muted" id="placeholder-kampus">
                                         <div class="text-center">
                                             <i class="bi bi-image fs-1 d-block mb-2"></i>
@@ -145,7 +146,7 @@
                                         </div>
                                     </div>
                                     <img src="" id="preview-kampus-img" class="d-none w-100 h-100 object-fit-cover">
-                                @endif
+                                <?php endif; ?>
                             </div>
                             <label for="file-input-kampus" class="btn btn-outline-primary w-100 mt-2">
                                 <i class="bi bi-upload me-1"></i> Pilih Foto Gedung
@@ -165,42 +166,42 @@
 
             <hr class="border-secondary-subtle my-4">
 
-            {{-- SECTION 3: ANGKA STATISTIK --}}
+            
             <h6 class="fw-bold mb-3 text-secondary">Data Statistik (Angka)</h6>
             <div class="row g-3">
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Tahun Beroperasi</label>
                     <div class="input-group">
                         <span class="input-group-text bg-light"><i class="bi bi-calendar-check"></i></span>
-                        <input type="text" name="tahun_beroperasi" class="form-control" value="{{ old('tahun_beroperasi', $profile->tahun_beroperasi) }}" placeholder="Contoh: 15">
+                        <input type="text" name="tahun_beroperasi" class="form-control" value="<?php echo e(old('tahun_beroperasi', $profile->tahun_beroperasi)); ?>" placeholder="Contoh: 15">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Total Program Studi</label>
                     <div class="input-group">
                         <span class="input-group-text bg-light"><i class="bi bi-mortarboard"></i></span>
-                        <input type="text" name="total_prodi" class="form-control" value="{{ old('total_prodi', $profile->total_prodi) }}" placeholder="Contoh: 11">
+                        <input type="text" name="total_prodi" class="form-control" value="<?php echo e(old('total_prodi', $profile->total_prodi)); ?>" placeholder="Contoh: 11">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Total Alumni</label>
                     <div class="input-group">
                         <span class="input-group-text bg-light"><i class="bi bi-people"></i></span>
-                        <input type="text" name="total_alumni" class="form-control" value="{{ old('total_alumni', $profile->total_alumni) }}" placeholder="Contoh: 3000">
+                        <input type="text" name="total_alumni" class="form-control" value="<?php echo e(old('total_alumni', $profile->total_alumni)); ?>" placeholder="Contoh: 3000">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Total Dosen & Staf</label>
                     <div class="input-group">
                         <span class="input-group-text bg-light"><i class="bi bi-person-workspace"></i></span>
-                        <input type="text" name="total_dosen" class="form-control" value="{{ old('total_dosen', $profile->total_dosen) }}" placeholder="Contoh: 100">
+                        <input type="text" name="total_dosen" class="form-control" value="<?php echo e(old('total_dosen', $profile->total_dosen)); ?>" placeholder="Contoh: 100">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label fw-semibold">Jumlah Mahasiswa Aktif</label>
                     <div class="input-group">
                         <span class="input-group-text bg-light"><i class="bi bi-journal-bookmark-fill"></i></span>
-                        <input type="text" name="mahasiswa_aktif" class="form-control" value="{{ old('mahasiswa_aktif', $profile->mahasiswa_aktif) }}" placeholder="Contoh: 5000">
+                        <input type="text" name="mahasiswa_aktif" class="form-control" value="<?php echo e(old('mahasiswa_aktif', $profile->mahasiswa_aktif)); ?>" placeholder="Contoh: 5000">
                     </div>
                 </div>
             </div>
@@ -208,7 +209,7 @@
         </div>
     </div>
 </div>
-                {{-- TAB 2: SAMBUTAN REKTOR --}}
+                
                 <div class="tab-pane fade" id="rektor" role="tabpanel">
                     <div class="card border-0 shadow-sm">
                         <div class="card-header bg-white py-3 border-bottom">
@@ -219,11 +220,11 @@
                                 <div class="col-md-8">
                                     <div class="mb-3">
                                         <label class="form-label fw-bold">Nama Lengkap Rektor</label>
-                                        <input type="text" name="nama_rektor" class="form-control" value="{{ old('nama_rektor', $profile->nama_rektor) }}" placeholder="Contoh: Prof. Dr. John Doe">
+                                        <input type="text" name="nama_rektor" class="form-control" value="<?php echo e(old('nama_rektor', $profile->nama_rektor)); ?>" placeholder="Contoh: Prof. Dr. John Doe">
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label fw-bold">Isi Sambutan</label>
-                                        <textarea name="sambutan_rektor" class="form-control summernote">{{ old('sambutan_rektor', $profile->sambutan_rektor) }}</textarea>
+                                        <textarea name="sambutan_rektor" class="form-control summernote"><?php echo e(old('sambutan_rektor', $profile->sambutan_rektor)); ?></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -232,14 +233,14 @@
                                             <label class="form-label fw-bold mb-3">Foto Rektor</label>
                                             
                                             <div class="mb-3 position-relative overflow-hidden rounded bg-white shadow-sm" style="min-height: 200px;">
-                                                @if($profile->foto_rektor)
-                                                    <img src="{{ asset('storage/'.$profile->foto_rektor) }}" id="preview-img" class="img-fluid" style="width: 100%; height: 250px; object-fit: cover;">
-                                                @else
+                                                <?php if($profile->foto_rektor): ?>
+                                                    <img src="<?php echo e(asset('storage/'.$profile->foto_rektor)); ?>" id="preview-img" class="img-fluid" style="width: 100%; height: 250px; object-fit: cover;">
+                                                <?php else: ?>
                                                     <div class="d-flex align-items-center justify-content-center h-100 text-muted" id="placeholder-text" style="height: 250px;">
                                                         <span class="small">No Image Uploaded</span>
                                                     </div>
                                                     <img src="" id="preview-img" class="d-none img-fluid" style="width: 100%; height: 250px; object-fit: cover;">
-                                                @endif
+                                                <?php endif; ?>
                                             </div>
 
                                             <label for="file-input" class="btn btn-sm btn-outline-primary w-100">
@@ -255,7 +256,7 @@
                     </div>
                 </div>
 
-                {{-- TAB 3: SEJARAH --}}
+                
                 <div class="tab-pane fade" id="sejarah" role="tabpanel">
                     <div class="card border-0 shadow-sm">
                         <div class="card-header bg-white py-3 border-bottom">
@@ -264,14 +265,14 @@
                         <div class="card-body p-4">
                             <div class="mb-4">
                                 <label class="form-label fw-bold">Sejarah Singkat Kampus</label>
-                                <textarea name="sejarah_kampus" class="form-control summernote">{{ old('sejarah_kampus', $profile->sejarah_kampus) }}</textarea>
+                                <textarea name="sejarah_kampus" class="form-control summernote"><?php echo e(old('sejarah_kampus', $profile->sejarah_kampus)); ?></textarea>
                             </div>
                             
                             <div class="bg-light p-3 rounded border">
                                 <label class="form-label fw-bold"><i class="bi bi-youtube text-danger me-2"></i>Link Video Profil (Youtube)</label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-white text-muted">https://</span>
-                                    <input type="text" name="link_video_profil" class="form-control" value="{{ old('link_video_profil', $profile->link_video_profil) }}" placeholder="www.youtube.com/watch?v=...">
+                                    <input type="text" name="link_video_profil" class="form-control" value="<?php echo e(old('link_video_profil', $profile->link_video_profil)); ?>" placeholder="www.youtube.com/watch?v=...">
                                 </div>
                                 <div class="form-text">Pastikan link video bersifat publik.</div>
                             </div>
@@ -279,7 +280,7 @@
                     </div>
                 </div>
 
-                {{-- TAB 4: VISI MISI --}}
+                
                 <div class="tab-pane fade" id="visimisi" role="tabpanel">
                     <div class="card border-0 shadow-sm">
                         <div class="card-header bg-white py-3 border-bottom">
@@ -288,17 +289,17 @@
                         <div class="card-body p-4">
                             <div class="mb-4">
                                 <label class="form-label fw-bold text-uppercase text-primary">Visi</label>
-                                <textarea name="visi" class="form-control summernote">{{ old('visi', $profile->visi) }}</textarea>
+                                <textarea name="visi" class="form-control summernote"><?php echo e(old('visi', $profile->visi)); ?></textarea>
                             </div>
                             <div>
                                 <label class="form-label fw-bold text-uppercase text-primary">Misi</label>
-                                <textarea name="misi" class="form-control summernote">{{ old('misi', $profile->misi) }}</textarea>
+                                <textarea name="misi" class="form-control summernote"><?php echo e(old('misi', $profile->misi)); ?></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {{-- TAB 5: KONTAK & LOKASI --}}
+                
                 <div class="tab-pane fade" id="kontak" role="tabpanel">
                     <div class="card border-0 shadow-sm">
                         <div class="card-header bg-white py-3 border-bottom">
@@ -310,7 +311,7 @@
                                     <label class="form-label fw-bold">Email Resmi</label>
                                     <div class="input-group">
                                         <span class="input-group-text bg-light"><i class="bi bi-envelope"></i></span>
-                                        <input type="email" name="email" class="form-control" value="{{ old('email', $profile->email) }}" placeholder="info@kampusgw.ac.id">
+                                        <input type="email" name="email" class="form-control" value="<?php echo e(old('email', $profile->email)); ?>" placeholder="info@kampusgw.ac.id">
                                     </div>
                                 </div>
 
@@ -318,18 +319,18 @@
                                     <label class="form-label fw-bold">No. Telepon / WhatsApp</label>
                                     <div class="input-group">
                                         <span class="input-group-text bg-light"><i class="bi bi-telephone"></i></span>
-                                        <input type="text" name="phone" class="form-control" value="{{ old('phone', $profile->phone) }}" placeholder="(021) 12345678">
+                                        <input type="text" name="phone" class="form-control" value="<?php echo e(old('phone', $profile->phone)); ?>" placeholder="(021) 12345678">
                                     </div>
                                 </div>
 
                                 <div class="col-12 mb-4">
                                     <label class="form-label fw-bold">Alamat Lengkap</label>
-                                    {{-- PENTING: Saya tambah id="address" di sini --}}
-                                    <textarea name="address" id="address" class="form-control" rows="3" placeholder="Jl. Raya Kampus No. 1, Kota...">{{ old('address', $profile->address) }}</textarea>
+                                    
+                                    <textarea name="address" id="address" class="form-control" rows="3" placeholder="Jl. Raya Kampus No. 1, Kota..."><?php echo e(old('address', $profile->address)); ?></textarea>
                                     <div class="form-text text-muted">Pastikan alamat lengkap (Jalan, Nomor, Kota) agar titik peta akurat.</div>
                                 </div>
 
-                                {{-- BAGIAN BARU: PETA OTOMATIS --}}
+                                
                                 <div class="col-12">
                                     <div class="bg-light p-4 rounded border border-secondary-subtle">
                                         <div class="d-flex align-items-start">
@@ -340,7 +341,7 @@
                                                     Sistem akan otomatis menampilkan Google Maps di website berdasarkan gabungan <strong>Nama Kampus</strong> (dari Tab 1) dan <strong>Alamat Lengkap</strong> (di atas). Kamu tidak perlu memasukkan kode embed manual lagi.
                                                 </p>
                                                 
-                                                {{-- Tombol untuk Admin ngecek apakah titiknya pas --}}
+                                                
                                                 <button type="button" onclick="checkMap()" class="btn btn-sm btn-outline-primary bg-white">
                                                     <i class="bi bi-geo-alt-fill me-1"></i> Test Buka Peta
                                                 </button>
@@ -348,8 +349,8 @@
                                         </div>
                                     </div>
                                     
-                                    {{-- Input Hidden (Optional): Kalau mau jaga-jaga simpan link iframe lama, tapi saran saya hapus aja di controller biar bersih --}}
-                                    {{-- <input type="hidden" name="gmaps_iframe" value=""> --}}
+                                    
+                                    
                                 </div>
                             </div>
                         </div>
@@ -357,7 +358,7 @@
                 </div>
             </div>
         </div>
-    {{-- FIXED SAVE BAR --}}
+    
     <div class="fixed-bottom bg-white border-top shadow py-3" style="z-index: 1050;">
         <div class="container-fluid px-4 d-flex justify-content-end align-items-center">
             <div class="me-auto d-none d-md-block text-muted small">
@@ -370,11 +371,11 @@
         </div>
     </div>
 
-    {{-- SPACER --}}
+    
     <div style="height: 100px;"></div>
 </form>
 
-{{-- STYLES & SCRIPTS --}}
+
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <style>
     /* Styling List Group Active State */
@@ -510,4 +511,5 @@ function checkMap() {
 }
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layout.main', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\kampus_anda\resources\views/admin/profile/index.blade.php ENDPATH**/ ?>
