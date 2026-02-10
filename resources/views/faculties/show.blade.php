@@ -142,7 +142,7 @@
         </div>
 
         {{-- 3. FASILITAS SECTION (Integrated Style) --}}
-        @if($faculty->facilities->count() > 0)
+        @if($faculty->facilities)
         <div class="reveal-on-scroll">
             <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
                 <div>

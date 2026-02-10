@@ -148,7 +148,7 @@
         </div>
 
         
-        <?php if($faculty->facilities->count() > 0): ?>
+        <?php if($faculty->facilities): ?>
         <div class="reveal-on-scroll">
             <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
                 <div>
