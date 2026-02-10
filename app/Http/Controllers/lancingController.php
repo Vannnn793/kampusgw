@@ -37,6 +37,8 @@ class lancingController extends Controller
         // Rumus Hiring Rate
         $hiringRate = $totalAlumni > 0 ? round(($bekerjaCount / $totalAlumni) * 100) : 0;
 
+        $taglines = \App\Models\Tagline::all();
+
         // PENTING: Perhatikan bagian compact('sliders')
         // Ini artinya kita kirim data ke view dengan nama "$sliders"
         return view('landing',[
@@ -54,6 +56,7 @@ class lancingController extends Controller
         'accreditationLevel' => $accreditationLevel,
         'hiringRate' => $hiringRate,
         'totalAlumni' => $totalAlumni,
+        'taglines' => $taglines,
         
         ]); 
     }

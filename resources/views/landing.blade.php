@@ -453,19 +453,26 @@
                 </div>
 
                 {{-- Feature Points (Biar padet) --}}
-                <div class="grid grid-cols-2 gap-4 pt-6">
-                    <div class="flex items-center gap-3">
-                        <div class="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
-                            <svg class="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                {{-- Container Tagline --}}
+                <div class="row g-4 mt-4">
+                    @foreach($taglines as $tagline)
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center gap-3">
+                                {{-- Ikon Dinamis: Background soft blue, Ikon warna biru --}}
+                                <div class="flex-shrink-0 w-10 h-10 bg-blue-50 text-primary rounded-circle d-flex align-items-center justify-content-center shadow-sm" 
+                                    style="width: 40px; height: 40px;">
+                                    <i class="{{ $tagline->icon }} fs-6"></i>
+                                </div>
+                                
+                                {{-- Teks Tagline --}}
+                                <div>
+                                    <span class="text-dark fw-bold uppercase tracking-widest" style="font-size: 12px;">
+                                        {{ $tagline->name }}
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                        <span class="text-sm font-bold text-slate-700 uppercase">Kurikulum Global</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
-                            <svg class="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                        </div>
-                        <span class="text-sm font-bold text-slate-700 uppercase">Fasilitas Modern</span>
-                    </div>
+                    @endforeach
                 </div>
 
                 <div class="pt-6">
