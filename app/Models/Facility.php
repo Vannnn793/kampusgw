@@ -21,4 +21,10 @@ class Facility extends Model
     {
         return $this->belongsTo(Faculty::class);
     }
+    public function taglines()
+    {
+        // Relasi Many-to-Many ke model Tagline
+        // 'facility_tagline' adalah nama tabel pivot yang kita buat tadi
+        return $this->belongsToMany(Tagline::class, 'facility_tagline');
+    }
 }

@@ -110,24 +110,52 @@
                         </p>
 
                         {{-- Micro Features (Grid Icon Kecil) --}}
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-100 shadow-sm hover:border-sky-200 hover:shadow-sky-100 transition-all">
-                                <i class="bi bi-wifi text-sky-500 text-lg"></i>
-                                <span class="text-sm font-bold text-slate-600">High Speed WiFi</span>
-                            </div>
-                            <div class="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-100 shadow-sm hover:border-sky-200 hover:shadow-sky-100 transition-all">
-                                <i class="bi bi-snow text-sky-500 text-lg"></i>
-                                <span class="text-sm font-bold text-slate-600">Full AC</span>
-                            </div>
-                            <div class="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-100 shadow-sm hover:border-sky-200 hover:shadow-sky-100 transition-all">
-                                <i class="bi bi-shield-check text-sky-500 text-lg"></i>
-                                <span class="text-sm font-bold text-slate-600">Safety First</span>
-                            </div>
-                            <div class="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-100 shadow-sm hover:border-sky-200 hover:shadow-sky-100 transition-all">
-                                <i class="bi bi-check-circle text-sky-500 text-lg"></i>
-                                <span class="text-sm font-bold text-slate-600">Modern Tools</span>
-                            </div>
+                        {{-- Pastikan data $facility dipassing dari Controller --}}
+                        {{-- Contoh Controller: $facility = Facility::with('taglines')->find($id); --}}
+
+                        <div class="mt-8">
+                            <h4 class="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2">
+                                <i class="bi bi-stars text-sky-500"></i> Fasilitas Unggulan
+                            </h4>
+
+                            {{-- Cek kalo ada taglines --}}
+                            @if($facility->taglines->count() > 0)
+                                
+                                <div class="swiper taglineSwiper w-full px-1 py-2">
+                                    <div class="swiper-wrapper">
+                                        
+                                        {{-- LOOPING DARI DATABASE RELASI --}}
+                                        @foreach($facility->taglines as $tagline)
+                                            <div class="swiper-slide !w-auto">
+                                                <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm text-slate-600 text-sm font-semibold whitespace-nowrap">
+                                                    {{-- Panggil kolom 'icon' dari tabel taglines --}}
+                                                    <i class="{{ $tagline->icon }} text-sky-500"></i>
+                                                    
+                                                    {{-- Panggil kolom 'name' dari tabel taglines --}}
+                                                    <span>{{ $tagline->name }}</span>
+                                                </div>
+                                            </div>
+                                        @endforeach
+
+                                    </div>
+                                </div>
+
+                            @else
+                                <p class="text-xs text-slate-400 italic">Detail fasilitas belum ditambahkan.</p>
+                            @endif
                         </div>
+
+                        {{-- Script Swiper (Wajib ada) --}}
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+                        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+                        <script>
+                            new Swiper(".taglineSwiper", {
+                                slidesPerView: "auto",
+                                spaceBetween: 10,
+                                freeMode: true,
+                            });
+                        </script>
 
                     </div>
                 </div>

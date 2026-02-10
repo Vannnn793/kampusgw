@@ -17,7 +17,7 @@
                     {{ $profile->campus_name ?? 'KampusGW' }}
                 </span>
                 <span class="text-[10px] font-bold text-slate-400 tracking-[0.2em] uppercase mt-1">
-                    University Profile
+                    {{ $profile->tagline ?? 'Tagline Kampus Anda' }}
                 </span>
             </div>
         </a>
@@ -86,9 +86,8 @@
                     </li>
                 </ul>
             </div>
-
+            <a href="/careers" class="px-4 py-2 rounded-lg hover:bg-sky-50 hover:text-sky-600 transition">Info Alumni</a>
             <a href="/pmb" class="px-4 py-2 rounded-lg hover:bg-sky-50 hover:text-sky-600 transition">Pendaftaran</a>
-            <a href="/careers" class="px-4 py-2 rounded-lg hover:bg-sky-50 hover:text-sky-600 transition">Careers</a>
             {{-- Dropdown: Berita & Artikel --}}
             <div class="relative group h-20 flex items-center">
                 <button class="flex items-center gap-1 px-4 py-2 rounded-lg hover:bg-sky-50 hover:text-sky-600 transition focus:outline-none group-hover:bg-sky-50 group-hover:text-sky-600">
@@ -201,8 +200,8 @@
                 </div>
             </div>
 
+            <a href="/careers" class="block px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600">Info Alumni</a>
             <a href="/pmb" class="block px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600">Admissions</a>
-            <a href="/careers" class="block px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-sky-50 hover:text-sky-600">Careers</a>
             <div x-data="{ openNews: false }">
                 <button @click="openNews = !openNews" class="flex items-center justify-between w-full px-4 py-3 rounded-xl font-bold text-slate-700 hover:bg-sky-50 mt-3">
                     Berita

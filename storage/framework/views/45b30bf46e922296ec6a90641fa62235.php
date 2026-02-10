@@ -1,7 +1,7 @@
-@extends('admin.layout.main')
-@section('title', 'Tambah Fasilitas')
 
-@section('content')
+<?php $__env->startSection('title', 'Tambah Fasilitas'); ?>
+
+<?php $__env->startSection('content'); ?>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
     <div>
@@ -9,13 +9,13 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/dashboard" class="text-decoration-none">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('admin.facilities.index') }}" class="text-decoration-none">Fasilitas</a></li>
+                <li class="breadcrumb-item"><a href="<?php echo e(route('admin.facilities.index')); ?>" class="text-decoration-none">Fasilitas</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Baru</li>
             </ol>
         </nav>
     </div>
     <div>
-        <a href="{{ route('admin.facilities.index') }}" class="btn btn-outline-secondary btn-sm">
+        <a href="<?php echo e(route('admin.facilities.index')); ?>" class="btn btn-outline-secondary btn-sm">
             <i class="bi bi-arrow-left me-1"></i> Kembali
         </a>
     </div>
@@ -33,41 +33,42 @@
 
             <div class="card-body">
                 
-                {{-- Alert Error --}}
-                @if ($errors->any())
+                
+                <?php if($errors->any()): ?>
                     <div class="alert alert-danger small">
                         <ul class="mb-0 ps-3">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
+                            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>
                     </div>
-                @endif
+                <?php endif; ?>
 
-                <form action="{{ route('admin.facilities.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
+                <form action="<?php echo e(route('admin.facilities.store')); ?>" method="POST" enctype="multipart/form-data">
+                    <?php echo csrf_field(); ?>
                     
-                    {{-- Nama Fasilitas --}}
+                    
                     <div class="mb-3">
                         <label for="name" class="form-label small fw-bold text-muted">Nama Fasilitas <span class="text-danger">*</span></label>
                         <div class="input-group">
                             <span class="input-group-text bg-light"><i class="bi bi-tag"></i></span>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="Contoh: Laboratorium Komputer" required>
+                            <input type="text" class="form-control" id="name" name="name" value="<?php echo e(old('name')); ?>" placeholder="Contoh: Laboratorium Komputer" required>
                         </div>
                     </div>
 
-                    {{-- Fakultas (Opsional) --}}
+                    
                     <div class="mb-3">
                         <label for="faculty_id" class="form-label small fw-bold text-muted">Milik Fakultas (Opsional)</label>
                         <div class="input-group">
                             <span class="input-group-text bg-light"><i class="bi bi-bank"></i></span>
                             <select class="form-select" id="faculty_id" name="faculty_id">
                                 <option value="">-- Milik Universitas (Umum) --</option>
-                                @foreach($faculties as $faculty)
-                                    <option value="{{ $faculty->id }}" {{ old('faculty_id') == $faculty->id ? 'selected' : '' }}>
-                                        Fakultas {{ $faculty->name }}
+                                <?php $__currentLoopData = $faculties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $faculty): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($faculty->id); ?>" <?php echo e(old('faculty_id') == $faculty->id ? 'selected' : ''); ?>>
+                                        Fakultas <?php echo e($faculty->name); ?>
+
                                     </option>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                         <div class="form-text small text-muted">
@@ -75,7 +76,7 @@
                         </div>
                     </div>
 
-                    {{-- Gambar --}}
+                    
                     <div class="mb-3">
                         <label for="image" class="form-label small fw-bold text-muted">Foto Fasilitas</label>
                         <div class="input-group">
@@ -85,13 +86,13 @@
                         <div class="form-text small text-muted">Format: JPG, PNG. Maksimal 2MB.</div>
                     </div>
 
-                    {{-- Deskripsi --}}
+                    
                     <div class="mb-4">
                         <label for="description" class="form-label small fw-bold text-muted">Deskripsi Detail</label>
-                        <textarea class="form-control" id="description" name="description" rows="4" placeholder="Jelaskan kegunaan dan kapasitas fasilitas ini...">{{ old('description') }}</textarea>
+                        <textarea class="form-control" id="description" name="description" rows="4" placeholder="Jelaskan kegunaan dan kapasitas fasilitas ini..."><?php echo e(old('description')); ?></textarea>
                     </div>
 
-                    {{-- Input Group: Fasilitas Unggulan --}}
+                    
                     <div class="mb-6">
                         <label class="block mb-3 text-sm font-bold text-slate-700">
                             Pilih Fitur / Tagline Fasilitas
@@ -99,45 +100,43 @@
 
                         <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
                             
-                            {{-- Grid Checkbox --}}
+                            
                             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                 
-                                @foreach($taglines as $tagline)
+                                <?php $__currentLoopData = $taglines; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tagline): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <label class="relative flex cursor-pointer group">
                                         
-                                        {{-- Checkbox Asli (Disembunyikan biar bisa dicustom style-nya) --}}
-                                        {{-- Logic Checked:
-                                            1. Cek old input (kalau validasi gagal)
-                                            2. Cek database (kalau lagi mode EDIT)
-                                        --}}
+                                        
+                                        
                                         <input type="checkbox" 
                                             name="taglines[]" 
-                                            value="{{ $tagline->id }}" 
+                                            value="<?php echo e($tagline->id); ?>" 
                                             class="peer sr-only"
-                                            @if(in_array($tagline->id, old('taglines', $facility->taglines->pluck('id')->toArray() ?? []))) checked @endif
+                                            <?php if(in_array($tagline->id, old('taglines', $facility->taglines->pluck('id')->toArray() ?? []))): ?> checked <?php endif; ?>
                                         >
 
-                                        {{-- Tampilan Custom Checkbox --}}
+                                        
                                         <div class="w-full p-3 bg-white border-2 border-slate-200 rounded-lg transition-all
                                                     peer-checked:border-sky-500 peer-checked:bg-sky-50
                                                     hover:border-slate-300 flex items-center gap-3">
                                             
-                                            {{-- Icon --}}
+                                            
                                             <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 peer-checked:bg-sky-500 peer-checked:text-white transition-colors">
-                                                <i class="{{ $tagline->icon }}"></i>
+                                                <i class="<?php echo e($tagline->icon); ?>"></i>
                                             </div>
                                             
-                                            {{-- Nama --}}
+                                            
                                             <span class="text-sm font-medium text-slate-600 peer-checked:text-sky-700">
-                                                {{ $tagline->name }}
+                                                <?php echo e($tagline->name); ?>
+
                                             </span>
 
-                                            {{-- Tanda Centang Kecil di Pojok (Optional) --}}
+                                            
                                             <i class="bi bi-check-circle-fill absolute top-2 right-2 text-sky-500 opacity-0 peer-checked:opacity-100 transition-opacity text-xs"></i>
                                         </div>
 
                                     </label>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                             </div>
                             
@@ -148,12 +147,12 @@
                         </div>
                     </div>
 
-                    {{-- Tombol Aksi --}}
+                    
                     <div class="d-flex gap-2">
                         <button type="submit" class="btn btn-primary px-4">
                             <i class="bi bi-save me-1"></i> Simpan Data
                         </button>
-                        <a href="{{ route('admin.facilities.index') }}" class="btn btn-light px-4">Batal</a>
+                        <a href="<?php echo e(route('admin.facilities.index')); ?>" class="btn btn-light px-4">Batal</a>
                     </div>
 
                 </form>
@@ -163,4 +162,5 @@
     </div>
 </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layout.main', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\kampus_anda\resources\views/admin/facilities/create.blade.php ENDPATH**/ ?>

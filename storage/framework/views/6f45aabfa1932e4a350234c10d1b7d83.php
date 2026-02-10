@@ -189,6 +189,11 @@
             </a>
         </div>
         <div class="nav-item">
+            <a href="/admin/taglines" class="nav-link <?php echo e(request()->is('admin/taglines*') ? 'active' : ''); ?>">
+                <i class="bi bi-tags"></i> Tagline & Ikon
+            </a>
+        </div>
+        <div class="nav-item">
             <a href="/admin/download" class="nav-link <?php echo e(request()->is('admin/download*') ? 'active' : ''); ?>">
                 <i class="bi bi-cloud-arrow-down"></i> Dokumen Download
             </a>
