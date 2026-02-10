@@ -125,15 +125,16 @@
                         </div>
                     </div>
 
-                    {{-- Durasi / Sisa Waktu (Optional) --}}
-                    @if($isOpen)
-                    <div class="mt-8 p-4 bg-sky-50 rounded-2xl border border-sky-100 text-center">
-                        <p class="text-xs text-sky-600 mb-1">Sisa Waktu Pendaftaran</p>
-                        <p class="font-black text-slate-800 text-lg">
-                            {{ $now->diffInDays($end) }} <span class="text-sm font-normal text-slate-500">Hari Lagi</span>
-                        </p>
-                    </div>
-                    @endif
+                    {{-- Durasi / Sisa Waktu --}}
+                        @if($isOpen)
+                        <div class="mt-8 p-4 bg-sky-50 rounded-2xl border border-sky-100 text-center">
+                            <p class="text-xs text-sky-600 mb-1">Sisa Waktu Pendaftaran</p>
+                            <p class="font-black text-slate-800 text-lg">
+                                {{ ceil($now->diffInSeconds($end) / 86400) }}
+                                <span class="text-sm font-normal text-slate-500">Hari Lagi</span>
+                            </p>
+                        </div>
+                        @endif
 
                     {{-- CTA Buttons --}}
                     <div class="mt-8 space-y-3">
@@ -154,24 +155,7 @@
                     </div>
                 </div>
 
-                {{-- Contact Support --}}
-                <div class="bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-[2.5rem] text-white shadow-xl">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center text-2xl">
-                            <i class="bi bi-headset"></i>
-                        </div>
-                        <div>
-                            <h5 class="font-bold text-lg leading-none">Butuh Bantuan?</h5>
-                            <p class="text-xs text-slate-400 mt-1">Tim admisi kami siap membantu.</p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-slate-300 mb-6 leading-relaxed">
-                        Bingung soal persyaratan atau cara mendaftar? Hubungi kami via WhatsApp.
-                    </p>
-                    <a href="#footer" class="inline-flex items-center gap-2 text-emerald-400 font-bold text-sm hover:text-white transition-colors">
-                        <i class="bi bi-whatsapp"></i> Chat WhatsApp
-                    </a>
-                </div>
+
 
             </aside>
 

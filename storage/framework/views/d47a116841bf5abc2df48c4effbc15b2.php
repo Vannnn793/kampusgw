@@ -148,26 +148,6 @@
             <?php endif; ?>
 
         </div>
-
-        
-        <div class="mt-24 grid md:grid-cols-2 gap-8 items-center bg-white p-8 md:p-12 rounded-[3rem] shadow-xl border border-slate-100">
-            <div>
-                <h3 class="text-2xl font-black text-slate-800 mb-4">Bingung Memilih Jalur?</h3>
-                <p class="text-slate-600 leading-relaxed mb-8">
-                    Konsultasikan pilihan jurusan dan jalur masukmu dengan tim admisi kami. Kami siap membantu merencanakan masa depanmu.
-                </p>
-                <div class="flex gap-4">
-                    <a href="#footer" class="px-6 py-3 bg-sky-600 text-white rounded-xl font-bold text-sm hover:bg-sky-700 transition shadow-lg shadow-sky-200">
-                        <i class="bi bi-whatsapp mr-2"></i> Chat Admisi
-                    </a>
-                    <a href="#jalur" class="px-6 py-3 bg-slate-100 text-slate-700 rounded-xl font-bold text-sm hover:bg-slate-200 transition">
-                        Download Brosur
-                    </a>
-                </div>
-            </div>
-            <div class="relative h-64 md:h-full min-h-[250px] rounded-2xl overflow-hidden hidden md:block">
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover">
-            </div>
         </div>
 
     </div>
