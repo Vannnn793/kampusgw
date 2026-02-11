@@ -78,16 +78,6 @@
                         <textarea name="mission" class="form-control" rows="2" placeholder="Misi fakultas..."></textarea>
                     </div>
 
-                    {{-- Daftar Fasilitas --}}
-                    <div class="mb-4">
-                        <label class="form-label small fw-bold text-muted">Fasilitas Utama</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-light"><i class="bi bi-list-check"></i></span>
-                            <textarea name="facilities" class="form-control" rows="2" placeholder="Lab Komputer, Ruang Sidang, ..."></textarea>
-                        </div>
-                        <div class="form-text small text-muted">Pisahkan item dengan tanda koma (,).</div>
-                    </div>
-
                     <button type="submit" class="btn btn-primary w-100">
                         <i class="bi bi-save me-1"></i> Simpan Fakultas
                     </button>

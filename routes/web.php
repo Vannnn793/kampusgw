@@ -164,6 +164,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/alumni', [AdminAlumni::class, 'index'])->name('alumni.index');
         Route::post('/alumni/store', [AdminAlumni::class, 'store'])->name('alumni.store');
         Route::get('/get-prodi/{faculty_id}', [AdminAlumni::class, 'getProdi']);
+
+        Route::get('guides', function() {
+            $profile = \App\Models\Profile::first();
+            return view('admin.guide.index', compact('profile'));
+        });
     });
 });
 

@@ -451,24 +451,11 @@
                 
                 
                 <div class="row g-4 mt-4">
-                    <?php $__currentLoopData = $taglines; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tagline): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <div class="col-md-6">
-                            <div class="d-flex align-items-center gap-3">
-                                
-                                <div class="flex-shrink-0 w-10 h-10 bg-blue-50 text-primary rounded-circle d-flex align-items-center justify-content-center shadow-sm" 
-                                    style="width: 40px; height: 40px;">
-                                    <i class="<?php echo e($tagline->icon); ?> fs-6"></i>
-                                </div>
-                                
-                                
-                                <div>
-                                    <span class="text-dark fw-bold uppercase tracking-widest" style="font-size: 12px;">
-                                        <?php echo e($tagline->name); ?>
-
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                    <?php $__currentLoopData = $badges; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tagline): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="inline-flex items-center gap-2 bg-[#E6F0FB]/50 backdrop-blur-md px-4 py-2 rounded-2xl shadow-sm border border-white text-sm font-medium text-[#0F2A44]">
+                        <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span><?php echo e($tagline->name); ?></span>
+                    </div>   
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
 

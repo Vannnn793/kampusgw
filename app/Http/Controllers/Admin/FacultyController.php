@@ -24,7 +24,6 @@ class FacultyController extends Controller
             'image' => 'image',
             'vision' => 'nullable',
             'mission' => 'nullable',
-            'facilities' => 'nullable',
         ]);
 
         $imagePath = null;
@@ -56,7 +55,6 @@ class FacultyController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'vision' => 'nullable',
             'mission' => 'nullable',
-            'facilities' => 'nullable',
         ]);
 
         $data = [
@@ -65,7 +63,6 @@ class FacultyController extends Controller
             'description' => $request->description,
             'vision' => $request->vision,
             'mission' => $request->mission,
-            'facilities' => $request->facilities,
         ];
 
         if ($request->hasFile('image')) {

@@ -1,7 +1,6 @@
-@extends('admin.layout.main')
-@section('title', 'Manajemen Alumni')
+<?php $__env->startSection('title', 'Manajemen Alumni'); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
     <div>
@@ -17,7 +16,7 @@
 
 <div class="row">
     
-    {{-- KOLOM KIRI: FORM INPUT --}}
+    
     <div class="col-lg-4 mb-4">
         <div class="card border-0 shadow-sm">
             <div class="card-header bg-white py-3">
@@ -26,19 +25,19 @@
             
             <div class="card-body">
                 
-                {{-- Tampilkan Error Validasi jika ada --}}
-                @if ($errors->any())
+                
+                <?php if($errors->any()): ?>
                     <div class="alert alert-danger p-2 small">
                         <ul class="mb-0 ps-3">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
+                            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>
                     </div>
-                @endif
+                <?php endif; ?>
 
-                <form action="{{ route('admin.alumni.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
+                <form action="<?php echo e(route('admin.alumni.store')); ?>" method="POST" enctype="multipart/form-data">
+                    <?php echo csrf_field(); ?>
 
                     <div class="mb-3">
                         <label class="form-label small fw-bold text-muted">Nama Lengkap</label>
@@ -54,9 +53,9 @@
                             <span class="input-group-text bg-light"><i class="bi bi-building"></i></span>
                             <select name="faculty_id" id="faculty" class="form-select" required>
                                 <option value="">-- Pilih Fakultas --</option>
-                                @foreach ($faculties as $faculty)
-                                    <option value="{{ $faculty->id }}">{{ $faculty->name }}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $faculties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $faculty): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($faculty->id); ?>"><?php echo e($faculty->name); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                     </div>
@@ -101,16 +100,17 @@
         </div>
     </div>
 
-    {{-- KOLOM KANAN: TABEL DATA --}}
+    
     <div class="col-lg-8">
         
-        {{-- Alert Success --}}
-        @if(session('success'))
+        
+        <?php if(session('success')): ?>
             <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
-                <i class="bi bi-check-circle me-2"></i> {{ session('success') }}
+                <i class="bi bi-check-circle me-2"></i> <?php echo e(session('success')); ?>
+
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        @endif
+        <?php endif; ?>
 
         <div class="card border-0 shadow-sm">
             <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
@@ -133,50 +133,50 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($alumni as $a)
+                            <?php $__empty_1 = true; $__currentLoopData = $alumni; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $a): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                             <tr>
-                                <td class="ps-3">{{ $loop->iteration }}</td>
+                                <td class="ps-3"><?php echo e($loop->iteration); ?></td>
                                 
-                                {{-- Kolom Nama & Foto --}}
+                                
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        {{-- Avatar Logic --}}
+                                        
                                         <div class="me-3">
-                                            @if($a->foto)
-                                                <img src="{{ asset('storage/'.$a->foto) }}" 
+                                            <?php if($a->foto): ?>
+                                                <img src="<?php echo e(asset('storage/'.$a->foto)); ?>" 
                                                      class="rounded-circle object-fit-cover border" 
                                                      width="45" height="45" alt="Avatar">
-                                            @else
+                                            <?php else: ?>
                                                 <div class="bg-secondary-subtle text-secondary rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
                                                     <i class="bi bi-person-fill fs-5"></i>
                                                 </div>
-                                            @endif
+                                            <?php endif; ?>
                                         </div>
                                         <div>
-                                            <div class="fw-bold text-dark">{{ $a->nama }}</div>
-                                            <small class="text-muted fst-italic">"{{ Str::limit($a->pesan_kesan, 20) }}"</small>
+                                            <div class="fw-bold text-dark"><?php echo e($a->nama); ?></div>
+                                            <small class="text-muted fst-italic">"<?php echo e(Str::limit($a->pesan_kesan, 20)); ?>"</small>
                                         </div>
                                     </div>
                                 </td>
 
-                                {{-- Kolom Karir --}}
+                                
                                 <td>
-                                    <div class="fw-semibold text-dark">{{ $a->perusahaan ?? '-' }}</div>
-                                    <div class="small text-muted">{{ $a->jabatan ?? 'Belum bekerja' }}</div>
+                                    <div class="fw-semibold text-dark"><?php echo e($a->perusahaan ?? '-'); ?></div>
+                                    <div class="small text-muted"><?php echo e($a->jabatan ?? 'Belum bekerja'); ?></div>
                                 </td>
 
-                                {{-- Kolom Akademik --}}
+                                
                                 <td>
-                                    <div class="small text-dark">{{ $a->prodi->name ?? '-' }}</div>
-                                    <div class="small text-secondary" style="font-size: 0.75rem;">{{ $a->faculty->name ?? '-' }}</div>
+                                    <div class="small text-dark"><?php echo e($a->prodi->name ?? '-'); ?></div>
+                                    <div class="small text-secondary" style="font-size: 0.75rem;"><?php echo e($a->faculty->name ?? '-'); ?></div>
                                 </td>
 
-                                {{-- Kolom Aksi --}}
+                                
                                 <td>
                                     <div class="btn-group">
-                                        {{-- Tombol Hapus (Contoh) --}}
+                                        
                                         <form action="#" method="POST" onsubmit="return confirm('Hapus?');" class="d-inline">
-                                            @csrf @method('DELETE')
+                                            <?php echo csrf_field(); ?> <?php echo method_field('DELETE'); ?>
                                             <button class="btn btn-sm btn-light text-danger" title="Hapus">
                                                 <i class="bi bi-trash"></i>
                                             </button>
@@ -184,14 +184,14 @@
                                     </div>
                                 </td>
                             </tr>
-                            @empty
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                             <tr>
                                 <td colspan="5" class="text-center py-5 text-muted">
                                     <i class="bi bi-inbox fs-1 d-block mb-2"></i>
                                     Belum ada data alumni.
                                 </td>
                             </tr>
-                            @endforelse
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
@@ -200,7 +200,7 @@
     </div>
 </div>
 
-{{-- SCRIPT AJAX --}}
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -237,4 +237,5 @@
     });
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layout.main', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\kampus_anda\resources\views/admin/alumni/index.blade.php ENDPATH**/ ?>
