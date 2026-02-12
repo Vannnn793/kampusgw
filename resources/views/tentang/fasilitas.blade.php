@@ -55,7 +55,7 @@
                     Jika Index Ganjil ($index % 2 == 1), tambahkan class 'lg:flex-row-reverse'.
                     Ini akan membalik posisi gambar dan teks khusus di layar besar (lg).
                 --}}
-                <div class="flex flex-col lg:flex-row {{ $index % 2 == 1 ? 'lg:flex-row-reverse' : '' }} items-center gap-12 lg:gap-20 reveal-on-scroll">
+                <div id="{{ $facility->name }}" class="flex flex-col lg:flex-row {{ $index % 2 == 1 ? 'lg:flex-row-reverse' : '' }} items-center gap-12 lg:gap-20 reveal-on-scroll">
                     
                     {{-- 1. BAGIAN GAMBAR --}}
                     <div class="w-full lg:w-1/2 relative group">

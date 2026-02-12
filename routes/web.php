@@ -127,6 +127,7 @@ Route::prefix('faculties')->group(function () {
     Route::get('{faculty:slug}/prodis/{prodi:slug}', [ProdiController::class, 'show'])->name('faculties.prodis.show');
 });
 
+Route::get('/p/{slug}', [App\Http\Controllers\Frontend\PageController::class, 'show'])->name('page.show');
 /*
 |--------------------------------------------------------------------------
 | ADMIN ROUTES
@@ -169,6 +170,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
             $profile = \App\Models\Profile::first();
             return view('admin.guide.index', compact('profile'));
         });
+
+        Route::resource('pages', App\Http\Controllers\Admin\PageController::class)->only(['index', 'edit', 'update']);
     });
 });
 

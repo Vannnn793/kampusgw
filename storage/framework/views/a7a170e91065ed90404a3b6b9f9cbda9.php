@@ -176,7 +176,7 @@
                 
                 <div class="relative rounded-3xl overflow-hidden shadow-xl h-48 bg-blue-600 group">
                     <?php if(isset($pmbInfos) && $pmbInfos->count() > 0): ?>
-                        <img src="<?php echo e(asset('storage/' . $pmbInfos->first()->image)); ?>" class="w-full h-full object-cover opacity-80 group-hover:scale-110 transition duration-500">
+                        <img src="<?php echo e(asset('storage/' . $pmbInfos->first()->image)); ?>" class="object-cover opacity-80 group-hover:scale-110 transition duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent p-6 flex flex-col justify-end">
                             <span class="text-blue-300 text-xs font-bold uppercase tracking-widest">Informasi Terbaru</span>
                             <h3 class="text-white font-bold">Jadwal Seleksi</h3>
@@ -853,7 +853,7 @@
 
                 
                 <div class="flex flex-col sm:flex-row lg:justify-end gap-6">
-                    <a href="/admissions"
+                    <a href="/pmb"
                        class="group relative inline-flex items-center justify-center px-10 py-6 rounded-2xl font-black text-sm uppercase tracking-widest bg-white text-[#0F2A44] hover:bg-[#1E5FA3] hover:text-white transition-all duration-500 shadow-xl overflow-hidden">
                         <span class="relative z-10 flex items-center gap-3">
                             Daftar Sekarang

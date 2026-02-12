@@ -230,6 +230,12 @@
             </a>
         </div>
 
+        <div class="nav-item">
+            <a href="<?php echo e(route('admin.pages.index')); ?>" class="nav-link <?php echo e(request()->is('admin/pages*') ? 'active' : ''); ?>">
+                <i class="bi bi-file-earmark-text"></i> Halaman Statis
+            </a>
+        </div>
+
 
         <div class="nav-item mt-3 mb-5">
             <a href="<?php echo e(route('logout')); ?>" 

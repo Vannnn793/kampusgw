@@ -103,15 +103,19 @@
                     <div class="mt-12 pt-8 border-t border-slate-100 flex items-center justify-between">
                         <span class="text-slate-400 text-sm font-bold uppercase tracking-wider">Bagikan:</span>
                         <div class="flex gap-3">
-                            <button class="w-10 h-10 rounded-full bg-slate-100 text-slate-500 hover:bg-blue-600 hover:text-white transition-all flex items-center justify-center">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" 
+                            target="_blank" class="text-primary fs-5">
                                 <i class="bi bi-facebook"></i>
-                            </button>
-                            <button class="w-10 h-10 rounded-full bg-slate-100 text-slate-500 hover:bg-sky-500 hover:text-white transition-all flex items-center justify-center">
-                                <i class="bi bi-twitter-x"></i>
-                            </button>
-                            <button class="w-10 h-10 rounded-full bg-slate-100 text-slate-500 hover:bg-green-600 hover:text-white transition-all flex items-center justify-center">
+                            </a>
+
+                            <a href="https://twitter.com/intent/tweet?text={{ urlencode($post->title) }}&url={{ urlencode(url()->current()) }}" 
+                            target="_blank" class="text-dark fs-5">
+                                <i class="bi bi-twitter-x"></i> </a>
+
+                            <a href="https://api.whatsapp.com/send?text={{ urlencode($post->title . ' - ' . url()->current()) }}" 
+                            target="_blank" class="text-success fs-5">
                                 <i class="bi bi-whatsapp"></i>
-                            </button>
+                            </a>
                         </div>
                     </div>
 

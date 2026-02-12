@@ -161,7 +161,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($faculty->facilities as $facility)
                     <div class="group relative h-72 rounded-[2rem] overflow-hidden cursor-pointer border border-slate-100 shadow-lg hover:shadow-2xl hover:shadow-sky-200/50 transition-all duration-500">
-                        
+                        <a href="{{ route('tentang.fasilitas.index') }}#{{ $facility->name }}" class="absolute inset-0 block">
                         {{-- Image --}}
                         <img 
                             src="{{ asset('storage/'.$facility->image) }}" 
@@ -186,6 +186,7 @@
                         <div class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transform translate-y-[-10px] group-hover:translate-y-0 transition-all duration-500">
                             <i class="bi bi-fullscreen"></i>
                         </div>
+                        </a>
                     </div>
                 @endforeach
             </div>

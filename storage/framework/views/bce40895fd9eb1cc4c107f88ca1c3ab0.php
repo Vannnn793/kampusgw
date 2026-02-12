@@ -25,15 +25,17 @@
                 
                 
                 <div class="flex gap-3">
-                    <a href="#" class="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-sky-600 hover:border-sky-600 transition-all shadow-sm">
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo e(urlencode(url()->current())); ?>" target="_blank" class="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-sky-600 hover:border-sky-600 transition-all shadow-sm">
                         <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
                     </a>
-                    <a href="#" class="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-sky-600 hover:border-sky-600 transition-all shadow-sm">
-                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.315 2c2.43 0 2.784.01 3.71.054 1.14.074 1.908.305 2.5.547a4.387 4.387 0 011.57 1.022c.41.408.74.882 1.022 1.57.242.592.474 1.36.547 2.502.045.927.054 1.28.054 3.71s-.01 2.784-.054 3.71c-.074 1.14-.305 1.908-.547 2.5a4.508 4.508 0 01-1.022 1.57 4.387 4.387 0 01-1.57 1.022c-.592.242-1.36.474-2.502.547-.927.045-1.28.054-3.71.054s-2.784-.01-3.71-.054c-1.14-.074-1.908-.305-2.5-.547a4.387 4.387 0 01-1.57-1.022 4.387 4.387 0 01-1.022-1.57c-.242-.592-.474-1.36-.547-2.502C2.01 14.784 2 14.43 2 12c0-2.43.01-2.784.054-3.71.074-1.14.305-1.908.547-2.5a4.387 4.387 0 011.022-1.57A4.387 4.387 0 014.63 2.547c.592-.242 1.36-.474 2.502-.547C8.086 2.01 8.43 2 10.875 2h1.44z"/></svg>
+                    <a href="https://twitter.com/intent/tweet?text=<?php echo e(urlencode($profile->campus_name ?? 'KAMPUS KITA')); ?>&url=<?php echo e(urlencode(url()->current())); ?>" target="_blank" class="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-sky-600 hover:border-sky-600 transition-all shadow-sm">
+                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.315 2c2.43 0 2.784.01 3.71.054 1.14.074 1.908.305 2.5.547a4.387 4.387 0 011.57 1.022c.41.408.74.882 1.022 1.57.242.592.474 1.36.547 2.502.045.927.054 1.28.054 3.71s-.01 2.784-.054 3.71c-.074 1.14-.305 1.908-.547 2.5a4.508 4.508 0 01-1.022 1.57 4.387 4.387 0 01-1.57 1.022c-.592.242-1.36.474-2.502 .547-.927 .045-1 .966-.966 .966s-.966 .966-.966 .966v-.966h-.966c-.966 .966- .966 .966s-.966 .966-.966 .966v-.966h-.93c-.3 - .3 - .3 - .3s-.3 - .3 - .3 - .3v-.3h-.3c -.3 -.3 -.3 -.3s -.3 -.3 -.3 -.3v-.3h-.3c -.3 -.3 -.3 -.3s -.3 -.3 -.3 -.3v-.3h-.f3c -.3 -.3 -.3 -.3s -.3 -.3 -.3 -.3v-.3h-.3c -.3 -.3 -.3 -.3s -.3 -.3 -.3 -.3v-.3h-.3c -.3 -.3 -.3 -.3s -.3 -.3 -.3 -.3v-.3h-.3c-.3-.3-.3-.3-.3-.3v-.3h-.966c0 .966 0 .966 0 .966s0 .966 0 966v 966h 966c 966 966 966 966 966 966s 966 966 966 966v 966h 93c"></path></svg>
+                    </a>
+                    <a href="https://www.instagram.com/?url=<?php echo e(urlencode(url()->current())); ?>" target="_blank" class="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-sky-600 hover:border-sky-600 transition-all shadow-sm">
+                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5A4.25 4.25 0 0020.5 16.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5zm4.25 3a5.75 5.75 0 110 11.5 5.75 5.75 0 010-11.5zm0 1.5a4.25 4.25 0 100 8.5 4.25 4.25 0 000-8.5zm5.5-.75a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z"/></svg>
                     </a>
                 </div>
             </div>
-
             
             <div>
                 <h4 class="font-black mb-6 text-slate-800 uppercase tracking-[0.2em] text-[10px]">Ecosystem</h4>
@@ -130,9 +132,9 @@
                 <span class="hidden md:inline">Built for Excellence</span>
             </div>
             <div class="flex gap-6">
-                <a href="#" class="hover:text-sky-600 transition">Privacy Policy</a>
-                <a href="#" class="hover:text-sky-600 transition">Terms of Service</a>
-                <a href="#" class="hover:text-sky-600 transition">Site Map</a>
+               <a href="<?php echo e(route('page.show', 'privacy-policy')); ?>">PRIVACY POLICY</a>
+                <a href="<?php echo e(route('page.show', 'terms-of-service')); ?>">TERMS OF SERVICE</a>
+                <a href="<?php echo e(route('page.show', 'site-map')); ?>">SITE MAP</a>
             </div>
         </div>
     </div>
