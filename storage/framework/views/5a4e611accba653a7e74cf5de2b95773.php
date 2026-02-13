@@ -150,6 +150,71 @@
                         </div>
                     </div>
                 </div>
+                <div class="card mt-4 shadow-sm">
+                    <div class="card-header bg-white">
+                        <h5 class="mb-0 fw-bold"><i class="bi bi-share me-2 text-primary"></i>Social Media Kampus</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            
+                            
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Instagram URL</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bi bi-instagram text-danger"></i></span>
+                                    <input type="url" name="instagram_url" class="form-control" 
+                                        value="<?php echo e(old('instagram_url', $profile->instagram_url ?? '')); ?>" 
+                                        placeholder="https://instagram.com/kampusgw">
+                                </div>
+                            </div>
+
+                            
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Facebook URL</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bi bi-facebook text-primary"></i></span>
+                                    <input type="url" name="facebook_url" class="form-control" 
+                                        value="<?php echo e(old('facebook_url', $profile->facebook_url ?? '')); ?>" 
+                                        placeholder="https://facebook.com/kampusgw">
+                                </div>
+                            </div>
+
+                            
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">YouTube URL</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bi bi-youtube text-danger"></i></span>
+                                    <input type="url" name="youtube_url" class="form-control" 
+                                        value="<?php echo e(old('youtube_url', $profile->youtube_url ?? '')); ?>" 
+                                        placeholder="https://youtube.com/c/kampusgw">
+                                </div>
+                            </div>
+
+                            
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Twitter / X URL</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bi bi-twitter-x"></i></span>
+                                    <input type="url" name="twitter_url" class="form-control" 
+                                        value="<?php echo e(old('twitter_url', $profile->twitter_url ?? '')); ?>" 
+                                        placeholder="https://twitter.com/kampusgw">
+                                </div>
+                            </div>
+
+                            
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label fw-bold">TikTok URL</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bi bi-tiktok text-dark"></i></span>
+                                    <input type="url" name="tiktok_url" class="form-control" 
+                                        value="<?php echo e(old('tiktok_url', $profile->tiktok_url ?? '')); ?>" 
+                                        placeholder="https://tiktok.com/@kampusgw">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
 
                 
                 <div class="tab-pane" id="rektor" role="tabpanel">

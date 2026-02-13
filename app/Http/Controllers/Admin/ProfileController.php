@@ -57,6 +57,11 @@ class ProfileController extends Controller
         'email' => 'nullable|email|max:255',
         'mahasiswa_aktif' => 'nullable|integer|min:0',
         'tagline' => 'nullable|string|max:255',
+        'facebook_url' => 'nullable|url|max:255',
+        'instagram_url' => 'nullable|url|max:255',
+        'youtube_url' => 'nullable|url|max:255',
+        'twitter_url' => 'nullable|url|max:255',
+        'tiktok_url' => 'nullable|url|max:255',
     ]);
 
     $profil = Profile::first(); // Asumsi ID selalu 1
@@ -80,6 +85,11 @@ class ProfileController extends Controller
     $profil->address         = $request->address;
     $profil->phone           = $request->phone;
     $profil->email           = $request->email;
+    $profil->facebook_url    = $request->facebook_url;
+    $profil->instagram_url   = $request->instagram_url;
+    $profil->youtube_url     = $request->youtube_url;
+    $profil->twitter_url     = $request->twitter_url;
+    $profil->tiktok_url      = $request->tiktok_url;
     
     // Handle Upload Logo Kampus
     if ($request->hasFile('logo_path')) {

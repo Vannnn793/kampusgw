@@ -22,17 +22,37 @@
                 </div>
                 
                 {{-- Sosmed dengan Style Card Kecil --}}
-                <div class="flex gap-3">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank" class="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-sky-600 hover:border-sky-600 transition-all shadow-sm">
-                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+                {{-- 4. SOCIAL MEDIA (INI YANG KAMU MINTA) --}}
+            <div>
+                <h3 class="text-gray-800 font-bold mb-6 text-lg">Ikuti Kami</h3>
+                <p class="text-slate-400 text-sm mb-6">Dapatkan update kegiatan mahasiswa terbaru di sosial media kami.</p>
+                
+                {{-- Container Icon --}}
+                <div class="flex gap-4">
+                    
+                    {{-- INSTAGRAM --}}
+                    {{-- Ganti href dengan {{ $profile->instagram_url }} nanti --}}
+                    <a href="{{ $profile->instagram_url ?? '#' }}" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-800 text-white hover:bg-sky-500 hover:text-white transition duration-300 hover:-translate-y-1">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                     </a>
-                    <a href="https://twitter.com/intent/tweet?text={{ urlencode($profile->campus_name ?? 'KAMPUS KITA') }}&url={{ urlencode(url()->current()) }}" target="_blank" class="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-sky-600 hover:border-sky-600 transition-all shadow-sm">
-                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.315 2c2.43 0 2.784.01 3.71.054 1.14.074 1.908.305 2.5.547a4.387 4.387 0 011.57 1.022c.41.408.74.882 1.022 1.57.242.592.474 1.36.547 2.502.045.927.054 1.28.054 3.71s-.01 2.784-.054 3.71c-.074 1.14-.305 1.908-.547 2.5a4.508 4.508 0 01-1.022 1.57 4.387 4.387 0 01-1.57 1.022c-.592.242-1.36.474-2.502 .547-.927 .045-1 .966-.966 .966s-.966 .966-.966 .966v-.966h-.966c-.966 .966- .966 .966s-.966 .966-.966 .966v-.966h-.93c-.3 - .3 - .3 - .3s-.3 - .3 - .3 - .3v-.3h-.3c -.3 -.3 -.3 -.3s -.3 -.3 -.3 -.3v-.3h-.3c -.3 -.3 -.3 -.3s -.3 -.3 -.3 -.3v-.3h-.f3c -.3 -.3 -.3 -.3s -.3 -.3 -.3 -.3v-.3h-.3c -.3 -.3 -.3 -.3s -.3 -.3 -.3 -.3v-.3h-.3c -.3 -.3 -.3 -.3s -.3 -.3 -.3 -.3v-.3h-.3c-.3-.3-.3-.3-.3-.3v-.3h-.966c0 .966 0 .966 0 .966s0 .966 0 966v 966h 966c 966 966 966 966 966 966s 966 966 966 966v 966h 93c"></path></svg>
+
+                    {{-- YOUTUBE --}}
+                    <a href="{{ $profile->youtube_url ?? '#' }}" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-800 text-white hover:bg-red-600 hover:text-white transition duration-300 hover:-translate-y-1">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                     </a>
-                    <a href="https://www.instagram.com/?url={{ urlencode(url()->current()) }}" target="_blank" class="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-sky-600 hover:border-sky-600 transition-all shadow-sm">
-                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5A4.25 4.25 0 0020.5 16.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5zm4.25 3a5.75 5.75 0 110 11.5 5.75 5.75 0 010-11.5zm0 1.5a4.25 4.25 0 100 8.5 4.25 4.25 0 000-8.5zm5.5-.75a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z"/></svg>
+
+                    {{-- FACEBOOK --}}
+                    <a href="{{ $profile->facebook_url ?? '#' }}" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-800 text-white hover:bg-blue-600 hover:text-white transition duration-300 hover:-translate-y-1">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                     </a>
+
+                    {{-- TIKTOK --}}
+                    <a href="{{ $profile->tiktok_url ?? '#' }}" target="_blank" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-800 text-white hover:bg-pink-500 hover:text-white transition duration-300 hover:-translate-y-1">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93v6.16c0 2.52-1.12 4.84-2.9 6.24-1.72 1.36-3.92 1.99-6.09 1.69-2.18-.3-4.2-1.6-5.46-3.47-1.32-1.94-1.57-4.47-.65-6.61.9-2.1 3.01-3.6 5.3-3.86 1.33-.16 2.7.15 3.92.83v4.25c-1.8-.93-4.1-.38-5.4 1.25-.8 1.01-1 2.4-.53 3.61.47 1.21 1.63 2.06 2.94 2.14 1.3.08 2.58-.65 3.19-1.84.6-1.16.63-2.52.09-3.73v-9.67c0-.52.03-1.04.1-1.55.05-.33.1-.66.18-.98.05-.2.11-.4.18-.59.03-.08.07-.15.11-.23.18-.39.42-.75.72-1.07.72-.77 1.7-1.19 2.72-1.22z"/></svg>
+                    </a>
+                    
                 </div>
+            </div>
             </div>
             {{-- Kolom 2: Quick Links --}}
             <div>
