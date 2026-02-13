@@ -127,6 +127,7 @@ Route::prefix('faculties')->group(function () {
     Route::get('{faculty:slug}/prodis/{prodi:slug}', [ProdiController::class, 'show'])->name('faculties.prodis.show');
 });
 
+Route::get('/p/{slug}', [App\Http\Controllers\Frontend\PageController::class, 'show'])->name('page.show');
 /*
 |--------------------------------------------------------------------------
 | ADMIN ROUTES
@@ -164,6 +165,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/alumni', [AdminAlumni::class, 'index'])->name('alumni.index');
         Route::post('/alumni/store', [AdminAlumni::class, 'store'])->name('alumni.store');
         Route::get('/get-prodi/{faculty_id}', [AdminAlumni::class, 'getProdi']);
+
+        Route::get('guides', function() {
+            $profile = \App\Models\Profile::first();
+            return view('admin.guide.index', compact('profile'));
+        });
+
+        Route::resource('pages', App\Http\Controllers\Admin\PageController::class)->only(['index', 'edit', 'update']);
     });
 });
 

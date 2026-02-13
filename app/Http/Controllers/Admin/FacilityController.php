@@ -25,6 +25,7 @@ class FacilityController extends Controller
     {
         $faculties = \App\Models\Faculty::all();
         $taglines = \App\Models\Tagline::all();
+        // $facility = Facility::all();
         return view('admin.facilities.create', compact('faculties', 'taglines'));
     }
 

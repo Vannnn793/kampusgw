@@ -138,17 +138,29 @@
 
                     {{-- CTA Buttons --}}
                     <div class="mt-8 space-y-3">
-                        @if($pmb->registration_link && $isOpen)
-                            <a href="{{ $pmb->registration_link }}" target="_blank"
-                               class="block w-full py-4 bg-sky-600 hover:bg-sky-500 text-white text-center rounded-xl font-bold uppercase tracking-widest shadow-lg shadow-sky-200 hover:-translate-y-1 transition-all duration-300">
-                                Daftar Sekarang
-                            </a>
-                        @elseif(!$isOpen)
+                        @if($isOpen)
+                            {{-- CEK: Kalau ada link eksternal, pakai link itu. Kalau KOSONG, pakai route internal --}}
+                            @if($pmb->registration_link)
+                                <a href="{{ $pmb->registration_link }}" target="_blank"
+                                class="block w-full py-4 bg-sky-600 hover:bg-sky-500 text-white text-center rounded-xl font-bold uppercase tracking-widest shadow-lg shadow-sky-200 hover:-translate-y-1 transition-all duration-300">
+                                    Daftar Sekarang 
+                                </a>
+                            @else
+                                {{-- Form Khusus Laravel Lo --}}
+                                <a href="{{ route('admissions.index') }}" 
+                                class="block w-full py-4 bg-sky-600 hover:bg-sky-500 text-white text-center rounded-xl font-bold uppercase tracking-widest shadow-lg shadow-sky-200 hover:-translate-y-1 transition-all duration-300">
+                                    Daftar Sekarang 
+                                </a>
+                            @endif
+
+                        @else
+                            {{-- Jika Pendaftaran Ditutup --}}
                             <button disabled class="block w-full py-4 bg-slate-200 text-slate-400 text-center rounded-xl font-bold uppercase tracking-widest cursor-not-allowed">
                                 Pendaftaran Ditutup
                             </button>
                         @endif
 
+                        {{-- Tombol Brosur Tetap Ada --}}
                         <a href="{{ route('pmb-info.download', $pmb->id) }}" class="block w-full py-4 bg-white border-2 border-slate-100 text-slate-600 hover:border-sky-200 hover:text-sky-600 text-center rounded-xl font-bold uppercase tracking-widest transition-all">
                             Download Brosur
                         </a>

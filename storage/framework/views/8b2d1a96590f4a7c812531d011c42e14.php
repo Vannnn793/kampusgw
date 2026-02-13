@@ -112,7 +112,6 @@
                                                 <?php echo e($row->program_name); ?>
 
                                             </span>
-                                            <span class="text-xs text-slate-400 group-hover:text-sky-500/80">Program Sarjana (S1)</span>
                                         </div>
                                     </div>
                                 </td>

@@ -102,62 +102,53 @@
                     </div>
                     
                     
-                    <div class="mb-6">
-                        <label class="block mb-3 text-sm font-bold text-slate-700">
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-muted d-block mb-3">
                             Pilih Fitur / Tagline Fasilitas
                         </label>
 
-                        <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                        <div class="p-3 bg-light border rounded-3">
                             
-                            
-                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                                
+                            <div class="row g-3">
                                 <?php $__currentLoopData = $taglines; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tagline): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <label class="relative flex cursor-pointer group">
-                                        
-                                        
-                                        
-                                        <input type="checkbox" 
-                                            name="taglines[]" 
-                                            value="<?php echo e($tagline->id); ?>" 
-                                            class="peer sr-only"
-                                            <?php if(in_array($tagline->id, old('taglines', $facility->taglines->pluck('id')->toArray() ?? []))): ?> checked <?php endif; ?>
-                                        >
+                                    <div class="col-6 col-md-4 col-lg-3">
+                                        <label class="position-relative d-block cursor-pointer">
+                                            
+                                            <input type="checkbox" 
+                                                   name="taglines[]" 
+                                                   value="<?php echo e($tagline->id); ?>" 
+                                                   class="btn-check" 
+                                                   id="tagline-<?php echo e($tagline->id); ?>"
+                                                   autocomplete="off"
+                                                   <?php if(is_array(old('taglines')) && in_array($tagline->id, old('taglines'))): ?>
+                                                       checked
+                                                   <?php elseif(isset($facility) && $facility->taglines->contains($tagline->id)): ?>
+                                                       checked
+                                                   <?php endif; ?>>
 
-                                        
-                                        <div class="w-full p-3 bg-white border-2 border-slate-200 rounded-lg transition-all
-                                                    peer-checked:border-sky-500 peer-checked:bg-sky-50
-                                                    hover:border-slate-300 flex items-center gap-3">
-                                            
-                                            
-                                            <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 peer-checked:bg-sky-500 peer-checked:text-white transition-colors">
-                                                <i class="<?php echo e($tagline->icon); ?>"></i>
-                                            </div>
-                                            
-                                            
-                                            <span class="text-sm font-medium text-slate-600 peer-checked:text-sky-700">
-                                                <?php echo e($tagline->name); ?>
-
-                                            </span>
-
-                                            
-                                            <i class="bi bi-check-circle-fill absolute top-2 right-2 text-sky-500 opacity-0 peer-checked:opacity-100 transition-opacity text-xs"></i>
-                                        </div>
-
-                                    </label>
+                                            <label class="btn btn-outline-primary w-100 py-3 px-2 d-flex flex-column align-items-center gap-2 shadow-sm border-2 h-100 justify-content-center" 
+                                                   for="tagline-<?php echo e($tagline->id); ?>">
+                                                <i class="<?php echo e($tagline->icon); ?> fs-4"></i>
+                                                <span class="small fw-bold" style="font-size: 0.75rem;"><?php echo e($tagline->name); ?></span>
+                                                
+                                                
+                                                <?php if(isset($facility) && $facility->taglines->contains($tagline->id)): ?>
+                                                    <i class="bi bi-check-circle-fill position-absolute top-0 end-0 m-1 text-primary" style="font-size: 0.8rem;"></i>
+                                                <?php endif; ?>
+                                            </label>
+                                        </label>
+                                    </div>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
                             </div>
                             
-                            <p class="text-xs text-slate-400 mt-3">
-                                * Klik pada kotak untuk memilih fitur yang tersedia di fasilitas ini.
+                            <p class="text-muted mt-3 mb-0" style="font-size: 0.7rem;">
+                                <i class="bi bi-info-circle me-1"></i> Klik pada kotak untuk menambah atau menghapus fitur fasilitas.
                             </p>
-
                         </div>
                     </div>
 
                     
-                    <div class="d-flex gap-2">
+                    <div class="d-flex gap-2 mt-4">
                         <button type="submit" class="btn btn-primary px-4">
                             <i class="bi bi-check-circle me-1"></i> Update Data
                         </button>

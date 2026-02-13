@@ -50,7 +50,7 @@
             
             <?php $__empty_1 = true; $__currentLoopData = $facilities; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $facility): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                 
-                <div class="flex flex-col lg:flex-row <?php echo e($index % 2 == 1 ? 'lg:flex-row-reverse' : ''); ?> items-center gap-12 lg:gap-20 reveal-on-scroll">
+                <div id="<?php echo e($facility->name); ?>" class="flex flex-col lg:flex-row <?php echo e($index % 2 == 1 ? 'lg:flex-row-reverse' : ''); ?> items-center gap-12 lg:gap-20 reveal-on-scroll">
                     
                     
                     <div class="w-full lg:w-1/2 relative group">

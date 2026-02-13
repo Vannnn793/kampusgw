@@ -7,7 +7,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
@@ -179,6 +179,11 @@
             </a>
         </div>
         <div class="nav-item">
+            <a href="/admin/partners" class="nav-link <?php echo e(request()->is('admin/partners*') ? 'active' : ''); ?>">
+                <i class="bi bi-briefcase"></i> Mitra & Partner
+            </a>
+        </div>
+        <div class="nav-item">
             <a href="/admin/badges" class="nav-link <?php echo e(request()->is('admin/badges*') ? 'active' : ''); ?>">
                 <i class="bi bi-award"></i> Gelar & Slogan
             </a>
@@ -220,10 +225,17 @@
         <div class="sidebar-header">Pengaturan</div>
 
         <div class="nav-item">
-            <a href="/admin/partners" class="nav-link <?php echo e(request()->is('admin/partners*') ? 'active' : ''); ?>">
-                <i class="bi bi-briefcase"></i> Mitra & Partner
+            <a href="/admin/guides" class="nav-link <?php echo e(request()->is('admin/guide*') ? 'active' : ''); ?>">
+                <i class="bi bi-question-circle"></i> Panduan Admin
             </a>
         </div>
+
+        <div class="nav-item">
+            <a href="<?php echo e(route('admin.pages.index')); ?>" class="nav-link <?php echo e(request()->is('admin/pages*') ? 'active' : ''); ?>">
+                <i class="bi bi-file-earmark-text"></i> Halaman Statis
+            </a>
+        </div>
+
 
         <div class="nav-item mt-3 mb-5">
             <a href="<?php echo e(route('logout')); ?>" 
@@ -235,7 +247,6 @@
                 <?php echo csrf_field(); ?>
             </form>
         </div>
-
     </div>
 </nav>
 

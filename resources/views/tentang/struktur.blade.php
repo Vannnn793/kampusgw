@@ -118,12 +118,6 @@
                 <h2 class="text-3xl font-black text-slate-800 mb-2">Daftar Lengkap</h2>
                 <p class="text-slate-500">Seluruh pemegang jabatan struktural & fungsional.</p>
             </div>
-            
-            {{-- Search Fake UI --}}
-            <div class="relative">
-                <input type="text" placeholder="Cari nama atau jabatan..." class="pl-10 pr-4 py-2 rounded-full border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:border-sky-400 w-64">
-                <i class="bi bi-search absolute left-3.5 top-2.5 text-slate-400"></i>
-            </div>
         </div>
 
         <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm" data-aos="fade-up" data-aos-delay="100">

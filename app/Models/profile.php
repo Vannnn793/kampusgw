@@ -30,5 +30,10 @@ class profile extends Model
         'created_at',
         'updated_at',
         'mahasiswa_aktif',
+        'facebook_url',
+        'instagram_url',
+        'youtube_url',
+        'twitter_url',
+        'tiktok_url',
     ];
 }

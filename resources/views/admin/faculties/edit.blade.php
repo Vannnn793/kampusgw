@@ -96,16 +96,6 @@
                         </div>
                     </div>
 
-                    {{-- Fasilitas --}}
-                    <div class="mb-4">
-                        <label class="form-label small fw-bold text-muted">Fasilitas Utama</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-light"><i class="bi bi-list-check"></i></span>
-                            <textarea name="facilities" class="form-control" rows="2">{{ old('facilities', $faculty->facilities) }}</textarea>
-                        </div>
-                        <div class="form-text small text-muted">Pisahkan setiap fasilitas dengan tanda koma (,).</div>
-                    </div>
-
                     {{-- Tombol Aksi --}}
                     <div class="d-flex gap-2">
                         <button type="submit" class="btn btn-primary px-4">

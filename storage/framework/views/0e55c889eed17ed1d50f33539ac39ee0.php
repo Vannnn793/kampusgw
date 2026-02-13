@@ -122,7 +122,7 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <a href="/admissions" class="hidden md:inline-block px-7 py-3 bg-sky-600 text-white rounded-full font-bold hover:bg-sky-700 shadow-lg shadow-sky-200 transition transform hover:-translate-y-0.5">
+            <a href="/pmb" class="hidden md:inline-block px-7 py-3 bg-sky-600 text-white rounded-full font-bold hover:bg-sky-700 shadow-lg shadow-sky-200 transition transform hover:-translate-y-0.5">
                 Daftar Sekarang
             </a>
 

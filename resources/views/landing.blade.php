@@ -175,7 +175,7 @@
                 {{-- PMB Info Card --}}
                 <div class="relative rounded-3xl overflow-hidden shadow-xl h-48 bg-blue-600 group">
                     @if (isset($pmbInfos) && $pmbInfos->count() > 0)
-                        <img src="{{ asset('storage/' . $pmbInfos->first()->image) }}" class="w-full h-full object-cover opacity-80 group-hover:scale-110 transition duration-500">
+                        <img src="{{ asset('storage/' . $pmbInfos->first()->image) }}" class="object-cover opacity-80 group-hover:scale-110 transition duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent p-6 flex flex-col justify-end">
                             <span class="text-blue-300 text-xs font-bold uppercase tracking-widest">Informasi Terbaru</span>
                             <h3 class="text-white font-bold">Jadwal Seleksi</h3>
@@ -453,19 +453,14 @@
                 </div>
 
                 {{-- Feature Points (Biar padet) --}}
-                <div class="grid grid-cols-2 gap-4 pt-6">
-                    <div class="flex items-center gap-3">
-                        <div class="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
-                            <svg class="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                        </div>
-                        <span class="text-sm font-bold text-slate-700 uppercase">Kurikulum Global</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <div class="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
-                            <svg class="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                        </div>
-                        <span class="text-sm font-bold text-slate-700 uppercase">Fasilitas Modern</span>
-                    </div>
+                {{-- Container Tagline --}}
+                <div class="row g-4 mt-4">
+                    @foreach($badges as $tagline)
+                    <div class="inline-flex items-center gap-2 bg-[#E6F0FB]/50 backdrop-blur-md px-4 py-2 rounded-2xl shadow-sm border border-white text-sm font-medium text-[#0F2A44]">
+                        <svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span>{{ $tagline->name }}</span>
+                    </div>   
+                    @endforeach
                 </div>
 
                 <div class="pt-6">
@@ -855,7 +850,7 @@
 
                 {{-- Action Area --}}
                 <div class="flex flex-col sm:flex-row lg:justify-end gap-6">
-                    <a href="/admissions"
+                    <a href="/pmb"
                        class="group relative inline-flex items-center justify-center px-10 py-6 rounded-2xl font-black text-sm uppercase tracking-widest bg-white text-[#0F2A44] hover:bg-[#1E5FA3] hover:text-white transition-all duration-500 shadow-xl overflow-hidden">
                         <span class="relative z-10 flex items-center gap-3">
                             Daftar Sekarang

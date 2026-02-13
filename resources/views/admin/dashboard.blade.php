@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="card-footer bg-primary border-0 d-flex align-items-center justify-content-between">
-                <a href="#" class="text-white text-decoration-none small stretched-link">Lihat Detail</a>
+                <a href="{{ route('admin.faculties.index') }}" class="text-white text-decoration-none small stretched-link">Lihat Detail</a>
                 <i class="bi bi-chevron-right text-white small"></i>
             </div>
         </div>
@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="card-footer bg-info border-0 d-flex align-items-center justify-content-between">
-                <a href="#" class="text-white text-decoration-none small stretched-link">Lihat Detail</a>
+                <a href="{{ route('admin.prodis.index') }}" class="text-white text-decoration-none small stretched-link">Lihat Detail</a>
                 <i class="bi bi-chevron-right text-white small"></i>
             </div>
         </div>
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="card-footer bg-success border-0 d-flex align-items-center justify-content-between">
-                <a href="#" class="text-white text-decoration-none small stretched-link">Lihat Database</a>
+                <a href="{{ route('admin.alumni.index') }}" class="text-white text-decoration-none small stretched-link">Lihat Database</a>
                 <i class="bi bi-chevron-right text-white small"></i>
             </div>
         </div>
@@ -86,7 +86,7 @@
                 </div>
             </div>
             <div class="card-footer bg-warning border-0 d-flex align-items-center justify-content-between">
-                <a href="#" class="text-dark text-decoration-none small stretched-link">Kelola Mitra</a>
+                <a href="{{ route('admin.partners.index') }}" class="text-dark text-decoration-none small stretched-link">Kelola Mitra</a>
                 <i class="bi bi-chevron-right text-dark small"></i>
             </div>
         </div>

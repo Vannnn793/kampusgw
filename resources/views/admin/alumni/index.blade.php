@@ -174,10 +174,6 @@
                                 {{-- Kolom Aksi --}}
                                 <td>
                                     <div class="btn-group">
-                                        {{-- Tombol Edit (Contoh) --}}
-                                        <a href="#" class="btn btn-sm btn-light text-primary" title="Edit">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
                                         {{-- Tombol Hapus (Contoh) --}}
                                         <form action="#" method="POST" onsubmit="return confirm('Hapus?');" class="d-inline">
                                             @csrf @method('DELETE')
