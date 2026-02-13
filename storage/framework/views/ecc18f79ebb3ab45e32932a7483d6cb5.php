@@ -60,11 +60,14 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" name="program_name" required>
-                                <option value="" disabled selected>-- Pilih Program Studi --</option>
+                                <option value="" disabled selected>-- Pilih instansi --</option>
                                 <option value="Kampus" <?php echo e(old('program_name') == 'Kampus' ? 'selected' : ''); ?>>Kampus (Umum)</option>
                                 <?php $__currentLoopData = $prodi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($item->faculty->name); ?> - <?php echo e($item->name); ?>" <?php echo e(old('program_name') == ($item->faculty->name . ' - ' . $item->name) ? 'selected' : ''); ?>>
+                                        Fakultas <?php echo e($item->faculty->name); ?> - <?php echo e($item->name); ?>
+
                                     <option value="<?php echo e($item->name); ?>" <?php echo e(old('program_name') == $item->name ? 'selected' : ''); ?>>
-                                        <?php echo e($item->name); ?>
+                                        Prodi <?php echo e($item->name); ?>
 
                                     </option>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

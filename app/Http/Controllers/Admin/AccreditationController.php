@@ -21,6 +21,7 @@ class AccreditationController extends Controller
 {
     // Ambil data prodi untuk dropdown
     $prodi = \App\Models\Prodi::all();
+    $faculties = \App\Models\Faculty::all();
     
     // Ambil semua data akreditasi untuk tabel (ini variabel yang ditunggu Blade)
     $accreditations = \App\Models\Accreditation::latest()->get();
