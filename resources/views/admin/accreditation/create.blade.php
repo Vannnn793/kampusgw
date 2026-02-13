@@ -52,11 +52,13 @@
                         <div class="input-group">
                             <span class="input-group-text bg-light"><i class="bi bi-mortarboard"></i></span>
                             <select class="form-select @error('program_name') is-invalid @enderror" name="program_name" required>
-                                <option value="" disabled selected>-- Pilih Program Studi --</option>
+                                <option value="" disabled selected>-- Pilih instansi --</option>
                                 <option value="Kampus" {{ old('program_name') == 'Kampus' ? 'selected' : '' }}>Kampus (Umum)</option>
                                 @foreach ($prodi as $item)
+                                    <option value="{{ $item->faculty->name }} - {{ $item->name }}" {{ old('program_name') == ($item->faculty->name . ' - ' . $item->name) ? 'selected' : '' }}>
+                                        Fakultas {{ $item->faculty->name }} - {{ $item->name }}
                                     <option value="{{ $item->name }}" {{ old('program_name') == $item->name ? 'selected' : '' }}>
-                                        {{ $item->name }}
+                                        Prodi {{ $item->name }}
                                     </option>
                                 @endforeach
                             </select>
