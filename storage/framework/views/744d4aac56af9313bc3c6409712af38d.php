@@ -175,9 +175,10 @@
                                 <td>
                                     <div class="btn-group">
                                         
-                                        <form action="#" method="POST" onsubmit="return confirm('Hapus?');" class="d-inline">
-                                            <?php echo csrf_field(); ?> <?php echo method_field('DELETE'); ?>
-                                            <button class="btn btn-sm btn-light text-danger" title="Hapus">
+                                        <form onsubmit="return confirm('Apakah Anda yakin ingin menghapus alumni ini?');" action="<?php echo e(route('admin.alumni.destroy', $a->id)); ?>" method="POST" class="d-inline">
+                                            <?php echo csrf_field(); ?>
+                                            <?php echo method_field('DELETE'); ?>
+                                            <button type="submit" class="btn btn-sm btn-light text-danger border" title="Hapus">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </form>

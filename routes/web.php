@@ -165,6 +165,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/alumni', [AdminAlumni::class, 'index'])->name('alumni.index');
         Route::post('/alumni/store', [AdminAlumni::class, 'store'])->name('alumni.store');
         Route::get('/get-prodi/{faculty_id}', [AdminAlumni::class, 'getProdi']);
+        Route::delete('/alumni/{id}', [AdminAlumni::class, 'destroy'])->name('alumni.destroy');
 
         Route::get('guides', function() {
             $profile = \App\Models\Profile::first();

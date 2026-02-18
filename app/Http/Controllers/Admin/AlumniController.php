@@ -68,5 +68,19 @@ class AlumniController extends Controller
     return Prodi::where('faculty_id', $faculty_id)->get();
 }
 
+    public function destroy($id)
+    {
+        $alumni = Alumni::findOrFail($id);
 
+        // Hapus foto jika ada
+        if ($alumni->foto) {
+            Storage::disk('public')->delete($alumni->foto);
+        }
+
+        $alumni->delete();
+
+        return redirect()
+            ->route('admin.alumni.index')
+            ->with('success', 'Alumni berhasil dihapus!');
+    }
 }
