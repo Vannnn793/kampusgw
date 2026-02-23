@@ -90,6 +90,7 @@ class ProfileController extends Controller
     $profil->youtube_url     = $request->youtube_url;
     $profil->twitter_url     = $request->twitter_url;
     $profil->tiktok_url      = $request->tiktok_url;
+    $profil->whatsapp_url     = $request->whatsapp_url;
     
     // Handle Upload Logo Kampus
     if ($request->hasFile('logo_path')) {

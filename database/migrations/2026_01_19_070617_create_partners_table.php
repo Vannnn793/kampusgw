@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('partners', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            
+            // --- Informasi Partner ---
+            $table->string('name');
+            $table->string('logo'); // Menyimpan path gambar/logo partner
+            
+            // --- Waktu (Timestamps) ---
+            $table->timestamps(); // created_at & updated_at selalu di bawah
         });
     }
 

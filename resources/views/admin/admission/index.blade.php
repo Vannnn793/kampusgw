@@ -18,31 +18,34 @@
 <div class="card border-0 shadow-sm">
     <div class="card-header bg-white py-3">
         <div class="row align-items-center">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <h6 class="m-0 fw-bold text-primary"><i class="bi bi-people-fill me-2"></i>List Calon Mahasiswa</h6>
             </div>
             
-            <div class="col-md-6">
-                <form action="{{ route('admin.admissions.index') }}" method="GET" class="d-flex justify-content-md-end gap-2">
-                    
-                    <div class="input-group input-group-sm" style="max-width: 250px;">
-                        <span class="input-group-text bg-light fw-bold">Angkatan:</span>
-                        
-                        <select name="year" class="form-select" onchange="this.form.submit()">
-                            @forelse($years as $year)
-                                <option value="{{ $year }}" {{ $selectedYear == $year ? 'selected' : '' }}>
-                                    {{ $year }}
-                                </option>
-                            @empty
-                                <option value="">Belum ada data</option>
-                            @endforelse
-                        </select>
-                    </div>
+            <div class="col-md-7">
+                <div class="d-flex justify-content-md-end gap-2 align-items-center">
+                    <form action="{{ route('admin.admissions.index') }}" method="GET" class="d-flex gap-2 mb-0">
+                        <div class="input-group input-group-sm" style="max-width: 250px;">
+                            <span class="input-group-text bg-light fw-bold">Angkatan:</span>
+                            <select name="year" class="form-select" onchange="this.form.submit()">
+                                @forelse($years as $year)
+                                    <option value="{{ $year }}" {{ $selectedYear == $year ? 'selected' : '' }}>
+                                        {{ $year }}
+                                    </option>
+                                @empty
+                                    <option value="">Belum ada data</option>
+                                @endforelse
+                            </select>
+                        </div>
+                        <a href="{{ route('admin.admissions.index') }}" class="btn btn-sm btn-outline-secondary" title="Reset Filter">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </a>
+                    </form>
 
-                    <a href="{{ route('admin.admissions.index') }}" class="btn btn-sm btn-outline-secondary" title="Reset Filter">
-                        <i class="bi bi-arrow-clockwise"></i>
-                    </a>
-                </form>
+                    {{-- <a href="{{ route('admin.admissions.export', ['year' => $selectedYear]) }}" class="btn btn-sm btn-success">
+                        <i class="bi bi-file-earmark-excel me-1"></i> Export Excel
+                    </a> --}}
+                </div>
             </div>
         </div>
     </div>

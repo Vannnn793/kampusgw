@@ -160,6 +160,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Admissions admin
         Route::get('/admissions', [AdmissionController::class, 'adminIndex'])->name('admissions.index');
         Route::delete('/admissions/{id}', [AdmissionController::class, 'destroy'])->name('admissions.destroy');
+        Route::get('/admissions/export', [AdmissionController::class, 'export'])->name('admissions.export');
 
         // Alumni
         Route::get('/alumni', [AdminAlumni::class, 'index'])->name('alumni.index');

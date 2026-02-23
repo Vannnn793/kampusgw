@@ -13,12 +13,23 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+
+            // --- Relasi (Foreign Key) ---
+            $table->foreignId('category_id')
+                  ->constrained() // Otomatis mencari tabel 'categories' dan kolom 'id'
+                  ->cascadeOnDelete();
+
+            // --- Informasi Utama Postingan ---
             $table->string('title');
-            $table->string('slug')->unique();
+            $table->boolean('is_slider')->default(false); // Penanda apakah post ini masuk slider
+            $table->string('slider_title')->nullable();   // Judul khusus untuk slider (jika ada)
+            $table->string('slug')->unique();             // URL unik untuk SEO
             $table->string('thumbnail')->nullable();
             $table->text('content');
-            $table->timestamp('published_at')->nullable();
-            $table->timestamps();
+
+            // --- Waktu (Timestamps) ---
+            $table->timestamp('published_at')->nullable(); // Waktu publish (bisa untuk fitur draft/publish)
+            $table->timestamps();                          // created_at & updated_at
         });
     }
 

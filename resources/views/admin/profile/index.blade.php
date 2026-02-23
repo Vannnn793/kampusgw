@@ -66,7 +66,7 @@
         <div class="col-lg-9">
             <div class="tab-content" id="nav-tabContent">
                 
-                {{-- TAB 1: LOGO, GAMBAR & STATISTIK (TANPA FADE) --}}
+                {{-- TAB 1: LOGO, GAMBAR & STATISTIK --}}
                 <div class="tab-pane show active" id="stats" role="tabpanel">
                     <div class="card border-0 shadow-sm">
                         <div class="card-header bg-white py-3 border-bottom">
@@ -80,6 +80,7 @@
                                     <div class="mx-auto position-relative bg-light border rounded p-3 d-flex align-items-center justify-content-center" style="width: 150px; height: 150px;">
                                         @if($profile->logo_path)
                                             <img src="{{ asset('storage/'.$profile->logo_path) }}" id="preview-logo-img" class="img-fluid" style="max-height: 100%;">
+                                            <div class="text-muted text-center d-none" id="placeholder-logo"></div>
                                         @else
                                             <div class="text-muted text-center" id="placeholder-logo">
                                                 <i class="bi bi-shield-fill fs-1"></i>
@@ -92,13 +93,13 @@
                                 <div class="col-md-9 d-flex flex-column justify-content-center">
                                     <div class="mb-3">
                                         <label for="file-input-logo" class="form-label fw-semibold">Upload Logo Baru</label>
-                                        <input type="file" name="logo_path" id="file-input-logo" class="form-control" accept="image/*" onchange="previewLogo()">
+                                        <input type="file" name="logo_path" id="file-input-logo" class="form-control" accept="image/*" onchange="previewImageUniversal('file-input-logo', 'preview-logo-img', 'placeholder-logo')">
                                         <div class="form-text text-muted">Disarankan format PNG (Background Transparan). Ukuran maks 2MB.</div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="mb-6 pb-4 border-bottom">
+                            <div class="mb-5 pb-4 border-bottom">
                                 <div class="col-md-12 mb-4 text-left">
                                     <label for="campus_name" class="form-label fw-bold mb-2">Nama Kampus</label>
                                     <input type="text" name="campus_name" id="campus_name" value="{{ old('campus_name', $profile->campus_name ?? '') }}" class="form-control" placeholder="Contoh: Universitas Teknologi FutureTech">
@@ -117,6 +118,7 @@
                                         <div class="position-relative overflow-hidden rounded bg-light border shadow-sm" style="height: 300px;">
                                             @if($profile->gambar_kampus)
                                                 <img src="{{ asset('storage/'.$profile->gambar_kampus) }}" id="preview-kampus-img" class="w-100 h-100 object-fit-cover">
+                                                <div id="placeholder-kampus" class="d-none"></div>
                                             @else
                                                 <div class="d-flex align-items-center justify-content-center h-100 text-muted" id="placeholder-kampus">
                                                     <div class="text-center">
@@ -128,11 +130,11 @@
                                             @endif
                                         </div>
                                         <label for="file-input-kampus" class="btn btn-outline-primary w-100 mt-2">Pilih Foto Gedung</label>
-                                        <input type="file" name="gambar_kampus" id="file-input-kampus" class="d-none" accept="image/*" onchange="previewKampus()">
+                                        <input type="file" name="gambar_kampus" id="file-input-kampus" class="d-none" accept="image/*" onchange="previewImageUniversal('file-input-kampus', 'preview-kampus-img', 'placeholder-kampus')">
                                     </div>
                                     <div class="col-md-7 d-flex align-items-center">
                                         <div class="alert alert-info border-0 bg-info-subtle text-info-emphasis w-100">
-                                            <i class="bi bi-info-circle-fill me-2"></i>                                 Foto ini akan ditampilkan besar di halaman depan bagian "Mengenal Lebih Dekat". Gunakan foto gedung terbaik yang resolusinya tinggi.
+                                            <i class="bi bi-info-circle-fill me-2"></i> Foto ini akan ditampilkan besar di halaman depan bagian "Mengenal Lebih Dekat". Gunakan foto gedung terbaik yang resolusinya tinggi.
                                         </div>
                                     </div>
                                 </div>
@@ -140,82 +142,70 @@
 
                             {{-- STATISTIK --}}
                             <div class="row g-3">
-                                <div class="col-md-6"><label class="form-label fw-semibold">Tahun Beroperasi</label><input type="text" name="tahun_beroperasi" class="form-control" value="{{ $profile->tahun_beroperasi }}"></div>
-                                <div class="col-md-6"><label class="form-label fw-semibold">Total Program Studi</label><input type="text" name="total_prodi" class="form-control" value="{{ $profile->total_prodi }}"></div>
-                                <div class="col-md-6"><label class="form-label fw-semibold">Total Alumni</label><input type="text" name="total_alumni" class="form-control" value="{{ $profile->total_alumni }}"></div>
-                                <div class="col-md-6"><label class="form-label fw-semibold">Total Dosen</label><input type="text" name="total_dosen" class="form-control" value="{{ $profile->total_dosen }}"></div>
-                                <div class="col-md-6"><label class="form-label fw-semibold">Mahasiswa Aktif</label><input type="text" name="mahasiswa_aktif" class="form-control" value="{{ $profile->mahasiswa_aktif }}"></div>
+                                <div class="col-md-6"><label class="form-label fw-semibold">Tahun Beroperasi</label><input type="text" name="tahun_beroperasi" class="form-control" value="{{ old('tahun_beroperasi', $profile->tahun_beroperasi) }}"></div>
+                                <div class="col-md-6"><label class="form-label fw-semibold">Total Program Studi</label><input type="text" name="total_prodi" class="form-control" value="{{ old('total_prodi', $profile->total_prodi) }}"></div>
+                                <div class="col-md-6"><label class="form-label fw-semibold">Total Alumni</label><input type="text" name="total_alumni" class="form-control" value="{{ old('total_alumni', $profile->total_alumni) }}"></div>
+                                <div class="col-md-6"><label class="form-label fw-semibold">Total Dosen</label><input type="text" name="total_dosen" class="form-control" value="{{ old('total_dosen', $profile->total_dosen) }}"></div>
+                                <div class="col-md-6"><label class="form-label fw-semibold">Mahasiswa Aktif</label><input type="text" name="mahasiswa_aktif" class="form-control" value="{{ old('mahasiswa_aktif', $profile->mahasiswa_aktif) }}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {{-- SOCIAL MEDIA --}}
+                    <div class="card mt-4 shadow-sm">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0 fw-bold"><i class="bi bi-share me-2 text-primary"></i>Social Media Kampus</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">WhatsApp URL</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="bi bi-whatsapp text-success"></i></span>
+                                        <input type="url" name="whatsapp_url" class="form-control" value="{{ old('whatsapp_url', $profile->whatsapp_url ?? '') }}" placeholder="https://wa.me/1234567890">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Instagram URL</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="bi bi-instagram text-danger"></i></span>
+                                        <input type="url" name="instagram_url" class="form-control" value="{{ old('instagram_url', $profile->instagram_url ?? '') }}" placeholder="https://instagram.com/kampusgw">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Facebook URL</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="bi bi-facebook text-primary"></i></span>
+                                        <input type="url" name="facebook_url" class="form-control" value="{{ old('facebook_url', $profile->facebook_url ?? '') }}" placeholder="https://facebook.com/kampusgw">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">YouTube URL</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="bi bi-youtube text-danger"></i></span>
+                                        <input type="url" name="youtube_url" class="form-control" value="{{ old('youtube_url', $profile->youtube_url ?? '') }}" placeholder="https://youtube.com/c/kampusgw">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Twitter / X URL</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="bi bi-twitter-x"></i></span>
+                                        <input type="url" name="twitter_url" class="form-control" value="{{ old('twitter_url', $profile->twitter_url ?? '') }}" placeholder="https://twitter.com/kampusgw">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">TikTok URL</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light"><i class="bi bi-tiktok text-dark"></i></span>
+                                        <input type="url" name="tiktok_url" class="form-control" value="{{ old('tiktok_url', $profile->tiktok_url ?? '') }}" placeholder="https://tiktok.com/@kampusgw">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card mt-4 shadow-sm">
-                    <div class="card-header bg-white">
-                        <h5 class="mb-0 fw-bold"><i class="bi bi-share me-2 text-primary"></i>Social Media Kampus</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            
-                            {{-- Instagram --}}
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-bold">Instagram URL</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-light"><i class="bi bi-instagram text-danger"></i></span>
-                                    <input type="url" name="instagram_url" class="form-control" 
-                                        value="{{ old('instagram_url', $profile->instagram_url ?? '') }}" 
-                                        placeholder="https://instagram.com/kampusgw">
-                                </div>
-                            </div>
 
-                            {{-- Facebook --}}
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-bold">Facebook URL</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-light"><i class="bi bi-facebook text-primary"></i></span>
-                                    <input type="url" name="facebook_url" class="form-control" 
-                                        value="{{ old('facebook_url', $profile->facebook_url ?? '') }}" 
-                                        placeholder="https://facebook.com/kampusgw">
-                                </div>
-                            </div>
-
-                            {{-- Youtube --}}
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-bold">YouTube URL</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-light"><i class="bi bi-youtube text-danger"></i></span>
-                                    <input type="url" name="youtube_url" class="form-control" 
-                                        value="{{ old('youtube_url', $profile->youtube_url ?? '') }}" 
-                                        placeholder="https://youtube.com/c/kampusgw">
-                                </div>
-                            </div>
-
-                            {{-- Twitter / X --}}
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label fw-bold">Twitter / X URL</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-light"><i class="bi bi-twitter-x"></i></span>
-                                    <input type="url" name="twitter_url" class="form-control" 
-                                        value="{{ old('twitter_url', $profile->twitter_url ?? '') }}" 
-                                        placeholder="https://twitter.com/kampusgw">
-                                </div>
-                            </div>
-
-                            {{-- TikTok --}}
-                            <div class="col-md-12 mb-3">
-                                <label class="form-label fw-bold">TikTok URL</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-light"><i class="bi bi-tiktok text-dark"></i></span>
-                                    <input type="url" name="tiktok_url" class="form-control" 
-                                        value="{{ old('tiktok_url', $profile->tiktok_url ?? '') }}" 
-                                        placeholder="https://tiktok.com/@kampusgw">
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                {{-- TAB 2: REKTOR (TANPA FADE) --}}
+                {{-- TAB 2: REKTOR --}}
                 <div class="tab-pane" id="rektor" role="tabpanel">
                     <div class="card border-0 shadow-sm">
                         <div class="card-header bg-white py-3 border-bottom">
@@ -226,11 +216,11 @@
                                 <div class="col-md-8">
                                     <div class="mb-3">
                                         <label class="form-label fw-bold">Nama Lengkap Rektor</label>
-                                        <input type="text" name="nama_rektor" class="form-control" value="{{ $profile->nama_rektor }}">
+                                        <input type="text" name="nama_rektor" class="form-control" value="{{ old('nama_rektor', $profile->nama_rektor) }}">
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label fw-bold">Isi Sambutan</label>
-                                        <textarea name="sambutan_rektor" class="form-control summernote">{{ $profile->sambutan_rektor }}</textarea>
+                                        <textarea name="sambutan_rektor" class="form-control summernote">{{ old('sambutan_rektor', $profile->sambutan_rektor) }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -239,14 +229,15 @@
                                             <label class="form-label fw-bold mb-3">Foto Rektor</label>
                                             <div class="mb-3 position-relative overflow-hidden rounded bg-white shadow-sm" style="height: 250px;">
                                                 @if($profile->foto_rektor)
-                                                    <img src="{{ asset('storage/'.$profile->foto_rektor) }}" id="preview-img" class="w-100 h-100 object-fit-cover">
+                                                    <img src="{{ asset('storage/'.$profile->foto_rektor) }}" id="preview-rektor-img" class="w-100 h-100 object-fit-cover">
+                                                    <div id="placeholder-rektor" class="d-none"></div>
                                                 @else
-                                                    <div class="d-flex align-items-center justify-content-center h-100 text-muted" id="placeholder-text"><span>No Image</span></div>
-                                                    <img src="" id="preview-img" class="d-none w-100 h-100 object-fit-cover">
+                                                    <div class="d-flex align-items-center justify-content-center h-100 text-muted" id="placeholder-rektor"><span>No Image</span></div>
+                                                    <img src="" id="preview-rektor-img" class="d-none w-100 h-100 object-fit-cover">
                                                 @endif
                                             </div>
-                                            <label for="file-input" class="btn btn-sm btn-outline-primary w-100">Upload Foto Baru</label>
-                                            <input type="file" name="foto_rektor" id="file-input" class="d-none" accept="image/*" onchange="previewImage()">
+                                            <label for="file-input-rektor" class="btn btn-sm btn-outline-primary w-100">Upload Foto Baru</label>
+                                            <input type="file" name="foto_rektor" id="file-input-rektor" class="d-none" accept="image/*" onchange="previewImageUniversal('file-input-rektor', 'preview-rektor-img', 'placeholder-rektor')">
                                         </div>
                                     </div>
                                 </div>
@@ -264,11 +255,11 @@
                         <div class="card-body p-4">
                             <div class="mb-4">
                                 <label class="form-label fw-bold">Sejarah Singkat Kampus</label>
-                                <textarea name="sejarah_kampus" class="form-control summernote">{{ $profile->sejarah_kampus }}</textarea>
+                                <textarea name="sejarah_kampus" class="form-control summernote">{{ old('sejarah_kampus', $profile->sejarah_kampus) }}</textarea>
                             </div>
                             <div class="bg-light p-3 rounded border">
                                 <label class="form-label fw-bold"><i class="bi bi-youtube text-danger me-2"></i>Link Video Profil (Youtube)</label>
-                                <input type="text" name="link_video_profil" class="form-control" value="{{ $profile->link_video_profil }}">
+                                <input type="text" name="link_video_profil" class="form-control" value="{{ old('link_video_profil', $profile->link_video_profil) }}" placeholder="https://youtu.be/ORM-pxgsz5g?si=n30XrfWCEyiFe69H">
                             </div>
                         </div>
                     </div>
@@ -279,23 +270,23 @@
                     <div class="card border-0 shadow-sm">
                         <div class="card-header bg-white py-3 border-bottom"><h6 class="m-0 fw-bold text-primary">Visi & Misi</h6></div>
                         <div class="card-body p-4">
-                            <div class="mb-4"><label class="form-label fw-bold">Visi</label><textarea name="visi" class="form-control summernote">{{ $profile->visi }}</textarea></div>
-                            <div><label class="form-label fw-bold">Misi</label><textarea name="misi" class="form-control summernote">{{ $profile->misi }}</textarea></div>
+                            <div class="mb-4"><label class="form-label fw-bold">Visi</label><textarea name="visi" class="form-control summernote">{{ old('visi', $profile->visi) }}</textarea></div>
+                            <div><label class="form-label fw-bold">Misi</label><textarea name="misi" class="form-control summernote">{{ old('misi', $profile->misi) }}</textarea></div>
                         </div>
                     </div>
                 </div>
 
-                {{-- TAB 5: KONTAK (DENGAN LOGIC CHECK MAPS LU) --}}
+                {{-- TAB 5: KONTAK --}}
                 <div class="tab-pane" id="kontak" role="tabpanel">
                     <div class="card border-0 shadow-sm">
                         <div class="card-header bg-white py-3 border-bottom"><h6 class="m-0 fw-bold text-primary">Informasi Kontak & Peta</h6></div>
                         <div class="card-body p-4">
                             <div class="row">
-                                <div class="col-md-6 mb-3"><label class="form-label fw-bold">Email</label><input type="email" name="email" class="form-control" value="{{ $profile->email }}"></div>
-                                <div class="col-md-6 mb-3"><label class="form-label fw-bold">No. Telepon</label><input type="text" name="phone" class="form-control" value="{{ $profile->phone }}"></div>
+                                <div class="col-md-6 mb-3"><label class="form-label fw-bold">Email</label><input type="email" name="email" class="form-control" value="{{ old('email', $profile->email) }}"></div>
+                                <div class="col-md-6 mb-3"><label class="form-label fw-bold">No. Telepon</label><input type="text" name="phone" class="form-control" value="{{ old('phone', $profile->phone) }}"></div>
                                 <div class="col-12 mb-4">
                                     <label class="form-label fw-bold">Alamat Lengkap</label>
-                                    <textarea name="address" id="address" class="form-control" rows="3">{{ $profile->address }}</textarea>
+                                    <textarea name="address" id="address" class="form-control" rows="3">{{ old('address', $profile->address) }}</textarea>
                                 </div>
                                 <div class="col-12">
                                     <div class="bg-light p-4 rounded border">
@@ -328,11 +319,11 @@
         </div>
     </div>
 
-    {{-- SPACER --}}
+    {{-- SPACER BIAR KONTEN BAWAH GA KETUTUP BAR --}}
     <div style="height: 100px;"></div>
 </form>
 
-{{-- SCRIPTS (GUE MASUKIN SEMUA FUNGSI LU) --}}
+{{-- SCRIPTS --}}
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -340,24 +331,24 @@
 
 <script>
     $(document).ready(function() {
-        $('.summernote').summernote({ height: 250 });
-
-        // Force Bootstrap Tabs working
-        var triggerTabList = [].slice.call(document.querySelectorAll('#profileTabs button'))
-        triggerTabList.forEach(function (triggerEl) {
-            var tabTrigger = new bootstrap.Tab(triggerEl)
-            triggerEl.addEventListener('click', function (event) {
-                event.preventDefault()
-                tabTrigger.show()
-            })
-        })
+        $('.summernote').summernote({ 
+            height: 250,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['view', ['fullscreen', 'codeview']]
+            ]
+        });
     });
 
-    // SEMUA FUNGSI PREVIEW PUNYA LU GUE BALIKIN:
-    function previewImage() {
-        const fileInput = document.getElementById('file-input');
-        const previewImg = document.getElementById('preview-img');
-        const placeholder = document.getElementById('placeholder-text');
+    // 1 Fungsi Universal untuk handle semua preview file lu (Logo, Kampus, Rektor)
+    function previewImageUniversal(inputId, imgId, placeholderId) {
+        const fileInput = document.getElementById(inputId);
+        const previewImg = document.getElementById(imgId);
+        const placeholder = document.getElementById(placeholderId);
+        
         if (fileInput.files && fileInput.files[0]) {
             const reader = new FileReader();
             reader.onload = function(e) {
@@ -369,44 +360,18 @@
         }
     }
 
-    function previewKampus() {
-        const fileInput = document.getElementById('file-input-kampus');
-        const previewImg = document.getElementById('preview-kampus-img');
-        const placeholder = document.getElementById('placeholder-kampus');
-        if (fileInput.files && fileInput.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                previewImg.src = e.target.result;
-                previewImg.classList.remove('d-none');
-                if(placeholder) placeholder.classList.add('d-none');
-            }
-            reader.readAsDataURL(fileInput.files[0]);
-        }
-    }
-
-    function previewLogo() {
-        const fileInput = document.getElementById('file-input-logo');
-        const previewImg = document.getElementById('preview-logo-img');
-        const placeholder = document.getElementById('placeholder-logo');
-        if (fileInput.files && fileInput.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                previewImg.src = e.target.result;
-                previewImg.classList.remove('d-none');
-                if(placeholder) placeholder.classList.add('d-none');
-            }
-            reader.readAsDataURL(fileInput.files[0]);
-        }
-    }
-
+    // Fungsi Test Peta yang udah dibenerin link URL-nya
     function checkMap() {
         var namaKampus = document.getElementById('campus_name').value;
         var alamat = document.getElementById('address').value;
+        
         if (namaKampus && alamat) {
+            // Encode biar aman dari karakter aneh dan spasi
             var query = encodeURIComponent(namaKampus + ' ' + alamat);
-            window.open('http://googleusercontent.com/maps.google.com/maps?q=' + query, '_blank');
+            // Pakai link search map resmi Google
+            window.open('https://www.google.com/maps/search/?api=1&query=' + query, '_blank');
         } else {
-            alert('Isi Nama Kampus dan Alamat dulu Bro!');
+            alert('Isi Nama Kampus (di tab Statistik) dan Alamat Lengkap dulu Bro!');
         }
     }
 </script>

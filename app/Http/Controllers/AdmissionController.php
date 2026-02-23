@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Admission;
 use App\Models\Faculty;
 use Illuminate\Http\Request;
+use App\Exports\AdmissionsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdmissionController extends Controller
 {
@@ -57,6 +59,15 @@ class AdmissionController extends Controller
                 ->get(); 
                 // Bisa ganti ->paginate(10) kalau datanya banyak banget
         return view('admin.admission.index', compact('admissions', 'years', 'selectedYear'));
+    }
+
+    public function export(Request $request)
+    {
+        // Mengambil parameter tahun dari URL (jika ada) untuk mengekspor data spesifik
+        $year = $request->query('year'); 
+        
+        // Download file Excel dengan nama dinamis
+        return Excel::download(new AdmissionsExport($year), 'data-pendaftar-'.$year.'.xlsx');
     }
     public function destroy($id)
     {

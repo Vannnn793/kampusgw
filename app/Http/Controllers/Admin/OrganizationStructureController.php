@@ -21,6 +21,7 @@ class OrganizationStructureController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'position' => 'required',
+            'category' => 'required|in:pimpinan_univ,pimpinan_fakultas,pimpinan_prodi,staff',
             'faculty_id' => 'nullable|exists:faculties,id',
             'photo' => 'image|nullable',
             'description' => 'nullable',
@@ -48,6 +49,7 @@ class OrganizationStructureController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'position' => 'required',
+            'category' => 'required|in:pimpinan_univ,pimpinan_fakultas,pimpinan_prodi,staff',
             'faculty_id' => 'nullable',
             'photo' => 'image|nullable',
             'description' => 'nullable',
