@@ -6,6 +6,7 @@ use App\Models\Facility;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class FacilityController extends Controller
 {
@@ -31,34 +32,39 @@ class FacilityController extends Controller
 
     // Memproses data input
     public function store(Request $request)
-    {
-        // 1. Validasi Input
-        $validatedData = $request->validate([
-            'faculty_id' => 'nullable|exists:faculties,id',
-            'name' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Max 2MB
-            'description' => 'nullable|string',
-            'taglines' => 'array',
-            'taglines.*' => 'exists:taglines,id',
-        ]);
+{
+    // 1. Validasi Input
+    $validatedData = $request->validate([
+        'faculty_id' => 'nullable|exists:faculties,id',
+        'name' => 'required|string|max:255',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Max 2MB
+        'description' => 'nullable|string',
+        'taglines' => 'nullable|array', // Tambahin nullable biar aman kalo kosong
+        'taglines.*' => 'exists:taglines,id',
+    ]);
 
-        // 2. Handle Upload Gambar (Jika ada)
-        if ($request->hasFile('image')) {
-            // Simpan gambar ke folder 'public/facilities'
-            $imagePath = $request->file('image')->store('facilities', 'public');
-            $validatedData['image'] = $imagePath;
-        }
+    // [TAMBAHAN PENTING] Generate slug otomatis dari nama fasilitas
+    $validatedData['slug'] = Str::slug($validatedData['name']);
 
-        // 3. Simpan ke Database
-
-        if($request->has('taglines')){
-            $facility = Facility::create($validatedData);
-            $facility->taglines()->attach($request->taglines);
-        }
-
-        // 4. Redirect kembali dengan pesan sukses
-        return redirect()->route('admin.facilities.create')->with('success', 'Fasilitas berhasil ditambahkan!');
+    // 2. Handle Upload Gambar (Jika ada)
+    if ($request->hasFile('image')) {
+        // Simpan gambar ke folder 'public/facilities'
+        $imagePath = $request->file('image')->store('facilities', 'public');
+        $validatedData['image'] = $imagePath;
     }
+
+    // 3. Simpan ke Database
+    // Simpan fasilitasnya dulu (jangan dimasukin ke dalem if)
+    $facility = Facility::create($validatedData);
+
+    // Kalau fasilitas sukses disimpen dan form ngirim taglines, baru attach
+    if($request->has('taglines') && !empty($request->taglines)){
+        $facility->taglines()->attach($request->taglines);
+    }
+
+    // 4. Redirect kembali dengan pesan sukses
+    return redirect()->route('admin.facilities.index')->with('success', 'Fasilitas berhasil ditambahkan!');
+}
     /**
      * Display the specified resource.
      */

@@ -47,26 +47,23 @@
                         <button class="nav-link text-start py-3 mb-2 fw-bold"id="tab-struktur"data-bs-toggle="pill"data-bs-target="#content-struktur"type="button"role="tab">
                             <i class="bi bi-diagram-3-fill me-2"></i> 9. Struktur Organisasi
                         </button>
-                        <button class="nav-link text-start py-3 mb-2 fw-bold"id="tab-berita"data-bs-toggle="pill"data-bs-target="#content-berita"type="button"role="tab">
-                            <i class="bi bi-newspaper me-2"></i> 10. Berita & Artikel
-                        </button>
                         <button class="nav-link text-start py-3 mb-2 fw-bold"id="tab-profile"data-bs-toggle="pill"data-bs-target="#content-profile"type="button"role="tab">
-                            <i class="bi bi-building-fill me-2"></i> 11. Profile Kampus
+                            <i class="bi bi-building-fill me-2"></i> 10. Profile Kampus
                         </button>
                         <button class="nav-link text-start py-3 mb-2 fw-bold"id="tab-mitra"data-bs-toggle="pill"data-bs-target="#content-mitra"type="button"role="tab">
-                            <i class="bi bi-globe2 me-2"></i> 12. Mitra & Patner
+                            <i class="bi bi-globe2 me-2"></i> 11. Mitra & Patner
                         </button>
                          <button class="nav-link text-start py-3 mb-2 fw-bold"id="tab-fasilitas"data-bs-toggle="pill"data-bs-target="#content-fasilitas"type="button"role="tab">
-                            <i class="bi bi-building-gear me-2"></i> 13. Fasilitas
+                            <i class="bi bi-building-gear me-2"></i> 12. Fasilitas
                         </button>
                          <button class="nav-link text-start py-3 mb-2 fw-bold"id="tab-badge"data-bs-toggle="pill"data-bs-target="#content-badge"type="button"role="tab">
-                            <i class="bi bi-award me-2"></i> 14. Gelar & Slogan
+                            <i class="bi bi-award me-2"></i> 13. Gelar & Slogan
                         </button>
                         <button class="nav-link text-start py-3 mb-2 fw-bold" id="tab-tagline" data-bs-toggle="pill" data-bs-target="#content-tagline" type="button" role="tab">
-                            <i class="bi bi-stars me-2"></i> 15. Tagline & Icon
+                            <i class="bi bi-stars me-2"></i> 14. Tagline & Icon
                         </button>
                         <button class="nav-link text-start py-3 mb-2 fw-bold" id="tab-dokumen" data-bs-toggle="pill" data-bs-target="#content-dokumen" type="button" role="tab">
-                            <i class="bi bi-file-earmark-arrow-down me-2"></i> 16. Dokumen Download
+                            <i class="bi bi-file-earmark-arrow-down me-2"></i> 15. Dokumen Download
                         </button>
                     </div>
                 </div>
@@ -121,12 +118,62 @@
                         <div class="tab-pane fade" id="content-marketing" role="tabpanel">
                             <h4 class="fw-bold text-primary mb-4">Berita & Artikel</h4>
                             <p class="text-muted">Posting berita secara berkala untuk meningkatkan SEO. Pastikan setiap berita memiliki <b>Kategori</b> agar pengunjung mudah mencari informasi prestasi atau kegiatan kampus.</p>
+                            <div class="mb-4">
+                                <h6 class="fw-bold text-dark">
+                                    <i class="bi bi-check2-circle text-primary me-2"></i>
+                                    Judul Berita
+                                </h6>
+                                <p class="text-muted">
+                                    Masukkan <b>judul berita</b> yang menarik dan informatif.
+                                    Contoh: <i>Mahasiswa Raih Juara 1 Kompetisi Nasional</i>.
+                                    Judul ini akan tampil sebagai headline utama pada halaman berita.
+                                </p>
+                            </div>
+
+                            <div class="mb-4">
+                                <h6 class="fw-bold text-dark">
+                                    <i class="bi bi-check2-circle text-primary me-2"></i>
+                                    Kategori
+                                </h6>
+                                <p class="text-muted">
+                                    Pilih kategori berita pada opsi <b>-- Pilih Kategori --</b>.
+                                    Kategori membantu pengunjung dalam memfilter dan mencari informasi
+                                    seperti Prestasi, Kegiatan Kampus, Pengumuman, atau Akademik.
+                                </p>
+                            </div>
+
+                            <div class="mb-4">
+                                <h6 class="fw-bold text-dark">
+                                    <i class="bi bi-check2-circle text-primary me-2"></i>
+                                    Thumbnail Berita
+                                </h6>
+                                <p class="text-muted">
+                                    Upload gambar thumbnail dengan format <b>JPG/PNG</b>
+                                    dan ukuran maksimal <b>2MB</b>.
+                                    Gunakan gambar yang relevan dan berkualitas agar tampilan
+                                    berita terlihat profesional di halaman utama.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h6 class="fw-bold text-dark">
+                                    <i class="bi bi-check2-circle text-primary me-2"></i>
+                                    Isi Berita
+                                </h6>
+                                <p class="text-muted">
+                                    Tuliskan isi berita secara lengkap dan jelas.
+                                    serta bahasa yang informatif
+                                    agar mudah dipahami oleh pembaca.
+                                </p>
+                            </div>
                         </div>
 
                         
                         <div class="tab-pane fade" id="content-pmb" role="tabpanel">
                             <h4 class="fw-bold text-primary mb-4">PMB & Data Mahasiswa</h4>
-                            <p class="text-muted">Data pendaftar online masuk ke menu <b>Pendaftar Baru</b>. Anda bisa melakukan export Excel di pojok kanan atas tabel pendaftar untuk keperluan berkas fisik.</p>
+                            <p class="text-muted">Data pendaftar online masuk ke menu <b>Pendaftar Baru</b>
+                                
+                            </p>
                         </div>
 
                     
@@ -330,59 +377,6 @@
                                 </div>
                             </div>
 
-                        
-                        <div class="tab-pane fade" id="content-berita" role="tabpanel">
-                            <h4 class="fw-bold text-primary mb-4">Pengelolaan Berita & Artikel</h4>
-
-                            <div class="mb-4">
-                                <h6 class="fw-bold text-dark">
-                                    <i class="bi bi-check2-circle text-primary me-2"></i>
-                                    Judul Berita
-                                </h6>
-                                <p class="text-muted">
-                                    Masukkan <b>judul berita</b> yang menarik dan informatif.
-                                    Contoh: <i>Mahasiswa Raih Juara 1 Kompetisi Nasional</i>.
-                                    Judul ini akan tampil sebagai headline utama pada halaman berita.
-                                </p>
-                            </div>
-
-                            <div class="mb-4">
-                                <h6 class="fw-bold text-dark">
-                                    <i class="bi bi-check2-circle text-primary me-2"></i>
-                                    Kategori
-                                </h6>
-                                <p class="text-muted">
-                                    Pilih kategori berita pada opsi <b>-- Pilih Kategori --</b>.
-                                    Kategori membantu pengunjung dalam memfilter dan mencari informasi
-                                    seperti Prestasi, Kegiatan Kampus, Pengumuman, atau Akademik.
-                                </p>
-                            </div>
-
-                            <div class="mb-4">
-                                <h6 class="fw-bold text-dark">
-                                    <i class="bi bi-check2-circle text-primary me-2"></i>
-                                    Thumbnail Berita
-                                </h6>
-                                <p class="text-muted">
-                                    Upload gambar thumbnail dengan format <b>JPG/PNG</b>
-                                    dan ukuran maksimal <b>2MB</b>.
-                                    Gunakan gambar yang relevan dan berkualitas agar tampilan
-                                    berita terlihat profesional di halaman utama.
-                                </p>
-                            </div>
-
-                            <div>
-                                <h6 class="fw-bold text-dark">
-                                    <i class="bi bi-check2-circle text-primary me-2"></i>
-                                    Isi Berita
-                                </h6>
-                                <p class="text-muted">
-                                    Tuliskan isi berita secara lengkap dan jelas.
-                                    serta bahasa yang informatif
-                                    agar mudah dipahami oleh pembaca.
-                                </p>
-                            </div>
-                        </div>
                                                 
                         
                         <div class="tab-pane fade" id="content-profile" role="tabpanel">

@@ -18,32 +18,33 @@
 <div class="card border-0 shadow-sm">
     <div class="card-header bg-white py-3">
         <div class="row align-items-center">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <h6 class="m-0 fw-bold text-primary"><i class="bi bi-people-fill me-2"></i>List Calon Mahasiswa</h6>
             </div>
             
-            <div class="col-md-6">
-                <form action="<?php echo e(route('admin.admissions.index')); ?>" method="GET" class="d-flex justify-content-md-end gap-2">
+            <div class="col-md-7">
+                <div class="d-flex justify-content-md-end gap-2 align-items-center">
+                    <form action="<?php echo e(route('admin.admissions.index')); ?>" method="GET" class="d-flex gap-2 mb-0">
+                        <div class="input-group input-group-sm" style="max-width: 250px;">
+                            <span class="input-group-text bg-light fw-bold">Angkatan:</span>
+                            <select name="year" class="form-select" onchange="this.form.submit()">
+                                <?php $__empty_1 = true; $__currentLoopData = $years; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $year): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                    <option value="<?php echo e($year); ?>" <?php echo e($selectedYear == $year ? 'selected' : ''); ?>>
+                                        <?php echo e($year); ?>
+
+                                    </option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                                    <option value="">Belum ada data</option>
+                                <?php endif; ?>
+                            </select>
+                        </div>
+                        <a href="<?php echo e(route('admin.admissions.index')); ?>" class="btn btn-sm btn-outline-secondary" title="Reset Filter">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </a>
+                    </form>
+
                     
-                    <div class="input-group input-group-sm" style="max-width: 250px;">
-                        <span class="input-group-text bg-light fw-bold">Angkatan:</span>
-                        
-                        <select name="year" class="form-select" onchange="this.form.submit()">
-                            <?php $__empty_1 = true; $__currentLoopData = $years; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $year): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                                <option value="<?php echo e($year); ?>" <?php echo e($selectedYear == $year ? 'selected' : ''); ?>>
-                                    <?php echo e($year); ?>
-
-                                </option>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                                <option value="">Belum ada data</option>
-                            <?php endif; ?>
-                        </select>
-                    </div>
-
-                    <a href="<?php echo e(route('admin.admissions.index')); ?>" class="btn btn-sm btn-outline-secondary" title="Reset Filter">
-                        <i class="bi bi-arrow-clockwise"></i>
-                    </a>
-                </form>
+                </div>
             </div>
         </div>
     </div>

@@ -3,11 +3,29 @@
 <?php $__env->startSection('content'); ?>
 
 
+<?php
+    // 1. Jadikan $all dari controller sebagai Collection
+    $allData = collect($all ?? []);
+
+    // 2. Filter khusus pimpinan univ (akomodasi spasi & underscore) 
+    // lalu urutkan berdasarkan kolom 'order' dari yang terkecil (1, 2, 3, dst)
+    $pimpinans = $allData->filter(function ($item) {
+        return $item->category === 'pimpinan_univ' || $item->category === 'pimpinan univ';
+    })->sortBy('order')->values();
+
+    // 3. Ambil urutan ke-1 (Order paling kecil) sebagai Pucuk Pimpinan (Rektor/Ketua)
+    $top = $pimpinans->first();
+
+    // 4. Sisanya (Order ke-2 dst) jadikan Wakil di bawahnya
+    $bottom = $pimpinans->skip(1);
+?>
+
+
 <div class="relative py-20 md:py-28 bg-slate-900 overflow-hidden">
     
     <div class="absolute inset-0">
         <img 
-            src="<?php echo e($profile && $profile->gambar_kampus ? asset('storage/'.$profile->gambar_kampus) : asset('storage/images/default-campus.jpg')); ?>" 
+            src="<?php echo e(isset($profile) && $profile->gambar_kampus ? asset('storage/'.$profile->gambar_kampus) : asset('storage/images/default-campus.jpg')); ?>" 
             class="w-full h-full object-cover opacity-30"
             alt="Background" 
         >
@@ -41,10 +59,14 @@
                 <div class="group relative bg-white p-4 rounded-[2rem] shadow-xl shadow-sky-900/10 border-2 border-sky-100 w-72 md:w-80 text-center hover:-translate-y-2 transition-all duration-500">
                     
                     
-                    <div class="aspect-[3/4] rounded-[1.5rem] overflow-hidden mb-5 relative bg-slate-100">
-                        <img src="<?php echo e(asset('storage/'.$top->photo)); ?>" 
-                             class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                             alt="<?php echo e($top->name); ?>">
+                    <div class="aspect-[3/4] rounded-[1.5rem] overflow-hidden mb-5 relative bg-slate-100 flex items-center justify-center">
+                        <?php if($top->photo): ?>
+                            <img src="<?php echo e(asset('storage/'.$top->photo)); ?>" 
+                                 class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                                 alt="<?php echo e($top->name); ?>">
+                        <?php else: ?>
+                            <i class="bi bi-person-fill text-7xl text-slate-300"></i>
+                        <?php endif; ?>
                         <div class="absolute inset-0 bg-gradient-to-t from-blue-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
 
@@ -57,24 +79,25 @@
                 </div>
 
                 
+                <?php if($bottom->count() > 0): ?>
                 <div class="absolute left-1/2 -translate-x-1/2 -bottom-12 w-1 h-12 bg-sky-200"></div>
+                <?php endif; ?>
             </div>
             <?php endif; ?>
 
             
-            <?php if(count($bottom) > 0): ?>
+            <?php if($bottom->count() > 0): ?>
             <div class="w-full relative animate-fade-up delay-200">
                 
                 
-                
-                <?php if(count($bottom) > 1): ?>
-                <div class="absolute top-0 left-10 right-10 md:left-1/4 md:right-1/4 h-1 bg-sky-200 -translate-y-px hidden md:block"></div>
+                <?php if($bottom->count() > 1): ?>
+                <div class="absolute top-0 left-[10%] right-[10%] md:left-[20%] md:right-[20%] lg:left-[25%] lg:right-[25%] h-1 bg-sky-200 -translate-y-px hidden md:block"></div>
                 <?php endif; ?>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 pt-10 md:pt-10 relative">
+                <div class="flex flex-wrap justify-center gap-10 md:gap-8 pt-10 md:pt-10 relative">
                     
                     <?php $__currentLoopData = $bottom; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div class="relative flex flex-col items-center group">
+                    <div class="relative flex flex-col items-center group w-full max-w-[260px]">
                         
                         
                         <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-1 h-10 bg-sky-200 hidden md:block"></div>
@@ -82,13 +105,17 @@
                         <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-3 h-3 bg-sky-500 rounded-full border-2 border-white hidden md:block"></div>
 
                         
-                        <div class="bg-white p-3 rounded-3xl shadow-lg border border-slate-100 w-full max-w-[260px] text-center hover:shadow-sky-100 transition-all duration-300">
+                        <div class="bg-white p-3 rounded-3xl shadow-lg border border-slate-100 w-full text-center hover:shadow-sky-100 transition-all duration-300">
                             
                             
-                            <div class="aspect-square rounded-2xl overflow-hidden mb-4 mx-auto w-full relative bg-slate-50">
-                                <img src="<?php echo e(asset('storage/'.$row->photo)); ?>" 
-                                     class="w-full h-full object-cover object-topS group-hover:grayscale-0 transition-all duration-500"
-                                     alt="<?php echo e($row->name); ?>">
+                            <div class="aspect-square rounded-2xl overflow-hidden mb-4 mx-auto w-full relative bg-slate-50 flex items-center justify-center">
+                                <?php if($row->photo): ?>
+                                    <img src="<?php echo e(asset('storage/'.$row->photo)); ?>" 
+                                         class="w-full h-full object-cover object-top group-hover:scale-105 transition-all duration-500"
+                                         alt="<?php echo e($row->name); ?>">
+                                <?php else: ?>
+                                    <i class="bi bi-person-fill text-5xl text-slate-300"></i>
+                                <?php endif; ?>
                             </div>
 
                             <h4 class="text-lg font-bold text-slate-800 leading-snug mb-1"><?php echo e($row->name); ?></h4>
@@ -133,7 +160,7 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100">
-                    <?php $__currentLoopData = $all; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $__empty_1 = true; $__currentLoopData = $allData; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                     <tr class="hover:bg-sky-50/50 transition-colors group">
                         <td class="p-5 text-center text-slate-400 font-medium group-hover:text-sky-600">
                             <?php echo e($loop->iteration); ?>
@@ -142,11 +169,11 @@
                         <td class="p-5">
                             <div class="flex items-center gap-3">
                                 
-                                <div class="w-10 h-10 rounded-full bg-slate-100 overflow-hidden shrink-0 border border-slate-200">
+                                <div class="w-10 h-10 rounded-full bg-slate-100 overflow-hidden shrink-0 border border-slate-200 flex items-center justify-center">
                                     <?php if($row->photo): ?>
                                         <img src="<?php echo e(asset('storage/'.$row->photo)); ?>" class="w-full h-full object-cover">
                                     <?php else: ?>
-                                        <div class="flex items-center justify-center h-full text-slate-400"><i class="bi bi-person-fill"></i></div>
+                                        <i class="bi bi-person-fill text-slate-400"></i>
                                     <?php endif; ?>
                                 </div>
                                 <span class="font-bold text-slate-700 group-hover:text-sky-700 transition-colors">
@@ -161,22 +188,26 @@
 
                             </span>
                         </td>
-                        <td class="p-5 text-sm text-slate-500 hidden md:table-cell">
-                            <?php echo e($row->category); ?>
+                        <td class="p-5 text-sm text-slate-500 hidden md:table-cell capitalize">
+                            <?php echo e(str_replace('_', ' ', $row->category)); ?>
 
                         </td>
                         <td class="p-5 text-right">
                             <span class="w-2 h-2 rounded-full bg-green-500 inline-block" title="Aktif"></span>
                         </td>
                     </tr>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                    <tr>
+                        <td colspan="5" class="p-8 text-center text-slate-400">Belum ada data struktur organisasi.</td>
+                    </tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
         
         
         <div class="mt-4 text-center text-xs text-slate-400">
-            Menampilkan <?php echo e(count($all)); ?> data pejabat struktural.
+            Menampilkan <?php echo e($allData->count()); ?> data pejabat.
         </div>
 
     </div>
@@ -197,10 +228,8 @@
     @keyframes zoomIn { to { opacity: 1; transform: scale(1); } }
 </style>
 
-
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Simple Intersection Observer for scroll animations if AOS is not present
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -209,8 +238,6 @@
                 }
             });
         });
-        
-        // Optional: Manual trigger for specific elements if needed
     });
 </script>
 

@@ -160,11 +160,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Admissions admin
         Route::get('/admissions', [AdmissionController::class, 'adminIndex'])->name('admissions.index');
         Route::delete('/admissions/{id}', [AdmissionController::class, 'destroy'])->name('admissions.destroy');
+        Route::get('/admissions/export', [AdmissionController::class, 'export'])->name('admissions.export');
 
         // Alumni
         Route::get('/alumni', [AdminAlumni::class, 'index'])->name('alumni.index');
         Route::post('/alumni/store', [AdminAlumni::class, 'store'])->name('alumni.store');
         Route::get('/get-prodi/{faculty_id}', [AdminAlumni::class, 'getProdi']);
+        Route::delete('/alumni/{id}', [AdminAlumni::class, 'destroy'])->name('alumni.destroy');
 
         Route::get('guides', function() {
             $profile = \App\Models\Profile::first();

@@ -55,13 +55,22 @@
                         <label class="form-label small fw-bold text-muted">Kategori Jabatan</label>
                         <div class="input-group">
                             <span class="input-group-text bg-light"><i class="bi bi-briefcase"></i></span>
-                            <select name="position" id="category_select_create" class="form-select" required>
-                                <option value="" disabled selected>Pilih Jabatan...</option>
-                                <option value="dosen">Dosen Pengajar</option>
-                                <option value="pimpinan_fakultas">Pimpinan Fakultas</option>
-                                <option value="pimpinan_univ">Pimpinan Universitas</option>
-                                <option value="staff">Staff Tata Usaha</option>
+                            <select name="category" id="category_select_create" class="form-select" required>
+                                <option value="">-- Pilih Kategori --</option>
+                                <option value="pimpinan_univ" <?php echo e(old('category') == 'pimpinan_univ' ? 'selected' : ''); ?>>Pimpinan Universitas</option>
+                                <option value="pimpinan_fakultas" <?php echo e(old('category') == 'pimpinan_fakultas' ? 'selected' : ''); ?>>Pimpinan Fakultas</option>
+                                <option value="pimpinan_prodi" <?php echo e(old('category') == 'pimpinan_prodi' ? 'selected' : ''); ?>>Pimpinan Prodi</option>
+                                <option value="dosen" <?php echo e(old('category') == 'dosen' ? 'selected' : ''); ?>>Dosen</option>
+                                <option value="staff" <?php echo e(old('category') == 'staff' ? 'selected' : ''); ?>>Staf</option> 
                             </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Posisi</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-award"></i></span>
+                            <input type="text" name="position" class="form-control" placeholder="Contoh: Dekan, Kaprodi, dll." value="<?php echo e(old('position')); ?>" required>
                         </div>
                     </div>
 

@@ -9,6 +9,8 @@ class OrganizationStructure extends Model
     protected $fillable = [
         'name',
         'position',
+        'category',
+        'faculty_id',
         'photo',
         'description',
         'order'

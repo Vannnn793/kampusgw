@@ -624,7 +624,7 @@
                         <p class="text-[10px] font-bold text-slate-400 uppercase">Lulusan Bekerja</p>
                     </div>
                     <div>
-                        <p class="text-2xl font-black text-[#0F2A44]"><?php echo e($partner->count()); ?>+</p>
+                        <p class="text-2xl font-black text-[#0F2A44]"><?php echo e($partners->count()); ?>+</p>
                         <p class="text-[10px] font-bold text-slate-400 uppercase">Mitra Hiring</p>
                     </div>
                 </div>
@@ -863,7 +863,7 @@
                         </span>
                     </a>
                     
-                    <a href="#footer"
+                    <a href="<?php echo e($profile->whatsapp_url ?? '#'); ?>" target="_blank"
                        class="inline-flex items-center justify-center px-10 py-6 rounded-2xl font-black text-sm uppercase tracking-widest border-2 border-white/20 text-white hover:bg-white/10 transition-all duration-300">
                         Konsultasi
                     </a>

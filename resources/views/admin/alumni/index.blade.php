@@ -175,9 +175,10 @@
                                 <td>
                                     <div class="btn-group">
                                         {{-- Tombol Hapus (Contoh) --}}
-                                        <form action="#" method="POST" onsubmit="return confirm('Hapus?');" class="d-inline">
-                                            @csrf @method('DELETE')
-                                            <button class="btn btn-sm btn-light text-danger" title="Hapus">
+                                        <form onsubmit="return confirm('Apakah Anda yakin ingin menghapus alumni ini?');" action="{{ route('admin.alumni.destroy', $a->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-light text-danger border" title="Hapus">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </form>

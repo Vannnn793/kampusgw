@@ -49,7 +49,7 @@ class DownloadController extends Controller
     public function edit($id)
     {
         $download = Download::findOrFail($id);
-        return view('admin.downloads.edit', compact('download'));
+        return view('admin.download.edit', compact('download'));
     }
 
     public function update(Request $request, $id)
@@ -77,7 +77,7 @@ class DownloadController extends Controller
 
         $download->update($data);
 
-        return redirect()->route('admin.downloads.index')->with('success', 'Dokumen berhasil diperbarui!');
+        return redirect()->route('admin.download.index')->with('success', 'Dokumen berhasil diperbarui!');
     }
 
     public function destroy($id)
@@ -91,7 +91,7 @@ class DownloadController extends Controller
 
         $download->delete();
 
-        return redirect()->route('admin.downloads.index')->with('success', 'Dokumen dihapus permanen.');
+        return redirect()->route('admin.download.index')->with('success', 'Dokumen dihapus permanen.');
     }
     public function downloadFile($id)
     {
