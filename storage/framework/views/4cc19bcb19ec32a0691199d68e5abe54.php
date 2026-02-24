@@ -25,11 +25,13 @@
     
     <div class="absolute inset-0">
         <img 
-            src="<?php echo e(isset($profile) && $profile->gambar_kampus ? asset('storage/'.$profile->gambar_kampus) : asset('storage/images/default-campus.jpg')); ?>" 
-            class="w-full h-full object-cover opacity-30"
-            alt="Background" 
+            src="<?php echo e($profile && $profile->gambar_kampus ? asset('storage/'.$profile->gambar_kampus) : asset('storage/images/default-campus.jpg')); ?>" 
+            class="w-full h-full object-cover object-center transform scale-105 animate-slow-zoom"
+            alt="Latar Belakang Kampus" 
         >
-        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent"></div>
+        
+        <div class="absolute inset-0 bg-blue-900/80 mix-blend-multiply"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-sky-900 via-blue-900/40 to-transparent"></div>
     </div>
 
     <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
@@ -46,12 +48,17 @@
 </div>
 
 
-<section class="bg-slate-50 relative py-20 -mt-10 rounded-t-[3rem] z-20 min-h-screen">
+<section class="bg-sky-50/50 relative z-20 -mt-10 md:-mt-20 rounded-t-[3rem] overflow-hidden min-h-screen">
+
+    
+    <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-sky-200/50 to-transparent"></div>
+
     <div class="max-w-7xl mx-auto px-4 md:px-6">
 
         
         <div class="relative flex flex-col items-center">
-
+            <br>
+            <br>
             
             <?php if($top): ?>
             <div class="relative z-10 mb-12 animate-zoom-in">

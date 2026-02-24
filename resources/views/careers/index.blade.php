@@ -10,7 +10,7 @@
     <div class="absolute inset-0">
         {{-- Gunakan gambar wisuda atau kampus umum --}}
         <img 
-            src="{{ asset('storage/images/graduation.jpg') }}" 
+            src="{{ $profile && $profile->gambar_kampus ? asset('storage/'.$profile->gambar_kampus) : asset('storage/images/default-alumni.jpg') }}" 
             onerror="this.src='{{ asset('storage/images/kampusgw.jpg') }}'"
             class="w-full h-full object-cover object-center transform scale-105 animate-slow-zoom"
             alt="Alumni"

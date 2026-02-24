@@ -78,7 +78,7 @@ class ProfileController extends Controller
     $profil->total_alumni    = $request->total_alumni;
     $profil->total_dosen     = $request->total_dosen;
     $profil->mahasiswa_aktif = $request->mahasiswa_aktif;
-    $profil->gambar_kampus   = $request->gambar_kampus;
+    // $profil->gambar_kampus   = $request->gambar_kampus;
     $profil->campus_name     = $request->campus_name;
     $profil->tagline         = $request->tagline;
     $profil->gmaps_iframe    = $request->gmaps_iframe;

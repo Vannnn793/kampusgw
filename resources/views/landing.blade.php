@@ -277,8 +277,7 @@
             </div>
 
             {{-- SISI KANAN: ADAPTIVE MARQUEE --}}
-            {{-- Mobile: Horizontal Marquee | Desktop: Vertical Double Marquee --}}
-            <div class="lg:col-span-7 relative h-[300px] md:h-[500px] overflow-hidden rounded-[2rem] md:rounded-[2.5rem] bg-white/40 backdrop-blur-sm border border-white/60 shadow-inner">
+            <div class="lg:col-span-7 relative h-[300px] md:h-[500px] overflow-hidden rounded-[2rem] md:rounded-[2.5rem] bg-white/40 backdrop-blur-sm border border-white/60 shadow-inner group/marquee">
                 
                 {{-- Fade Overlays --}}
                 <div class="absolute inset-y-0 lg:inset-x-0 left-0 lg:top-0 w-16 lg:w-full lg:h-24 bg-gradient-to-r lg:bg-gradient-to-b from-[#f1f7fe] to-transparent z-10 pointer-events-none"></div>
@@ -287,59 +286,92 @@
                 {{-- Container Animasi --}}
                 <div class="flex lg:grid lg:grid-cols-2 gap-4 md:gap-5 p-5 h-full overflow-hidden">
                     
-                    {{-- Kolom 1 / Row 1 --}}
-                    <div class="flex lg:flex-col gap-4 md:gap-5 animate-marquee-adaptive whitespace-nowrap lg:whitespace-normal">
-                        @for ($i = 0; $i < 4; $i++)
-                            @foreach($partners as $partner)
-                                <div class="group flex-shrink-0 w-40 h-28 lg:w-auto lg:aspect-[3/2] flex items-center justify-center p-5 md:p-6 bg-white rounded-2xl md:rounded-3xl border border-blue-50 shadow-sm hover:shadow-xl hover:shadow-[#1E5FA3]/10 hover:-translate-y-1 transition-all duration-300">
-                                    <img src="{{ asset('storage/'.$partner->logo) }}" alt="{{ $partner->name }}" 
-                                         class="max-w-full max-h-full object-contain opacity-60 group-hover:opacity-100 transition-all duration-500">
-                                </div>
-                            @endforeach
-                        @endfor
+                    {{-- Kolom 1: Berjalan Normal (Kiri di Mobile, Atas di Desktop) --}}
+                    <div class="flex lg:flex-col overflow-hidden w-full h-full">
+                        {{-- TRACK 1 --}}
+                        <div class="flex lg:flex-col gap-4 md:gap-5 pr-4 md:pr-5 lg:pr-0 lg:pb-5 shrink-0 animate-marquee-normal">
+                            @for ($i = 0; $i < 4; $i++)
+                                @foreach($partners as $partner)
+                                    <div class="group flex-shrink-0 w-40 h-28 lg:w-auto lg:aspect-[3/2] flex items-center justify-center p-5 md:p-6 bg-white rounded-2xl md:rounded-3xl border border-blue-50 shadow-sm hover:shadow-xl hover:shadow-[#1E5FA3]/10 hover:-translate-y-1 transition-all duration-300">
+                                        <img src="{{ asset('storage/'.$partner->logo) }}" alt="{{ $partner->name }}" class="max-w-full max-h-full object-contain opacity-60 group-hover:opacity-100 transition-all duration-500">
+                                    </div>
+                                @endforeach
+                            @endfor
+                        </div>
+                        {{-- TRACK 2 (Clone persis dari Track 1) --}}
+                        <div class="flex lg:flex-col gap-4 md:gap-5 pr-4 md:pr-5 lg:pr-0 lg:pb-5 shrink-0 animate-marquee-normal">
+                            @for ($i = 0; $i < 4; $i++)
+                                @foreach($partners as $partner)
+                                    <div class="group flex-shrink-0 w-40 h-28 lg:w-auto lg:aspect-[3/2] flex items-center justify-center p-5 md:p-6 bg-white rounded-2xl md:rounded-3xl border border-blue-50 shadow-sm hover:shadow-xl hover:shadow-[#1E5FA3]/10 hover:-translate-y-1 transition-all duration-300">
+                                        <img src="{{ asset('storage/'.$partner->logo) }}" alt="{{ $partner->name }}" class="max-w-full max-h-full object-contain opacity-60 group-hover:opacity-100 transition-all duration-500">
+                                    </div>
+                                @endforeach
+                            @endfor
+                        </div>
                     </div>
 
-                    {{-- Kolom 2 (Hanya muncul di Desktop) --}}
-                    <div class="hidden lg:flex flex-col gap-5 animate-marquee-vertical-reverse">
-                        @for ($i = 0; $i < 4; $i++)
-                            @foreach($partners->shuffle() as $partner)
-                                <div class="group aspect-[3/2] flex items-center justify-center p-6 bg-white rounded-3xl border border-blue-50 shadow-sm hover:shadow-xl hover:shadow-[#1E5FA3]/10 hover:-translate-y-1 transition-all duration-300">
-                                    <img src="{{ asset('storage/'.$partner->logo) }}" alt="{{ $partner->name }}" 
-                                         class="max-w-full max-h-full object-contain opacity-60 group-hover:opacity-100 transition-all duration-500">
-                                </div>
-                            @endforeach
-                        @endfor
+                    {{-- Kolom 2: Berjalan Mundur (Hanya Desktop) --}}
+                    @php
+                        // Shuffle di luar agar Track 1 dan Track 2 punya urutan yang SAMA PERSIS
+                        $shuffledPartners = $partners->shuffle();
+                    @endphp
+                    <div class="hidden lg:flex flex-col overflow-hidden w-full h-full">
+                        {{-- TRACK 1 --}}
+                        <div class="flex flex-col gap-5 pb-5 shrink-0 animate-marquee-reverse">
+                            @for ($i = 0; $i < 4; $i++)
+                                @foreach($shuffledPartners as $partner)
+                                    <div class="group flex-shrink-0 aspect-[3/2] flex items-center justify-center p-6 bg-white rounded-3xl border border-blue-50 shadow-sm hover:shadow-xl hover:shadow-[#1E5FA3]/10 hover:-translate-y-1 transition-all duration-300">
+                                        <img src="{{ asset('storage/'.$partner->logo) }}" alt="{{ $partner->name }}" class="max-w-full max-h-full object-contain opacity-60 group-hover:opacity-100 transition-all duration-500">
+                                    </div>
+                                @endforeach
+                            @endfor
+                        </div>
+                        {{-- TRACK 2 (Clone persis dari Track 1) --}}
+                        <div class="flex flex-col gap-5 pb-5 shrink-0 animate-marquee-reverse">
+                            @for ($i = 0; $i < 4; $i++)
+                                @foreach($shuffledPartners as $partner)
+                                    <div class="group flex-shrink-0 aspect-[3/2] flex items-center justify-center p-6 bg-white rounded-3xl border border-blue-50 shadow-sm hover:shadow-xl hover:shadow-[#1E5FA3]/10 hover:-translate-y-1 transition-all duration-300">
+                                        <img src="{{ asset('storage/'.$partner->logo) }}" alt="{{ $partner->name }}" class="max-w-full max-h-full object-contain opacity-60 group-hover:opacity-100 transition-all duration-500">
+                                    </div>
+                                @endforeach
+                            @endfor
+                        </div>
                     </div>
                 </div>
 
-                {{-- CSS Animasi Dinamis --}}
+                {{-- CSS Animasi Dinamis: Menggunakan -100% Pixel Perfect --}}
                 <style>
-                    /* Mobile: Horizontal */
-                    @keyframes marquee-adaptive {
-                        0% { transform: translateX(0); }
-                        100% { transform: translateX(-50%); }
+                    /* Mobile: Horizontal Normal */
+                    @keyframes marquee-horizontal {
+                        from { transform: translateX(0); }
+                        to { transform: translateX(-100%); }
                     }
-                    .animate-marquee-adaptive { animation: marquee-adaptive 25s linear infinite; }
+                    .animate-marquee-normal {
+                        animation: marquee-horizontal 25s linear infinite;
+                    }
 
                     /* Desktop: Vertical Overwrite */
                     @media (min-width: 1024px) {
                         @keyframes marquee-vertical {
-                            0% { transform: translateY(0); }
-                            100% { transform: translateY(-50%); }
+                            from { transform: translateY(0); }
+                            to { transform: translateY(-100%); }
                         }
                         @keyframes marquee-vertical-reverse {
-                            0% { transform: translateY(-50%); }
-                            100% { transform: translateY(0); }
+                            from { transform: translateY(-100%); }
+                            to { transform: translateY(0); }
                         }
-                        .animate-marquee-adaptive { 
-                            animation: marquee-vertical 30s linear infinite; 
+                        
+                        .animate-marquee-normal { 
+                            animation: marquee-vertical 35s linear infinite; 
                         }
-                        .animate-marquee-vertical-reverse { 
-                            animation: marquee-vertical-reverse 35s linear infinite; 
+                        .animate-marquee-reverse { 
+                            animation: marquee-vertical-reverse 40s linear infinite; 
                         }
                     }
                     
-                    .lg:col-span-7:hover div {
+                    /* Pause Animasi saat Hover */
+                    .group\/marquee:hover .animate-marquee-normal,
+                    .group\/marquee:hover .animate-marquee-reverse {
                         animation-play-state: paused;
                     }
                 </style>
