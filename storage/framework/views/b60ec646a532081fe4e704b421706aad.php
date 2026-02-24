@@ -65,6 +65,9 @@
                         <button class="nav-link text-start py-3 mb-2 fw-bold" id="tab-dokumen" data-bs-toggle="pill" data-bs-target="#content-dokumen" type="button" role="tab">
                             <i class="bi bi-file-earmark-arrow-down me-2"></i> 15. Dokumen Download
                         </button>
+                        <button class="nav-link text-start py-3 mb-2 fw-bold" id="tab-panduan" data-bs-toggle="pill" data-bs-target="#content-panduan" type="button" role="tab">
+                            <i class="bi bi-gear-fill me-2"></i> 16. Panduan vidio & pdf
+                        </button>
                     </div>
                 </div>
 
@@ -109,6 +112,7 @@
                                             <td>Ikon Fitur</td>
                                             <td>Gunakan kode <a href="https://icons.getbootstrap.com/" target="_blank">Bootstrap Icons</a></td>
                                         </tr>
+                                        Gunakan gambar dengan format JPG/PNG dan ukuran maksimal 2MB untuk memastikan tampilan website tetap cepat dan profesional. Pastikan setiap gambar yang diupload memiliki resolusi yang sesuai dengan rekomendasi agar tampil optimal di berbagai perangkat.
                                     </tbody>
                                 </table>
                             </div>
@@ -754,6 +758,21 @@
         <p class="text-muted">
             Dokumen yang baru diupload akan muncul di tabel ini. Admin dapat melihat <b>nama file, kategori, tanggal upload</b>, serta melakukan aksi <b>edit atau hapus</b>. 
             Semua dokumen ini akan muncul di <b>footer website</b> untuk dapat diunduh pengguna.
+        </p>
+    </div>
+</div>
+
+<div class="tab-pane fade" id="content-panduan" role="tabpanel">
+    <h4 class="fw-bold text-primary mb-4">Panduan Penggunaan Video & PDF</h4>
+
+    <div class="mb-4">
+        <h6 class="fw-bold text-dark">
+            <i class="bi bi-check2-circle text-primary me-2"></i>
+            Buku panduan Video & PDF
+        </h6>
+        <p class="text-muted">
+            Silahkan buka tautan ini untuk mengunduh buku panduan lengkap dalam format PDF yang berisi langkah-langkah detail penggunaan fitur video dan PDF di dashboard admin.
+             <a href="https://drive.google.com/drive/folders/1isq0Zu3cG-9oNt3OotxeiEE03dybQO4O" target="_blank" class="text-primary">Download Buku Panduan PDF</a>
         </p>
     </div>
 </div>

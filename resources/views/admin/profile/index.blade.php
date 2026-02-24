@@ -134,7 +134,7 @@
                                     </div>
                                     <div class="col-md-7 d-flex align-items-center">
                                         <div class="alert alert-info border-0 bg-info-subtle text-info-emphasis w-100">
-                                            <i class="bi bi-info-circle-fill me-2"></i> Foto ini akan ditampilkan besar di halaman depan bagian "Mengenal Lebih Dekat". Gunakan foto gedung terbaik yang resolusinya tinggi.
+                                            <i class="bi bi-info-circle-fill me-2"></i> Foto ini akan ditampilkan besar di halaman depan bagian "Mengenal Lebih Dekat". Gunakan foto gedung terbaik yang resolusinya tinggi. Dengan maksimal size foto 2MB. Format yang disarankan adalah JPG atau PNG. Pastikan foto mewakili identitas kampus dengan baik!
                                         </div>
                                     </div>
                                 </div>
@@ -282,11 +282,11 @@
                         <div class="card-header bg-white py-3 border-bottom"><h6 class="m-0 fw-bold text-primary">Informasi Kontak & Peta</h6></div>
                         <div class="card-body p-4">
                             <div class="row">
-                                <div class="col-md-6 mb-3"><label class="form-label fw-bold">Email</label><input type="email" name="email" class="form-control" value="{{ old('email', $profile->email) }}"></div>
-                                <div class="col-md-6 mb-3"><label class="form-label fw-bold">No. Telepon</label><input type="text" name="phone" class="form-control" value="{{ old('phone', $profile->phone) }}"></div>
+                                <div class="col-md-6 mb-3"><label class="form-label fw-bold">Email</label><input type="email" name="email" class="form-control" value="{{ old('email', $profile->email) }}" placeholder="example@emali.com"></div>
+                                <div class="col-md-6 mb-3"><label class="form-label fw-bold">No. Telepon</label><input type="text" name="phone" class="form-control" value="{{ old('phone', $profile->phone) }}" placeholder="0812345678"></div>
                                 <div class="col-12 mb-4">
                                     <label class="form-label fw-bold">Alamat Lengkap</label>
-                                    <textarea name="address" id="address" class="form-control" rows="3">{{ old('address', $profile->address) }}</textarea>
+                                    <textarea name="address" id="address" class="form-control" rows="3" placeholder="Jakarta indonesia ">{{ old('address', $profile->address) }}</textarea>
                                 </div>
                                 <div class="col-12">
                                     <div class="bg-light p-4 rounded border">

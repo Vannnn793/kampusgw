@@ -43,7 +43,9 @@
                         </a>
                     </form>
 
-                    
+                    <a href="<?php echo e(route('admin.admissions.export', ['year' => $selectedYear])); ?>" class="btn btn-sm btn-success">
+                        <i class="bi bi-file-earmark-excel me-1"></i> Export Excel
+                    </a>
                 </div>
             </div>
         </div>

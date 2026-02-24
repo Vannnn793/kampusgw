@@ -42,9 +42,9 @@
                         </a>
                     </form>
 
-                    {{-- <a href="{{ route('admin.admissions.export', ['year' => $selectedYear]) }}" class="btn btn-sm btn-success">
+                    <a href="{{ route('admin.admissions.export', ['year' => $selectedYear]) }}" class="btn btn-sm btn-success">
                         <i class="bi bi-file-earmark-excel me-1"></i> Export Excel
-                    </a> --}}
+                    </a>
                 </div>
             </div>
         </div>

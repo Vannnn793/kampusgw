@@ -61,13 +61,20 @@ class AdmissionController extends Controller
         return view('admin.admission.index', compact('admissions', 'years', 'selectedYear'));
     }
 
-    public function export(Request $request)
+public function export(Request $request)
     {
-        // Mengambil parameter tahun dari URL (jika ada) untuk mengekspor data spesifik
+        // Mengambil parameter tahun dari URL
         $year = $request->query('year'); 
         
-        // Download file Excel dengan nama dinamis
-        return Excel::download(new AdmissionsExport($year), 'data-pendaftar-'.$year.'.xlsx');
+        // Membersihkan karakter garis miring (/) menjadi strip (-) khusus untuk nama file
+        // Contoh: "2025/2026" berubah jadi "2025-2026"
+        $safeYear = str_replace('/', '-', $year);
+
+        // Bikin penamaan file dinamis sekalian jaga-jaga kalau $year kosong
+        $fileName = $safeYear ? 'data-pendaftar-' . $safeYear . '.xlsx' : 'data-pendaftar-semua.xlsx';
+        
+        // Download file Excel-nya (tetap oper $year asli ke AdmissionsExport biar query database-nya nggak error)
+        return Excel::download(new AdmissionsExport($year), $fileName);
     }
     public function destroy($id)
     {

@@ -9,7 +9,7 @@
     <div class="absolute inset-0">
         
         <img 
-            src="<?php echo e(asset('storage/images/graduation.jpg')); ?>" 
+            src="<?php echo e($profile && $profile->gambar_kampus ? asset('storage/'.$profile->gambar_kampus) : asset('storage/images/default-alumni.jpg')); ?>" 
             onerror="this.src='<?php echo e(asset('storage/images/kampusgw.jpg')); ?>'"
             class="w-full h-full object-cover object-center transform scale-105 animate-slow-zoom"
             alt="Alumni"

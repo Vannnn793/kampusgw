@@ -174,15 +174,28 @@
 
                             
                             <div class="col-span-2">
-                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Tahun Akademik</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
-                                        <i class="bi bi-calendar-range"></i>
-                                    </div>
-                                    <input type="text" name="tahun_akademik" value="2025/2026" readonly 
-                                           class="w-full pl-11 pr-4 py-4 bg-slate-100 border border-slate-200 rounded-xl text-slate-500 font-bold cursor-not-allowed outline-none">
+                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Tahun Akademik</label>
+                            
+                            <?php
+                                $bulanSekarang = now()->month;
+                                $tahunSekarang = now()->year;
+                                
+                                // Asumsi tahun ajaran baru dimulai pada bulan Juli (bulan ke-7)
+                                if ($bulanSekarang >= 7) {
+                                    $tahunAkademik = $tahunSekarang . '/' . ($tahunSekarang + 1);
+                                } else {
+                                    $tahunAkademik = ($tahunSekarang - 1) . '/' . $tahunSekarang;
+                                }
+                            ?>
+
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                                    <i class="bi bi-calendar-range"></i>
                                 </div>
+                                <input type="text" name="tahun_akademik" value="<?php echo e($tahunAkademik); ?>" readonly 
+                                    class="w-full pl-11 pr-4 py-4 bg-slate-100 border border-slate-200 rounded-xl text-slate-500 font-bold cursor-not-allowed outline-none">
                             </div>
+                        </div>
                         </div>
                     </div>
 
