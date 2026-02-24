@@ -1,4 +1,4 @@
-<img src="./amazon-henshin.svg" width="100%">
+<img src="Vannnn793/amazon-henshin.svg" width="100%">
 
 
 # 🏛️ Website Informasi & Profil Kampus (Laravel)
