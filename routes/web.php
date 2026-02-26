@@ -99,6 +99,10 @@ Route::get('/', [lancingController::class, 'index'])->name('landing');
 
 // Careers
 Route::get('/careers', [CareerController::class, 'index'])->name('careers');
+Route::get('/careers/create', [CareerController::class, 'create'])->name('careers.create');
+Route::post('/careers', [CareerController::class, 'store'])->name('careers.store');
+// Pastikan route ini ada dan bisa diakses publik kalau formnya untuk umum
+Route::get('/get-prodi/{faculty_id}', [CareerController::class, 'getProdi']);
 
 // Admissions
 Route::get('/admissions', [AdmissionController::class, 'index'])->name('admissions.index');
@@ -167,6 +171,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/alumni/store', [AdminAlumni::class, 'store'])->name('alumni.store');
         Route::get('/get-prodi/{faculty_id}', [AdminAlumni::class, 'getProdi']);
         Route::delete('/alumni/{id}', [AdminAlumni::class, 'destroy'])->name('alumni.destroy');
+        Route::patch('/alumni/{id}/approve', [AdminAlumni::class, 'approve'])->name('alumni.approve');
 
         Route::get('guides', function() {
             $profile = \App\Models\Profile::first();

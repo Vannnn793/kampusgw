@@ -44,6 +44,13 @@
 
 {{-- ================= CONTENT SECTION (Overlap) ================= --}}
 <section class="bg-slate-50 relative z-20 -mt-10 md:-mt-20 rounded-t-[3rem] overflow-hidden min-h-screen">
+    @if(session('success'))
+        <div class="mb-8 p-4 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center gap-3 text-emerald-700 animate-fade-up">
+            <i class="bi bi-check-circle-fill text-xl"></i>
+            <span class="font-medium">{{ session('success') }}</span>
+        </div>
+        @endif
+
     
     {{-- Decorative Line --}}
     <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
@@ -51,24 +58,28 @@
     <div class="max-w-7xl mx-auto px-6 pt-20 pb-24">
 
         {{-- Header Section --}}
-        <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-16" data-aos="fade-up">
+        <div class="flex flex-col md:flex-row justify-between items-center md:items-end gap-6 mb-16" data-aos="fade-up">
             <div>
-                <span class="text-sky-600 font-bold tracking-widest uppercase text-xs mb-2 block">Testimonials</span>
-                <h2 class="text-3xl font-black text-slate-900">Apa Kata Mereka?</h2>
+                <span class="text-sky-600 font-bold tracking-widest uppercase text-xs mb-2 block text-center md:text-left">Testimonials</span>
+                <h2 class="text-3xl font-black text-slate-900 text-center md:text-left">Apa Kata Mereka?</h2>
             </div>
             
-            {{-- Stats Counter (Optional) --}}
-            <div class="flex items-center gap-4">
-                <div class="text-right">
-                    <p class="text-3xl font-black text-slate-900">{{ $alumni->count() }}+</p>
-                    <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Alumni Terdaftar</p>
-                </div>
-                <div class="w-12 h-12 rounded-2xl bg-sky-100 flex items-center justify-center text-sky-600 text-xl">
-                    <i class="bi bi-people-fill"></i>
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                {{-- TOMBOL CTA UTAMA --}}
+                <a href="{{ route('careers.create') }}" class="group flex items-center gap-2 px-6 py-3 bg-sky-600 hover:bg-sky-700 text-white rounded-2xl font-bold shadow-lg shadow-sky-200 transition-all active:scale-95">
+                    <i class="bi bi-plus-circle-fill group-hover:rotate-90 transition-transform duration-300"></i>
+                    Bagikan Cerita Anda
+                </a>
+
+                {{-- Stats Counter --}}
+                <div class="flex items-center gap-4 border-l border-slate-200 pl-4 hidden md:flex">
+                    <div class="text-right">
+                        <p class="text-3xl font-black text-slate-900">{{ $alumni->count() }}+</p>
+                        <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Alumni Terdaftar</p>
+                    </div>
                 </div>
             </div>
         </div>
-
         {{-- ALUMNI GRID --}}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse ($alumni as $a)
@@ -119,6 +130,13 @@
                                 <span class="text-sky-500">@ {{Str::limit($a->perusahaan, 15)}}</span> 
                             @endif
                         </p>
+                        
+                        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mt-1">
+                            {{ $a->email ?? '-' }}
+                        </p>
+                        <p class="text-xs font-semibold text slate-500 uppercase tracking-wide mt-1">
+                            {{ $a->no_telpon ?? '-' }}
+                        </p>
 
                         <div class="flex items-center gap-2 mt-1 text-[10px] text-slate-400 font-medium">
                             <span>{{ $a->tahun_lulus ?? 'N/A' }}</span>
@@ -138,6 +156,29 @@
                 <p class="text-slate-500 text-sm mt-2">Data alumni akan muncul di sini setelah ditambahkan.</p>
             </div>
             @endforelse
+            {{-- ================= CTA BANNER BOTTOM ================= --}}
+            <div class="mt-24 relative overflow-hidden rounded-[3rem] bg-slate-900 p-8 md:p-16 text-center shadow-2xl" data-aos="zoom-in">
+                {{-- Decorative Blurs --}}
+                <div class="absolute -top-24 -left-24 w-64 h-64 bg-sky-500/20 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-24 -right-24 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl"></div>
+                
+                <div class="relative z-10 max-w-2xl mx-auto">
+                    <h3 class="text-2xl md:text-4xl font-black text-white mb-4">
+                        Bagian dari Keluarga Besar <span class="text-sky-400">Kampus Kami?</span>
+                    </h3>
+                    <p class="text-slate-400 mb-10 leading-relaxed">
+                        Setiap langkah Anda adalah inspirasi bagi adik tingkat. Bagikan pengalaman dunia kerja dan pesan kesan Anda selama berkuliah di sini.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a href="{{ route('careers.create') }}" class="w-full sm:w-auto px-8 py-4 bg-white text-slate-900 rounded-2xl font-bold hover:bg-sky-50 transition-colors">
+                            Mulai Berbagi Cerita
+                        </a>
+                        <a href="#cerita" class="w-full sm:w-auto px-8 py-4 bg-white/10 text-white rounded-2xl font-bold hover:bg-white/20 backdrop-blur-sm transition-colors border border-white/10">
+                            Lihat Panduan
+                        </a>
+                    </div>
+                </div>
+            </div>
 
         </div>
 

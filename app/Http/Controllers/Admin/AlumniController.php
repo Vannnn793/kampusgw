@@ -35,6 +35,9 @@ class AlumniController extends Controller
             'jabatan'     => 'nullable|string|max:255',
             'pesan_kesan' => 'nullable|string',
             'foto'        => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'email'       => 'required|email',
+            'no_telpon'   => 'required',
+            'nim'         => 'required|string|max:255'
         ]);
 
         $data = [
@@ -44,6 +47,9 @@ class AlumniController extends Controller
             'perusahaan'  => $request->perusahaan,
             'jabatan'     => $request->jabatan,
             'pesan_kesan' => $request->pesan_kesan,
+            'email'       => $request->email,
+            'no_telpon'   => $request->no_telpon,
+            'nim'         => $request->nim,
         ];
 
         // Upload foto
@@ -82,5 +88,11 @@ class AlumniController extends Controller
         return redirect()
             ->route('admin.alumni.index')
             ->with('success', 'Alumni berhasil dihapus!');
+    }
+    public function approve($id) {
+        $alumni = Alumni::findOrFail($id);
+        $alumni->update(['status' => 'approved']);
+
+        return back()->with('success', 'Alumni berhasil disetujui dan dipublikasikan!');
     }
 }
