@@ -1,0 +1,1 @@
+<?php /**PATH C:\laragon\www\kampus_anda\resources\views\admin\posts\posts.blade.php ENDPATH**/ ?>

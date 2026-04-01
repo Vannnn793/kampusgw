@@ -15,7 +15,12 @@ class Alumni extends Model
         'perusahaan',
         'jabatan',
         'pesan_kesan',
-        'foto'
+        'foto',
+        'status',
+        'nim',
+        'email',
+        'no_telpon',
+
     ];
 
      public function faculty()

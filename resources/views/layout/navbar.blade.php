@@ -148,6 +148,7 @@
                     <a href="/tentang/sejarah" class="block px-4 py-2 text-sm font-semibold text-slate-600 hover:text-sky-600">Sejarah Singkat</a>
                     <a href="/tentang/struktur" class="block px-4 py-2 text-sm font-semibold text-slate-600 hover:text-sky-600">Struktur Organisasi</a>
                     <a href="/tentang/akreditasi" class="block px-4 py-2 text-sm font-semibold text-slate-600 hover:text-sky-600">Akreditasi</a>
+                    <a href="/tentang/sambutan" class="block px-4 py-2 text-sm font-semibold text-slate-600 hover:text-sky-600">Sambutan Rektor</a>
 
                     {{-- NESTED MOBILE: Fasilitas --}}
                     <div x-data="{ openFas: false }" class="border-t border-slate-200/50 pt-2">
